@@ -1,19 +1,22 @@
 # App de estudos — início do projeto
 
-App pessoal de faculdade, produtividade e conhecimento, com futura publicação open source e destaque no portfólio. Windows nativo primeiro; desktop Electron/React/TypeScript, vault Markdown, SQLite e snapshot web autenticado. Este bootstrap cria documentos e tarefas; não implementa o app.
+App pessoal de estudos. MVP em construção na branch MVP: Electron, React e TypeScript, edição Markdown assistida com prévia, SQLite local. A fundação foi executada e empacotada no Windows; consulta web continua uma etapa externa pendente.
 
 ## Começar
 
-1. Execute o script único de preparação em uma pasta local de projeto. Confira as mensagens sobre arquivos criados.
-2. Para consultar o modo de geração e as configurações posteriores, use [o bootstrap](docs/setup/bootstrap.md), [Windows](docs/setup/windows.md) e [Git](docs/setup/git.md).
-3. Abra a raiz no Codex e envie [o pedido de início sequencial](docs/setup/CODEX_START.md).
-4. Para retomar, consulte [o estado](docs/status/ALPHA_STATE.md). Não execute o bootstrap com -Force para continuar a implementação.
+Use Node 24 e npm no Windows. A cópia portátil usada nesta execução está em .local/node-v24.21.0-win-x64; ela não é versionada. Com Node 24 no PATH:
 
 ```powershell
-node .\scripts\check-bootstrap.mjs
+npm.cmd ci
+npm.cmd run dev
+npm.cmd run typecheck
+npm.cmd test
+npm.cmd run package:win
+node scripts/smoke-desktop.mjs --packaged
+node scripts/check-bootstrap.mjs
 ```
 
-Esse comando verifica os documentos. ALP-01 cria package.json, instalação, desenvolvimento, testes e empacotamento do aplicativo. Não há npm install do app antes dessa implementação.
+`npm run start` abre a build local. `package:win` gera release/win-unpacked/App Estudos.exe. O smoke inicia e fecha o app; use apenas dados de teste. O verificador bootstrap examina documentação. Consulte [estado e próxima ação](docs/status/ALPHA_STATE.md) antes de retomar; não rode novamente o bootstrap com -Force.
 
 ## Mapa
 
@@ -35,4 +38,4 @@ Esse comando verifica os documentos. ALP-01 cria package.json, instalação, des
 
 Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Grafo 3D, farm/loja/builds, IA, agenda e projetos JS/TS seguem o roadmap da primeira versão pública. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
 
-Todos os tickets começam em todo/a_fazer e critérios não verificados. Código da aplicação, serviço Supabase e build Windows não estão incluídos. Nome definitivo, licença, editor comprovado e hospedagem continuam pendentes. O script prepara arquivos; o agente implementa o app quando receber o pedido de início.
+Resultados reais, incluindo provas pendentes, estão na validação e no quadro. Nome definitivo, licença pública e hospedagem ainda não foram definidos. Commits locais por fase foram autorizados; sem push ou publicação.

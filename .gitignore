@@ -1,0 +1,43 @@
+# Dependências e builds
+node_modules/
+dist/
+build/
+out/
+release/
+coverage/
+*.tsbuildinfo
+
+# Configuração local e segredos
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dados pessoais e estado do app
+vault/
+vaults/
+materials/
+projects-local/
+user-data/
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+
+# Logs e estado local dos agentes
+*.log
+.codex-log/
+.codex/
+.claude/settings.local.json
+.local/
+tmp/
+temp/
+.DS_Store
+Thumbs.db
