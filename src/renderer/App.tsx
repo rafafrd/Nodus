@@ -3,6 +3,7 @@ import { NoteEditor } from './NoteEditor';
 import type { Subject, NoteRef, Desk, Material } from '../shared/contracts';
 import { useNote } from './useNote';
 import { Ambient } from './Ambient';
+import { PdfPane } from './PdfPane';
 import './styles.css';
 function Mark({ kind = 'orbit' }: { kind?: 'orbit' | 'note' | 'book' | 'focus' | 'check' }) {
   return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">{kind === 'orbit' ? <><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(-35 12 12)"/></> : kind === 'note' ? <><path d="M6 3h9l3 3v15H6zM14 3v5h4M9 12h6M9 16h5"/></> : kind === 'book' ? <><path d="M3 5c4-1 7 0 9 2 2-2 5-3 9-2v15c-4-1-7 0-9 1-2-1-5-2-9-1zM12 7v14"/></> : kind === 'focus' ? <><circle cx="12" cy="13" r="8"/><path d="M12 9v5l3 2M9 2h6"/></> : <><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></>}</svg>;
@@ -18,6 +19,7 @@ export function App() {
   const [active, setActive] = useState<Subject | null>(null);
   const [notes, setNotes] = useState<NoteRef[]>([]);
   const [materials, setMaterials] = useState<Material[]>([]);
+  const [materialGeneration, setMaterialGeneration] = useState(0);
   const [desk, setDesk] = useState<Desk | null>(null);
   const [vault, setVault] = useState<string | null>(null);
   const [modal, setModal] = useState<'subject' | 'rename' | 'note' | null>(null);
@@ -105,7 +107,7 @@ export function App() {
   async function chooseMaterial(replaceId?: string) {
     if (!active) return;
     const subjectId = active.id; const r = await window.desktop.chooseMaterial({ subjectId, replaceId });
-    if (r.ok && r.value && latest.current.active?.id === subjectId) { setMaterials(m => replaceId ? m.map(v => v.id === replaceId ? r.value! : v) : [...m, r.value!]); await checkpoint({ materialId: r.value.id, page: 1 }); } else if (!r.ok) setError(r.message);
+    if (r.ok && r.value && latest.current.active?.id === subjectId) { setMaterials(m => replaceId ? m.map(v => v.id === replaceId ? r.value! : v) : [...m, r.value!]); setMaterialGeneration(v => v + 1); await checkpoint({ materialId: r.value.id, page: 1 }); } else if (!r.ok) setError(r.message);
   }
   const material = materials.find(m => m.id === desk?.materialId);
   return <div className="app-shell">
@@ -126,7 +128,7 @@ export function App() {
             <NoteEditor key={note.doc.ref.id} text={note.text} onChange={note.change} preview={desk?.preview ?? false}/></> : <div className="panel-empty"><Mark kind="note"/><h2>Ideias que ficam.</h2><p>{vault ? 'Crie uma nota ou importe um Markdown deste vault.' : 'Escolha uma pasta de notas para guardar seus arquivos.'}</p><button className="primary" onClick={vault ? () => newModal('note') : chooseVault}>{vault ? '+ Criar nota' : 'Escolher pasta de notas'}</button></div>}
         </section>
         <div className="divider"><input type="range" min="30" max="75" value={desk?.split ?? 55} aria-label="Largura do caderno" onChange={e => checkpoint({ split: Number(e.target.value) })}/></div>
-        <div className="right-column"><section className="panel document-panel"><div className="panel-header"><span className="panel-caption"><Mark kind="book"/> MATERIAL</span><button onClick={() => chooseMaterial()}>Abrir PDF ↗</button></div>{materials.length > 0 && <select aria-label="Documento ativo" value={desk?.materialId ?? ''} onChange={e => checkpoint({ materialId: e.target.value || null, page: 1 })}><option value="">Escolher documento</option>{materials.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>}<div className="panel-empty"><Mark kind="book"/><h3>{material?.name ?? 'Seu material, à mão.'}</h3><p>{material ? 'Documento local vinculado a esta matéria.' : 'Abra um PDF para consultar junto das notas.'}</p>{!material && <button onClick={() => chooseMaterial()}>+ Selecionar documento</button>}</div></section>
+        <div className="right-column"><section className="panel document-panel"><div className="panel-header"><span className="panel-caption"><Mark kind="book"/> MATERIAL</span><button onClick={() => chooseMaterial()}>Abrir PDF ↗</button></div>{materials.length > 0 && <select aria-label="Documento ativo" value={desk?.materialId ?? ''} onChange={e => checkpoint({ materialId: e.target.value || null, page: 1 })}><option value="">Escolher documento</option>{materials.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>}{material && desk ? <PdfPane key={`${material.id}:${materialGeneration}`} material={material} page={desk.page} onPage={page => checkpoint({ page })} onLocate={() => chooseMaterial(material.id)}/> : <div className="panel-empty"><Mark kind="book"/><h3>Seu material, à mão.</h3><p>Abra um PDF para consultar junto das notas.</p><button onClick={() => chooseMaterial()}>+ Selecionar documento</button></div>}</section>
           {desk?.tool !== 'none' && <section className="panel tool-panel"><div className="panel-header"><span className="panel-caption"><Mark kind={desk?.tool === 'focus' ? 'focus' : 'check'}/>{desk?.tool === 'focus' ? 'FOCO' : 'PRÓXIMOS PASSOS'}</span><button onClick={() => checkpoint({ tool: 'none' })} aria-label="Fechar ferramenta">×</button></div><p className="tool-empty">{desk?.tool === 'focus' ? 'Ainda não há sessões nesta matéria.' : 'Ainda não há etapas nesta matéria.'}</p></section>}
         </div>
       </div>}

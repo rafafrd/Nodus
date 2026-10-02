@@ -62,3 +62,11 @@ Mesa por matéria com contexto persistente e interface Three.js/GSAP discreta.
 ### 02/10/2026 — ALP-05: Concluído
 
 Mesa persistente verificada; próximo ALP-06, renderização PDF real.
+
+### 02/10/2026 — ALP-06: Em andamento
+
+Leitor PDF local com worker empacotado, navegação e retomada.
+
+### 02/10/2026 — ALP-06: Concluído
+
+Leitor PDF real verificado também empacotado Windows; próximo ALP-07, foco por segmentos.

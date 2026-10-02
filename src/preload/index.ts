@@ -18,6 +18,7 @@ const api: DesktopApi = {
   saveDesk: input => ipcRenderer.invoke('desk:save', input),
   listMaterials: input => ipcRenderer.invoke('material:list', input),
   chooseMaterial: input => ipcRenderer.invoke('material:choose', input),
+  readMaterial: input => ipcRenderer.invoke('material:read', input),
   onBeforeClose: callback => { const listener = () => callback(); ipcRenderer.on('app:before-close', listener); return () => ipcRenderer.removeListener('app:before-close', listener); },
 };
 contextBridge.exposeInMainWorld('desktop', Object.freeze(api));

@@ -51,6 +51,7 @@ function register() {
   handle('desk:open', subjectIdInput, input => desks.open(input.subjectId));
   handle('desk:save', deskInput, input => desks.save(input));
   handle('material:list', subjectIdInput, input => desks.listMaterials(input.subjectId));
+  handle('material:read', noteIdInput, input => desks.read(input.id));
   handle('material:choose', materialChoiceInput, async input => {
     store.requireSubject(input.subjectId);
     if (input.replaceId && desks.material(input.replaceId).subjectId !== input.subjectId) throw new AppError('INVALID_REFERENCE', 'Documento de outra matéria.');

@@ -35,6 +35,7 @@ export interface DesktopApi {
   saveDesk(input: z.infer<typeof deskInput>): Promise<Result<Desk>>;
   listMaterials(input: z.infer<typeof subjectIdInput>): Promise<Result<Material[]>>;
   chooseMaterial(input: z.infer<typeof materialChoiceInput>): Promise<Result<Material | null>>;
+  readMaterial(input: z.infer<typeof noteIdInput>): Promise<Result<Uint8Array>>;
 }
 export class AppError extends Error {
   constructor(public code: string, message: string) { super(message); }

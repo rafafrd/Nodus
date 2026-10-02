@@ -5,6 +5,7 @@ build/
 out/
 release/
 coverage/
+src/renderer/public/pdf-assets/
 *.tsbuildinfo
 
 # Configuração local e segredos

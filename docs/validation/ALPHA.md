@@ -97,14 +97,16 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
+| C1 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
+| C2 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
+| C3 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
+| C4 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
+| C5 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
+| C6 | aprovado | 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. 6 testes passaram; smoke-pdf executado na build local e no executável Windows empacotado: 3 páginas reais/worker/fontes, navegação, duas matérias, reinício, ausente, relocalização e inválido; nota conservada. Evidência: docs/decisions/pdf-reader.md e capturas .local/evidence/pdf-*.png.
 
 ## ALP-07 — Foco com pausa e estado persistente
 

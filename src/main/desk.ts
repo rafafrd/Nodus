@@ -29,6 +29,20 @@ export class Desks {
     const row = this.store.db.prepare('SELECT id,subject_id AS subjectId,path,name FROM materials WHERE id=?').get(id) as Material & { path: string } | undefined;
     if (!row) throw new AppError('NOT_FOUND', 'Documento não encontrado.'); return row;
   }
+  read(id: string): Uint8Array {
+    const material = this.material(id);
+    let fd: number | undefined;
+    try {
+      if (fs.realpathSync.native(material.path) !== material.path) throw new AppError('PDF_UNAVAILABLE', 'O caminho do PDF mudou. Localize o arquivo novamente.');
+      fd = fs.openSync(material.path, 'r'); const stat = fs.fstatSync(fd);
+      if (!stat.isFile() || stat.size < 8 || stat.size > 100 * 1024 * 1024) throw new AppError('INVALID_PDF', 'O PDF deve ter até 100 MiB e conteúdo válido.');
+      const bytes = Buffer.alloc(stat.size); let offset = 0;
+      while (offset < bytes.length) { const n = fs.readSync(fd, bytes, offset, bytes.length - offset, offset); if (!n) throw new AppError('INVALID_PDF', 'O PDF mudou durante a leitura. Tente novamente.'); offset += n; }
+      if (!bytes.subarray(0, 1024).includes(Buffer.from('%PDF-'))) throw new AppError('INVALID_PDF', 'Este arquivo não contém um PDF válido.');
+      this.store.audit('material.read', id, 'ok'); return new Uint8Array(bytes);
+    } catch (error) { if (error instanceof AppError) throw error; throw new AppError('PDF_UNAVAILABLE', 'PDF ausente ou indisponível. Localize o arquivo novamente.'); }
+    finally { if (fd !== undefined) fs.closeSync(fd); }
+  }
   choose(subjectId: string, selected: string, replaceId?: string): Material {
     this.store.requireSubject(subjectId);
     if (replaceId && this.material(replaceId).subjectId !== subjectId) throw new AppError('INVALID_REFERENCE', 'Documento de outra matéria.');

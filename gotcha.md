@@ -86,6 +86,13 @@ As verificações do bootstrap estão em docs/validation/BOOTSTRAP.md. Elas exam
 
 ## Formato de uma ocorrência
 
+### O-002 — painel longo empurrava dock e rodapé para fora da janela
+
+- Estado: corrigido e verificado em ALP-05, 02/10/2026, janela Windows 1440×940.
+- Reprodução: abrir nota fixture longa e ferramenta; a dimensão mínima implícita da coluna flex expandia o conteúdo além da janela.
+- Correção: main-column com altura e mínimo definidos, desk com basis zero; editores/documentos rolam dentro de seus painéis.
+- Verificação: smoke-desk comparou bounds do dock/rodapé com innerHeight e captura .local/evidence/desk.png inspecionada. Dados da mesa continuaram preservados.
+
 Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa confirmada separadamente de hipótese. Uma correção só recebe estado verificado após executar uma prova adequada; ao reaparecer, reabra o registro com nova evidência.
 
 ### O-NNN — título concreto
