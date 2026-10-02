@@ -12,6 +12,7 @@ for (let pass = 0; pass < 2; pass++) {
     const page = await app.firstWindow();
     await page.getByTestId('version').filter({ hasText: '0.1.0' }).waitFor();
     if (!pass) {
+      await page.getByRole('button', { name: 'Nova matéria', exact: true }).click();
       await page.getByRole('textbox', { name: 'Nome da matéria', exact: true }).fill('Matemática');
       await page.getByRole('button', { name: 'Criar matéria', exact: true }).click();
       await page.getByRole('button', { name: 'Renomear Matemática' }).waitFor();

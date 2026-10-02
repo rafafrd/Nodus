@@ -14,6 +14,10 @@ const api: DesktopApi = {
   recoverDraft: input => ipcRenderer.invoke('note:draft', input),
   discardDraft: input => ipcRenderer.invoke('note:discard', input),
   finishClose: () => ipcRenderer.invoke('app:finish-close'),
+  openDesk: input => ipcRenderer.invoke('desk:open', input),
+  saveDesk: input => ipcRenderer.invoke('desk:save', input),
+  listMaterials: input => ipcRenderer.invoke('material:list', input),
+  chooseMaterial: input => ipcRenderer.invoke('material:choose', input),
   onBeforeClose: callback => { const listener = () => callback(); ipcRenderer.on('app:before-close', listener); return () => ipcRenderer.removeListener('app:before-close', listener); },
 };
 contextBridge.exposeInMainWorld('desktop', Object.freeze(api));

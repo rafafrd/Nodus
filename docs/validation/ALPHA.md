@@ -79,15 +79,17 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
-| C7 | não verificado | — |
+| C1 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C2 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C3 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C4 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C5 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C6 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
+| C7 | aprovado | 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. 5 testes passaram; smoke-desk exercitou duas mesas reais, notas/PDFs de fixture, split por teclado, ferramenta e rascunho após reinício; dock/rodapé dentro da janela; captura .local/evidence/desk.png inspecionada. Three.js/GSAP efetivos. Decisão: docs/decisions/desk-mvp.md.
 
 ## ALP-06 — Leitor PDF com retomada
 

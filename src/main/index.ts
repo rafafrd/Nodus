@@ -2,13 +2,15 @@ import { app, BrowserWindow, ipcMain, protocol, net, session, dialog } from 'ele
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
-import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput } from '../shared/contracts';
+import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput } from '../shared/contracts';
 import { Store } from './store';
 import { Vault } from './vault';
+import { Desks } from './desk';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
 let vault: Vault;
+let desks: Desks;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
 const startUrl = devUrl ?? 'study://app/index.html';
@@ -46,6 +48,15 @@ function register() {
   handle('note:draft', noteWriteInput, input => vault.draft(input));
   handle('note:discard', noteIdInput, input => vault.discard(input.id));
   handle('app:finish-close', z.undefined(), () => { allowClose = true; setImmediate(() => window.close()); return null; });
+  handle('desk:open', subjectIdInput, input => desks.open(input.subjectId));
+  handle('desk:save', deskInput, input => desks.save(input));
+  handle('material:list', subjectIdInput, input => desks.listMaterials(input.subjectId));
+  handle('material:choose', materialChoiceInput, async input => {
+    store.requireSubject(input.subjectId);
+    if (input.replaceId && desks.material(input.replaceId).subjectId !== input.subjectId) throw new AppError('INVALID_REFERENCE', 'Documento de outra matéria.');
+    const result = await dialog.showOpenDialog(window, { title: input.replaceId ? 'Localizar PDF novamente' : 'Abrir PDF local', properties: ['openFile'], filters: [{ name: 'PDF', extensions: ['pdf'] }] });
+    return result.canceled ? null : desks.choose(input.subjectId, result.filePaths[0], input.replaceId);
+  });
 }
 function createWindow() {
   window = new BrowserWindow({ width: 1440, height: 940, minWidth: 1000, minHeight: 700, backgroundColor: '#0c1014', title: 'App Estudos', autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, webSecurity: true } });
@@ -59,6 +70,7 @@ app.whenReady().then(() => {
   if (dataDirectory) app.setPath('userData', path.resolve(dataDirectory));
   store = new Store(app.getPath('userData'));
   vault = new Vault(store);
+  desks = new Desks(store);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
   protocol.handle('study', request => {

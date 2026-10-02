@@ -1,7 +1,7 @@
 ---
 id: ALP-05
-status: todo
-outcome: a_fazer
+status: done
+outcome: concluido
 depends_on: ["ALP-04"]
 criteria_count: 7
 ---
@@ -80,3 +80,11 @@ Registro e resposta obrigatórios:
 Ambiente/versões: não informado. Alterações: nenhuma. Verificações do app: não executadas. Tempo humano: não informado. Bloqueio atual: nenhum verificado, sem dispensar a conferência das dependências. Próxima ação: iniciar conforme a sequência e condições do ticket.
 
 Atualize este registro com comportamento entregue, arquivos, comandos/roteiros executados, resultados e critérios pendentes. Não transforme comandos sugeridos em evidência de execução.
+
+### Checkpoint 02/10/2026
+
+Mesa por matéria com contexto persistente e interface Three.js/GSAP discreta. Tempo humano: não informado.
+
+### Checkpoint 02/10/2026
+
+Mesa persistente verificada; próximo ALP-06, renderização PDF real. Tempo humano: não informado.

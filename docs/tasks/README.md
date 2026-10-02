@@ -28,7 +28,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 | ALP-02 | Prova de compatibilidade do editor Markdown | ALP-01 | [Abrir](doing/ALP-02.md) |
 | ALP-03 | Contratos e persistência local mínima | ALP-01 | [Abrir](done/ALP-03.md) |
 | ALP-04 | Vault e salvar/reabrir notas | ALP-02, ALP-03 | [Abrir](done/ALP-04.md) |
-| ALP-05 | Mesa persistente por matéria | ALP-04 | [Abrir](todo/ALP-05.md) |
+| ALP-05 | Mesa persistente por matéria | ALP-04 | [Abrir](done/ALP-05.md) |
 | ALP-06 | Leitor PDF com retomada | ALP-05 | [Abrir](todo/ALP-06.md) |
 | ALP-07 | Foco com pausa e estado persistente | ALP-05 | [Abrir](todo/ALP-07.md) |
 | ALP-08 | Checklist persistente por matéria | ALP-05 | [Abrir](todo/ALP-08.md) |

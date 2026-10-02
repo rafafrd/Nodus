@@ -20,6 +20,7 @@ for (let pass = 0; pass < 2; pass++) {
     const page = await app.firstWindow();
     await page.getByRole('button', { name: 'Matéria fixture', exact: true }).click();
     await page.getByRole('button', { name: 'Nota fixture', exact: true }).click();
+    await page.getByRole('button', { name: 'Editar', exact: true }).click();
     const editor = page.getByRole('textbox', { name: 'Conteúdo da nota' });
     if (!pass) {
       const text = doc.text + fs.readFileSync('tests/fixtures/compatibility.md', 'utf8');

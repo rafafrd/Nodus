@@ -54,3 +54,11 @@ Checkpoint após ALP-04: setup, decisões, memória de arquitetura e retomada.
 ### 02/10/2026 — ALP-11: Concluído
 
 Documentação do primeiro checkpoint coerente; repetir ALP-11 no final. Próximo ALP-05.
+
+### 02/10/2026 — ALP-05: Em andamento
+
+Mesa por matéria com contexto persistente e interface Three.js/GSAP discreta.
+
+### 02/10/2026 — ALP-05: Concluído
+
+Mesa persistente verificada; próximo ALP-06, renderização PDF real.
