@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shared/contracts.ts. Matérias, referências e rascunhos já operantes; tabelas dos recursos posteriores não implicam comportamento implementado.
+Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shared/contracts.ts. Matérias, referências, rascunhos, PDFs, mesas, foco e checklist operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -15,12 +15,12 @@ Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shar
 
 ## Autoridade
 
-Arquivo Markdown: corpo e metadados portáveis da nota. SQLite: índices/referências, estado da mesa, sessões, checklist e operações. Supabase na alpha: snapshot confirmado para consulta; não substitui o arquivo local nem recebe PDFs.
+Arquivo Markdown: corpo e metadados portáveis da nota. SQLite: índices/referências, estado da mesa, sessões, checklist e auditoria. Supabase é requisito futuro de ALP-09: snapshot confirmado para consulta; não substitui o arquivo local nem recebe PDFs.
 
 Identidade, revisão, hash e caminho são conceitos distintos. IDs são estáveis; hash representa bytes/conteúdo explicitamente definido; revisão ordena alterações; caminho localiza arquivo. Não use título, posição na lista ou horário do relógio como substitutos desses conceitos.
 
 ## Persistência e evolução
 
-Inicialização/migração versionada, repositórios separados da UI, transações quando houver alterações relacionadas e erro explícito para entrada inválida. Migrações preservam dados existentes. ALP-03 escolhe nomes/unidades definitivos e registra o schema real.
+Inicialização/migração versionada, repositórios separados da UI, transações quando houver alterações relacionadas e erro explícito para entrada inválida. Migrações preservam dados existentes. Schema e unidades atuais estão em src/main/store.ts; escolhas registradas em docs/decisions/local-storage.md e docs/decisions/focus-time.md.
 
 ALP-04 registra o frontmatter efetivo e sua preservação. ALP-09 registra o protocolo de revisões/recibos e as políticas por proprietário. Nenhum desses formatos deve ser anunciado como definitivo antes da respectiva prova.

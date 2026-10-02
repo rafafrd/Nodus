@@ -85,3 +85,7 @@ Documentação do primeiro checkpoint coerente; repetir ALP-11 no final. Próxim
 ### Checkpoint 02/10/2026
 
 MVP local implementado/verificado na branch MVP; auditoria final em andamento. Após review, abrir executável e conferir editor externo; ALP-09 é próximo incremento da alpha integral. Tempo humano: não informado.
+
+### Checkpoint 02/10/2026
+
+MVP local entregue, auditoria final concluida e commits por fase na MVP. Primeira acao humana: abrir release/win-unpacked/App Estudos.exe com vault de teste e conferir .local/evidence/editor-output.md em editor externo para ALP-02/C5. ALP-09 permanece proximo incremento da alpha integral. Tempo humano: não informado.

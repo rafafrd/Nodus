@@ -95,6 +95,14 @@ As verificações do bootstrap estão em docs/validation/BOOTSTRAP.md. Elas exam
 
 Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa confirmada separadamente de hipótese. Uma correção só recebe estado verificado após executar uma prova adequada; ao reaparecer, reabra o registro com nova evidência.
 
+### O-003 — descarte de rascunho sem evento de auditoria
+
+- Estado: corrigido e verificado em 02/10/2026, fechamento do MVP/ALP-11.
+- Reprodução: criar rascunho e chamar note:discard; backup existia e draft era removido, mas a contagem de audit_events não mudava (19→19 na prova do auditor).
+- Impacto/causa: lacuna de rastreabilidade, classificada LOW pelo auditor; ausência da chamada de audit em Vault.discard. Nota/backup não eram perdidos.
+- Correção: arquivamento antes da transação; DELETE e note.draft-discard com ID/resultado na mesma transação, sem conteúdo ou caminho nos logs.
+- Verificação: testes/vault.test.ts conserva arquivo/backup e confere um evento; prova SQLite do auditor forçou falha de INSERT do evento e confirmou rollback do DELETE. Evidência local .local/security-discard-results.json e relatório final em docs/security/MVP_AUDIT.md.
+
 ### O-NNN — título concreto
 
 - Estado: observado / investigando / corrigido sem nova prova / corrigido e verificado / reaberto.

@@ -98,3 +98,7 @@ MVP local R1–R7 verificado; alpha completa continua parcial por R8/nuvem. Cons
 ### 02/10/2026 — ALP-11: Concluído
 
 MVP local implementado/verificado na branch MVP; auditoria final em andamento. Após review, abrir executável e conferir editor externo; ALP-09 é próximo incremento da alpha integral.
+
+### 02/10/2026 — ALP-11: Concluído
+
+MVP local entregue, auditoria final concluida e commits por fase na MVP. Primeira acao humana: abrir release/win-unpacked/App Estudos.exe com vault de teste e conferir .local/evidence/editor-output.md em editor externo para ALP-02/C5. ALP-09 permanece proximo incremento da alpha integral.

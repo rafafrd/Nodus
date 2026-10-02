@@ -2,7 +2,7 @@
 
 ## Contexto e prioridade
 
-Este projeto é um app pessoal de estudos, com futura publicação open source e portfólio. Windows nativo é o ambiente inicial. A entrega atual é um bootstrap de documentação; Electron, React e TypeScript serão implementados em ALP-01. Não confunda o desenho do sistema com código existente.
+Este projeto é um app pessoal de estudos, com futura publicação open source e portfólio. Windows nativo é o ambiente inicial. A entrega atual é um MVP local com Electron, React, TypeScript, vault, SQLite, mesa, PDF, foco e checklist. Alpha integral parcial: consulte docs/status/ALPHA_STATE.md e as evidências, sem confundir funcionalidades futuras com código existente.
 
 Siga a solicitação atual do usuário, estas instruções e o ticket ativo. Documentação pode estar desatualizada: confira código, scripts, lockfile e evidências antes de aceitar uma afirmação. Se houver contradição material que altere o comportamento esperado, exponha-a e peça a decisão necessária, continuando o trabalho independente dela.
 

@@ -1,6 +1,6 @@
 # Ambiente Windows nativo
 
-Escolha confirmada: Windows nativo, repositório novo e bootstrap documental. Use um caminho local curto, como C:\dev\app-estudos. Os comandos desta seção são para executar no seu PC; a criação deste pacote não instalou ferramentas nele.
+Escolha confirmada: Windows nativo. O bootstrap evoluiu para o MVP local; ambiente realmente usado está registrado abaixo e no README. Os comandos de instalação desta seção são instruções para um novo PC, não um registro de ferramentas instaladas globalmente nesta sessão.
 
 ## 1. Conferir ferramentas
 
@@ -44,7 +44,7 @@ node .\scripts\check-bootstrap.mjs
 
 O comando usa apenas Node e verifica arquivos/links/tarefas. ALP-01 já criou a aplicação: consulte README para npm ci, dev, typecheck, testes e package:win. Nesta execução: host portátil Node 24.21.0, Electron 44.5.1/Node embarcado 24.21.0, Windows 11 10.0.26200. Host global era Node 26.3.0 e não foi alterado. Para usar a cópia local existente, acrescente a pasta .local/node-v24.21.0-win-x64 ao PATH apenas do terminal atual.
 
-Siga [Git](git.md) e [a primeira sessão](agents.md). A primeira prova do app será abrir a janela Electron e a build empacotada no Windows.
+Siga [Git](git.md) e [a primeira sessão](agents.md). Janela Electron e executável Windows já foram abertos, fechados e reabertos nas provas locais; confira docs/validation/MVP_JOURNEY.md para comandos, resultado e identificação do artefato.
 
 ## Recursos das tarefas seguintes
 

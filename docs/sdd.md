@@ -19,12 +19,12 @@ Duas matérias, notas Markdown portáveis, mesas separadas, PDF com página salv
 | Alterar etapa | IDs válidos, texto/conclusão | Checklist persistido, contagem e próxima ação | ALP-08 |
 | Enviar snapshot | Usuário, operação, nota, revisão, hash | Recibo consistente e snapshot por proprietário | ALP-09 |
 
-Os nomes de métodos/canais serão escolhidos na implementação. Os contratos validam remetente, argumentos, identidade das entidades e autorização/caminho pertinentes. Falha não pode devolver confirmação de gravação.
+Métodos/canais locais estão em src/shared/contracts.ts, src/preload/index.ts e src/main/index.ts. Os contratos validam remetente, argumentos, identidade das entidades e autorização/caminho pertinentes. Falha não pode devolver confirmação de gravação. Contratos de snapshot permanecem esperados para ALP-09.
 
 ## Abrir, editar e salvar
 
 1. Selecionar vault e arquivo autorizado; ler conteúdo/hash e metadados.
-2. Converter para representação de edição sem descartar elementos.
+2. Manter a fonte original na edição assistida; renderizar prévia separadamente, sem conversão de volta para o salvamento (ADR-0005).
 3. Salvar somente após conferir a versão externa e validar preservação.
 4. Confirmar arquivo, atualizar índice e estado salvo.
 5. Se houver alteração externa, atualizar nota limpa ou preservar versões com buffer alterado.

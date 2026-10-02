@@ -50,6 +50,7 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 | [docs/status/ALPHA_STATE.md](docs/status/ALPHA_STATE.md) | Estado e próxima ação |
 | [docs/status/RUN_LOG.md](docs/status/RUN_LOG.md) | Histórico dos checkpoints |
 | [docs/validation/ALPHA.md](docs/validation/ALPHA.md) | Evidência por critério |
+| [docs/security/MVP_AUDIT.md](docs/security/MVP_AUDIT.md) | Auditoria final por agente, provas e limites |
 | [docs/architecture/README.md](docs/architecture/README.md) | Módulos e contratos |
 | [docs/sdd.md](docs/sdd.md) | Especificação da alpha |
 | [docs/adr/README.md](docs/adr/README.md) | Decisões arquiteturais |
@@ -60,3 +61,5 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Grafo 3D, farm/loja/builds, IA, agenda e projetos JS/TS seguem o roadmap da primeira versão pública. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
 
 Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte desta entrega](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Commits locais por fase; sem push/publicação.
+
+Auditoria independente: aprovação com mitigações para uso pessoal local, zero achados abertos, um Low de logging corrigido e confirmado no pacote. Perfil Windows protegido, dados fora do Git e recovery preservado são as mitigações do recorte; pacote sem assinatura e dados sem criptografia própria. As provas e o modelo de ameaças estão no relatório acima. Próxima prova humana: abrir a build, criar uma matéria com vault de teste e conferir a saída .local/evidence/editor-output.md em editor externo.
