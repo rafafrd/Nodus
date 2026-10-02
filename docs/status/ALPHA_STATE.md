@@ -8,7 +8,7 @@ Implementação local da alpha em execução no Windows nativo. Resultados por c
 
 ## Próxima ação
 
-ALP-07: Foco e recuperação verificados; próximo ALP-08, etapas e próxima ação.
+ALP-08: Checklist local verificado. MVP local implementado; ALP-09 fica fora deste recorte sem serviço/hospedagem. Executar jornada local ALP-10 e consolidar ALP-11.
 
 ## Tickets
 
@@ -21,7 +21,7 @@ ALP-07: Foco e recuperação verificados; próximo ALP-08, etapas e próxima aç
 | ALP-05 | done | Concluído | ALP-04 | — |
 | ALP-06 | done | Concluído | ALP-05 | — |
 | ALP-07 | done | Concluído | ALP-05 | — |
-| ALP-08 | todo | A fazer | ALP-05 | C1–C6 |
+| ALP-08 | done | Concluído | ALP-05 | — |
 | ALP-09 | todo | A fazer | ALP-04 | C1–C9 |
 | ALP-10 | todo | A fazer | ALP-06, ALP-07, ALP-08, ALP-09 | C1–C5 |
 | ALP-11 | done | Concluído | ALP-01 | — |

@@ -4,9 +4,11 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { prepareFixture } from './test-fixture';
 import { Store } from '../src/main/store';
+import { execFile } from 'node:child_process';
 const f = prepareFixture('focus-smoke'); const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
 let id = '', beforeClose = 0, crashElapsed = 0; let crashId = '';
 for (let pass = 0; pass < 3; pass++) {
+  let terminated = false;
   const app = await electron.launch({ executablePath: electronPath, args: ['.', `--user-data-dir=${path.join(f.dir, 'data')}`], env });
   try {
     const page = await app.firstWindow();
@@ -40,12 +42,15 @@ for (let pass = 0; pass < 3; pass++) {
       await page.waitForTimeout(6300);
       const disk = new Store(path.join(f.dir, 'data')); const last = disk.db.prepare("SELECT id,elapsed_ms FROM focus_sessions WHERE state='running'").get();
       assert.ok(last && Number(last.elapsed_ms) >= 5000); crashId = String(last!.id); crashElapsed = Number(last!.elapsed_ms); disk.close();
-      app.process().kill();
+      const pid = app.process().pid;
+      if (!pid) throw Error('PID de teste indisponível');
+      await new Promise<void>((resolve, reject) => execFile('taskkill.exe', ['/PID', String(pid), '/T', '/F'], error => error ? reject(error) : resolve()));
+      terminated = true;
     } else {
       await page.getByText('Sessão recuperada no último checkpoint. O intervalo fechado não foi contado.', { exact: true }).waitFor();
       const recovered = await page.evaluate(subjectId => window.desktop.getFocus({ subjectId }), f.a.id);
       assert.ok(recovered.ok && recovered.value.session?.id === crashId && recovered.value.session.elapsedMs === crashElapsed && recovered.value.session.state === 'paused');
     }
-  } finally { if (pass !== 1) await app.close(); }
+  } finally { if (!terminated) await app.close(); }
 }
 console.log('Foco/UI/SQLite reais: duração escolhida, janela sem foco, pausa sem crédito, mesmo ID ao retomar, fechamento pausado e recuperação após processo encerrado à força no checkpoint; nota/PDF preservados.');

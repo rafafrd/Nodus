@@ -2,17 +2,19 @@ import { app, BrowserWindow, ipcMain, protocol, net, session, dialog } from 'ele
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
-import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput, focusStartInput, focusActionInput } from '../shared/contracts';
+import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput, focusStartInput, focusActionInput, taskInput, stepInput, stepUpdateInput } from '../shared/contracts';
 import { Store } from './store';
 import { Vault } from './vault';
 import { Desks } from './desk';
 import { Focus } from './focus';
+import { Checklist } from './checklist';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
 let vault: Vault;
 let desks: Desks;
 let focus: Focus;
+let checklist: Checklist;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -58,6 +60,10 @@ function register() {
   handle('focus:get', subjectIdInput, input => focus.get(input.subjectId));
   handle('focus:start', focusStartInput, input => focus.start(input.subjectId, input.minutes));
   handle('focus:action', focusActionInput, input => focus.act(input));
+  handle('task:list', subjectIdInput, input => checklist.list(input.subjectId));
+  handle('task:create', taskInput, input => checklist.create(input.subjectId, input.text));
+  handle('step:create', stepInput, input => checklist.add(input));
+  handle('step:update', stepUpdateInput, input => checklist.update(input));
   handle('material:choose', materialChoiceInput, async input => {
     store.requireSubject(input.subjectId);
     if (input.replaceId && desks.material(input.replaceId).subjectId !== input.subjectId) throw new AppError('INVALID_REFERENCE', 'Documento de outra matéria.');
@@ -79,6 +85,7 @@ app.whenReady().then(() => {
   vault = new Vault(store);
   desks = new Desks(store);
   focus = new Focus(store);
+  checklist = new Checklist(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);

@@ -131,14 +131,16 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
+| C1 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
+| C2 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
+| C3 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
+| C4 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
+| C5 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
+| C6 | aprovado | 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. 8 testes passaram; smoke-checklist usou UI/IPC/SQLite reais para duas matérias, duas etapas, marca/desmarca, edição, contagem, próxima ação e reabertura com IDs estáveis; argumento de outra matéria rejeitado sem gravação. Evidência: docs/decisions/checklist-mvp.md e .local/evidence/checklist.png.
 
 ## ALP-09 — Primeiro espelho autenticado na nuvem
 

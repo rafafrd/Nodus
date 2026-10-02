@@ -78,3 +78,11 @@ Foco por tempo monotônico, segmentos e checkpoint de recuperação.
 ### 02/10/2026 — ALP-07: Concluído
 
 Foco e recuperação verificados; próximo ALP-08, etapas e próxima ação.
+
+### 02/10/2026 — ALP-08: Em andamento
+
+Checklist persistente por matéria, IDs de etapas e referência de retomada.
+
+### 02/10/2026 — ALP-08: Concluído
+
+Checklist local verificado. MVP local implementado; ALP-09 fica fora deste recorte sem serviço/hospedagem. Executar jornada local ALP-10 e consolidar ALP-11.

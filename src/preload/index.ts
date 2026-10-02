@@ -22,6 +22,10 @@ const api: DesktopApi = {
   getFocus: input => ipcRenderer.invoke('focus:get', input),
   startFocus: input => ipcRenderer.invoke('focus:start', input),
   actFocus: input => ipcRenderer.invoke('focus:action', input),
+  listTasks: input => ipcRenderer.invoke('task:list', input),
+  createTask: input => ipcRenderer.invoke('task:create', input),
+  createStep: input => ipcRenderer.invoke('step:create', input),
+  updateStep: input => ipcRenderer.invoke('step:update', input),
   onStorageError: callback => { const listener = (_event: Electron.IpcRendererEvent, message: string) => callback(message); ipcRenderer.on('app:storage-error', listener); return () => ipcRenderer.removeListener('app:storage-error', listener); },
   onBeforeClose: callback => { const listener = () => callback(); ipcRenderer.on('app:before-close', listener); return () => ipcRenderer.removeListener('app:before-close', listener); },
 };

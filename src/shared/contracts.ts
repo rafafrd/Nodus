@@ -20,6 +20,11 @@ export type FocusSession = { id: string; subjectId: string; durationMs: number; 
 export type FocusState = { session: FocusSession | null; activeOwner: Subject | null };
 export const focusStartInput = z.strictObject({ subjectId: idSchema, minutes: z.number().int().min(1).max(480) });
 export const focusActionInput = z.strictObject({ subjectId: idSchema, id: idSchema, action: z.enum(['pause', 'resume', 'finish']) });
+export type Step = { id: string; taskId: string; text: string; done: boolean };
+export type StudyTask = { id: string; subjectId: string; text: string; steps: Step[] };
+export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().trim().min(1).max(200) });
+export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
+export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
   version(): Promise<Result<AppInfo>>;
   bootstrap(): Promise<Result<Bootstrap>>;
@@ -44,6 +49,10 @@ export interface DesktopApi {
   startFocus(input: z.infer<typeof focusStartInput>): Promise<Result<FocusState>>;
   actFocus(input: z.infer<typeof focusActionInput>): Promise<Result<FocusState>>;
   onStorageError(callback: (message: string) => void): () => void;
+  listTasks(input: z.infer<typeof subjectIdInput>): Promise<Result<StudyTask[]>>;
+  createTask(input: z.infer<typeof taskInput>): Promise<Result<StudyTask>>;
+  createStep(input: z.infer<typeof stepInput>): Promise<Result<Step>>;
+  updateStep(input: z.infer<typeof stepUpdateInput>): Promise<Result<Step>>;
 }
 export class AppError extends Error {
   constructor(public code: string, message: string) { super(message); }
