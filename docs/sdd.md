@@ -1,6 +1,6 @@
 # SDD — especificação de implementação da alpha
 
-Versão: 0.1. Estado: especificação proposta. Código, schemas e comandos reais serão registrados pelos tickets. Base: PRD, arquitetura e backlog original.
+Versão: 0.2, 02/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v1 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
 
 ## Escopo verificável
 

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
-import { AppError, type NoteRef, type NoteDocument, type SaveResult } from '../shared/contracts';
+import { AppError, idSchema, type NoteRef, type NoteDocument, type SaveResult } from '../shared/contracts';
 import { Store } from './store';
 const MAX_BYTES = 2 * 1024 * 1024;
 export const hashText = (text: string) => createHash('sha256').update(text, 'utf8').digest('hex');
@@ -67,8 +67,11 @@ export class Vault {
   }
   open(id: string): NoteDocument {
     const ref = this.ref(id); const text = this.readFile(ref.path); this.verify(text, ref); const hash = hashText(text);
-    if (ref.hash !== hash) {
-      this.store.db.prepare('UPDATE notes SET hash=?,revision=revision+1 WHERE id=?').run(hash, id); ref.hash = hash; ref.revision++;
+    const title = text.replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, '').match(/^# (.+)$/m)?.[1]?.trim().slice(0, 160) || ref.title;
+    if (ref.hash !== hash || ref.title !== title) {
+      const changed = ref.hash !== hash;
+      this.store.db.prepare('UPDATE notes SET hash=?,title=?,revision=revision+? WHERE id=?').run(hash, title, Number(changed), id); ref.hash = hash; ref.title = title; ref.revision += Number(changed);
+      if (changed) this.store.audit('note.external-observed', id, 'ok');
     }
     const draft = this.store.db.prepare('SELECT text,base_hash AS baseHash FROM drafts WHERE note_id=?').get(id) as NoteDocument['draft'];
     return { ref, text, hash, draft: draft ?? null };
@@ -92,7 +95,7 @@ export class Vault {
     const meta = identity(text);
     if ((!meta.id || !meta.subjectId) && /^(study_id|study_subject):/m.test(meta.header)) throw new AppError('NOTE_IDENTITY', 'Identidade incompleta ou duplicada; confira o frontmatter antes de importar.');
     const id = meta.id ?? randomUUID();
-    if (!/^[0-9a-f-]{36}$/i.test(id) || meta.subjectId && meta.subjectId !== subjectId) throw new AppError('NOTE_IDENTITY', 'Esta nota já está vinculada a outra matéria ou possui ID inválido.');
+    if (!idSchema.safeParse(id).success || meta.subjectId && meta.subjectId !== subjectId) throw new AppError('NOTE_IDENTITY', 'Esta nota já está vinculada a outra matéria ou possui ID inválido.');
     const previous = this.store.db.prepare('SELECT path FROM notes WHERE id=?').get(id);
     if (previous && previous.path !== relative) throw new AppError('DUPLICATE_ID', 'Outra nota usa este ID. O arquivo não foi alterado.');
     if (previous) return this.open(id);
@@ -147,6 +150,10 @@ export class Vault {
   discard(id: string) {
     const doc = this.open(id);
     if (doc.draft) this.archive('draft', doc.draft.text);
-    this.store.db.prepare('DELETE FROM drafts WHERE note_id=?').run(id); return this.open(id);
+    this.store.transaction(() => {
+      this.store.db.prepare('DELETE FROM drafts WHERE note_id=?').run(id);
+      this.store.audit('note.draft-discard', id, 'ok');
+    });
+    return this.open(id);
   }
 }

@@ -86,3 +86,15 @@ Checklist persistente por matéria, IDs de etapas e referência de retomada.
 ### 02/10/2026 — ALP-08: Concluído
 
 Checklist local verificado. MVP local implementado; ALP-09 fica fora deste recorte sem serviço/hospedagem. Executar jornada local ALP-10 e consolidar ALP-11.
+
+### 02/10/2026 — ALP-10: Em andamento
+
+Jornada integrada do MVP local no executável Windows; R8 nuvem fora do recorte e não verificado.
+
+### 02/10/2026 — ALP-10: Parcial
+
+MVP local R1–R7 verificado; alpha completa continua parcial por R8/nuvem. Consolidar ALP-11 e auditoria solicitada.
+
+### 02/10/2026 — ALP-11: Concluído
+
+MVP local implementado/verificado na branch MVP; auditoria final em andamento. Após review, abrir executável e conferir editor externo; ALP-09 é próximo incremento da alpha integral.

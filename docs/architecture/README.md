@@ -1,6 +1,6 @@
 # Arquitetura ativa
 
-Estado em 02/10/2026: fundação Electron/React/TypeScript, editor assistido, SQLite e vault implementados. As demais linhas da tabela são direção por ticket; evidências em docs/validation/ALPHA.md.
+Estado em 02/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
 
 ## Estrutura proposta
 
@@ -12,8 +12,8 @@ flowchart TB
   P --> M["Serviços locais Node"]
   M --> V["Vault Markdown"]
   M --> L["SQLite local"]
-  M --> S["Supabase"]
-  W["Consulta web autenticada"] --> S
+  M -. "ALP-09 futuro" .-> S["Supabase"]
+  W["Consulta web futura"] -.-> S
 ```
 
 | Camada | Papel | Etapa |
@@ -31,7 +31,7 @@ A interface não recebe acesso genérico ao sistema. Previews de código futuros
 
 Markdown e metadados portáveis devem ser preservados. SQLite pode guardar rascunho para recuperação, separado da nota canônica. Alteração externa limpa atualiza a visão; conflito mantém as versões.
 
-Na alpha, SQLite guarda matérias/estado local e Supabase recebe apenas snapshots de notas. No desenho completo, dados selecionados de planejamento/progresso/jogo terão sincronização própria; essa expansão não torna o banco da alpha automaticamente sincronizado.
+No MVP local, SQLite guarda matérias/estado local; Markdown fica no vault e PDFs permanecem locais. Em ALP-09, Supabase receberá apenas snapshots de notas. No desenho completo, dados selecionados de planejamento/progresso/jogo terão sincronização própria; essa expansão não torna o banco da alpha automaticamente sincronizado.
 
 ## Próximas fronteiras
 

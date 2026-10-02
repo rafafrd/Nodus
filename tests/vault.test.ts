@@ -47,5 +47,16 @@ test('vault real conserva identidade, Markdown, conflito e buffer após falha de
     assert.equal(fs.readFileSync(bomPath, 'utf8'), bomDoc.text);
     fs.copyFileSync(importedPath, path.join(root, 'duplicate.md'));
     assert.throws(() => vault.import(subject.id, path.join(root, 'duplicate.md')), /Outro|Outra/);
+    const invalidIdentity = `---\nstudy_id: ${'-'.repeat(36)}\nstudy_subject: ${subject.id}\n---\n# ID inválido\n`;
+    const invalidPath = path.join(root, 'invalid-id.md'); fs.writeFileSync(invalidPath, invalidIdentity);
+    assert.throws(() => vault.import(subject.id, invalidPath), /ID inválido/); assert.equal(fs.readFileSync(invalidPath, 'utf8'), invalidIdentity);
+    vault.draft({ id: doc.ref.id, text: local, hash: vault.open(doc.ref.id).hash });
+    const auditCount = Number(store.db.prepare('SELECT COUNT(*) AS n FROM audit_events').get()?.n);
+    const discarded = vault.discard(doc.ref.id); assert.equal(discarded.draft, null);
+    assert.equal(discarded.text, local);
+    const event = store.db.prepare('SELECT action,entity_id AS id,outcome FROM audit_events ORDER BY rowid DESC LIMIT 1').get();
+    assert.deepEqual({ ...event }, { action: 'note.draft-discard', id: doc.ref.id, outcome: 'ok' });
+    assert.equal(Number(store.db.prepare('SELECT COUNT(*) AS n FROM audit_events').get()?.n), auditCount + 1);
+    assert.ok(fs.readdirSync(path.join(dir, 'data', 'recovery')).some(name => name.startsWith('draft-') && fs.readFileSync(path.join(dir, 'data', 'recovery', name), 'utf8') === local));
   } finally { store.close(); }
 });

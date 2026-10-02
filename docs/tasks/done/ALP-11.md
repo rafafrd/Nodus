@@ -70,7 +70,7 @@ Registro e resposta obrigatórios:
 
 ## Execução e retomada
 
-Ambiente/versões: não informado. Alterações: nenhuma. Verificações do app: não executadas. Tempo humano: não informado. Bloqueio atual: nenhum verificado, sem dispensar a conferência das dependências. Próxima ação: iniciar conforme a sequência e condições do ticket.
+Registro atualizado: consulte os checkpoints abaixo e a seção deste ticket em docs/validation/ALPHA.md. Tempo humano: não informado. Critérios pendentes e próxima ação em docs/status/ALPHA_STATE.md.
 
 Atualize este registro com comportamento entregue, arquivos, comandos/roteiros executados, resultados e critérios pendentes. Não transforme comandos sugeridos em evidência de execução.
 
@@ -81,3 +81,7 @@ Checkpoint após ALP-04: setup, decisões, memória de arquitetura e retomada. T
 ### Checkpoint 02/10/2026
 
 Documentação do primeiro checkpoint coerente; repetir ALP-11 no final. Próximo ALP-05. Tempo humano: não informado.
+
+### Checkpoint 02/10/2026
+
+MVP local implementado/verificado na branch MVP; auditoria final em andamento. Após review, abrir executável e conferir editor externo; ALP-09 é próximo incremento da alpha integral. Tempo humano: não informado.

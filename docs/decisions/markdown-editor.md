@@ -18,4 +18,4 @@ Tiptap 3.31.4 + StarterKit + Markdown foi instalado como dependência de desenvo
 
 Fixture: tests/fixtures/compatibility.md, referência fictícia reference.md. Saída observada do candidato: .local/evidence/tiptap-roundtrip.md. Editor real exercitado em Electron por scripts/smoke-editor.mjs: preenchimento integral e botão Negrito conservaram frontmatter, fórmula e bloco desconhecido; captura e saída em .local/evidence. HTML da nota não é executado; imagem remota não carrega; links da prévia são texto. A fonte continua acessível para elementos que a prévia não interpreta.
 
-Prova em editor externo não executada; C5 continua não verificado. Abertura/salvamento no vault e reinicialização serão comprovados em ALP-04. Lockfile registra versões exatas do CodeMirror e demais bibliotecas.
+Prova em editor externo não executada; C5 continua não verificado. Abertura/salvamento no vault e reinicialização comprovados em ALP-04; scripts/smoke-editor.mjs agora exercita a mesa final com banco/vault fictícios isolados, verificando alteração seletiva contra o arquivo inteiro. Lockfile registra versões exatas do CodeMirror e demais bibliotecas.

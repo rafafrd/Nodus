@@ -76,7 +76,7 @@ function createWindow() {
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event, url) => { if (url !== startUrl) event.preventDefault(); });
   window.on('close', event => { if (!allowClose) { event.preventDefault(); window.webContents.send('app:before-close'); } });
-  void window.loadURL(startUrl);
+  void window.loadURL(startUrl).catch(() => { dialog.showErrorBox('Falha ao abrir a mesa', 'A interface não pôde ser carregada. Seus arquivos e o banco foram preservados. Gere a build novamente antes de reabrir.'); allowClose = true; window.close(); });
 }
 app.whenReady().then(() => {
   const dataDirectory = app.commandLine.getSwitchValue('user-data-dir');
@@ -99,6 +99,6 @@ app.whenReady().then(() => {
   });
   register(); createWindow();
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
-});
+}).catch(error => { dialog.showErrorBox('Falha ao iniciar', error instanceof AppError ? error.message : 'Não foi possível abrir o armazenamento local. Preserve seus dados e verifique o acesso à pasta do aplicativo.'); app.exit(1); });
 app.on('window-all-closed', () => app.quit());
 app.on('will-quit', () => { clearInterval(focusTimer); focus?.pauseActive(); store?.close(); });

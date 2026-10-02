@@ -6,7 +6,7 @@ Versão: 1.1. Atualizado em 02/10/2026, America/Sao_Paulo. Projeto: app pessoal 
 
 Leia AGENTS.md, quando presente, antes de editar; ele mantém as instruções compartilhadas entre agentes. Este arquivo acrescenta contexto do produto e um guia de execução para Claude Code. Leia gotcha.md e docs/status/ALPHA_STATE.md, localize o ticket solicitado e confirme suas dependências no código e nas evidências.
 
-A última base documentada nesta conversa é o bootstrap com 11 tickets propostos. O estado atual no PC precisa ser conferido em cada sessão. Preserve implementações e alterações já existentes; não recrie o projeto nem reponha status iniciais apenas porque documentos históricos dizem que a implementação não começou.
+O bootstrap evoluiu para o MVP local na branch MVP: Electron/React/TypeScript, vault, SQLite, mesa, PDF, foco e checklist. A alpha integral continua parcial; confira docs/status/ALPHA_STATE.md e as evidências em cada sessão. Preserve implementações e alterações já existentes; não recrie o projeto nem reponha status iniciais apenas porque documentos históricos dizem que a implementação não começou.
 
 Solicitações atuais do usuário orientam o escopo. Documentação descreve intenção e decisões; scripts, lockfile, código e resultados demonstram o que existe. Uma divergência material precisa ser identificada e resolvida. Escolhas rotineiras e reversíveis podem ser feitas e registradas, sem perguntas desnecessárias.
 

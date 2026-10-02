@@ -33,7 +33,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 | ALP-07 | Foco com pausa e estado persistente | ALP-05 | [Abrir](done/ALP-07.md) |
 | ALP-08 | Checklist persistente por matéria | ALP-05 | [Abrir](done/ALP-08.md) |
 | ALP-09 | Primeiro espelho autenticado na nuvem | ALP-04 | [Abrir](todo/ALP-09.md) |
-| ALP-10 | Verificação do fluxo completo e recuperação | ALP-06, ALP-07, ALP-08, ALP-09 | [Abrir](todo/ALP-10.md) |
+| ALP-10 | Verificação do fluxo completo e recuperação | ALP-06, ALP-07, ALP-08, ALP-09 | [Abrir](doing/ALP-10.md) |
 | ALP-11 | Setup, decisões e retomada | ALP-01 | [Abrir](done/ALP-11.md) |
 
 ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser repetido após ALP-04 e no fim da alpha. Todos os tickets atualizam documentação durante a execução; ALP-11 não aprova automaticamente recursos pendentes.

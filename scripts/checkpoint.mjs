@@ -22,5 +22,11 @@ const sectionEnd = validation.indexOf('\n## ', sectionStart + 1);
 const section = validation.slice(sectionStart, sectionEnd < 0 ? undefined : sectionEnd);
 const pending = [...section.matchAll(/^\| (C\d+) \| (?!aprovado)[^|]+\|/gm)].map(m => m[1]);
 state = state.replace(new RegExp(`^(\\| ${id} \\| [^|]+ \\| [^|]+ \\| [^|]+ \\|)[^\\r\\n]+`, 'm'), `$1 ${pending.join(', ') || '—'} |`);
+for (let i = 1; i <= 11; i++) {
+  const taskId = `ALP-${String(i).padStart(2, '0')}`;
+  const start = validation.indexOf(`## ${taskId} `), next = validation.indexOf('\n## ', start + 1);
+  const pendingItems = [...validation.slice(start, next < 0 ? undefined : next).matchAll(/^\| (C\d+) \| (?!aprovado)[^|]+\|/gm)].map(m => m[1]);
+  state = state.replace(new RegExp(`^(\\| ${taskId} \\| [^|]+ \\| [^|]+ \\| [^|]+ \\|)[^\\r\\n]+`, 'm'), `$1 ${pendingItems.join(', ') || '—'} |`);
+}
 fs.writeFileSync('docs/status/ALPHA_STATE.md', state);
 fs.appendFileSync('docs/status/RUN_LOG.md', `\n### 02/10/2026 — ${id}: ${labels[outcome]}\n\n${note}\n`);

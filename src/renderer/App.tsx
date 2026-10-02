@@ -35,6 +35,7 @@ export function App() {
   const latest = useRef({ note, active, desk }); latest.current = { note, active, desk };
   const sequence = useRef(0);
   const workspace = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (note.doc) setNotes(n => n.map(v => v.id === note.doc!.ref.id ? note.doc!.ref : v)); }, [note.doc?.ref.id, note.doc?.ref.title]);
   useEffect(() => window.desktop.onStorageError(setError), []);
   useEffect(() => {
     if (!active) return;
@@ -131,7 +132,7 @@ export function App() {
       {error && <div className="error-banner" role="alert"><span>{error}</span><button onClick={() => setError('')} aria-label="Fechar aviso">×</button></div>}
       {loading && <div className="loading-line" role="status">Abrindo mesa…</div>}
       {!active ? <section className="welcome"><div className="welcome-symbol"><Mark/></div><span className="eyebrow">COMECE PELO ESSENCIAL</span><h2>Seu próximo passo<br/>fica aqui.</h2><p>Uma matéria, suas notas e o material aberto.<br/>Um espaço tranquilo para estudar e retomar.</p><button className="primary" onClick={() => newModal('subject')}>+ Criar primeira matéria</button><div className="welcome-foot"><span>01 / ORGANIZAR</span><span>02 / ESTUDAR</span><span>03 / RETOMAR</span></div></section> : <div className="desk" ref={workspace} style={{ gridTemplateColumns: `${desk?.split ?? 55}fr 16px ${100 - (desk?.split ?? 55)}fr` }}>
-        <section className="panel note-panel"><div className="panel-header"><span className="panel-caption"><Mark kind="note"/> CADERNO</span><div className="panel-actions"><button onClick={() => newModal('note')} disabled={!vault}>+ Nova nota</button>{note.doc && <button className="save-button" onClick={note.save} title="Ctrl+S">Salvar nota ↗</button>}</div></div>
+        <section className="panel note-panel"><div className="panel-header"><span className="panel-caption"><Mark kind="note"/> CADERNO</span><div className="panel-actions"><button onClick={() => newModal('note')} disabled={!vault}>+ Nova nota</button>{note.doc && <button className="save-button" onClick={note.save} aria-label="Salvar nota" title="Ctrl+S">Salvar nota ↗</button>}</div></div>
           {note.doc ? <><div className="note-title"><h2>{note.doc.ref.title}</h2><div className="note-meta"><span className={note.conflict ? 'warning-text' : ''} role="status">{note.status}</span><div className="segmented"><button className={!desk?.preview ? 'selected' : ''} onClick={() => checkpoint({ preview: false })}>Editar</button><button className={desk?.preview ? 'selected' : ''} onClick={() => checkpoint({ preview: true })}>Leitura</button></div></div></div>
             {note.doc.draft && !note.conflict && <div className="draft-banner">Rascunho recuperado <button onClick={note.useFile}>Usar versão do arquivo</button></div>}
             {note.conflict && <div className="conflict-box"><strong>Arquivo alterado fora do app</strong><p>Sua edição foi preservada. Confira a versão externa antes de continuar.</p><details><summary>Ver versão externa</summary><pre>{note.conflict.text}</pre></details><button onClick={note.useFile}>Usar versão do arquivo</button><button onClick={note.keepMine}>Conservar minha edição para revisão</button></div>}
