@@ -30,7 +30,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 | ALP-04 | Vault e salvar/reabrir notas | ALP-02, ALP-03 | [Abrir](done/ALP-04.md) |
 | ALP-05 | Mesa persistente por matéria | ALP-04 | [Abrir](done/ALP-05.md) |
 | ALP-06 | Leitor PDF com retomada | ALP-05 | [Abrir](done/ALP-06.md) |
-| ALP-07 | Foco com pausa e estado persistente | ALP-05 | [Abrir](todo/ALP-07.md) |
+| ALP-07 | Foco com pausa e estado persistente | ALP-05 | [Abrir](done/ALP-07.md) |
 | ALP-08 | Checklist persistente por matéria | ALP-05 | [Abrir](todo/ALP-08.md) |
 | ALP-09 | Primeiro espelho autenticado na nuvem | ALP-04 | [Abrir](todo/ALP-09.md) |
 | ALP-10 | Verificação do fluxo completo e recuperação | ALP-06, ALP-07, ALP-08, ALP-09 | [Abrir](todo/ALP-10.md) |

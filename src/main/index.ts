@@ -2,15 +2,18 @@ import { app, BrowserWindow, ipcMain, protocol, net, session, dialog } from 'ele
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
-import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput } from '../shared/contracts';
+import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput, focusStartInput, focusActionInput } from '../shared/contracts';
 import { Store } from './store';
 import { Vault } from './vault';
 import { Desks } from './desk';
+import { Focus } from './focus';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
 let vault: Vault;
 let desks: Desks;
+let focus: Focus;
+let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
 const startUrl = devUrl ?? 'study://app/index.html';
@@ -22,7 +25,7 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
       if (!parsed.success) throw new AppError('INVALID_ARGUMENT', 'Dados inválidos para esta operação.');
       return { ok: true, value: await action(parsed.data) };
     } catch (error) {
-      store.audit(channel, null, error instanceof AppError ? error.code : 'INTERNAL');
+      try { store.audit(channel, null, error instanceof AppError ? error.code : 'INTERNAL'); } catch { /* Falha de banco não deve impedir resposta de erro. */ }
       return { ok: false, code: error instanceof AppError ? error.code : 'INTERNAL', message: error instanceof AppError ? error.message : 'Não foi possível concluir a operação. Seus dados de edição foram preservados.' };
     }
   });
@@ -47,11 +50,14 @@ function register() {
   handle('note:save', noteWriteInput, input => vault.save(input));
   handle('note:draft', noteWriteInput, input => vault.draft(input));
   handle('note:discard', noteIdInput, input => vault.discard(input.id));
-  handle('app:finish-close', z.undefined(), () => { allowClose = true; setImmediate(() => window.close()); return null; });
+  handle('app:finish-close', z.undefined(), () => { focus.pauseActive(); allowClose = true; setImmediate(() => window.close()); return null; });
   handle('desk:open', subjectIdInput, input => desks.open(input.subjectId));
   handle('desk:save', deskInput, input => desks.save(input));
   handle('material:list', subjectIdInput, input => desks.listMaterials(input.subjectId));
   handle('material:read', noteIdInput, input => desks.read(input.id));
+  handle('focus:get', subjectIdInput, input => focus.get(input.subjectId));
+  handle('focus:start', focusStartInput, input => focus.start(input.subjectId, input.minutes));
+  handle('focus:action', focusActionInput, input => focus.act(input));
   handle('material:choose', materialChoiceInput, async input => {
     store.requireSubject(input.subjectId);
     if (input.replaceId && desks.material(input.replaceId).subjectId !== input.subjectId) throw new AppError('INVALID_REFERENCE', 'Documento de outra matéria.');
@@ -72,6 +78,8 @@ app.whenReady().then(() => {
   store = new Store(app.getPath('userData'));
   vault = new Vault(store);
   desks = new Desks(store);
+  focus = new Focus(store);
+  focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
   protocol.handle('study', request => {
@@ -86,4 +94,4 @@ app.whenReady().then(() => {
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
 app.on('window-all-closed', () => app.quit());
-app.on('will-quit', () => store?.close());
+app.on('will-quit', () => { clearInterval(focusTimer); focus?.pauseActive(); store?.close(); });

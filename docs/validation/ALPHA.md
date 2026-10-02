@@ -114,14 +114,16 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
+| C1 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
+| C2 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
+| C3 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
+| C4 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
+| C5 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
+| C6 | aprovado | 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. 7 testes passaram; smoke-focus mediu tempo real no Electron/SQLite, pausa de 1s sem crédito, retomada mesmo ID, janela sem foco, fechamento normal e recuperação após encerramento forçado, mantendo nota/PDF. Unitário verificou segmentos e relógio civil alterado. Decisão: docs/decisions/focus-time.md.
 
 ## ALP-08 — Checklist persistente por matéria
 

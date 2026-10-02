@@ -70,3 +70,11 @@ Leitor PDF local com worker empacotado, navegação e retomada.
 ### 02/10/2026 — ALP-06: Concluído
 
 Leitor PDF real verificado também empacotado Windows; próximo ALP-07, foco por segmentos.
+
+### 02/10/2026 — ALP-07: Em andamento
+
+Foco por tempo monotônico, segmentos e checkpoint de recuperação.
+
+### 02/10/2026 — ALP-07: Concluído
+
+Foco e recuperação verificados; próximo ALP-08, etapas e próxima ação.

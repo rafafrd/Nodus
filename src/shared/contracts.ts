@@ -16,6 +16,10 @@ export type Material = { id: string; subjectId: string; name: string };
 export type Desk = { subjectId: string; noteId: string | null; materialId: string | null; page: number; split: number; tool: 'focus' | 'checklist' | 'none'; preview: boolean; nextStepId: string | null };
 export const deskInput = z.strictObject({ subjectId: idSchema, noteId: idSchema.nullable().optional(), materialId: idSchema.nullable().optional(), page: z.number().int().min(1).max(100000).optional(), split: z.number().int().min(30).max(75).optional(), tool: z.enum(['focus', 'checklist', 'none']).optional(), preview: z.boolean().optional(), nextStepId: idSchema.nullable().optional() });
 export const materialChoiceInput = z.strictObject({ subjectId: idSchema, replaceId: idSchema.optional() });
+export type FocusSession = { id: string; subjectId: string; durationMs: number; elapsedMs: number; state: 'running' | 'paused' | 'completed' | 'ended'; recovered: boolean };
+export type FocusState = { session: FocusSession | null; activeOwner: Subject | null };
+export const focusStartInput = z.strictObject({ subjectId: idSchema, minutes: z.number().int().min(1).max(480) });
+export const focusActionInput = z.strictObject({ subjectId: idSchema, id: idSchema, action: z.enum(['pause', 'resume', 'finish']) });
 export interface DesktopApi {
   version(): Promise<Result<AppInfo>>;
   bootstrap(): Promise<Result<Bootstrap>>;
@@ -36,6 +40,10 @@ export interface DesktopApi {
   listMaterials(input: z.infer<typeof subjectIdInput>): Promise<Result<Material[]>>;
   chooseMaterial(input: z.infer<typeof materialChoiceInput>): Promise<Result<Material | null>>;
   readMaterial(input: z.infer<typeof noteIdInput>): Promise<Result<Uint8Array>>;
+  getFocus(input: z.infer<typeof subjectIdInput>): Promise<Result<FocusState>>;
+  startFocus(input: z.infer<typeof focusStartInput>): Promise<Result<FocusState>>;
+  actFocus(input: z.infer<typeof focusActionInput>): Promise<Result<FocusState>>;
+  onStorageError(callback: (message: string) => void): () => void;
 }
 export class AppError extends Error {
   constructor(public code: string, message: string) { super(message); }

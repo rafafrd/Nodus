@@ -4,6 +4,7 @@ import type { Subject, NoteRef, Desk, Material } from '../shared/contracts';
 import { useNote } from './useNote';
 import { Ambient } from './Ambient';
 import { PdfPane } from './PdfPane';
+import { FocusPanel } from './FocusPanel';
 import './styles.css';
 function Mark({ kind = 'orbit' }: { kind?: 'orbit' | 'note' | 'book' | 'focus' | 'check' }) {
   return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">{kind === 'orbit' ? <><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(-35 12 12)"/></> : kind === 'note' ? <><path d="M6 3h9l3 3v15H6zM14 3v5h4M9 12h6M9 16h5"/></> : kind === 'book' ? <><path d="M3 5c4-1 7 0 9 2 2-2 5-3 9-2v15c-4-1-7 0-9 1-2-1-5-2-9-1zM12 7v14"/></> : kind === 'focus' ? <><circle cx="12" cy="13" r="8"/><path d="M12 9v5l3 2M9 2h6"/></> : <><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></>}</svg>;
@@ -28,10 +29,18 @@ export function App() {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [focusOwner, setFocusOwner] = useState<string | null>(null);
   const note = useNote(setError);
   const latest = useRef({ note, active, desk }); latest.current = { note, active, desk };
   const sequence = useRef(0);
   const workspace = useRef<HTMLDivElement>(null);
+  useEffect(() => window.desktop.onStorageError(setError), []);
+  useEffect(() => {
+    if (!active) return;
+    let stopped = false;
+    async function poll() { const r = await window.desktop.getFocus({ subjectId: active!.id }); if (!stopped && r.ok) setFocusOwner(r.value.activeOwner?.name ?? null); }
+    void poll(); const timer = setInterval(poll, 1000); return () => { stopped = true; clearInterval(timer); };
+  }, [active?.id]);
   useEffect(() => {
     void window.desktop.version().then(r => setVersion(r.ok ? `v${r.value.version}` : r.message)).catch(() => setError('Não foi possível iniciar o desktop.'));
     void window.desktop.bootstrap().then(r => {
@@ -129,11 +138,11 @@ export function App() {
         </section>
         <div className="divider"><input type="range" min="30" max="75" value={desk?.split ?? 55} aria-label="Largura do caderno" onChange={e => checkpoint({ split: Number(e.target.value) })}/></div>
         <div className="right-column"><section className="panel document-panel"><div className="panel-header"><span className="panel-caption"><Mark kind="book"/> MATERIAL</span><button onClick={() => chooseMaterial()}>Abrir PDF ↗</button></div>{materials.length > 0 && <select aria-label="Documento ativo" value={desk?.materialId ?? ''} onChange={e => checkpoint({ materialId: e.target.value || null, page: 1 })}><option value="">Escolher documento</option>{materials.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>}{material && desk ? <PdfPane key={`${material.id}:${materialGeneration}`} material={material} page={desk.page} onPage={page => checkpoint({ page })} onLocate={() => chooseMaterial(material.id)}/> : <div className="panel-empty"><Mark kind="book"/><h3>Seu material, à mão.</h3><p>Abra um PDF para consultar junto das notas.</p><button onClick={() => chooseMaterial()}>+ Selecionar documento</button></div>}</section>
-          {desk?.tool !== 'none' && <section className="panel tool-panel"><div className="panel-header"><span className="panel-caption"><Mark kind={desk?.tool === 'focus' ? 'focus' : 'check'}/>{desk?.tool === 'focus' ? 'FOCO' : 'PRÓXIMOS PASSOS'}</span><button onClick={() => checkpoint({ tool: 'none' })} aria-label="Fechar ferramenta">×</button></div><p className="tool-empty">{desk?.tool === 'focus' ? 'Ainda não há sessões nesta matéria.' : 'Ainda não há etapas nesta matéria.'}</p></section>}
+          {desk?.tool !== 'none' && <section className="panel tool-panel"><div className="panel-header"><span className="panel-caption"><Mark kind={desk?.tool === 'focus' ? 'focus' : 'check'}/>{desk?.tool === 'focus' ? 'FOCO' : 'PRÓXIMOS PASSOS'}</span><button onClick={() => checkpoint({ tool: 'none' })} aria-label="Fechar ferramenta">×</button></div>{desk?.tool === 'focus' ? <FocusPanel key={active.id} subjectId={active.id} onError={setError}/> : <p className="tool-empty">Ainda não há etapas nesta matéria.</p>}</section>}
         </div>
       </div>}
       {active && <div className="tool-dock" aria-label="Ferramentas"><button className={desk?.tool === 'focus' ? 'selected' : ''} onClick={() => checkpoint({ tool: desk?.tool === 'focus' ? 'none' : 'focus' })}><Mark kind="focus"/> Abrir foco</button><button className={desk?.tool === 'checklist' ? 'selected' : ''} onClick={() => checkpoint({ tool: desk?.tool === 'checklist' ? 'none' : 'checklist' })}><Mark kind="check"/> Abrir checklist</button></div>}
-      <footer className="statusbar"><span><span className="connection connected"/> {vault ? 'Vault local' : 'Vault não escolhido'} · {subjects.length} matérias</span><span>MD + SQLITE <span data-testid="version">{version}</span></span></footer>
+      <footer className="statusbar"><span><span className="connection connected"/> {focusOwner ? `Foco em ${focusOwner}` : vault ? 'Vault local' : 'Vault não escolhido'} · {subjects.length} matérias</span><span>MD + SQLITE <span data-testid="version">{version}</span></span></footer>
     </div>
     {modal && <Modal title={modal === 'note' ? 'Nova nota' : modal === 'rename' ? 'Renomear matéria' : 'Nova matéria'} close={() => setModal(null)}><form onSubmit={submit}><label>{modal === 'note' ? 'Título da nota' : 'Nome da matéria'}<input autoFocus required maxLength={modal === 'note' ? 160 : 120} aria-label={modal === 'note' ? 'Título da nota' : 'Nome da matéria'} value={name} onChange={e => setName(e.target.value)}/></label>{modal === 'subject' && <label>Cor<select value={color} onChange={e => setColor(e.target.value)}><option value="sage">Sálvia</option><option value="blue">Azul</option><option value="rose">Rosa</option><option value="amber">Âmbar</option></select></label>}<div className="dialog-buttons"><button type="button" onClick={() => setModal(null)}>Cancelar</button><button type="submit" className="primary">{modal === 'note' ? 'Criar nota' : modal === 'rename' ? 'Salvar nome' : 'Criar matéria'}</button></div></form></Modal>}
   </div>;

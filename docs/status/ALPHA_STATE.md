@@ -8,7 +8,7 @@ Implementação local da alpha em execução no Windows nativo. Resultados por c
 
 ## Próxima ação
 
-ALP-06: Leitor PDF real verificado também empacotado Windows; próximo ALP-07, foco por segmentos.
+ALP-07: Foco e recuperação verificados; próximo ALP-08, etapas e próxima ação.
 
 ## Tickets
 
@@ -20,7 +20,7 @@ ALP-06: Leitor PDF real verificado também empacotado Windows; próximo ALP-07, 
 | ALP-04 | done | Concluído | ALP-02, ALP-03 | — |
 | ALP-05 | done | Concluído | ALP-04 | — |
 | ALP-06 | done | Concluído | ALP-05 | — |
-| ALP-07 | todo | A fazer | ALP-05 | C1–C6 |
+| ALP-07 | done | Concluído | ALP-05 | — |
 | ALP-08 | todo | A fazer | ALP-05 | C1–C6 |
 | ALP-09 | todo | A fazer | ALP-04 | C1–C9 |
 | ALP-10 | todo | A fazer | ALP-06, ALP-07, ALP-08, ALP-09 | C1–C5 |
