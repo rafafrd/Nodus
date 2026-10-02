@@ -108,3 +108,7 @@ MVP local entregue, auditoria final concluida e commits por fase na MVP. Primeir
 MVP ae0c9f6 enviada para origin/MVP a pedido do usuário; branch feat/frontend criada. Direção visual corrigida pela referência: cantos retos, painéis planos e grade de quatro módulos. Implementados grade retomável, modo só caderno/Esc, atalhos Alt+1/2/3, ajuste de PDF, duração de foco e refinamento de leitura/estados vazios. Capturas reais compartilhadas; fixtures isoladas, sem dados pessoais.
 
 Windows 11 10.0.26200, Node 24.21.0, Electron 44.5.1: typecheck, nove testes, package:win, preview empacotado com reinício/compacta, jornada R1–R7, smoke-pdf/editor/checklist empacotados e check-bootstrap passaram. Oscilação de layout do PDF corrigida (O-004). Detalhes em docs/validation/FRONTEND.md. Próxima ação: commit/push do incremento e fechamento documental de UI-01; critérios externos da alpha continuam pendentes.
+
+### 02/10/2026 — UI-01: Concluído
+
+Implementação 4e460e0 enviada para origin/feat/frontend. Nove capturas empacotadas e resultado de reinício registrados; Gitleaks do stage (~78,2 KB) sem achados, incluindo testes/fixtures. UI-01 movida para done/concluido com C1–C4 aprovados e links/retomada atualizados. Checkpoint documental separado da implementação; nenhuma funcionalidade de nuvem anunciada como concluída. Próxima ação: usuário avaliar a grade no executável/prints; provas externas da alpha mantidas nos tickets próprios.
