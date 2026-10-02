@@ -42,7 +42,7 @@ Set-Location C:\dev\app-estudos
 node .\scripts\check-bootstrap.mjs
 ```
 
-O comando usa apenas Node e verifica arquivos/links/tarefas. Não há npm install ou npm run dev da aplicação antes de ALP-01 criar package.json e registrar os scripts reais.
+O comando usa apenas Node e verifica arquivos/links/tarefas. ALP-01 já criou a aplicação: consulte README para npm ci, dev, typecheck, testes e package:win. Nesta execução: host portátil Node 24.21.0, Electron 44.5.1/Node embarcado 24.21.0, Windows 11 10.0.26200. Host global era Node 26.3.0 e não foi alterado. Para usar a cópia local existente, acrescente a pasta .local/node-v24.21.0-win-x64 ao PATH apenas do terminal atual.
 
 Siga [Git](git.md) e [a primeira sessão](agents.md). A primeira prova do app será abrir a janela Electron e a build empacotada no Windows.
 

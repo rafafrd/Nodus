@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado: modelo lógico proposto, a implementar em ALP-03/04/09. Não é um schema SQL já criado.
+Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shared/contracts.ts. Matérias, referências e rascunhos já operantes; tabelas dos recursos posteriores não implicam comportamento implementado.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |

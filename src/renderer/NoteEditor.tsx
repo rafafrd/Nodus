@@ -19,14 +19,14 @@ export function NoteEditor({ text, onChange, preview = true }: { text: string; o
   const callback = useRef(onChange); callback.current = onChange;
   useEffect(() => {
     if (!host.current) return;
-    const editor = new EditorView({ parent: host.current, state: EditorState.create({ doc: text, extensions: [markdown(), history(), lineNumbers(), EditorView.lineWrapping, keymap.of([...defaultKeymap, ...historyKeymap]), theme,
+    const editor = new EditorView({ parent: host.current, state: EditorState.create({ doc: text, extensions: [EditorState.lineSeparator.of(text.includes('\r\n') ? '\r\n' : '\n'), markdown(), history(), lineNumbers(), EditorView.lineWrapping, keymap.of([...defaultKeymap, ...historyKeymap]), theme,
       EditorView.contentAttributes.of({ 'aria-label': 'Conteúdo da nota' }),
-      EditorView.updateListener.of(update => { if (update.docChanged) callback.current(update.state.doc.toString()); }),
+      EditorView.updateListener.of(update => { if (update.docChanged) callback.current(update.state.sliceDoc()); }),
     ] }) });
     view.current = editor;
     return () => { view.current = null; editor.destroy(); };
   }, []);
-  useEffect(() => { const v = view.current; if (v && v.state.doc.toString() !== text) v.dispatch({ changes: { from: 0, to: v.state.doc.length, insert: text } }); }, [text]);
+  useEffect(() => { const v = view.current; if (v && v.state.sliceDoc() !== text) v.dispatch({ changes: { from: 0, to: v.state.doc.length, insert: text } }); }, [text]);
   function format(kind: EditKind) {
     const v = view.current; if (!v) return;
     const { from, to } = v.state.selection.main;
@@ -35,5 +35,5 @@ export function NoteEditor({ text, onChange, preview = true }: { text: string; o
   }
   return <div className="note-editor"><div className="format-toolbar" role="toolbar" aria-label="Formatação da nota">
     {([['bold', 'Negrito'], ['italic', 'Itálico'], ['heading', 'Título'], ['bullet', 'Lista'], ['check', 'Checklist'], ['link', 'Link'], ['code', 'Código'], ['table', 'Tabela']] as [EditKind, string][]).map(([kind, label]) => <button key={kind} type="button" onClick={() => format(kind)}>{label}</button>)}
-  </div><div className={`editor-columns ${preview ? '' : 'source-only'}`}><div ref={host} className="editor-source"/>{preview && <article className="markdown-preview" aria-label="Prévia da nota"><ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml components={{ a: ({ children }) => <span className="note-link">{children}</span>, img: ({ alt }) => <span>[Imagem: {alt}]</span> }}>{text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')}</ReactMarkdown></article>}</div></div>;
+  </div><div className={`editor-columns ${preview ? '' : 'source-only'}`}><div ref={host} className="editor-source"/>{preview && <article className="markdown-preview" aria-label="Prévia da nota"><ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml components={{ a: ({ children }) => <span className="note-link">{children}</span>, img: ({ alt }) => <span>[Imagem: {alt}]</span> }}>{text.replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---\r?\n/, '')}</ReactMarkdown></article>}</div></div>;
 }

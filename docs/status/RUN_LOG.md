@@ -38,3 +38,19 @@ SQLite nativo do Node embarcado, schema versionado, contratos e matérias reais.
 ### 02/10/2026 — ALP-03: Concluído
 
 Matérias e SQLite reais verificados; próximo ALP-04, vault e recuperação.
+
+### 02/10/2026 — ALP-04: Em andamento
+
+Vault autorizado, identidade portável, gravação atômica e rascunhos recuperáveis; fase na branch MVP.
+
+### 02/10/2026 — ALP-04: Concluído
+
+Vault e recuperação verificados; consolidar ALP-11 antes da mesa.
+
+### 02/10/2026 — ALP-11: Em andamento
+
+Checkpoint após ALP-04: setup, decisões, memória de arquitetura e retomada.
+
+### 02/10/2026 — ALP-11: Concluído
+
+Documentação do primeiro checkpoint coerente; repetir ALP-11 no final. Próximo ALP-05.

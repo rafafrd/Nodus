@@ -60,16 +60,18 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
-| C7 | não verificado | — |
-| C8 | não verificado | — |
+| C1 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C2 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C3 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C4 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C5 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C6 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C7 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
+| C8 | aprovado | 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. 4 testes passaram, incluindo arquivos reais, CRLF/BOM, junction Windows e falha de arquivo; smoke-vault exercitou UI/IPC: salvar bytes, atualização externa limpa, conflito, erro visível com rascunho e reinicialização preservadora. Evidências em .local/evidence/vault-conflict.png e docs/decisions/vault-safety.md.
 
 ## ALP-05 — Mesa persistente por matéria
 
@@ -170,11 +172,13 @@ Ambiente/build: não informado. Dados usados: não informado. Comandos/roteiros 
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
+| C1 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
+| C2 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
+| C3 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
+| C4 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
+| C5 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
+| C6 | aprovado | Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida. |
 
 Os enunciados são os do ticket. Reprodução/impacto/próxima ação: iniciar ou aguardar dependências conforme o quadro.
+
+Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Checkpoint após ALP-04: README/scripts/lockfile e decisões conferidos; runtime Windows real registrado; nuvem sem serviço/credenciais; editor externo não verificado; memória de arquitetura criada; check-bootstrap passou. Tempo humano não informado, reserva 360 min mantida.

@@ -1,6 +1,6 @@
 # Arquitetura ativa
 
-Estado: desenho de implementação, sem aplicação existente neste bootstrap. Decisões aceitas indicam direção; entrega exige evidência no ticket.
+Estado em 02/10/2026: fundação Electron/React/TypeScript, editor assistido, SQLite e vault implementados. As demais linhas da tabela são direção por ticket; evidências em docs/validation/ALPHA.md.
 
 ## Estrutura proposta
 

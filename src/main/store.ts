@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { AppError, type Subject, type Bootstrap } from '../shared/contracts';
 export class Store {
   readonly db: DatabaseSync;
-  constructor(directory: string) {
+  constructor(readonly directory: string) {
     fs.mkdirSync(directory, { recursive: true });
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');

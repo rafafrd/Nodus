@@ -1,7 +1,7 @@
 ---
 id: ALP-11
-status: todo
-outcome: a_fazer
+status: done
+outcome: concluido
 depends_on: ["ALP-01"]
 criteria_count: 6
 ---
@@ -73,3 +73,11 @@ Registro e resposta obrigatórios:
 Ambiente/versões: não informado. Alterações: nenhuma. Verificações do app: não executadas. Tempo humano: não informado. Bloqueio atual: nenhum verificado, sem dispensar a conferência das dependências. Próxima ação: iniciar conforme a sequência e condições do ticket.
 
 Atualize este registro com comportamento entregue, arquivos, comandos/roteiros executados, resultados e critérios pendentes. Não transforme comandos sugeridos em evidência de execução.
+
+### Checkpoint 02/10/2026
+
+Checkpoint após ALP-04: setup, decisões, memória de arquitetura e retomada. Tempo humano: não informado.
+
+### Checkpoint 02/10/2026
+
+Documentação do primeiro checkpoint coerente; repetir ALP-11 no final. Próximo ALP-05. Tempo humano: não informado.
