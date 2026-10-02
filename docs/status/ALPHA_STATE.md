@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-ALP-11: MVP local entregue, auditoria final concluida e commits por fase na MVP. Primeira acao humana: abrir release/win-unpacked/App Estudos.exe com vault de teste e conferir .local/evidence/editor-output.md em editor externo para ALP-02/C5. ALP-09 permanece proximo incremento da alpha integral.
+UI-01 em andamento na branch feat/frontend: refinar mesa/leitura/ferramentas e compartilhar capturas reais. MVP ae0c9f6 enviada para origin/MVP por solicitação do usuário. ALP-02/C5 externo e ALP-09 permanecem pendentes.
 
 ## Tickets
 

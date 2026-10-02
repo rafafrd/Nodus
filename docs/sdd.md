@@ -36,6 +36,8 @@ A prova do editor inclui título, parágrafos, listas, checklist, link relativo,
 
 Mesa pertence à matéria; troca e reinicialização restauram nota, documento, página, layout e próxima ação. Abra ferramenta sem perder buffer. Checkpoint e política de fechamento precisam tratar erro de gravação. PDF tem localização recuperável quando o arquivo mover/desaparecer. Assets/worker são conferidos na build.
 
+Direção visual de UI-01, solicitada em 02/10/2026: sem cantos arredondados; painéis encaixados e divisórias finas, inspirados na organização de terminais da referência. Os painéis representam caderno, material PDF, foco e checklist. Módulos/Alt+3 abre a grade; o modo só caderno amplia a nota e retorna por Esc. Three.js permanece discreto no cabeçalho e GSAP na entrada dos painéis; respeitam preferência de movimento reduzido.
+
 ## Sessões e etapas
 
 Foco tem ID único, duração escolhida e segmentos de tempo ativo. Pausa interrompe atividade; retomada mantém ID. Fechar normalmente pausa e grava; recuperação após falha mostra o último checkpoint disponível. Intervalo fechado não é creditado automaticamente.

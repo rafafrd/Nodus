@@ -15,5 +15,9 @@ test('mesas isoladas restauram layout e rejeitam referências cruzadas em transa
     const prior = desks.get(b.id); assert.throws(() => desks.save({ subjectId: b.id, noteId: note.ref.id, split: 70 }), /pertencer/); assert.deepEqual(desks.get(b.id), prior);
     store.close(); store = new Store(path.join(dir, 'data')); desks = new Desks(store);
     assert.equal(desks.get(a.id).split, 66); assert.equal(desks.get(a.id).noteId, note.ref.id); assert.equal(desks.get(a.id).tool, 'focus'); assert.equal(desks.get(b.id).split, 40);
+    const before = desks.get(a.id); desks.save({ subjectId: a.id, tool: 'both' });
+    store.close(); store = new Store(path.join(dir, 'data')); desks = new Desks(store);
+    assert.deepEqual(desks.get(a.id), { ...before, tool: 'both' });
+    assert.deepEqual(desks.get(b.id), prior);
   } finally { store.close(); }
 });

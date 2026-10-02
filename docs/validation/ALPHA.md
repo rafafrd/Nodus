@@ -196,3 +196,7 @@ Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Che
 Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Checkpoint final: README com primeiro uso e comandos realmente executados, lockfile e decisões conferidos, recorte/nuvem sem segredos, evidência por ticket e jornada local, tempo humano não informado (reserva 360 min). Memória de arquitetura disponível ao agente auditor. check-bootstrap executado; prova externa ALP-02 e ALP-09 explícitas.
 
 Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Checkpoint encerrado na branch MVP com commits por fase. README/setup/arquitetura/quadro conferidos; typecheck, 8 testes, pacote e jornada R1-R7 Windows passaram. Auditoria por agente em docs/security/MVP_AUDIT.md: zero achados abertos, um Low corrigido e verificado via IPC/rollback, npm audit prod/completo e Gitleaks fonte/historico sem achados. Nuvem/editor externo pendentes explicitos, tempo humano nao informado; check-bootstrap passou.
+
+## Refinamento posterior — UI-01
+
+02/10/2026, branch feat/frontend: grade de módulos com cantos retos, leitura ampliada e ferramentas refinadas. Evidência própria em [FRONTEND.md](FRONTEND.md). Typecheck, nove testes, empacotamento e jornada R1–R7 passaram novamente no Windows, incluindo nota/PDF/contextos/foco/checklist/conflito. ALP-02/C5, ALP-09 e R8 continuam pendentes; esse incremento visual não aprova a alpha integral. A identificação do novo pacote está na evidência de UI-01, separada da prova anterior da MVP.

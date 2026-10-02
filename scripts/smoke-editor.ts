@@ -7,7 +7,8 @@ import { prepareFixture } from './test-fixture';
 const fixture = prepareFixture('editor-smoke');
 fs.mkdirSync('.local/evidence', { recursive: true });
 const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-const app = await electron.launch({ executablePath: electronPath, args: ['.', `--user-data-dir=${path.join(fixture.dir, 'data')}`], env });
+const packaged = process.argv.includes('--packaged');
+const app = await electron.launch({ executablePath: packaged ? path.resolve('release/win-unpacked/App Estudos.exe') : electronPath, args: [...(packaged ? [] : ['.']), `--user-data-dir=${path.join(fixture.dir, 'data')}`], env });
 try {
   const page = await app.firstWindow();
   await page.getByRole('button', { name: 'Matéria A', exact: true }).click();
