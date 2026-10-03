@@ -1,6 +1,14 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  listVideos: input => ipcRenderer.invoke('video:list', input),
+  addVideo: input => ipcRenderer.invoke('video:add', input),
+  removeVideo: input => ipcRenderer.invoke('video:remove', input),
+  openVideoPlayer: input => ipcRenderer.invoke('player:open', input),
+  layoutVideoPlayer: input => ipcRenderer.invoke('player:layout', input),
+  closeVideoPlayer: () => ipcRenderer.invoke('player:close'),
+  onVideoPlayer: callback => { const listener = (_event: Electron.IpcRendererEvent, state: import('../shared/videos').VideoPlayerState) => callback(state); ipcRenderer.on('player:state', listener); return () => ipcRenderer.removeListener('player:state', listener); },
+  onVideoEscape: callback => { const listener = () => callback(); ipcRenderer.on('player:escape', listener); return () => ipcRenderer.removeListener('player:escape', listener); },
   listProjects: () => ipcRenderer.invoke('project:list'),
   chooseProject: () => ipcRenderer.invoke('project:choose'),
   projectTree: input => ipcRenderer.invoke('project:tree', input),

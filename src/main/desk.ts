@@ -8,7 +8,7 @@ export class Desks {
   constructor(readonly store: Store) {}
   get(subjectId: string): Desk {
     this.store.requireSubject(subjectId);
-    const row = this.store.db.prepare('SELECT subject_id AS subjectId,note_id AS noteId,material_id AS materialId,page,split,tool,preview,next_step_id AS nextStepId FROM desks WHERE subject_id=?').get(subjectId);
+    const row = this.store.db.prepare('SELECT subject_id AS subjectId,note_id AS noteId,material_id AS materialId,video_id AS videoId,material_view AS materialView,page,split,tool,preview,next_step_id AS nextStepId FROM desks WHERE subject_id=?').get(subjectId);
     if (!row) throw new AppError('NOT_FOUND', 'Mesa não encontrada.');
     return { ...row, preview: Boolean(row.preview) } as Desk;
   }
@@ -16,11 +16,11 @@ export class Desks {
   save(input: z.infer<typeof deskInput>): Desk {
     return this.store.transaction(() => {
       const desk = { ...this.get(input.subjectId), ...input };
-      for (const [id, table] of [[desk.noteId, 'notes'], [desk.materialId, 'materials']] as const) {
+      for (const [id, table] of [[desk.noteId, 'notes'], [desk.materialId, 'materials'], [desk.videoId, 'videos']] as const) {
         if (id && !this.store.db.prepare(`SELECT id FROM ${table} WHERE id=? AND subject_id=?`).get(id, input.subjectId)) throw new AppError('INVALID_REFERENCE', 'A referência precisa pertencer a esta matéria.');
       }
       if (desk.nextStepId && !this.store.db.prepare('SELECT steps.id FROM steps JOIN tasks ON tasks.id=steps.task_id WHERE steps.id=? AND tasks.subject_id=?').get(desk.nextStepId, input.subjectId)) throw new AppError('INVALID_REFERENCE', 'A próxima etapa precisa pertencer a esta matéria.');
-      this.store.db.prepare('UPDATE desks SET note_id=?,material_id=?,page=?,split=?,tool=?,preview=?,next_step_id=? WHERE subject_id=?').run(desk.noteId, desk.materialId, desk.page, desk.split, desk.tool, Number(desk.preview), desk.nextStepId, desk.subjectId);
+      this.store.db.prepare('UPDATE desks SET note_id=?,material_id=?,video_id=?,material_view=?,page=?,split=?,tool=?,preview=?,next_step_id=? WHERE subject_id=?').run(desk.noteId, desk.materialId, desk.videoId, desk.materialView, desk.page, desk.split, desk.tool, Number(desk.preview), desk.nextStepId, desk.subjectId);
       return this.get(input.subjectId);
     });
   }
