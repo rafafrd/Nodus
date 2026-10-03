@@ -82,7 +82,7 @@ Provas do verificador estendido em cópia real isolada: baseline passou; critér
 | [docs/status/RUN_LOG.md](../status/RUN_LOG.md) | produto/uso/estado |
 | [docs/tasks/doing/ALP-02.md](../tasks/doing/ALP-02.md) | ticket/quadro |
 | [docs/tasks/doing/ALP-10.md](../tasks/doing/ALP-10.md) | ticket/quadro |
-| [docs/tasks/doing/GAM-02.md](../tasks/doing/GAM-02.md) | ticket/quadro |
+| [docs/tasks/done/GAM-02.md](../tasks/done/GAM-02.md) | ticket/quadro |
 | [docs/tasks/doing/README.md](../tasks/doing/README.md) | ticket/quadro |
 | [docs/tasks/done/ALP-01.md](../tasks/done/ALP-01.md) | ticket/quadro |
 | [docs/tasks/done/ALP-03.md](../tasks/done/ALP-03.md) | ticket/quadro |

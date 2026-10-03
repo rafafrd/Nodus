@@ -234,4 +234,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C5 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): edição seletiva preserva BOM/CRLF, conflito/draft/recovery, fechamento imediato/restart e eventos rápidos de Save/resolução |
 | C6 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): 18 testes, .git caixa/alias8.3, traversal/junction/encoding/1MiB, argumento/replay/rollback e outro sender negado |
 | C7 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): pacote Windows identificado, novas jornadas/capturas, R1–R7 e jogo legado repetidos no pacote final |
-| C8 | não verificado | Fechamento da revisão/segredos e push final em andamento |
+| C8 | aprovado | Core 62dbd60/UI 1c6366a/docs 6e1a636 enviados para origin/feat/engine-explorer; guia/regras/quadro/memória atualizados, [auditoria](../security/ENGINE_EXPLORER_AUDIT.md), Gitleaks staged sem achados e check-bootstrap |

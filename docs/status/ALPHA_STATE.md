@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-GAM-02 na branch feat/engine-explorer, derivada de 083bdc0: motor com upgrades, QTE/skillcheck e Explorer/editor de projetos implementados. Core 62dbd60 e interface 1c6366a commitados. C1–C7 aprovados com provas Windows, incluindo novas jornadas, R1–R7 e jogo legado no pacote final. C8 aguarda fechamento documental da auditoria e push autorizado; não há implementação restante neste ticket.
+GAM-02 concluída na branch feat/engine-explorer, derivada de 083bdc0: motor com upgrades, QTE/skillcheck e Explorer/editor de projetos. Core 62dbd60, interface 1c6366a e documentação 6e1a636 enviados para origin/feat/engine-explorer em 03/10/2026. C1–C8 aprovados com provas Windows, incluindo novas jornadas, R1–R7 e jogo legado no pacote final. Auditoria independente sem vulnerabilidade de código aberta, tooling High com exposição avaliada; segredos/memória/docs conferidos. Não há implementação restante neste ticket. Próxima ação humana: [seguir o guia](../GUIA_DE_USO.md), abrir a build com perfil de teste e avaliar ritmo/navegação. Provas externas da alpha permanecem em seus tickets; nenhum serviço/release publicado.
 
 GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade isométrica, farm/grind, loja, memória e build locais. Economia 728047d e interface 49489ad enviadas para origin/feat/game, documentação 083bdc0. UI-01 concluída; MVP ae0c9f6 permanece em origin/MVP. Esses checkpoints históricos têm provas próprias. ALP-02/C5 externo e ALP-09 permanecem pendentes.
 
@@ -29,7 +29,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | ALP-11 | done | Concluído | ALP-01 | — |
 | UI-01 | done | Concluído | ALP-05, ALP-06, ALP-07, ALP-08 | — |
 | GAM-01 | done | Concluído | UI-01, ALP-03, ALP-07 | — |
-| GAM-02 | doing | Em andamento | GAM-01, ALP-04, UI-01 | C8 |
+| GAM-02 | done | Concluído | GAM-01, ALP-04, UI-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -41,4 +41,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Ticket ativo: [GAM-02](../tasks/doing/GAM-02.md).
+Último ticket concluído: [GAM-02](../tasks/done/GAM-02.md).

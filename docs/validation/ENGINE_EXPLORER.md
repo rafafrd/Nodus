@@ -39,3 +39,7 @@ A revisão de fonte sugeriu possível concorrência Save/descarte; operações p
 - App Estudos.exe SHA256: 53AC4B45D41E2CA2A628193F25AD2803D2FF4EA73917F2A2701EDDCB09AC960A
 - Snapshot final fonte MANIFEST: a8be0350038b400a77879663aaf6b203a47dd01e208a135bbe331970a4bd387d, .local/gam02-audit-final-3bffc756; baseline083bdc0/core62dbd60. Digest é da lista de hashes de bytes do workspace, não hash do Git/ASAR. Includes assets PDF gerados; nenhum dado pessoal.
 - Jornada final npm.cmd run test:engine-explorer passou nesse pacote depois do bloqueio de edição/serialização/sync de props. R1–R7 e jogo legado foram repetidos no mesmo pacote final: journey-results.json em 2026-10-03T17:34:34Z e game-verified-results.json em 2026-10-03T17:40:00Z. O harness do jogo deixou de usar uma data fixa; essas datas identificam execuções reais novas.
+
+## Fechamento Git e segredos
+
+Core 62dbd60, UI 1c6366a e docs 6e1a636 enviados para origin/feat/engine-explorer em 03/10/2026, push exit 0 e upstream configurado. Gitleaks 8.30.1 no stage core/UI/documental, com redaction e sem excluir fixtures: exit 0/relatórios []; última passagem documental verificou ~75.016 bytes em 37 arquivos (.local/evidence/gam02-docs-secrets.json). Snapshot completo/fixtures também escaneado pelo auditor conforme relatório. Não foi repetido todo o histórico Git nesta etapa. Ticket só foi movido para done após essas provas e o push; fechamento do quadro tem commit/scan próprio. Artefatos .local e pacote permanecem locais/ignorados.

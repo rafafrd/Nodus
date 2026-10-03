@@ -1,7 +1,7 @@
 ---
 id: GAM-02
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["GAM-01","ALP-04","UI-01"]
 criteria_count: 8
 ---
@@ -19,10 +19,10 @@ C6. Contenção de caminho, junction/symlink, limites de leitura, argumentos, ro
 C7. Pacote Windows, jornada real dos novos fluxos/capturas e regressão pertinente do estudo/jogo. Diálogo nativo não automatizado permanece explicitamente não verificado.
 C8. Guia/regras/arquitetura/evidência/memória/quadro/retomada atualizados, commits/push por fase, audit de segredos incluindo fixtures e revisão AppSec autorizada.
 
-## Plano e retomada
+## Plano aplicado
 
 Inspecionar docs/código → motor/desafios autoritativos → serviço de projetos/editor/explorer → UI intuitiva e capturas → provas Windows/segurança → documentação/commits. Diretórios de projetos são capacidades registradas via seleção de pasta; previews são texto inerte. Sem terminal, execução de código, Git automático, criação/deleção de arquivos, nuvem ou IA. Edição de arquivos existentes foi autorizada explicitamente. Valores de balanceamento são reversíveis e documentados.
 
 ## Checkpoint Windows, 03/10/2026
 
-C1–C7 demonstrados em [ENGINE_EXPLORER](../../validation/ENGINE_EXPLORER.md) e [PRODUCT_DOCS](../../validation/PRODUCT_DOCS.md). Core 62dbd60 e interface 1c6366a commitados. Typecheck, 18 testes, pacote, jornadas novas e R1–R7/jogo anterior/IPC passaram; novas jornadas, R1–R7 e jogo legado foram repetidos no pacote final. Auditoria independente concluída em [ENGINE_EXPLORER_AUDIT](../../security/ENGINE_EXPLORER_AUDIT.md), sem vulnerabilidade de código aberta e tooling High avaliado. Memória atualizada. C8 aguarda commit documental/scan staged/push final autorizados. Diálogo nativo e editor externo/nuvem continuam não verificados. Próxima ação concreta: scan do stage documental, commit/push e fechamento do quadro.
+C1–C8 aprovados em [ALPHA](../../validation/ALPHA.md), com prova específica em [ENGINE_EXPLORER](../../validation/ENGINE_EXPLORER.md) e inventário em [PRODUCT_DOCS](../../validation/PRODUCT_DOCS.md). Core 62dbd60, interface 1c6366a e documentação 6e1a636 enviados para origin/feat/engine-explorer em 03/10/2026. Typecheck, 18 testes, pacote, jornadas novas e R1–R7/jogo anterior/IPC passaram; novas jornadas, R1–R7 e jogo legado foram repetidos no pacote final. Auditoria independente em [ENGINE_EXPLORER_AUDIT](../../security/ENGINE_EXPLORER_AUDIT.md), sem vulnerabilidade de código aberta e tooling High avaliado; memória atualizada. Gitleaks do stage documental (37 arquivos, ~75 KB) saiu 0/sem achados. Check-bootstrap e diff --check passaram. Diálogo nativo não automatizado, editor externo e nuvem continuam não verificados. Nenhuma ação de implementação restante neste ticket. Próxima ação humana: abrir a build/guia e avaliar ritmo e navegação com perfil de teste.
