@@ -48,6 +48,8 @@ Incremento anterior: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), conclu�
 
 ## Conteúdo de um ticket
 
+Incremento ativo: [EXP-01 — exportar pasta em PDF escuro](doing/EXP-01.md), branch codex/pdf-export.
+
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
 
 Incremento solicitado após UI-01: [GAM-01 — cidade, farm, grind e loja](done/GAM-01.md), concluído na branch feat/game. Economia local e visual 3D; escopo/evidência próprios. [Guia de uso](../GUIA_DE_USO.md) cobre executável, desenvolvimento, estudos e jogo.

@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/settings-profile** reúne mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP e configurações de perfil/aparência.
+Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/pdf-export** reúne mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP, configurações e exportação das notas em PDF escuro.
 
 ## 1. Abrir agora neste PC
 
@@ -38,7 +38,7 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch codex/settings-profile https://github.com/rafafrd/Nodus.git
+git clone --branch codex/pdf-export https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
@@ -171,6 +171,17 @@ Clique **Ajustes** ou no perfil, no rodapé da barra fixa. Voltar aos estudos co
 
 As escolhas são retomadas ao reabrir. Esta área gerencia preferências e localização dos dados; backup ainda é feito pela cópia das pastas abaixo.
 
+### Exportar uma pasta em PDF
+
+1. Salve as notas/arquivos que quer incluir; rascunhos ainda não salvos ficam fora da exportação.
+2. Abra **Ajustes → Dados e app** e encontre **Sua pasta, em um caderno PDF**.
+3. Escolha **Pasta de notas** ou um projeto já aberto no **Explorer**. Em **Pasta**, escolha a origem inteira ou uma subpasta; as subpastas dela também entram.
+4. Clique **Exportar pasta em PDF**. Ao terminar, a tela mostra o caminho do arquivo em **Downloads**. Cada exportação usa um nome novo.
+
+O caderno A4 tem fundo preto inclusive nas margens, texto claro, capa, sumário clicável e páginas numeradas. Inclui apenas arquivos **.md**, em ordem de caminho/número; cada nota começa em uma nova página. Títulos, listas, citações, tabelas e código são formatados. O bloco inicial de frontmatter fica oculto no PDF; os arquivos originais conservam todos os bytes. Imagens aparecem como indicação textual, links externos como texto e fórmulas/wikilinks como fonte Markdown, sem buscar recursos na rede. Arquivos de código, PDFs anexados e pastas auxiliares/ocultas não são reunidos nesse caderno.
+
+Se a pasta não tem Markdown ou excede os limites, a tela explica o problema. Escolha uma subpasta menor: até **200 notas**, **2 MiB por nota**, **6 MiB de texto total**, **4.000 entradas** e **16 níveis**. Uma geração por vez; notas inválidas ou alteradas durante a leitura interrompem a operação. O PDF é uma cópia para leitura, e o backup completo segue abaixo. [Provas da exportação](validation/PDF_EXPORT.md).
+
 ## 8. Dados, backup e perfil de teste
 
 | Dado | Onde fica |
@@ -178,6 +189,7 @@ As escolhas são retomadas ao reabrir. Esta área gerencia preferências e local
 | Notas Markdown | Vault que você escolheu |
 | PDFs | Arquivos locais selecionados; app conserva referências |
 | Projetos | Pastas escolhidas; arquivos são editados no local original |
+| Cadernos PDF exportados | Downloads do usuário Windows; caminho mostrado após exportar |
 | Mesa, tarefas, foco, rascunhos/abas de projetos e jogo | Perfil local em %APPDATA%\app-estudos |
 
 Para backup, **feche o app** e copie o vault, os PDFs necessários, suas pastas de projetos e a pasta de perfil inteira. Copiar apenas as notas conserva os arquivos Markdown; copiar o perfil também conserva jogo, mesas e rascunhos. Os arquivos do app não são criptografados pelo próprio aplicativo. Guarde dados pessoais fora do repositório.

@@ -38,6 +38,7 @@ user-data/
 .codex/
 .claude/settings.local.json
 .local/
+/output/pdf/
 tmp/
 temp/
 .DS_Store

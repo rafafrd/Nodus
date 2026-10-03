@@ -27,3 +27,5 @@ UI-02 usa codex/smooth-ui, derivada de 0da34c7. O usuário autorizou outra branc
 MED-01 usa codex/youtube-cinema, derivada de 2690372. Mantém autorização de branch, commits por fase e push final. Links públicos fictícios das provas são versionados; perfis, banco, capturas e pacote permanecem locais/ignorados.
 
 CFG-01 usa codex/settings-profile, derivada de92cc357 com autorização vigente de branch/commits por fase/push final. Pacote/fotos/perfis fictícios ficam locais; nenhuma dependência/lockfile/migration nova. Fechamento e hashes em SETTINGS.
+
+EXP-01 usa codex/pdf-export, derivada de6897adb, com autorização vigente de commits por fase/push final. Exportação usa dependências existentes; PDFs de demonstração, perfis e pacote ficam locais/ignorados. Provas e checkpoints em PDF_EXPORT.

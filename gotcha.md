@@ -169,3 +169,7 @@ O script de bootstrap é para a preparação inicial. Rodá-lo novamente depois 
 ## O-011 — Player remoto aberto sem superfície após reinício (CFG-01, 03/10/2026)
 
 Observado no pacote Windows: VideoPlayer.open chamava close e publicava closed antes de loading/ready; a entrega IPC concorrente podia limpar video no renderer depois da resposta de abertura. Guest existia/carregava, mas surface e botão de retry ausentes. Probe real em .local/evidence/settings-player-probe.log registrou eventos/DOM e crash controlado. Correção: dispose privado remove recursos sem publicar; close explícito continua notificando. Harness de regressão espera guest+DOM e superfície, verifica ausência de closed transitório ao abrir e crash/retry após restart. Aprovação da correção depende da nova build/jornada final registrada em SETTINGS, não do hash anterior.
+
+## O-012 — Exportação concluída sem evento de sucesso (EXP-01, 03/10/2026)
+
+Observado pelo auditor na fonte inicial: printToPDF e gravação confirmavam sucesso em Downloads, mas handler só auditava erros. Correção export-output exige audit pdf:export/UUID opaco/ok depois de write/fsync/close; falha remove apenas a saída nova e retorna erro sem recibo. Sem título/path/texto no evento. Teste unitário, probe independente e pacote real com trigger abort SQLite verificaram ausência de PDF novo/evento, arquivo anterior/fontes intactos e retomada após remover trigger. Provas em docs/validation/PDF_EXPORT.md. FS/SQLite não compartilham atomicidade contra crash/falha de cleanup; não alegar transação conjunta.

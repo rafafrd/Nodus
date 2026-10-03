@@ -8,6 +8,8 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+EXP-01 em andamento na branch codex/pdf-export, a partir de6897adb. Exportação de notas Markdown salvas de vault/projeto/subpastas em A4 preto com capa/sumário/paginação, destino Downloads. C1–C5 aprovados:28 testes/typecheck/package/export/Settings/Journey Windows, PDF3/13 páginas renderizado/inspecionado; O-012 corrigido com rollback real de falha do audit. Core fef5821/UI38651b4 commitados após Gitleaks staged. [Ticket](../tasks/doing/EXP-01.md), [provas](../validation/PDF_EXPORT.md). Próxima ação: relatório independente final/docs/scans/commit/push e fechamento C6/quadro. Sem push ainda; alpha externa segue parcial.
+
 CFG-01 concluído na branch codex/settings-profile, a partir de92cc357. Perfil local/nome/foto,3 temas/animações e gestão por Ajustes. C1–C6 aprovados: typecheck/24 testes,pacote e jornadas Windows Settings/Videos/Journey/Smooth-ui finais, contexto/PiP/restart preservados e O-011 corrigido. Core8f1a47e/UI5eb2142/fixc68a020/docsccdd75d enviados ao origin, push exit0/upstream configurado em03/10/2026. Auditoria independente aprovada com mitigações, sem vulnerabilidade nova confirmada; tooling High com exposição avaliada permanece. Gitleaks de todos os stages/guia/ADR/memória/documentos atualizados. [Ticket](../tasks/done/CFG-01.md), [provas](../validation/SETTINGS.md). Nenhuma implementação restante neste ticket; próxima ação humana: abrir a build e usar Ajustes conforme o [guia](../GUIA_DE_USO.md). Alpha externa continua parcial.
 
 MED-01 concluída na branch codex/youtube-cinema, a partir de 2690372: links YouTube por matéria, cinema e PiP interno arrastável. C1–C7 aprovados: 21 testes, typecheck, pacote Windows/player oficial reproduzido, continuidade entre modos, crash/retry isolado e regressões de estudos/engine/Explorer/transições no mesmo pacote. Core d19c316/interface228c15f/docs ad77aae enviados ao origin, push exit0 em03/10/2026/upstream configurado. AppSec independente aprovado com mitigações e sem achado de código aberto; Gitleaks dos stages incluindo documentos/fixtures passou, memória/guia/contratos atualizados. [Ticket](../tasks/done/MED-01.md) e [provas](../validation/YOUTUBE.md). Nenhuma implementação restante; próxima ação humana: usar Material → Vídeos → + Link conforme o [guia](../GUIA_DE_USO.md). Alpha externa permanece parcial.
@@ -39,6 +41,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UI-02 | done | Concluído | UI-01, GAM-02 | — |
 | MED-01 | done | Concluído | ALP-03, ALP-05, UI-02 | — |
 | CFG-01 | done | Concluído | ALP-03, UI-02, MED-01 | — |
+| EXP-01 | doing | Em andamento | ALP-04, CFG-01 | C6 |
 
 ## Checkpoints e atenção humana
 

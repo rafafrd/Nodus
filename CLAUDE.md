@@ -135,3 +135,7 @@ Links YouTube por matéria e seleção de material em SQLite v4; conteúdo remot
 Perfil/preferências locais usam settings.preferences no schema v4 existente. Seis IPCs específicos e strict preservam guarda sender/mainFrame/origem. Foto PNG/JPEG até5MiB/4MP/4096lado: dimensões antes do codec, decode/crop/resize nativo→PNG256; sem path/URL e sem nome/foto/caminho em audit. Salvamento transaciona preferences/audit. Defaults de JSON inválido não reescrevem raw no load.
 
 PreferencesProvider carrega antes do App, confirma após IPC; CSS vars mudam três paletas sem remount. motionPreference combina off app/OS e limpa listeners; tempo essencial de foco/desafios/vídeo permanece. Quarta área deve conservar filas/rascunhos e gates de área/cinema. Gestão só enum data/vault e diretórios registrados; sem reset/updater/terminal. ADR-0009/SETTINGS registram provas e limites; audit independente tem fonte congelada distinta do pacote Windows do implementador.
+
+## Incremento EXP-01
+
+Exportar Markdown salvo de vault/projeto registrado em A4 preto. DTO discriminado/strict, raiz canônica/links/auxiliares negados, leituras limitadas UTF-8 sem alteração da fonte. HTML estático ReactMarkdown/GFM existente; conteúdo externo inerte. BrowserWindow oculto isolado/efêmero, sem JS/Node/preload, protocolo interno e requests restritos. Save em Downloads usa wx/fsync/close e audit opaco de sucesso; falha de audit remove somente saída nova. FS/DB não são uma transação conjunta. Guia/ADR-0010/PDF_EXPORT registram escopo, limites e provas próprias; schema4/deps conservados.

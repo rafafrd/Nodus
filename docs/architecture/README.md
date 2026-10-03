@@ -26,6 +26,7 @@ flowchart TB
 | Jogo | Cidade/farm/loja/memória/build; economia autoritativa no main | GAM-01 |
 | Explorer | Pastas reais, árvore, abas, fonte UTF-8, save/conflito/recuperação; sem execução | GAM-02 |
 | Configurações | SQLite settings/contratos específicos, foto raster preparada no main, paletas CSS/observador comum de movimento | CFG-01 |
+| Exportação PDF | Markdown salvo/SSR seguro, Chromium isolado, A4 preto em Downloads e evento opaco | EXP-01 |
 | Vídeos | Links locais por matéria; WebContentsView remoto isolado, cinema/PiP interno | MED-01 |
 | Supabase + web | Snapshot de nota, Auth e acesso por proprietário | ALP-09 |
 
@@ -44,3 +45,5 @@ IA/OpenRouter, agenda Google, notificações, grafo Three.js e execução/Git de
 Veja [modelo de dados](data-model.md), [SDD](../sdd.md), [ADRs](../adr/README.md) e [arquitetura completa de concepção](../planning/ARQUITETURA_APP_ESTUDOS.md).
 
 YouTube usa sessão efêmera separada, sem preload/Node/bridge/protocolo study; CSP da mesa continua sem frames. Só abrir um vídeo registrado inicia rede. URL/bounds específicos passam validação no main. A reprodução usa o mesmo guest entre modos, e fechar o destrói. [ADR-0008](../adr/0008-video-isolado.md) e [provas](../validation/YOUTUBE.md).
+
+EXP-01 acrescenta export-notes/pdf-document/pdf-export/export-output: fontes registradas são lidas sem alteração, template SSR inerte e BrowserWindow efêmero com JavaScript/Node/preload ausentes. PDF vai para Downloads após gravação e audit de sucesso; rollback de falha remove apenas a nova saída. Sender/mainFrame/origem/contratos existentes conservados. [ADR-0010](../adr/0010-exportacao-pdf.md) e [provas](../validation/PDF_EXPORT.md).

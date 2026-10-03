@@ -125,3 +125,16 @@ Verificação final MED-01 após mover o ticket: inventário75 arquivos de docs;
 Novo ticket CFG-01, [ADR-0009](../adr/0009-preferencias-locais.md), [prova Windows](SETTINGS.md) e [AppSec independente](../security/SETTINGS_AUDIT.md) concluído com mitigações. README/guia/PRD/quadro/retomada/arquitetura/dados/SDD/design/Git/CLAUDE/memória refletem preferências locais no schema v4,6IPC específicos,3 paletas, foto raster normalizada e movimento appoff OR Windows reduzido. Sem conta/sync/reset/dep nova; gestão consulta dados existentes e orienta backup. Guia de downgrade corrigido de v3 para v4, conforme código e MED-01. Provas externas continuam pendentes. Inventário leu79 arquivos de docs; check-bootstrap17 tickets/109 critérios/89Markdown aprovado no checkpoint com C6 ainda pendente de push. Links/contagens são reconferidos após movimentar o ticket.
 
 Verificação final CFG-01 após movimentar o ticket: inventário79 arquivos de docs; check-bootstrap17 tickets/109 critérios/89Markdown/299links locais aprovado. Contagens são documentais; critérios externos da alpha continuam pendentes.
+
+## Atualização documental EXP-01, 03/10/2026
+
+README/guia/PRD/quadro/retomada/arquitetura/dados/SDD/design/Git/CLAUDE/memória refletem pasta Markdown salva→caderno PDF A4 preto, origem vault/projeto registrado, subpastas/limites/isolamento, Downloads sem sobrescrita e audit opaco/rollback. Schema4/deps/fontes conservados. [AppSec independente](../security/PDF_EXPORT_AUDIT.md) aprovado com mitigações locais, Low de logging corrigido; tooling High existente e alpha externa pendentes continuam explícitos. Provas Windows/visual e freeze do auditor são separados. Quatro arquivos novos abaixo; contagens finais e scans/checkpoints registrados após a revisão.
+
+| Arquivo | Papel |
+| --- | --- |
+| [ADR-0010](../adr/0010-exportacao-pdf.md) | decisão da exportação/isolamento/saída |
+| [EXP-01](../tasks/doing/EXP-01.md) | ticket/quadro e retomada |
+| [PDF_EXPORT](PDF_EXPORT.md) | critérios/provas Windows/PDF/limites |
+| [PDF_EXPORT_AUDIT](../security/PDF_EXPORT_AUDIT.md) | auditoria independente/freeze/probes/verdict |
+
+Checkpoint com C6 ainda pendente de commit/push: inventário leu83 arquivos de docs; check-bootstrap18 tickets/115 critérios/93Markdown/328links locais aprovado. Contagens são documentais, sem aprovação externa de alpha.
