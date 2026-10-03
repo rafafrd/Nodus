@@ -20,7 +20,9 @@ import { nativeImage, shell } from 'electron';
 import { Videos } from './videos';
 import { VideoPlayer } from './video-player';
 import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos';
-protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
+import { PdfExporter } from './pdf-export';
+import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
+protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }, { scheme:'nodus-pdf', privileges:{ standard:true, secure:true } }]);
 let window: BrowserWindow;
 let store: Store;
 let vault: Vault;
@@ -33,6 +35,7 @@ let preferences: UserPreferences;
 let management: AppManagementService;
 let videos: Videos;
 let player: VideoPlayer;
+let pdfExporter: PdfExporter;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -51,6 +54,8 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('pdf:folders', pdfSourceInput, input => pdfExporter.folders(input));
+  handle('pdf:export', pdfExportInput, input => pdfExporter.export(input));
   handle('preferences:get', z.undefined(), () => preferences.get());
   handle('preferences:update', preferenceInput, input => preferences.update(input));
   handle('profile:photo', photoInput, input => {
@@ -139,6 +144,7 @@ app.whenReady().then(() => {
   game = new Game(store);
   projects = new Projects(store);
   preferences = new UserPreferences(store); management = new AppManagementService(store);
+  pdfExporter = new PdfExporter(store, vault);
   videos = new Videos(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));

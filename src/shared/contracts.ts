@@ -26,6 +26,8 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  pdfExportFolders(input: import('./pdf-export').PdfSource): Promise<Result<import('./pdf-export').PdfFolder[]>>;
+  exportFolderPdf(input: import('./pdf-export').PdfExportInput): Promise<Result<import('./pdf-export').PdfExportResult>>;
   getPreferences(): Promise<Result<import('./preferences').Preferences>>;
   updatePreferences(input: import('zod').z.infer<typeof import('./preferences').preferenceInput>): Promise<Result<import('./preferences').Preferences>>;
   setProfilePhoto(input: import('zod').z.infer<typeof import('./preferences').photoInput>): Promise<Result<import('./preferences').Preferences>>;
