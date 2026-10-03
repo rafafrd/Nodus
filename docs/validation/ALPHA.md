@@ -249,4 +249,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C5 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): luz/contexto/upgrade, câmera com poses intermediárias e retarget |
 | C6 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): ganho local/carteira animada, pulso sem toast, economia autoritativa |
 | C7 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): normal/reduzido dinâmico, retarget, inert, Ctrl+S durante transição, QTE oculto/teclado e Escape |
-| C8 | não verificado | [SMOOTH_UI](SMOOTH_UI.md): typecheck, 18 testes, pacote/jornadas finais/R1–R7/jogo legado; implementação 27bd358 + d50af65/Gitleaks sem achados; [AppSec](../security/SMOOTH_UI_AUDIT.md) concluído. Docs/push em fechamento |
+| C8 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): typecheck, 18 testes, pacote/jornadas finais/R1–R7/jogo legado; 27bd358/d50af65/b0060f1 enviados ao origin, guia/quadro/memória atualizados; [AppSec](../security/SMOOTH_UI_AUDIT.md), Gitleaks staged/docs e verificador aprovados |

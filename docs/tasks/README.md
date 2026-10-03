@@ -38,9 +38,9 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 
 ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser repetido após ALP-04 e no fim da alpha. Todos os tickets atualizam documentação durante a execução; ALP-11 não aprova automaticamente recursos pendentes.
 
-Último incremento: [GAM-02 — motor, desafios e Explorer](done/GAM-02.md), concluído na branch feat/engine-explorer. Navegação/edição local, provas Windows, revisão documental e auditoria registradas; commits por fase enviados ao origin.
+Incremento anterior: [GAM-02 — motor, desafios e Explorer](done/GAM-02.md), concluído na branch feat/engine-explorer. Navegação/edição local, provas Windows, revisão documental e auditoria registradas; commits por fase enviados ao origin.
 
-Incremento ativo: [UI-02 — refinamento e transições suaves](doing/UI-02.md), branch codex/smooth-ui. Aplicar as oito sugestões aprovadas pelo usuário; apresentação/navegação, sem ampliar capacidades privilegiadas.
+Último incremento: [UI-02 — refinamento e transições suaves](done/UI-02.md), concluído na branch codex/smooth-ui. Oito sugestões aplicadas, transições normais/reduzidas e dados/contexto preservados; [provas Windows](../validation/SMOOTH_UI.md), audit, commits/push e guia registrados.
 
 ## Conteúdo de um ticket
 
