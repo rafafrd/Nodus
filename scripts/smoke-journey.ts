@@ -65,5 +65,5 @@ for (let pass = 0; pass < 2; pass++) {
   } finally { await app.close(); }
 }
 reports.push('R8 não verificado: nuvem/celular fora do MVP local, sem configuração/publicação.');
-fs.writeFileSync('.local/evidence/journey-results.json', JSON.stringify({ date: '2026-10-02', build: 'App Estudos 0.1.0 win-unpacked', reports }, null, 2));
+fs.writeFileSync('.local/evidence/journey-results.json', JSON.stringify({ date: new Date().toISOString(), build: 'App Estudos 0.1.0 win-unpacked', reports }, null, 2));
 console.log(reports.join('\n'));

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import type { GameState } from '../shared/game';
 
-export type Place = 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
+export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
+  { id: 'engine', name: 'MOTOR', x: 3, z: 2.4 },
   { id: 'farm', name: 'FAZENDA', x: 3.3, z: -6.8 }, { id: 'shop', name: 'MERCADO', x: -1, z: -2.1 },
   { id: 'mine', name: 'MINA', x: -10.3, z: -5.8 }, { id: 'forest', name: 'BOSQUE', x: -9.8, z: 7.6 },
   { id: 'mill', name: 'MOINHO', x: 4.4, z: 5.7 }, { id: 'plaza', name: 'PRAÇA', x: -3, z: 2.1 },
@@ -76,6 +77,13 @@ export function CityScene({ state, selected, onSelect }: { state: GameState; sel
       box(market, wood, 0, .7, .7, 3.3, .8, .65);
       for (let i = 0; i < 15; i++) mesh(market, sphere, ['#c9a85d', '#b46f51', '#9cac66'][i % 3], -1.2 + (i % 5) * .5, 1.2, .6 + Math.floor(i / 5) * .15, .13, .13, .13);
       for (const [x, z] of [[-2.4, -1], [1.9, .3]]) { mesh(market, cylinder, '#a68754', x, .45, z, .37, .8, .37); mesh(market, cylinder, '#635947', x, .56, z, .38, .06, .38); }
+      // Active engine: cosmetic rotation, all rewards stay in main.
+      const engine = group(3, 2.4); box(engine, '#53645d', 0, .2, 0, 2.2, .4, 1.7);
+      box(engine, '#c19359', 0, .85, 0, 1.25, 1, 1); box(engine, '#354c46', 0, 1.45, 0, 1.4, .2, 1.1);
+      mesh(engine, cylinder, '#9db39b', -.5, 1.75, -.25, .15, .6, .15);
+      const wheel = new T.Group(); wheel.position.set(0, 1, .8); engine.add(wheel);
+      const wheelGeo = new T.TorusGeometry(.67, .12, 6, 20); geometries.add(wheelGeo); mesh(wheel, wheelGeo, '#dfba74', 0, 0, 0, 1, 1, 1);
+      for (let i = 0; i < 6; i++) { const spoke = box(wheel, '#937950', 0, 0, 0, 1.2, .08, .09); spoke.rotation.z = i * Math.PI / 6; }
       // Fountain with still water and a small monument.
       const fountain = group(-3, .3); mesh(fountain, cylinder, '#b6b9a2', 0, .25, 0, .98, .5, .98); mesh(fountain, cylinder, '#77a8b5', 0, .53, 0, .81, .03, .81); mesh(fountain, cylinder, '#d3ceb0', 0, .85, 0, .17, 1.4, .17); mesh(fountain, sphere, '#e4d39e', 0, 1.58, 0, .32, .38, .32);
       // Farm beds use live crop state, not decorative balances.
@@ -132,7 +140,8 @@ export function CityScene({ state, selected, onSelect }: { state: GameState; sel
         frame = 0;
         if (!document.hidden && (reduced.matches || now - last >= 33)) {
           last = now; const { state: s, selected } = live.current; mill.visible = s.owned.includes('windmill'); millFoundation.visible = !mill.visible; cottage.visible = s.owned.includes('cottage'); lanterns.visible = s.owned.includes('lanterns');
-          if (!reduced.matches) { sails.rotation.z = now * .0002; boat.position.y = .24 + Math.sin(now * .001) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((now * .00023 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(now * .008 + i)) * .03; }); }
+          engine.scale.setScalar(1 + s.engine.level * .025);
+          if (!reduced.matches) { wheel.rotation.z = now * .0005; sails.rotation.z = now * .0002; boat.position.y = .24 + Math.sin(now * .001) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((now * .00023 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(now * .008 + i)) * .03; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
           renderer.render(scene, camera);

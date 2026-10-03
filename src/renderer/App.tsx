@@ -9,6 +9,7 @@ import { ChecklistPanel } from './ChecklistPanel';
 import { Icon as Mark } from './Icon';
 import './styles.css';
 const GameView = lazy(() => import('./GameView'));
+const ProjectWorkspace = lazy(() => import('./ProjectWorkspace'));
 function Modal({ title, children, close }: { title: string; children: ReactNode; close(): void }) {
   const element = useRef<HTMLDialogElement>(null);
   useEffect(() => { element.current?.showModal(); }, []);
@@ -32,6 +33,9 @@ export function App() {
   const [focusOwner, setFocusOwner] = useState<string | null>(null);
   const [readingOnly, setReadingOnly] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
+  const [explorerOpen, setExplorerOpen] = useState(false);
+  const projectFlush = useRef<(() => Promise<boolean>) | null>(null);
+  const area = useRef({ gameOpen, explorerOpen }); area.current = { gameOpen, explorerOpen };
   const note = useNote(setError);
   const latest = useRef({ note, active, desk }); latest.current = { note, active, desk };
   const sequence = useRef(0);
@@ -52,7 +56,7 @@ export function App() {
       const subject = r.value.subjects.find(s => s.id === r.value.activeSubjectId) ?? r.value.subjects[0];
       if (subject) void select(subject);
     });
-    return window.desktop.onBeforeClose(() => { void (async () => { if (await latest.current.note.stash()) { const r = await window.desktop.finishClose(); if (!r.ok) setError(r.message); } })(); });
+    return window.desktop.onBeforeClose(() => { void (async () => { if (await latest.current.note.stash() && (!projectFlush.current || await projectFlush.current())) { const r = await window.desktop.finishClose(); if (!r.ok) setError(r.message); } })(); });
   }, []);
   useEffect(() => {
     if (!active || !workspace.current || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -66,6 +70,7 @@ export function App() {
   }, [active?.id]);
   useEffect(() => {
     function key(event: KeyboardEvent) {
+      if (area.current.gameOpen || area.current.explorerOpen) return;
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') { event.preventDefault(); void latest.current.note.save(); }
       if (event.key === 'Escape') setReadingOnly(false);
       if (event.altKey && ['1', '2', '3'].includes(event.key)) { event.preventDefault(); setReadingOnly(false); void checkpoint({ tool: event.key === '1' ? 'focus' : event.key === '2' ? 'checklist' : 'both' }); }
@@ -142,15 +147,17 @@ export function App() {
         }
       }
     }
-    setGameOpen(true);
+    setExplorerOpen(false); setGameOpen(true);
   }
-  if (gameOpen) return <Suspense fallback={<div className="game-loading">Abrindo sua vila…</div>}><GameView onClose={() => setGameOpen(false)}/></Suspense>;
+  async function enterExplorer() { if (!await note.stash()) return; setGameOpen(false); setExplorerOpen(true); }
+  if (explorerOpen) return <Suspense fallback={<div className="game-loading">Abrindo projetos…</div>}><ProjectWorkspace onClose={() => setExplorerOpen(false)} onCity={() => void enterCity()} registerFlush={fn => { projectFlush.current = fn; }}/></Suspense>;
+  if (gameOpen) return <Suspense fallback={<div className="game-loading">Abrindo sua vila…</div>}><GameView onClose={() => setGameOpen(false)} onExplorer={() => void enterExplorer()}/></Suspense>;
   return <div className={`app-shell ${readingOnly ? 'reading-only' : ''}`}>
     <aside className="sidebar"><div className="brand"><span className="brand-mark"><Mark/></span><div>APP ESTUDOS<small>SEU ESPAÇO DE ESTUDO</small></div></div>
       <div className="section-label">SUAS MATÉRIAS <button onClick={() => newModal('subject')} aria-label="Nova matéria">+</button></div>
       <nav aria-label="Matérias" className="subject-list">{subjects.map((s, i) => <button key={s.id} aria-label={s.name} aria-current={active?.id === s.id ? 'page' : undefined} className={`subject ${active?.id === s.id ? 'active' : ''}`} data-color={s.color} onClick={() => select(s)}><span className="subject-dot"/><span>{s.name}</span><small>{String(i + 1).padStart(2, '0')}</small></button>)}{subjects.length === 0 && <p className="sidebar-hint">Crie uma matéria para começar.</p>}</nav>
       {active && <><div className="section-label"><span>SEU CADERNO <small>{notes.length}</small></span><button onClick={() => newModal('note')} disabled={!vault} aria-label="Nova nota">+</button></div><div className="search-wrap"><Mark kind="search"/><input className="search" aria-label="Buscar notas" placeholder="Encontrar uma nota…" value={search} onChange={e => setSearch(e.target.value)}/></div><nav aria-label="Notas" className="notes-list">{visibleNotes.map(n => <button className={note.doc?.ref.id === n.id ? 'active' : ''} key={n.id} aria-label={n.title} aria-current={note.doc?.ref.id === n.id ? 'page' : undefined} onClick={() => open(n.id)}><Mark kind="note"/><span>{n.title}</span><span className="note-indicator"/></button>)}{visibleNotes.length === 0 && <div className="notes-empty"><p>{search ? 'Nenhuma nota encontrada.' : 'Seu caderno começa com uma ideia.'}</p>{search && <button onClick={() => setSearch('')}>Limpar busca</button>}</div>}</nav><button className="text-button import" onClick={importNote} disabled={!vault}>+ Importar Markdown</button></>}
-      <button className="city-entry" aria-label="Entrar na cidade" onClick={() => void enterCity()}><span>⌂</span><span>Seu mundo<small>Cidade · farm · aventuras</small></span><span>↗</span></button><div className="sidebar-bottom"><button className="vault-button" onClick={chooseVault}><span className={`connection ${vault ? 'connected' : ''}`}/><span>{vault ? 'Pasta de notas vinculada' : 'Escolher pasta de notas'}<small>{vault ? 'Arquivos locais · Markdown' : 'Escolha seu vault'}</small></span><span>↗</span></button><div className="sidebar-caption">Seu material permanece no computador.</div></div>
+      <button className="city-entry explorer-entry" aria-label="Abrir Explorer" onClick={() => void enterExplorer()}><span>▤</span><span>Explorer<small>Projetos · arquivos · edição</small></span><span>↗</span></button><button className="city-entry" aria-label="Entrar na cidade" onClick={() => void enterCity()}><span>⌂</span><span>Seu mundo<small>Cidade · farm · aventuras</small></span><span>↗</span></button><div className="sidebar-bottom"><button className="vault-button" onClick={chooseVault}><span className={`connection ${vault ? 'connected' : ''}`}/><span>{vault ? 'Pasta de notas vinculada' : 'Escolher pasta de notas'}<small>{vault ? 'Arquivos locais · Markdown' : 'Escolha seu vault'}</small></span><span>↗</span></button><div className="sidebar-caption">Seu material permanece no computador.</div></div>
     </aside>
     <div className="main-column"><header className="workspace-header"><Ambient/><div className="header-top"><div className="eyebrow"><span className="connection connected"/> MESA DE ESTUDO <span className="breadcrumb-divider">/</span><span className="header-context">{active ? 'Seu espaço, retomado.' : 'Bem-vindo ao seu espaço.'}</span></div><span className="local-label"><span className="connection connected"/> LOCAL</span></div><div className="header-main"><div><div className="heading-row"><h1>{active?.name ?? 'Um lugar para continuar.'}</h1>{active && <button className="text-button rename" onClick={() => newModal('rename')} aria-label={`Renomear ${active.name}`} title="Renomear matéria">↗</button>}</div><p>{active ? <><span>{notes.length} {notes.length === 1 ? 'nota' : 'notas'}</span><span className="meta-dot">·</span><span>{materials.length} {materials.length === 1 ? 'material' : 'materiais'}</span><span className="header-description">Tudo no lugar. Continue de onde parou.</span></> : 'Organize o essencial. Dê espaço às suas ideias.'}</p></div>{active && <div className="workspace-view-controls"><button className={`reading-toggle ${desk?.tool === 'both' ? 'selected' : ''}`} onClick={() => { setReadingOnly(false); void checkpoint({ tool: desk?.tool === 'both' ? 'checklist' : 'both' }); }} aria-label="Grade de módulos" aria-pressed={desk?.tool === 'both'} title="Grade de módulos · Alt+3"><Mark kind="layout"/> Módulos</button><button className={`reading-toggle ${readingOnly ? 'selected' : ''}`} onClick={() => setReadingOnly(v => !v)} aria-pressed={readingOnly} aria-label={readingOnly ? 'Voltar à mesa' : 'Só caderno'} title={readingOnly ? 'Voltar à mesa · Esc' : 'Expandir caderno'}><Mark kind={readingOnly ? 'collapse' : 'expand'}/><span>{readingOnly ? 'Voltar à mesa' : 'Só caderno'}</span></button></div>}</div></header>
       {error && <div className="error-banner" role="alert"><span>{error}</span><button onClick={() => setError('')} aria-label="Fechar aviso">×</button></div>}

@@ -69,6 +69,7 @@ for (let pass = 0; pass < 2; pass++) {
     assert.ok(focus.ok && focus.value.session?.state === 'paused'); assert.equal(fs.readFileSync(file, 'utf8'), canonical);
     if (!pass) {
       assert.equal((await state(page)).coins, 60); assert.equal((await state(page)).xp, 0);
+      await page.getByRole('button', { name: 'Visitar fazenda', exact: true }).click();
       for (let i = 1; i <= 4; i++) { await page.getByRole('button', { name: `Plantar canteiro ${i}`, exact: true }).click(); await ready(page); }
       assert.equal((await state(page)).coins, 52); await shot(page, 'planted');
       const immature = await page.evaluate(operationId => window.desktop.gameAction({ operationId, action: { kind: 'harvest', plot: 1 } }), randomUUID()); assert.ok(!immature.ok && immature.code === 'NOT_READY');
@@ -140,5 +141,5 @@ assert.equal(db.db.prepare("SELECT count(*) AS n FROM game_ledger WHERE source L
 const total = db.db.prepare('SELECT sum(coins) AS coins,sum(xp) AS xp FROM game_ledger').get()!;
 const actual = db.db.prepare('SELECT coins,xp FROM game_player WHERE id=1').get()!; assert.deepEqual(total, actual); db.close();
 reports.push('Ledger concilia carteira/XP e existe uma única recompensa por rodada concluída. Sem erros de renderer.');
-fs.writeFileSync(`.local/evidence/game-${stage}-results.json`, JSON.stringify({ fixture: f.dir, date: '2026-10-02', packaged, reports, final: final!, rounds: roundIds }, null, 2));
+fs.writeFileSync(`.local/evidence/game-${stage}-results.json`, JSON.stringify({ fixture: f.dir, date: new Date().toISOString(), packaged, reports, final: final!, rounds: roundIds }, null, 2));
 console.log(JSON.stringify({ fixture: f.dir, packaged, reports }, null, 2));

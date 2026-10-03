@@ -147,3 +147,42 @@
   .memory-card.revealed > span { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .game-shell * { transition: none !important; animation: none !important; } }
+.engine-readout { margin:25px 0 18px; border-left:2px solid #b99c65; padding-left:14px; }
+.engine-readout > span { font-size:8px; letter-spacing:1.3px; color:#8f9b81; }
+.engine-readout strong { display:block; color:#dfc487; font:36px Georgia,serif; margin-top:12px; }
+.engine-readout small { font:11px 'Segoe UI',sans-serif; color:#a5ad95; }
+.engine-pulse { width:100%; border:1px solid #9e895044; background:linear-gradient(135deg,#303c29,#1e291f); padding:23px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; color:#e2c791; }
+.engine-pulse:hover { background:#35422a; }
+.engine-pulse:active .engine-wheel { transform:rotate(35deg); }
+.engine-wheel { font-size:54px; line-height:1; transition:transform .15s; }
+.engine-pulse b { font-size:13px; font-weight:400; letter-spacing:1px; }
+.engine-pulse small { font-size:9px; color:#94a18b; }
+.engine-upgrade { width:100%; margin-top:13px; font-size:11px; }
+.engine-guide { font-size:10px; color:#a4ae97; line-height:2.4; margin:16px 0 15px; padding-left:19px; }
+.arcade-stage { position:absolute; inset:0; overflow:auto; padding:40px; color:#d6d9c7; background:radial-gradient(at 70% 0%,#2b3626,#161e19 70%); }
+.arcade-stage h1 { font:38px Georgia,serif; margin:16px 0 14px; }
+.arcade-stage > p { font-size:12px; color:#9caa90; }
+.arcade-choices { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:28px 0 18px; }
+.arcade-choices button { text-align:left; border:1px solid #a8a47a33; padding:23px; background:#ffffff03; }
+.arcade-choices button:hover { background:#ffffff08; }
+.arcade-choices span { font-size:8px; letter-spacing:2px; color:#b8a875; }
+.arcade-choices h2 { font:20px Georgia,serif; margin:15px 0 13px; color:#dfd4b6; }
+.arcade-choices p { font-size:11px; color:#9aa88d; line-height:1.7; }
+.arcade-choices b { display:block; margin-top:20px; font-size:10px; color:#c4b387; font-weight:400; }
+.arcade-pace { display:flex; gap:15px; align-items:center; font-size:10px; color:#a8b096; }
+.arcade-pace select { padding:8px; color:#c3c6ae; background:#1c241b; }
+.challenge-panel { border-top:1px solid #8b936d33; margin-top:22px; padding-top:21px; text-align:center; }
+.challenge-progress { display:flex; justify-content:space-between; color:#9caa88; font-size:9px; letter-spacing:2px; }
+.challenge-panel h2 { font:24px Georgia,serif; margin:20px 0; color:#dccb9c; }
+.challenge-panel p { font-size:11px; color:#a2ae91; margin:16px 0; }
+.qte-key { font:62px Consolas,monospace; color:#e6cd92; margin:18px 0; }
+.qte-time { height:3px; background:#35422c; max-width:300px; margin:0 auto; }
+.qte-time > div { height:100%; background:#c9aa6d; }
+.qte-buttons { display:flex; gap:12px; justify-content:center; }
+.qte-buttons button { border:1px solid #8c9b6544; padding:13px 23px; font:16px Consolas,monospace; color:#dcd1a6; }
+.challenge-cancel { display:block; margin:20px auto 0; font-size:10px; color:#95a086; }
+.skill-track { position:relative; height:36px; background:#0e1712; border:1px solid #7d895244; margin:30px 10px; }
+.skill-zone { position:absolute; height:100%; background:#b79a5655; border-left:1px solid #d6b574; border-right:1px solid #d6b574; }
+.skill-marker { position:absolute; height:48px; top:-7px; width:3px; background:#ece9d0; transform:translateX(-50%); }
+@media(max-width:1100px) { .arcade-stage { padding:25px; } .arcade-choices button { padding:14px; } .arcade-choices h2 { font-size:17px; } .game-nav > button { padding:12px 4px; margin-bottom:4px; } }
+@media(prefers-reduced-motion:reduce) { .engine-wheel { transition:none; } }
