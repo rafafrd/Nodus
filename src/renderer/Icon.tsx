@@ -1,6 +1,7 @@
-export type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip';
+export type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip' | 'settings';
 export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
   const paths = {
+    settings: <><path d="m9 3-1 3-3 1-2 4 2 2v4l4 2 3-1 3 1 4-2v-4l2-2-2-4-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></>,
     video: <><rect x="3" y="5" width="18" height="14"/><path d="m10 9 5 3-5 3z"/></>,
     play: <path d="m7 3 14 9-14 9z"/>,
     cinema: <><rect x="2" y="4" width="20" height="14"/><path d="M8 22h8M12 18v4M2 8h20"/></>,

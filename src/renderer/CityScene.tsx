@@ -1,3 +1,4 @@
+import { motionPreference } from './preferences';
 import { useEffect, useRef, useState } from 'react';
 import type { GameState } from '../shared/game';
 import { gsap } from 'gsap';
@@ -140,7 +141,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const pointerUp = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) < 6) { const place = hit(e); if (place) live.current.onSelect(place); } };
       const pointerMove = (e: PointerEvent) => { renderer.domElement.style.cursor = hit(e) ? 'pointer' : 'grab'; };
       renderer.domElement.addEventListener('pointerdown', pointerDown); renderer.domElement.addEventListener('pointerup', pointerUp); renderer.domElement.addEventListener('pointermove', pointerMove);
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)'); let frame = 0, last = 0, ready = false, animationTime = 0, lastAnimation = 0;
+      const reduced = motionPreference(); let frame = 0, last = 0, ready = false, animationTime = 0, lastAnimation = 0;
       const cameraPose = { x: 0, z: 0, zoom: 1 };
       const applyCamera = () => { orbit.target.set(cameraPose.x, .3, cameraPose.z); camera.position.set(28 + cameraPose.x, 28, 34 + cameraPose.z); camera.zoom = cameraPose.zoom; camera.updateProjectionMatrix(); orbit.update(); restart(); };
       function moveCamera(x: number, z: number, zoom: number) {

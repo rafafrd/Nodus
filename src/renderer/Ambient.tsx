@@ -1,3 +1,4 @@
+import { motionPreference } from './preferences';
 import { useEffect, useRef } from 'react';
 
 export function Ambient() {
@@ -28,7 +29,7 @@ export function Ambient() {
       starsGeometry.setAttribute('position', new T.BufferAttribute(vertices, 3));
       const starsMaterial = new T.PointsMaterial({ color: '#b6c3ab', size: .024, transparent: true, opacity: .5 });
       scene.add(new T.Points(starsGeometry, starsMaterial)); geometries.push(starsGeometry); materials.push(starsMaterial);
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const reduced = motionPreference();
       let frame = 0, last = 0, target = 0;
       function draw(now: number) {
         frame = 0;

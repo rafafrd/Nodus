@@ -1,6 +1,6 @@
-.project-shell { height:100vh; display:grid; grid-template-columns:68px 248px minmax(0,1fr); background:#141917; color:#d5d9d0; font-family:'Segoe UI',sans-serif; }
+.project-shell { height:100vh; display:grid; grid-template-columns:68px 248px minmax(0,1fr); background:var(--theme-editor); color:#d5d9d0; font-family:'Segoe UI',sans-serif; }
 .project-shell button { border-radius:0; }
-.project-activity { background:#101512; border-right:1px solid #30382f; display:flex; flex-direction:column; padding-top:12px; }
+.project-activity { background:var(--theme-rail); border-right:1px solid #30382f; display:flex; flex-direction:column; padding-top:12px; }
 .project-activity button { padding:18px 4px; color:#8d9c8e; font-size:23px; border-left:2px solid transparent; }
 .project-activity button.selected { border-color:#d5c393; color:#d5c393; background:#ffffff05; }
 .project-activity small { display:block; font-size:9px; margin-top:8px; }
