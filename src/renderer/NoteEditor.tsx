@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { formatSelection, type EditKind } from '../shared/markdown';
 import { Icon } from './Icon';
+import { useSurfaceMotion } from './motion';
 const theme = EditorView.theme({
   '&': { color: '#dcded6', backgroundColor: 'transparent', height: '100%' },
   '.cm-content': { fontFamily: 'Consolas, monospace', fontSize: '14px', lineHeight: '1.9', padding: '25px 0' },
@@ -15,7 +16,8 @@ const theme = EditorView.theme({
   '&.cm-focused': { outline: 'none' }, '.cm-activeLine': { backgroundColor: '#ffffff04' },
 }, { dark: true });
 export function NoteEditor({ text, onChange, preview = true, title }: { text: string; onChange(text: string): void; preview?: boolean; title?: string }) {
-  const host = useRef<HTMLDivElement>(null);
+  const host = useRef<HTMLDivElement>(null), columns = useRef<HTMLDivElement>(null);
+  useSurfaceMotion(columns, String(preview));
   const view = useRef<EditorView | null>(null);
   const callback = useRef(onChange); callback.current = onChange;
   useEffect(() => {
@@ -39,5 +41,5 @@ export function NoteEditor({ text, onChange, preview = true, title }: { text: st
   const previewText = leadingTitle?.[1].trim() === title ? body.replace(/^#[^\r\n]+(?:\r?\n|$)/, '') : body;
   return <div className="note-editor"><div className="format-toolbar" role="toolbar" aria-label="Formatação da nota">
     {([['bold', 'Negrito'], ['italic', 'Itálico'], ['heading', 'Título'], ['bullet', 'Lista'], ['check', 'Checklist'], ['link', 'Link'], ['code', 'Código'], ['table', 'Tabela']] as [EditKind, string][]).map(([kind, label]) => <button key={kind} type="button" aria-label={label} title={label} onClick={() => format(kind)}><Icon kind={kind}/></button>)}
-  </div><div className={`editor-columns ${preview ? '' : 'source-only'}`}><div ref={host} className="editor-source"/>{preview && <article className="markdown-preview" aria-label="Prévia da nota"><ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml components={{ a: ({ children }) => <span className="note-link">{children}</span>, img: ({ alt }) => <span>[Imagem: {alt}]</span> }}>{previewText}</ReactMarkdown></article>}</div></div>;
+  </div><div ref={columns} className={`editor-columns ${preview ? '' : 'source-only'}`}><div ref={host} className="editor-source"/>{preview && <article className="markdown-preview" aria-label="Prévia da nota"><ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml components={{ a: ({ children }) => <span className="note-link">{children}</span>, img: ({ alt }) => <span>[Imagem: {alt}]</span> }}>{previewText}</ReactMarkdown></article>}</div></div>;
 }
