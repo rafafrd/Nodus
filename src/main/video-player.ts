@@ -20,7 +20,7 @@ export class VideoPlayer {
   open(video: StudyVideo): VideoPlayerState {
     if (this.current?.id === video.id && this.view && this.state.state !== 'error') return this.state;
     const url = youtubeEmbedUrl(video);
-    this.close();
+    this.dispose();
     const view = new WebContentsView({ webPreferences: { session: this.isolated, contextIsolation: true, sandbox: true, nodeIntegration: false, nodeIntegrationInSubFrames: false, nodeIntegrationInWorker: false, webSecurity: true, webviewTag: false, navigateOnDragDrop: false, disableDialogs: true } });
     this.view = view; this.current = video;
     view.setBackgroundColor('#070b09'); view.setVisible(false); this.window.contentView.addChildView(view);
@@ -48,9 +48,12 @@ export class VideoPlayer {
     view.setBounds(bounds); view.setVisible(input.visible && bounds.width >= 200 && bounds.height >= 200); return null;
   }
   remove(id: string) { if (this.current?.id === id) this.close(); }
-  close() {
+  private dispose() {
     const view = this.view; this.view = null; this.current = null;
     if (view) { if (!this.window.isDestroyed()) this.window.contentView.removeChildView(view); if (!view.webContents.isDestroyed()) view.webContents.close({ waitForBeforeUnload: false }); }
+  }
+  close() {
+    this.dispose();
     this.publish({ id: null, state: 'closed', message: '' }); return null;
   }
 }

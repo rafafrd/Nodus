@@ -11,6 +11,13 @@ let app = await launch(), page = await app.firstWindow();
 const errors: string[] = [], reports: string[] = []; page.on('pageerror', e => errors.push(e.message));
 async function guest() { return app.evaluate(({webContents}) => { const wc = webContents.getAllWebContents().find(w => w.getURL().startsWith('https://www.youtube-nocookie.com/embed/')); return wc ? { id: wc.id, url: wc.getURL(), prefs: wc.getLastWebPreferences() } : null; }); }
 async function remote(script: string) { return app.evaluate(async ({webContents}, code) => { const wc = webContents.getAllWebContents().find(w => w.getURL().startsWith('https://www.youtube-nocookie.com/embed/')); if (!wc) throw Error('Player ausente'); return wc.executeJavaScript(code); }, script); }
+async function remoteReady() {
+  for (let i=0;i<100;i++) {
+    try { if (await guest() && await remote('!!document.querySelector("video")')) return; } catch { /* Guest may still be loading. */ }
+    await page.waitForTimeout(300);
+  }
+  throw Error('Player remoto não ficou pronto em 30 segundos.');
+}
 async function shot(name: string) {
   // Window capture includes the native child view; renderer capture alone does not.
   const base64 = await app.evaluate(async ({desktopCapturer, BrowserWindow}) => {
@@ -64,6 +71,11 @@ try {
   await mover.focus();await mover.press('ArrowRight');await idle(); assert.ok((await page.locator('.video-surface').boundingBox())!.x>after.x);
   await page.getByRole('button',{name:'Abrir Explorer',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-area=explorer]')?.getAttribute('aria-hidden')==='false' && document.querySelector('[data-testid=area-stage]')?.getAttribute('data-motion')==='idle');
   assert.equal((await guest())!.id,guestId); const continued=await remote('({time:document.querySelector("video")?.currentTime,paused:document.querySelector("video")?.paused})'); assert.ok(continued.time>t0 && !continued.paused); await shot('pip-explorer');
+  await page.getByRole('button',{name:'Abrir configurações',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-area=settings]')?.getAttribute('aria-hidden')==='false' && document.querySelector('[data-testid=area-stage]')?.getAttribute('data-motion')==='idle');
+  const moveTitle=page.getByRole('button',{name:'Mover vídeo flutuante',exact:true});await moveTitle.focus();await page.keyboard.press('Home');for(let i=0;i<22;i++)await page.keyboard.press('Shift+ArrowLeft');await idle();
+  await page.getByRole('button',{name:'Aparência',exact:true}).click();await page.getByRole('switch',{name:'Animações da interface',exact:true}).click();await page.waitForFunction(()=>document.documentElement.dataset.animations==='off');assert.equal((await guest())!.id,guestId);assert.equal(await remote('document.querySelector("video").paused'),false);await shot('pip-settings');
+  await page.getByRole('button',{name:'Modo cinema',exact:true}).click();await idle();assert.equal((await guest())!.id,guestId);await page.keyboard.press('Escape');await page.locator('.video-surface[data-mode=pip]').waitFor();await idle();await page.getByRole('switch',{name:'Animações da interface',exact:true}).click();await page.waitForFunction(()=>document.documentElement.dataset.animations==='on');
+  reports.push('CFG-01: PiP segue nas Configurações com mesmo guest/reprodução; desligar animações e cinema/retorno conservam player.');
   await page.emulateMedia({reducedMotion:'reduce'});await page.getByRole('button',{name:'Modo cinema',exact:true}).click(); await idle(); assert.equal((await guest())!.id,guestId);await page.keyboard.press('Escape');await page.locator('.video-surface[data-mode=pip]').waitFor();await idle();
   await page.setViewportSize({width:1040,height:760});await idle(); const compact=await page.locator('.video-surface').boundingBox(); assert.ok(compact && compact.x>=0 && compact.y>=0 && compact.x+compact.width<=1040 && compact.y+compact.height<=760);await shot('compact-pip');
   await page.setViewportSize({width:1424,height:900});await idle();
@@ -84,10 +96,12 @@ try {
   await app.close(); app=await launch();page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));await page.getByRole('heading',{name:'Nota A',exact:true}).waitFor();await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor();assert.equal(await guest(),null);
   assert.equal((await page.evaluate(subjectId=>window.desktop.listVideos({subjectId}),fixture.a.id) as any).value[0].id,video.id);
   // Crash only the isolated remote renderer in this fixture; the app renderer stays alive.
-  await page.getByRole('button',{name:'Abrir player',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('.video-loading'),undefined,{timeout:30000});
+  await page.evaluate(()=>{(window as unknown as { playerProbe: string[] }).playerProbe=[];window.desktop.onVideoPlayer(value=>(window as unknown as { playerProbe: string[] }).playerProbe.push(value.state));});
+  await page.getByRole('button',{name:'Abrir player',exact:true}).click();await remoteReady();await page.locator('.video-surface').waitFor();await page.locator('.video-loading').waitFor({state:'hidden'});
+  assert.ok(!(await page.evaluate(()=>(window as unknown as {playerProbe:string[]}).playerProbe)).includes('closed'), 'abrir não publica fechamento transitório');
   await app.evaluate(({webContents})=>webContents.getAllWebContents().find(w=>w.getURL().startsWith('https://www.youtube-nocookie.com/embed/'))!.forcefullyCrashRenderer());
   await page.getByRole('button',{name:'Tentar novamente',exact:true}).waitFor();assert.ok((await page.locator('.video-loading').textContent())?.includes('interrompido'));
-  await page.getByRole('button',{name:'Tentar novamente',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('.video-loading'),undefined,{timeout:30000});assert.ok(await remote('!!document.querySelector("video")'));
+  await page.getByRole('button',{name:'Tentar novamente',exact:true}).click();await remoteReady();assert.ok(await remote('!!document.querySelector("video")'));
   await page.getByRole('button',{name:'Fechar player',exact:true}).click();await page.locator('.video-surface').waitFor({state:'hidden'});
   await page.getByRole('button',{name:'Matéria B',exact:true}).click();await page.getByRole('heading',{name:'Nota B',exact:true}).waitFor();await page.getByRole('button',{name:'Vídeos',exact:true}).click();assert.equal(await page.getByRole('navigation',{name:'Vídeos salvos',exact:true}).locator('button').count(),0);
   await page.getByRole('button',{name:'Matéria A',exact:true}).click();await page.getByRole('button',{name:`Remover link ${video.title}`,exact:true}).click();await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor({state:'hidden'});
