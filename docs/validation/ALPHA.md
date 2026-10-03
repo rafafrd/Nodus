@@ -289,4 +289,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C3 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):3/13 páginas A4 reais/renderizadas, preto nas margens, capa/sumário/paginação inspecionados |
 | C4 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): Downloads sem sobrescrita, limites/EXPORT_BUSY/vazio e audit/rollback real SQLite+FS |
 | C5 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): UI/IPC/print/FS reais, isolamento de5 superfícies e Settings/R1–R7 aprovados |
-| C6 | não verificado | [PDF_EXPORT](PDF_EXPORT.md):28 testes/typecheck/pacote/jornadas/scans core/UI aprovados; docs/audit final/scan/push/fechamento pendentes |
+| C6 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):28 testes/typecheck/pacote/jornadas/renderização, [AppSec](../security/PDF_EXPORT_AUDIT.md), docs/memória/inventário/bootstrap e Gitleaks staged aprovados; fef5821/38651b4/32eb884 enviados ao origin/codex/pdf-export |

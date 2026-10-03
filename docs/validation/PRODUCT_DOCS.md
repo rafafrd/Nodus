@@ -133,8 +133,10 @@ README/guia/PRD/quadro/retomada/arquitetura/dados/SDD/design/Git/CLAUDE/memória
 | Arquivo | Papel |
 | --- | --- |
 | [ADR-0010](../adr/0010-exportacao-pdf.md) | decisão da exportação/isolamento/saída |
-| [EXP-01](../tasks/doing/EXP-01.md) | ticket/quadro e retomada |
+| [EXP-01](../tasks/done/EXP-01.md) | ticket/quadro e retomada |
 | [PDF_EXPORT](PDF_EXPORT.md) | critérios/provas Windows/PDF/limites |
 | [PDF_EXPORT_AUDIT](../security/PDF_EXPORT_AUDIT.md) | auditoria independente/freeze/probes/verdict |
 
 Checkpoint com C6 ainda pendente de commit/push: inventário leu83 arquivos de docs; check-bootstrap18 tickets/115 critérios/93Markdown/328links locais aprovado. Contagens são documentais, sem aprovação externa de alpha.
+
+Verificação final EXP-01 após movimentar o ticket: inventário83 arquivos de docs; check-bootstrap18tickets/115critérios/93Markdown/331links locais aprovado. C1–C6 concluídos no recorte da exportação; alpha externa continua parcial.

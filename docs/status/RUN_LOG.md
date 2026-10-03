@@ -204,3 +204,9 @@ Typecheck28 testes/package:win passaram; PDF native final23:36:13.972Z, Settings
 ### 03/10/2026 — EXP-01: auditoria final
 
 PDF_EXPORT_AUDIT independente: APPROVE WITH MITIGATIONS para inicialb225d619… e final04b47c95…/14arquivos comparados0diferenças, sem vulnerabilidade nova confirmada aberta. Low/CWE-778 corrigido/probes próprios4testes/34checks/FS/SQLite/root e segredos aprovados; tooling High existente permanece. Windows/PDF são provas do implementador. Handoff em memória/O-012, guias/ADR/contratos/produto/documentos/quadro atualizados; /output/pdf/ ignore protege cópia de demonstração de mesmohash, sem mudança de produto pós-freeze. Restam scan/commit documental/push e C6/quadro.
+
+### 03/10/2026 — EXP-01: concluído
+
+Core fef5821/UI38651b4/docs-audit32eb884 enviados ao origin/codex/pdf-export, push exit0/upstream configurado. Stage documental24arquivos/46,52KB Gitleaks sem achados e diff cached --check aprovado, incluindo guia/memória/audit; bootstrap18tickets/115critérios/93Markdown/328links e inventário83docs passaram no checkpoint. C1–C6 aprovados; ticket movido para done/concluido, links/quadro/retomada atualizados. Fechamento do quadro é checkpoint documental separado, com nova reconferência. Fonte/harness/pacote permanecem os exercitados e identificados em PDF_EXPORT/PDF_EXPORT_AUDIT. Dados/capturas/PDF demonstrativo/pacote locais ignorados; nenhum serviço/release publicado. Próxima ação humana: exportar sua pasta de notas conforme o guia; alpha externa permanece parcial.
+
+Verificação final EXP-01 após mover ticket/links: inventário83docs; bootstrap18tickets/115critérios/93Markdown/331links locais aprovado. Contagens documentais não aprovam provas externas. Diff de fechamento conferido e fonte/harness preservados.
