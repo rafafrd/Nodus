@@ -1,6 +1,12 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  getPreferences: () => ipcRenderer.invoke('preferences:get'),
+  updatePreferences: input => ipcRenderer.invoke('preferences:update', input),
+  setProfilePhoto: input => ipcRenderer.invoke('profile:photo', input),
+  removeProfilePhoto: () => ipcRenderer.invoke('profile:photo-remove'),
+  getAppManagement: () => ipcRenderer.invoke('app:management'),
+  openAppFolder: input => ipcRenderer.invoke('app:folder', input),
   listVideos: input => ipcRenderer.invoke('video:list', input),
   addVideo: input => ipcRenderer.invoke('video:add', input),
   removeVideo: input => ipcRenderer.invoke('video:remove', input),

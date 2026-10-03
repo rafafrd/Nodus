@@ -12,6 +12,11 @@ import { Game } from './game';
 import { gameInput } from '../shared/game';
 import { Projects } from './projects';
 import { projectTreeInput, projectFileInput, projectWriteInput, projectViewInput } from '../shared/projects';
+import { UserPreferences } from './preferences';
+import { photoDimensions } from './photo-input';
+import { AppManagementService } from './app-management';
+import { preferenceInput, photoInput, folderInput } from '../shared/preferences';
+import { nativeImage, shell } from 'electron';
 import { Videos } from './videos';
 import { VideoPlayer } from './video-player';
 import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos';
@@ -24,6 +29,8 @@ let focus: Focus;
 let checklist: Checklist;
 let game: Game;
 let projects: Projects;
+let preferences: UserPreferences;
+let management: AppManagementService;
 let videos: Videos;
 let player: VideoPlayer;
 let focusTimer: ReturnType<typeof setInterval>;
@@ -44,6 +51,21 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('preferences:get', z.undefined(), () => preferences.get());
+  handle('preferences:update', preferenceInput, input => preferences.update(input));
+  handle('profile:photo', photoInput, input => {
+    photoDimensions(input.bytes);
+    const image = nativeImage.createFromBuffer(Buffer.from(input.bytes));
+    const size = image.getSize();
+    if (image.isEmpty() || !size.width || !size.height || size.width > 4096 || size.height > 4096 || size.width * size.height > 4_000_000) throw new AppError('INVALID_PHOTO', 'Esta foto não pôde ser aberta. Escolha PNG ou JPEG válido.');
+    const side = Math.min(size.width, size.height);
+    const png = image.crop({ x: Math.floor((size.width - side) / 2), y: Math.floor((size.height - side) / 2), width: side, height: side }).resize({ width: 256, height: 256, quality: 'good' }).toPNG();
+    if (!png.length || png.length > 380 * 1024) throw new AppError('INVALID_PHOTO', 'Esta foto não pôde ser preparada. Tente outra imagem.');
+    return preferences.setPhoto(`data:image/png;base64,${png.toString('base64')}`);
+  });
+  handle('profile:photo-remove', z.undefined(), () => preferences.setPhoto(null));
+  handle('app:management', z.undefined(), () => management.get());
+  handle('app:folder', folderInput, async input => { const error = await shell.openPath(management.folder(input)); if (error) throw new AppError('FOLDER_UNAVAILABLE', 'Não foi possível abrir esta pasta. Confira o disco e tente novamente.'); return null; });
   handle('video:list', subjectIdInput, input => videos.list(input.subjectId));
   handle('video:add', videoAddInput, input => videos.add(input));
   handle('video:remove', videoRefInput, input => { const video = videos.get(input); videos.remove(input); player.remove(video.id); return null; });
@@ -116,6 +138,7 @@ app.whenReady().then(() => {
   checklist = new Checklist(store);
   game = new Game(store);
   projects = new Projects(store);
+  preferences = new UserPreferences(store); management = new AppManagementService(store);
   videos = new Videos(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));

@@ -1,0 +1,11 @@
+import { z } from 'zod';
+export const themeInput = z.enum(['olive', 'graphite', 'midnight']);
+const nameInput = z.string().trim().max(80).regex(/^[^\u0000-\u001f\u007f]*$/);
+export const preferenceInput = z.strictObject({ name: nameInput.optional(), theme: themeInput.optional(), animations: z.boolean().optional() }).refine(value => Object.keys(value).length > 0 && Object.values(value).every(item => item !== undefined));
+export const preferencesSchema = z.strictObject({ name: nameInput, theme: themeInput, animations: z.boolean(), photo: z.string().max(512 * 1024).regex(/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/).nullable() });
+export type Preferences = z.infer<typeof preferencesSchema>;
+export const defaultPreferences: Preferences = { name: '', theme: 'olive', animations: true, photo: null };
+export const PHOTO_LIMIT = 5 * 1024 * 1024;
+export const photoInput = z.strictObject({ bytes: z.custom<Uint8Array>(value => value instanceof Uint8Array && value.byteLength > 0 && value.byteLength <= PHOTO_LIMIT) });
+export const folderInput = z.strictObject({ folder: z.enum(['data', 'vault']) });
+export type AppManagement = { dataDirectory: string; vault: string | null; counts: { subjects: number; notes: number; materials: number; videos: number; projects: number; drafts: number }; databaseBytes: number };
