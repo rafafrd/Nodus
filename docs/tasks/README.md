@@ -44,6 +44,8 @@ Incremento anterior: [UI-02 — refinamento e transições suaves](done/UI-02.md
 
 Último incremento: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), concluído na branch codex/youtube-cinema. C1–C7 aprovados com player oficial/rede real, pacote/jornadas Windows e auditoria; commits por fase/push e guia registrados.
 
+Incremento ativo: [CFG-01 — configurações, aparência e perfil](doing/CFG-01.md), branch codex/settings-profile.
+
 ## Conteúdo de um ticket
 
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.

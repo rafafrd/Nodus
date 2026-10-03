@@ -264,3 +264,16 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C5 | aprovado | [YOUTUBE](YOUTUBE.md): PiP mouse/teclado, Explorer/compacto/owner-return e close conservando link |
 | C6 | aprovado | [YOUTUBE](YOUTUBE.md): reprodução/reduced-motion/clipping/diálogo, gates QTE e crash real do guest/retry sem derrubar mesa |
 | C7 | aprovado | [YOUTUBE](YOUTUBE.md): typecheck/21 testes/pacote/jornadas/regressões passaram; [AppSec](../security/YOUTUBE_AUDIT.md)/guia/documentos/memória e Gitleaks staged aprovados; d19c316/228c15f/ad77aae enviados ao origin/codex/youtube-cinema |
+
+## CFG-01 — configurações, aparência e perfil
+
+03/10/2026, branch codex/settings-profile; pacote/provas nativas próprias em [SETTINGS](SETTINGS.md).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [SETTINGS](SETTINGS.md): quarta área, navegação/restart conservam nota/projeto/canvas, PiP e gates nas regressões |
+| C2 | aprovado | [SETTINGS](SETTINGS.md):3 temas persistentes/cores computadas e CodeMirror, sem remount |
+| C3 | aprovado | [SETTINGS](SETTINGS.md): off CSS/GSAP/Three dinâmico, on restaura, OS reduzido prevalece, reprodução conserva |
+| C4 | aprovado | [SETTINGS](SETTINGS.md): nome/PNG/JPEG256, rejeição conserva foto, remoção/restart/rollback/strict |
+| C5 | aprovado | [SETTINGS](SETTINGS.md): dados/paths/runtime reais, enum/ausência/erro e6IPCsender negados, shell aceita pasta fictícia |
+| C6 | não verificado | [SETTINGS](SETTINGS.md):24 testes/typecheck/package/native e regressões passados; audit/commit/push em fechamento |

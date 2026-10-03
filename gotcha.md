@@ -165,3 +165,7 @@ Use linhas longas para os parágrafos Markdown, deixando o editor fazer a quebra
 O fluxo atual permite avançar entre tickets quando autorizado no pedido de início. Instruções de encerramento presentes nos snapshots históricos em docs/planning não devem reintroduzir uma parada entre tickets. O ticket canônico em docs/tasks, AGENTS.md e o pedido atual orientam a execução. Avançar não transforma uma prova pendente em aprovação.
 
 O script de bootstrap é para a preparação inicial. Rodá-lo novamente depois de implementar com -Force pode repor arquivos documentais iniciais; o backup preserva os arquivos substituídos, mas não torna esse reset adequado. Para continuar o projeto, use docs/status/ALPHA_STATE.md.
+
+## O-011 — Player remoto aberto sem superfície após reinício (CFG-01, 03/10/2026)
+
+Observado no pacote Windows: VideoPlayer.open chamava close e publicava closed antes de loading/ready; a entrega IPC concorrente podia limpar video no renderer depois da resposta de abertura. Guest existia/carregava, mas surface e botão de retry ausentes. Probe real em .local/evidence/settings-player-probe.log registrou eventos/DOM e crash controlado. Correção: dispose privado remove recursos sem publicar; close explícito continua notificando. Harness de regressão espera guest+DOM e superfície, verifica ausência de closed transitório ao abrir e crash/retry após restart. Aprovação da correção depende da nova build/jornada final registrada em SETTINGS, não do hash anterior.

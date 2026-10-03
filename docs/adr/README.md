@@ -12,5 +12,6 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0006](0006-execucao-por-ticket.md) | Um ticket por sessão e conclusão por evidência | Aceita para o bootstrap |
 | [0007](0007-explorer-local.md) | Explorer/editor de fonte local, arquivos canônicos e recuperação | Aceita para GAM-02 |
 | [0008](0008-video-isolado.md) | Links YouTube locais e player remoto isolado, cinema/PiP interno | Aceita para MED-01 |
+| [0009](0009-preferencias-locais.md) | Preferências/perfil locais, foto normalizada e controle comum de movimento | Aceita para CFG-01 |
 
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.

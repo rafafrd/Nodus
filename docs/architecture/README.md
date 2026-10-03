@@ -1,6 +1,6 @@
 # Arquitetura ativa
 
-Estado em 03/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. GAM-02 acrescenta motor/desafios e Explorer/editor local de arquivos. MED-01 acrescenta links YouTube por matéria e um player remoto isolado com cinema/PiP. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
+Estado em 03/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. GAM-02 acrescenta motor/desafios e Explorer/editor local de arquivos. MED-01 acrescenta links YouTube por matéria e um player remoto isolado com cinema/PiP. CFG-01 acrescenta perfil/preferências locais e gestão pela área Configurações. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
 
 ## Estrutura proposta
 
@@ -25,6 +25,7 @@ flowchart TB
 | PDF | Leitura local com arquivo/página no checkpoint | ALP-06 |
 | Jogo | Cidade/farm/loja/memória/build; economia autoritativa no main | GAM-01 |
 | Explorer | Pastas reais, árvore, abas, fonte UTF-8, save/conflito/recuperação; sem execução | GAM-02 |
+| Configurações | SQLite settings/contratos específicos, foto raster preparada no main, paletas CSS/observador comum de movimento | CFG-01 |
 | Vídeos | Links locais por matéria; WebContentsView remoto isolado, cinema/PiP interno | MED-01 |
 | Supabase + web | Snapshot de nota, Auth e acesso por proprietário | ALP-09 |
 
