@@ -40,9 +40,9 @@ ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser 
 
 Incremento anterior: [GAM-02 — motor, desafios e Explorer](done/GAM-02.md), concluído na branch feat/engine-explorer. Navegação/edição local, provas Windows, revisão documental e auditoria registradas; commits por fase enviados ao origin.
 
-Último incremento: [UI-02 — refinamento e transições suaves](done/UI-02.md), concluído na branch codex/smooth-ui. Oito sugestões aplicadas, transições normais/reduzidas e dados/contexto preservados; [provas Windows](../validation/SMOOTH_UI.md), audit, commits/push e guia registrados.
+Incremento anterior: [UI-02 — refinamento e transições suaves](done/UI-02.md), concluído na branch codex/smooth-ui. Oito sugestões aplicadas, transições normais/reduzidas e dados/contexto preservados; [provas Windows](../validation/SMOOTH_UI.md), audit, commits/push e guia registrados.
 
-Incremento ativo: [MED-01 — YouTube, cinema e PiP](doing/MED-01.md), branch codex/youtube-cinema. C1–C6 aprovados com player oficial/rede real e pacote Windows; C7 aguarda fechamento documental/audit/push.
+Último incremento: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), concluído na branch codex/youtube-cinema. C1–C7 aprovados com player oficial/rede real, pacote/jornadas Windows e auditoria; commits por fase/push e guia registrados.
 
 ## Conteúdo de um ticket
 

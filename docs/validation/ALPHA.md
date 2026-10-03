@@ -263,4 +263,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C4 | aprovado | [YOUTUBE](YOUTUBE.md): cinema/retarget/Escape recebido pelo guest e mesmo WebContents conservado |
 | C5 | aprovado | [YOUTUBE](YOUTUBE.md): PiP mouse/teclado, Explorer/compacto/owner-return e close conservando link |
 | C6 | aprovado | [YOUTUBE](YOUTUBE.md): reprodução/reduced-motion/clipping/diálogo, gates QTE e crash real do guest/retry sem derrubar mesa |
-| C7 | não verificado | [YOUTUBE](YOUTUBE.md): typecheck/21 testes/pacote/jornadas/regressões passaram; audit final/documentos/memória conferidos; scan staged documental/commit/push em fechamento |
+| C7 | aprovado | [YOUTUBE](YOUTUBE.md): typecheck/21 testes/pacote/jornadas/regressões passaram; [AppSec](../security/YOUTUBE_AUDIT.md)/guia/documentos/memória e Gitleaks staged aprovados; d19c316/228c15f/ad77aae enviados ao origin/codex/youtube-cinema |

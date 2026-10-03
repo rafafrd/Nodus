@@ -164,3 +164,9 @@ Core d19c316 e interface/harness 228c15f commitados após revisão seletiva. Git
 ### 03/10/2026 — MED-01: auditoria encerrada
 
 Agente independente concluiu YOUTUBE_AUDIT: APPROVE WITH MITIGATIONS para fonte final56563e23… + suplemento final de harness1b999d0e…, 18 arquivos comparados sem diferença. Probes reais/4 testes/segredos próprios aprovados, Low de teclado corrigido, High de tooling com exposição avaliada permanece. Jornada Windows/reprodução/crash/retry e regressões atribuídas ao implementador; offline não comprovado. Memória/documentos atualizados; apenas stage documental/commit/push e fechamento C7 restantes.
+
+### 03/10/2026 — MED-01: concluído
+
+Core d19c316, interface/harness228c15f e docs/audit ad77aae enviados para origin/codex/youtube-cinema; push exit0/upstream configurado. Stage documental23 arquivos/54,84 KB Gitleaks sem achados, check-bootstrap16 tickets/103 critérios/85 Markdown/270 links e inventário75 docs aprovados. C1–C7 aprovados, ticket movido para done/concluido e links/retomada atualizados; fechamento do quadro é checkpoint documental separado. Fonte/pacote/jornadas permanecem os identificados em YOUTUBE; perfis/capturas/build locais ignorados. Próxima ação humana: abrir a build pelo guia e usar vídeos/cinema/PiP; alpha externa continua parcial, sem serviço/release publicado.
+
+Verificação final MED-01 após mover o ticket: inventário75 arquivos de docs; check-bootstrap16 tickets/103 critérios/85 Markdown/272 links locais aprovado. Essa checagem documental não aprova os critérios externos pendentes da alpha.

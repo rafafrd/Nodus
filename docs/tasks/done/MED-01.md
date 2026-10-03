@@ -1,7 +1,7 @@
 ---
 id: MED-01
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["ALP-03","ALP-05","UI-02"]
 criteria_count: 7
 ---
@@ -20,4 +20,4 @@ C7. Typecheck, testes pertinentes, pacote e jornada Windows real; capturas, audi
 
 ## Plano e retomada
 
-Contratos/migração/lista → superfície isolada → biblioteca/cinema/PiP/movimento → testes reais de dados/isolamento/reprodução → audit e documentos → commits/push. C1–C6 aprovados em [YOUTUBE](../../validation/YOUTUBE.md): schema v4/URLs/dedup/preservação, player oficial real/isolamento, cinema/PiP arrastável com continuidade, crash/retry. Windows Node24.21/Electron44.5, 21 testes/typecheck/package e novas jornadas/regressões passaram. Fix do gate oculto sob cinema observado pelo auditor verificado no pacote. Audit independente final aprovado com mitigações, fonte congelada/suplemento final conferidos, sem achado de código aberto; High de tooling permanece delimitado. C7 pendente de scan do stage documental/commit/push; próxima ação concreta: enviar checkpoints autorizados e fechar quadro. Perfis/capturas/build são locais ignorados, sem dados pessoais.
+Contratos/migração/lista → superfície isolada → biblioteca/cinema/PiP/movimento → testes reais de dados/isolamento/reprodução → audit e documentos → commits/push. C1–C7 aprovados em [YOUTUBE](../../validation/YOUTUBE.md): schema v4/URLs/dedup/preservação, player oficial real/isolamento, cinema/PiP arrastável com continuidade, crash/retry. Windows Node24.21/Electron44.5, 21 testes/typecheck/package e novas jornadas/regressões passaram. Fix do gate oculto sob cinema observado pelo auditor verificado no pacote. Audit independente final aprovado com mitigações, fonte congelada/suplemento final conferidos, sem achado de código aberto; High de tooling permanece delimitado. Core d19c316/interface228c15f/docs ad77aae enviados para origin/codex/youtube-cinema, push exit0 em03/10/2026/upstream configurado. Gitleaks staged documental23 arquivos/54,84 KB sem achados; check-bootstrap/inventário/diff --check aprovados. Fechamento do quadro em commit documental separado. Nenhuma implementação restante; próxima ação humana: usar Material → Vídeos → + Link e conferir cinema/PiP no executável pelo guia. Perfis/capturas/build são locais ignorados, sem dados pessoais.

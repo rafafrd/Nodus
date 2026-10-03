@@ -10,7 +10,7 @@
 | C4 | aprovado | Cinema 480ms com poses de transição, contexto de matéria e Escape recebido no guest; mesma identidade WebContents nas vistas. |
 | C5 | aprovado | PiP movido por mouse e setas, permanece no Explorer e contido em1040×760; voltar seleciona origem, close destrói player e conserva link. |
 | C6 | aprovado | Reprodução segue com currentTime crescente/pausedfalse nas mudanças, movimento reduzido, diálogo esconde view, scroll real promove PiP; teclado QTE sob cinema não altera etapa/acerto e área volta após fechamento. Crash real do renderer remoto mantém mesa/link e retry carrega YouTube novamente. |
-| C7 | não verificado | Typecheck,21 testes,pacote/jornada e regressões passaram; audit independente final/memória/documentos conferidos; scan do stage documental/commit/push em fechamento. |
+| C7 | aprovado | Typecheck,21 testes,pacote/jornada e regressões passaram; audit independente final/memória/documentos e Gitleaks staged conferidos; d19c316/228c15f/ad77aae enviados ao origin/codex/youtube-cinema, push exit0. |
 
 ## Comandos e prova externa
 
@@ -41,7 +41,7 @@ npm.cmd run test:journey, npm.cmd run test:engine-explorer e npm.cmd run test:sm
 
 ## Checkpoints de fonte
 
-Domínio/isolamento/migração/testes em d19c316; interface/cinema/PiP e harness final em 228c15f. Nenhuma dependência/lockfile foi alterada. Gitleaks 8.30.1 do stage core12 arquivos/22,32 KB e interface6 arquivos/43,10 KB passou exit0, sem achados; inclui testes/fixtures/script. Scan documental final e push ainda pendentes nesta revisão. Provas do auditor têm manifestos próprios em YOUTUBE_AUDIT e não são atribuídas retroativamente aos commits.
+Domínio/isolamento/migração/testes em d19c316; interface/cinema/PiP e harness final em 228c15f. Nenhuma dependência/lockfile foi alterada. Gitleaks 8.30.1 do stage core12 arquivos/22,32 KB e interface6 arquivos/43,10 KB passou exit0, sem achados; inclui testes/fixtures/script. Stage documental23 arquivos/54,84 KB passou Gitleaks exit0; ad77aae registra guia/ADR/contratos/evidências/audit/memória/quadro. Os três checkpoints foram enviados ao origin/codex/youtube-cinema, push exit0/upstream configurado. Fechamento C7/quadro em commit documental separado. Provas do auditor têm manifestos próprios em YOUTUBE_AUDIT e não são atribuídas retroativamente aos commits.
 
 ## Auditoria independente final
 
