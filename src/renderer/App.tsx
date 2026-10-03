@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { NoteEditor } from './NoteEditor';
 import type { Subject, NoteRef, Desk, Material } from '../shared/contracts';
 import { useNote } from './useNote';
@@ -8,6 +8,7 @@ import { FocusPanel } from './FocusPanel';
 import { ChecklistPanel } from './ChecklistPanel';
 import { Icon as Mark } from './Icon';
 import './styles.css';
+const GameView = lazy(() => import('./GameView'));
 function Modal({ title, children, close }: { title: string; children: ReactNode; close(): void }) {
   const element = useRef<HTMLDialogElement>(null);
   useEffect(() => { element.current?.showModal(); }, []);
@@ -30,6 +31,7 @@ export function App() {
   const [loading, setLoading] = useState(false);
   const [focusOwner, setFocusOwner] = useState<string | null>(null);
   const [readingOnly, setReadingOnly] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
   const note = useNote(setError);
   const latest = useRef({ note, active, desk }); latest.current = { note, active, desk };
   const sequence = useRef(0);
@@ -126,12 +128,29 @@ export function App() {
   const material = materials.find(m => m.id === desk?.materialId);
   const visibleNotes = notes.filter(n => n.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
   const words = useMemo(() => { const body = note.text.replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, '').trim(); return body ? body.split(/\s+/u).length : 0; }, [note.text]);
+  async function enterCity() {
+    if (!await note.stash()) return;
+    if (active) {
+      const current = await window.desktop.getFocus({ subjectId: active.id });
+      if (!current.ok) { setError(current.message); return; }
+      if (current.value.activeOwner) {
+        const owner = await window.desktop.getFocus({ subjectId: current.value.activeOwner.id });
+        if (!owner.ok) { setError(owner.message); return; }
+        if (owner.value.session?.state === 'running') {
+          const paused = await window.desktop.actFocus({ subjectId: owner.value.activeOwner!.id, id: owner.value.session.id, action: 'pause' });
+          if (!paused.ok) { setError(paused.message); return; }
+        }
+      }
+    }
+    setGameOpen(true);
+  }
+  if (gameOpen) return <Suspense fallback={<div className="game-loading">Abrindo sua vila…</div>}><GameView onClose={() => setGameOpen(false)}/></Suspense>;
   return <div className={`app-shell ${readingOnly ? 'reading-only' : ''}`}>
     <aside className="sidebar"><div className="brand"><span className="brand-mark"><Mark/></span><div>APP ESTUDOS<small>SEU ESPAÇO DE ESTUDO</small></div></div>
       <div className="section-label">SUAS MATÉRIAS <button onClick={() => newModal('subject')} aria-label="Nova matéria">+</button></div>
       <nav aria-label="Matérias" className="subject-list">{subjects.map((s, i) => <button key={s.id} aria-label={s.name} aria-current={active?.id === s.id ? 'page' : undefined} className={`subject ${active?.id === s.id ? 'active' : ''}`} data-color={s.color} onClick={() => select(s)}><span className="subject-dot"/><span>{s.name}</span><small>{String(i + 1).padStart(2, '0')}</small></button>)}{subjects.length === 0 && <p className="sidebar-hint">Crie uma matéria para começar.</p>}</nav>
       {active && <><div className="section-label"><span>SEU CADERNO <small>{notes.length}</small></span><button onClick={() => newModal('note')} disabled={!vault} aria-label="Nova nota">+</button></div><div className="search-wrap"><Mark kind="search"/><input className="search" aria-label="Buscar notas" placeholder="Encontrar uma nota…" value={search} onChange={e => setSearch(e.target.value)}/></div><nav aria-label="Notas" className="notes-list">{visibleNotes.map(n => <button className={note.doc?.ref.id === n.id ? 'active' : ''} key={n.id} aria-label={n.title} aria-current={note.doc?.ref.id === n.id ? 'page' : undefined} onClick={() => open(n.id)}><Mark kind="note"/><span>{n.title}</span><span className="note-indicator"/></button>)}{visibleNotes.length === 0 && <div className="notes-empty"><p>{search ? 'Nenhuma nota encontrada.' : 'Seu caderno começa com uma ideia.'}</p>{search && <button onClick={() => setSearch('')}>Limpar busca</button>}</div>}</nav><button className="text-button import" onClick={importNote} disabled={!vault}>+ Importar Markdown</button></>}
-      <div className="sidebar-bottom"><button className="vault-button" onClick={chooseVault}><span className={`connection ${vault ? 'connected' : ''}`}/><span>{vault ? 'Pasta de notas vinculada' : 'Escolher pasta de notas'}<small>{vault ? 'Arquivos locais · Markdown' : 'Escolha seu vault'}</small></span><span>↗</span></button><div className="sidebar-caption">Seu material permanece no computador.</div></div>
+      <button className="city-entry" aria-label="Entrar na cidade" onClick={() => void enterCity()}><span>⌂</span><span>Seu mundo<small>Cidade · farm · aventuras</small></span><span>↗</span></button><div className="sidebar-bottom"><button className="vault-button" onClick={chooseVault}><span className={`connection ${vault ? 'connected' : ''}`}/><span>{vault ? 'Pasta de notas vinculada' : 'Escolher pasta de notas'}<small>{vault ? 'Arquivos locais · Markdown' : 'Escolha seu vault'}</small></span><span>↗</span></button><div className="sidebar-caption">Seu material permanece no computador.</div></div>
     </aside>
     <div className="main-column"><header className="workspace-header"><Ambient/><div className="header-top"><div className="eyebrow"><span className="connection connected"/> MESA DE ESTUDO <span className="breadcrumb-divider">/</span><span className="header-context">{active ? 'Seu espaço, retomado.' : 'Bem-vindo ao seu espaço.'}</span></div><span className="local-label"><span className="connection connected"/> LOCAL</span></div><div className="header-main"><div><div className="heading-row"><h1>{active?.name ?? 'Um lugar para continuar.'}</h1>{active && <button className="text-button rename" onClick={() => newModal('rename')} aria-label={`Renomear ${active.name}`} title="Renomear matéria">↗</button>}</div><p>{active ? <><span>{notes.length} {notes.length === 1 ? 'nota' : 'notas'}</span><span className="meta-dot">·</span><span>{materials.length} {materials.length === 1 ? 'material' : 'materiais'}</span><span className="header-description">Tudo no lugar. Continue de onde parou.</span></> : 'Organize o essencial. Dê espaço às suas ideias.'}</p></div>{active && <div className="workspace-view-controls"><button className={`reading-toggle ${desk?.tool === 'both' ? 'selected' : ''}`} onClick={() => { setReadingOnly(false); void checkpoint({ tool: desk?.tool === 'both' ? 'checklist' : 'both' }); }} aria-label="Grade de módulos" aria-pressed={desk?.tool === 'both'} title="Grade de módulos · Alt+3"><Mark kind="layout"/> Módulos</button><button className={`reading-toggle ${readingOnly ? 'selected' : ''}`} onClick={() => setReadingOnly(v => !v)} aria-pressed={readingOnly} aria-label={readingOnly ? 'Voltar à mesa' : 'Só caderno'} title={readingOnly ? 'Voltar à mesa · Esc' : 'Expandir caderno'}><Mark kind={readingOnly ? 'collapse' : 'expand'}/><span>{readingOnly ? 'Voltar à mesa' : 'Só caderno'}</span></button></div>}</div></header>
       {error && <div className="error-banner" role="alert"><span>{error}</span><button onClick={() => setError('')} aria-label="Fechar aviso">×</button></div>}

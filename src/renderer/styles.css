@@ -62,6 +62,10 @@ button.primary:hover { background: #d7c499; }
 .notes-list .active .note-indicator { background: var(--sage); }
 .import { text-align: left; margin: 9px 2px 0; font-size: 11px; color: #8b9d8b; }
 .sidebar-bottom { margin-top: auto; padding-top: 24px; }
+.city-entry { display: flex; align-items: center; gap: 12px; text-align: left; border-top: 1px solid var(--line); margin: 21px 2px 0; padding: 14px 10px; color: #d2c28e; font-size: 12px; flex-shrink: 0; }
+.city-entry > span:first-child { font-size: 26px; }
+.city-entry > span:nth-child(2) { flex: 1; }
+.city-entry small { display: block; font-size: 8px; color: #879c7b; margin-top: 6px; }
 .vault-button { width: 100%; display: flex; align-items: center; gap: 10px; border: 1px solid #324035; background: #c4ad7a03; padding: 14px 11px; text-align: left; font-size: 11px; }
 .vault-button > span:nth-child(2) { flex: 1; }
 .vault-button small { display: block; color: #88998a; font-size: 10px; margin-top: 5px; }
