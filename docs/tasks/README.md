@@ -42,6 +42,8 @@ ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser 
 
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
 
+Incremento solicitado após UI-01: [GAM-01 — cidade, farm, grind e loja](done/GAM-01.md), concluído na branch feat/game. Economia local e visual 3D; escopo/evidência próprios. [Guia de uso](../GUIA_DE_USO.md) cobre executável, desenvolvimento, estudos e jogo.
+
 Frontmatter, objetivo, dependências, prompt completo com critérios e verificações, registro de execução e referência de evidência. Use [o template](TEMPLATE.md) para novos tickets. Um prompt preparado não é uma tarefa entregue.
 
 ## Fonte e evolução

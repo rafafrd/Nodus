@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shared/contracts.ts. Matérias, referências, rascunhos, PDFs, mesas, foco e checklist operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 02/10/2026: schema v2 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -12,6 +12,10 @@ Estado em 02/10/2026: schema v1 real em src/main/store.ts; contratos em src/shar
 | StudyTask | id, subjectId, texto | Identidade estável |
 | TaskStep | id, taskId, texto, concluída | Renomear conserva vínculo |
 | SyncOperation | id, noteId, revisão, hash, estado, resultado | Reenvio conserva identidade |
+| GamePlayer | id=1, coins, xp, state JSON | Perfil único local; main calcula saldo/build/cultivos |
+| GameLedger | source única, ação, deltas, instante, rule_version | Origem única para crédito/débito e conciliação |
+| GameOperation | UUID, request validado, message | Replay conserva efeito; outro payload é rejeitado |
+| GameRound | UUID, state JSON | Pares privados, tentativas/seleção/completion persistidos |
 
 ## Autoridade
 
@@ -26,3 +30,5 @@ Inicialização/migração versionada, repositórios separados da UI, transaçõ
 UI-01 acrescenta `both` aos valores validados de Desk.tool (`focus`, `checklist`, `both`, `none`): foco e checklist podem coexistir na grade. O campo SQLite existente é TEXT, sem restrição que impeça o valor; schema v1 e dados anteriores são conservados. O modo só caderno e o ajuste do PDF são escolhas transitórias de apresentação; não substituem nota, documento, página ou próxima ação da mesa.
 
 ALP-04 registra o frontmatter efetivo e sua preservação. ALP-09 registra o protocolo de revisões/recibos e as políticas por proprietário. Nenhum desses formatos deve ser anunciado como definitivo antes da respectiva prova.
+
+GAM-01 aplica migração aditiva v1→v2, sem reescrever as tabelas anteriores. src/main/game.ts transaciona ação, ledger, perfil, operação e audit; rodada guarda os pares privados, mas a visão enviada contém somente cartas já reveladas/encontradas. Saldo/XP possuem CHECK não negativo. UUID de operação e source do ledger são índices únicos. [Regras provisórias](../decisions/game-rules.md) definem liquidação/passivo e limites do perfil local.

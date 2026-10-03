@@ -52,6 +52,8 @@ Auth e políticas por proprietário precisam ser testadas com dono, outra identi
 
 ## Qualidade e rastreabilidade
 
+GAM-01, solicitado após UI-01, acrescenta cidade isométrica, cultivo/colheita, coleta/venda, cinco melhorias, memória demonstrativa e build gratuita. Contratos específicos game:get e game:action em src/shared/game.ts; a economia/rodada é calculada e persistida no main. Entrar pausa o foco e preserva o buffer; voltar retoma a mesa. Ver [regras provisórias](decisions/game-rules.md); integração de notas/IA e sincronização do jogo continuam no roadmap.
+
 Critérios ALP-01 a ALP-11 nos tickets e resultados em docs/validation/ALPHA.md. Testes atingem preservação, persistência, contratos inválidos, conflito, tempo e reenvio. Build não aberta e configuração externa ausente continuam não verificadas.
 
 Depois de implementar um fluxo, atualize aqui seus contratos reais ou aponte para o código/schema correspondente. Preserve a diferença entre planejado e implementado e evite listas duplicadas de critérios.

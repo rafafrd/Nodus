@@ -200,3 +200,16 @@ Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Che
 ## Refinamento posterior — UI-01
 
 02/10/2026, branch feat/frontend: grade de módulos com cantos retos, leitura ampliada e ferramentas refinadas. Evidência própria em [FRONTEND.md](FRONTEND.md). Typecheck, nove testes, empacotamento e jornada R1–R7 passaram novamente no Windows, incluindo nota/PDF/contextos/foco/checklist/conflito. ALP-02/C5, ALP-09 e R8 continuam pendentes; esse incremento visual não aprova a alpha integral. A identificação do novo pacote está na evidência de UI-01, separada da prova anterior da MVP.
+
+## GAM-01 — Cidade, farm, grind e loja
+
+02/10/2026, incremento local solicitado após UI-01 na branch feat/game. Resultados completos e identificação do pacote em [GAME](GAME.md); [guia de execução/uso](../GUIA_DE_USO.md). Alpha integral mantém ALP-02/C5, ALP-09 e R8 pendentes.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Cidade Three.js/locais/controles e cantos retos; capturas do pacote e compacta 1040×760 em GAME.md |
+| C2 | aprovado | Plantio/45 s reais/colheita/venda, coleta, cinco compras/visuais, seis canteiros, picareta e produção passiva com app fechado; test:game no pacote |
+| C3 | aprovado | Três dificuldades/tipos, seis rodadas completas, tentativas/combo, rodada incompleta retomada; build/classe/respec gratuito pela UI |
+| C4 | aprovado | SQLite v2 aditivo, 13 testes, replay/rejeições/rollback e conciliação; probes do agente e IPC real descritos em GAME.md |
+| C5 | aprovado | Windows package:win/test:game/test:journey R1–R7/probe de outro sender passaram; rascunho/Markdown/PDF/mesa/foco preservados |
+| C6 | aprovado | Economia 728047d e interface 49489ad enviadas para origin/feat/game; regras/guia/auditoria/memória/quadro/retomada atualizados, Gitleaks e check-bootstrap |

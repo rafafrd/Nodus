@@ -112,3 +112,13 @@ Windows 11 10.0.26200, Node 24.21.0, Electron 44.5.1: typecheck, nove testes, pa
 ### 02/10/2026 — UI-01: Concluído
 
 Implementação 4e460e0 enviada para origin/feat/frontend. Nove capturas empacotadas e resultado de reinício registrados; Gitleaks do stage (~78,2 KB) sem achados, incluindo testes/fixtures. UI-01 movida para done/concluido com C1–C4 aprovados e links/retomada atualizados. Checkpoint documental separado da implementação; nenhuma funcionalidade de nuvem anunciada como concluída. Próxima ação: usuário avaliar a grade no executável/prints; provas externas da alpha mantidas nos tickets próprios.
+
+### 02/10/2026 — GAM-01: Em andamento
+
+Pedido explícito de jogo/cidade/farm/grind/loja. Branch feat/game deriva de feat/frontend 884593e. Implementados economia transacional/SQLite v2, cidade medieval procedural Three.js, cultivo/coleta/venda, cinco melhorias/moinho passivo, memória demonstrativa e build/respec grátis. Capturas reais compartilhadas, carteira construída por ações de jogo em fixture isolada.
+
+Windows: typecheck, 13 testes, package:win, test:game com maturação/tempo real fechado/restart/retomada de estudo, test:journey R1–R7 e probe dos novos canais contra outra janela passaram. R8/nuvem e editor externo permanecem pendentes. Auditoria por agente em GAME_AUDIT: zero vulnerabilidade de código confirmada, oito High de um advisory transitivo de tooling com exposição avaliada; scan canônico parcial/digest inicial não atribuído à build. Próxima ação: commits por fase/push e fechamento C6. Regras e identificação de binário em docs/validation/GAME.md.
+
+### 03/10/2026 — GAM-01: Concluído
+
+Economia 728047d e cidade/interface/jornadas 49489ad enviadas para origin/feat/game. Critérios C1–C6 aprovados em GAME.md; ticket movido para done/concluido. Snapshot final inicial de 31 arquivos/233.406 bytes passou Gitleaks incluindo testes, harness e relatório; stage documental de 18 arquivos incluindo guia também passou, zero achados. Check-bootstrap e diff --check passaram. docs/GUIA_DE_USO.md explica abrir executável, dev/build, mesa/jogo, perfil de teste e backup; comandos existentes conferidos contra scripts/configuração. Próxima ação humana: avaliar arte/ritmo no executável. Provas externas da alpha continuam pendentes; sem publicação de serviço/release.

@@ -16,6 +16,8 @@
 | [Tarefas](tasks/README.md) | Ticket ativo e critérios; local canônico de execução |
 | [Retomada](status/ALPHA_STATE.md) | Índice do estado atual e próxima ação |
 | [Validação alpha](validation/ALPHA.md) | Evidência por critério |
+| [Guia de uso](GUIA_DE_USO.md) | Iniciar app, usar mesa/jogo e preservar dados |
+| [Validação do jogo](validation/GAME.md) | Cidade/economia e jornada Windows de GAM-01 |
 | [Validação bootstrap](validation/BOOTSTRAP.md) | Revisão deste pacote documental |
 | [Publicação](release/README.md) | Decisões e provas necessárias ao lançamento |
 

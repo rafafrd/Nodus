@@ -4,6 +4,10 @@ App pessoal de estudos. MVP local na branch MVP: Electron, React e TypeScript, n
 
 O refinamento UI-01 fica na branch feat/frontend: superfícies retas e grade de quatro módulos, seguindo a referência fornecida pelo usuário. Consulte [a verificação do frontend](docs/validation/FRONTEND.md) para capturas e resultados.
 
+GAM-01 na branch feat/game acrescenta a cidade Vale Sereno, farm/grind, loja, Memória de Conceitos e build. Abra **Seu mundo** na barra lateral. Economia persistida no SQLite, sem precisar de vault; [regras provisórias](docs/decisions/game-rules.md) e [parecer de segurança](docs/security/GAME_AUDIT.md) descrevem o recorte local.
+
+**[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
+
 ## Começar
 
 Use Node 24 e npm no Windows. A cópia portátil usada nesta execução está em .local/node-v24.21.0-win-x64; ela não é versionada. Com Node 24 no PATH:
@@ -16,6 +20,7 @@ npm.cmd test
 npm.cmd run package:win
 node scripts/smoke-desktop.mjs --packaged
 npm.cmd run test:journey
+npm.cmd run test:game
 node scripts/check-bootstrap.mjs
 ```
 
@@ -38,6 +43,7 @@ Versões usadas: Node host/embarcado 24.21.0, Electron 44.5.1, React 19.3.0, Typ
 4. Abra um PDF local, navegue por páginas e redimensione o caderno pelo separador/teclado. Documento, página e layout pertencem à matéria.
 5. No dock, abra foco para escolher minutos, pausar/retomar/encerrar; ou checklist para criar tarefas, etapas e próxima ação (→). Módulos/Todos (Alt+3) abre caderno, PDF, foco e checklist em uma grade; Alt+1/2 abre uma ferramenta. Só caderno amplia a nota; Esc volta à mesa. O leitor PDF permite ajustar à largura ou ver a página inteira.
 6. Troque matéria ou reabra: cada mesa retoma seu contexto. Fechar preserva rascunho sem tratá-lo como nota salva; foco pausa. Conflito externo mostra as duas versões para revisão explícita.
+7. Em Seu mundo, plante/colha, visite mina/bosque, venda recursos e compre melhorias no Mercado. Memória rende recompensas por rodada concluída; Personagem permite distribuir/redistribuir pontos grátis. Entrar pausa o foco e preserva o rascunho; Voltar à mesa retoma o estudo. Moedas/XP são do jogo, sem avaliação de domínio acadêmico.
 
 Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam nas pastas escolhidas. Não são criptografados pelo app. Instância de teste isolada: execute `App Estudos.exe --user-data-dir=C:\caminho\de\teste` com uma pasta de teste. Testes usam .local e conteúdo fictício; não configure dados pessoais nesses diretórios.
 
@@ -53,6 +59,9 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 | [docs/status/RUN_LOG.md](docs/status/RUN_LOG.md) | Histórico dos checkpoints |
 | [docs/validation/ALPHA.md](docs/validation/ALPHA.md) | Evidência por critério |
 | [docs/validation/FRONTEND.md](docs/validation/FRONTEND.md) | Refinamento UI-01, execução e capturas |
+| [docs/GUIA_DE_USO.md](docs/GUIA_DE_USO.md) | Como iniciar no Windows, estudar, jogar e preservar dados |
+| [docs/validation/GAME.md](docs/validation/GAME.md) | Jogo GAM-01, pacote/jornada e identificação |
+| [docs/security/GAME_AUDIT.md](docs/security/GAME_AUDIT.md) | Revisão do incremento e avaliação de tooling |
 | [docs/security/MVP_AUDIT.md](docs/security/MVP_AUDIT.md) | Auditoria final por agente, provas e limites |
 | [docs/architecture/README.md](docs/architecture/README.md) | Módulos e contratos |
 | [docs/sdd.md](docs/sdd.md) | Especificação da alpha |
@@ -61,8 +70,8 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 
 ## Recorte e estado
 
-Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Grafo 3D, farm/loja/builds, IA, agenda e projetos JS/TS seguem o roadmap da primeira versão pública. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
+Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Farm/loja/builds ganharam um primeiro incremento local por pedido explícito após a mesa; grafo 3D, integração de notas/IA, agenda e projetos JS/TS seguem o roadmap. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
 
-Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte desta entrega](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Commits locais por fase; sem push/publicação.
+Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte inicial](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Push das branches autorizado posteriormente pelo usuário; sem publicação de release/serviço.
 
 Auditoria independente: aprovação com mitigações para uso pessoal local, zero achados abertos, um Low de logging corrigido e confirmado no pacote. Perfil Windows protegido, dados fora do Git e recovery preservado são as mitigações do recorte; pacote sem assinatura e dados sem criptografia própria. As provas e o modelo de ameaças estão no relatório acima. Próxima prova humana: abrir a build, criar uma matéria com vault de teste e conferir a saída .local/evidence/editor-output.md em editor externo.
