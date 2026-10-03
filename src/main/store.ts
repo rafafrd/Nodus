@@ -10,7 +10,7 @@ export class Store {
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version);
-    if (version > 1) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
+    if (version > 2) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
     if (version === 0) this.transaction(() => this.db.exec(`
       CREATE TABLE settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE subjects(id TEXT PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL);
@@ -25,6 +25,13 @@ export class Store {
       CREATE TABLE sync_operations(id TEXT PRIMARY KEY, note_id TEXT NOT NULL REFERENCES notes(id), revision INTEGER NOT NULL, hash TEXT NOT NULL, state TEXT NOT NULL, receipt TEXT);
       CREATE TABLE audit_events(id INTEGER PRIMARY KEY, at INTEGER NOT NULL, action TEXT NOT NULL, entity_id TEXT, outcome TEXT NOT NULL);
       PRAGMA user_version=1;
+    `));
+    if (version < 2) this.transaction(() => this.db.exec(`
+      CREATE TABLE game_player(id INTEGER PRIMARY KEY CHECK(id=1), coins INTEGER NOT NULL CHECK(coins>=0), xp INTEGER NOT NULL CHECK(xp>=0), state TEXT NOT NULL);
+      CREATE TABLE game_ledger(id INTEGER PRIMARY KEY, source TEXT NOT NULL UNIQUE, action TEXT NOT NULL, coins INTEGER NOT NULL, xp INTEGER NOT NULL, resources TEXT NOT NULL, at INTEGER NOT NULL, rule_version INTEGER NOT NULL);
+      CREATE TABLE game_operations(id TEXT PRIMARY KEY, request TEXT NOT NULL, message TEXT NOT NULL);
+      CREATE TABLE game_rounds(id TEXT PRIMARY KEY, state TEXT NOT NULL);
+      PRAGMA user_version=2;
     `));
   }
   transaction<T>(action: () => T): T {
