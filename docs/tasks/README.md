@@ -40,6 +40,8 @@ ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser 
 
 Último incremento: [GAM-02 — motor, desafios e Explorer](done/GAM-02.md), concluído na branch feat/engine-explorer. Navegação/edição local, provas Windows, revisão documental e auditoria registradas; commits por fase enviados ao origin.
 
+Incremento ativo: [UI-02 — refinamento e transições suaves](doing/UI-02.md), branch codex/smooth-ui. Aplicar as oito sugestões aprovadas pelo usuário; apresentação/navegação, sem ampliar capacidades privilegiadas.
+
 ## Conteúdo de um ticket
 
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.

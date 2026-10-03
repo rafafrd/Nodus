@@ -235,3 +235,18 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C6 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): 18 testes, .git caixa/alias8.3, traversal/junction/encoding/1MiB, argumento/replay/rollback e outro sender negado |
 | C7 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): pacote Windows identificado, novas jornadas/capturas, R1–R7 e jogo legado repetidos no pacote final |
 | C8 | aprovado | Core 62dbd60/UI 1c6366a/docs 6e1a636 enviados para origin/feat/engine-explorer; guia/regras/quadro/memória atualizados, [auditoria](../security/ENGINE_EXPLORER_AUDIT.md), Gitleaks staged sem achados e check-bootstrap |
+
+## UI-02 — Refinamento e transições suaves
+
+03/10/2026, branch codex/smooth-ui, implementação 27bd358 + d50af65. Nova build/jornadas próprias, sem atribuir audit GAM-02 à UI-02.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): fontes/contraste/SVG próprios/cantos retos, capturas inspecionadas |
+| C2 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): rail fixo, rascunho e DOM retidos; foco running no Explorer/paused na cidade |
+| C3 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): superfícies/estados e viewport 1040×760 com mesa/PDF e ferramentas acessíveis |
+| C4 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): sintaxe, árvore/abas/breadcrumb, largura mouse/teclado, BOM/CRLF/conflito/recovery/restart |
+| C5 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): luz/contexto/upgrade, câmera com poses intermediárias e retarget |
+| C6 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): ganho local/carteira animada, pulso sem toast, economia autoritativa |
+| C7 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): normal/reduzido dinâmico, retarget, inert, Ctrl+S durante transição, QTE oculto/teclado e Escape |
+| C8 | não verificado | [SMOOTH_UI](SMOOTH_UI.md): typecheck, 18 testes, pacote/jornadas finais/R1–R7/jogo legado; implementação 27bd358 + d50af65/Gitleaks sem achados; [AppSec](../security/SMOOTH_UI_AUDIT.md) concluído. Docs/push em fechamento |

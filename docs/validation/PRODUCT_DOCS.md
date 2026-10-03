@@ -105,3 +105,7 @@ Provas do verificador estendido em cópia real isolada: baseline passou; critér
 | [docs/validation/GAME.md](GAME.md) | evidência datada |
 | [docs/validation/MVP_JOURNEY.md](MVP_JOURNEY.md) | evidência datada |
 | [docs/validation/PRODUCT_DOCS.md](PRODUCT_DOCS.md) | evidência datada |
+
+## Atualização documental UI-02, 03/10/2026
+
+O inventário de 68 arquivos acima identifica o checkpoint GAM-02. UI-02 acrescentou o ticket de refinamento, [prova Windows](SMOOTH_UI.md) e [AppSec](../security/SMOOTH_UI_AUDIT.md), mantendo os snapshots históricos. Guia/README/índice/design/setup Git/retomada/validação/quadro e memória foram atualizados para a barra fixa, sintaxe/árvore/caminho, feedback do motor e movimento normal/reduzido/retarget; schema v3 e capacidades específicas não mudaram. Comandos conferidos contra scripts/lockfile; clone em PC novo continua instrução, não prova externa. ALP-02 externo/nuvem/R8 continuam pendentes. Novo inventário e verificador no fechamento leem os documentos atuais; essa checagem documental não substitui a execução registrada em SMOOTH_UI.

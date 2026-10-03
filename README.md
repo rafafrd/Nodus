@@ -1,12 +1,14 @@
-# App de estudos — início do projeto
+# App de estudos — mesa local
 
 App pessoal de estudos. MVP local na branch MVP: Electron, React e TypeScript, notas Markdown com edição assistida/prévia, SQLite, mesa por matéria, PDF, foco e checklist. Three.js compõe o cenário discreto; GSAP anima os painéis. Executado e empacotado no Windows; consulta web é um próximo incremento.
 
 O refinamento UI-01 fica na branch feat/frontend: superfícies retas e grade de quatro módulos, seguindo a referência fornecida pelo usuário. Consulte [a verificação do frontend](docs/validation/FRONTEND.md) para capturas e resultados.
 
-GAM-01 na branch feat/game acrescenta a cidade Vale Sereno, farm/grind, loja, Memória de Conceitos e build. Abra **Seu mundo** na barra lateral. Economia persistida no SQLite, sem precisar de vault; [regras provisórias](docs/decisions/game-rules.md) e [parecer de segurança](docs/security/GAME_AUDIT.md) descrevem o recorte local.
+GAM-01 na branch feat/game acrescenta a cidade Vale Sereno, farm/grind, loja, Memória de Conceitos e build. Abra **Cidade** na barra fixa à esquerda. Economia persistida no SQLite, sem precisar de vault; [regras provisórias](docs/decisions/game-rules.md) e [parecer de segurança](docs/security/GAME_AUDIT.md) descrevem o recorte local.
 
 GAM-02 na branch feat/engine-explorer acrescenta motor clicável com upgrades, dois desafios de timing e Explorer/editor de pastas reais com abas, Ctrl+S, hash/conflito e rascunhos recuperáveis. [Provas](docs/validation/ENGINE_EXPLORER.md) e [revisão de docs](docs/validation/PRODUCT_DOCS.md).
+
+UI-02 na branch codex/smooth-ui aplica navegação fixa, tipografia/ícones próprios, sintaxe/caminho e largura do Explorer, câmera/contexto da cidade, feedback do motor e transições GSAP com interrupção e movimento reduzido dinâmico. [Provas](docs/validation/SMOOTH_UI.md).
 
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
@@ -24,6 +26,7 @@ node scripts/smoke-desktop.mjs --packaged
 npm.cmd run test:journey
 npm.cmd run test:game
 npm.cmd run test:engine-explorer
+npm.cmd run test:smooth-ui
 node scripts/check-bootstrap.mjs
 ```
 
