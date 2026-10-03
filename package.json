@@ -20,7 +20,8 @@
     "test:game": "tsx scripts/smoke-game.ts --packaged",
     "package:win": "npm run build && electron-builder --win --dir",
     "check:docs": "node scripts/check-bootstrap.mjs",
-    "test:smooth-ui": "tsx scripts/smoke-smooth-ui.ts --packaged"
+    "test:smooth-ui": "tsx scripts/smoke-smooth-ui.ts --packaged",
+    "test:videos": "tsx scripts/smoke-videos.ts --packaged"
   },
   "build": {
     "appId": "local.appestudos.desktop",
