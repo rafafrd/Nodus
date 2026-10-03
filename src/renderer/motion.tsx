@@ -101,6 +101,8 @@ export function AnimatedNumber({ value, testId }: { value: number | undefined; t
     if (value === undefined) return;
     const update = () => { if (element.current) element.current.textContent = Math.round(amount.current.value).toLocaleString('pt-BR'); };
     if (reduced) { amount.current.value = value; update(); return; }
+    // React has written the destination text; restore the sampled value before paint.
+    update();
     const tween = gsap.to(amount.current, { value, duration: .42, ease: motion.ease, onUpdate: update, onComplete: update });
     return () => { tween.kill(); };
   }, [value, reduced]);

@@ -47,7 +47,7 @@ try {
   const draft = await page.evaluate(ref => window.desktop.openProjectFile(ref), { projectId, path: 'src/main.ts' }); assert.ok(draft.ok && draft.value.draft?.text === retained);
   await page.locator('canvas[data-ready=true]').evaluate(el => el.setAttribute('data-preserved-canvas', 'fixture'));
   await page.getByRole('button', { name: 'Gerar moedas', exact: true }).click(); await page.locator('.game-shell[aria-busy=false]').waitFor(); assert.equal((await game()).coins, 61); assert.equal(await page.locator('.game-notice').textContent(), '');
-  await page.getByRole('button', { name: 'Melhorar motor', exact: true }).click(); await page.locator('.game-shell[aria-busy=false]').waitFor(); assert.equal((await game()).engine.level, 1); await page.waitForFunction(() => { const wallet=document.querySelector('[data-testid=game-coins]'); return wallet?.textContent === Number(wallet?.getAttribute('data-value')).toLocaleString('pt-BR'); }); await page.waitForTimeout(700); await shot('city');
+  await page.getByRole('button', { name: 'Melhorar motor', exact: true }).click(); await page.locator('.game-shell[aria-busy=false]').waitFor(); assert.equal((await game()).engine.level, 1); const walletFrames: number[]=[]; for (let i=0;i<6;i++) {walletFrames.push(Number((await page.getByTestId('game-coins').textContent())?.replaceAll('.','')));await page.waitForTimeout(40);} assert.ok(walletFrames.some(v=>v>36&&v<61),'carteira deve pintar valores intermediários'); await page.waitForFunction(() => { const wallet=document.querySelector('[data-testid=game-coins]'); return wallet?.textContent === Number(wallet?.getAttribute('data-value')).toLocaleString('pt-BR'); }); await page.waitForTimeout(700); await shot('city');
   const focusInCity=await page.evaluate(subjectId=>window.desktop.getFocus({subjectId}),fixture.a.id); assert.ok(focusInCity.ok && focusInCity.value.session?.state==='paused');
   // Inspect real rendered camera values throughout a tween; no synthetic clock.
   await page.getByRole('button', { name: 'Visitar fazenda', exact: true }).click();
@@ -74,6 +74,7 @@ try {
   await page.getByRole('button', { name: 'Voltar aos estudos', exact: true }).click(); await settled('study'); await page.locator('canvas[data-rendered-page="2"]').waitFor(); await shot('compact-study');
   reports.push('Diálogo com Escape; painéis com posições intermediárias/retarget e DOM do editor preservado; foco continua no Explorer e pausa na cidade; Ctrl+S funciona durante a transição sem esperar seu término.');
   reports.push('Rail estável; rascunho real preservado entre áreas; BOM/CRLF e Ctrl+S íntegros; sintaxe colorida, caminho clicável e largura por mouse/teclado 190–400.');
+  reports.push('Carteira com valores intermediários reais após upgrade, até convergir ao saldo confirmado.');
   reports.push('Motor+upgrade pelo main, sem toast de pulso; câmera com posições intermediárias e retarget, canvas conservado entre áreas; cliques rápidos terminam com uma área interativa e sem opacity presa.');
   reports.push('QTE oculto não captura teclado dos estudos; câmera interrompida por preferência dinâmica permanece parada.');
   reports.push('Movimento reduzido alterado durante transição finaliza estado; câmera reduzida imediata; 1040×760/retorno à mesa e PDF2, sem erros de renderer.');
