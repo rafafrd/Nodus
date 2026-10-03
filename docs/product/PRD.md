@@ -1,6 +1,6 @@
 # PRD — decisões do produto
 
-Estado em 03/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
+Estado em 03/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. MED-01 acrescenta links YouTube por matéria, cinema e PiP interno, com reprodução oficial que precisa de internet. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
 
 ## Problema
 

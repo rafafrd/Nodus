@@ -152,3 +152,15 @@ Ajuste d50af65 restaura a amostra de moedas antes do primeiro paint; seis amostr
 Implementação 27bd358, acabamento d50af65 e docs/audit b0060f1 enviados ao origin/codex/smooth-ui; push exit 0 e upstream configurado. C1–C8 aprovados; ticket movido para done/concluido e links/retomada atualizados. Stage documental 15 arquivos/45,46KB Gitleaks sem achados; fechamento do quadro em commit documental separado. Pacote/capturas/vídeo e perfis fictícios ficam locais/ignorados. Nenhum serviço/release publicado. Próxima ação humana: abrir a build com perfil de teste conforme o guia e conferir fluidez. Alpha integral permanece parcial por editor externo/nuvem/R8.
 
 Verificação final: audit-product-docs leu 71 arquivos; check-bootstrap aprovou 15 tickets/96 critérios/81 Markdown/242 links locais. As provas externas continuam pendentes; a verificação documental não as aprova.
+
+### 03/10/2026 — MED-01: implementação e provas Windows
+
+Branch codex/youtube-cinema parte de2690372 por pedido de links YouTube/cinema/PiP e autorização vigente de commits/push. Schema v4 aditivo, biblioteca por matéria com URLs validadas, guest remoto isolado sem preload/Node/bridge, sessão efêmera e controles próprios. Cinema/PiP/mesa retargetam mesmo player; PiP arrasta/teclado e acompanha Explorer, bounds/clipping/diálogos/reduced-motion tratados. Auditor reproduziu Low de QTE sob cinema; gates corrigidos/verificados. Typecheck,21 testes, package Windows e test:videos final21:57:46.686Z passaram com player oficial/rede/input reais, sixIPCsender negados, crash remoto/retry conservando mesa. Regressões journey(R1–R7)/engine-explorer/smooth-ui passaram no mesmo ASAR identificado em YOUTUBE. Capturas reais native child view compartilhadas; probe de emulação offline não comprovou offline e não conta como aprovação. C1–C6 aprovados, C7 aguarda parecer/stage/commits/push; próxima ação documental. Nenhum serviço/release publicado; pendências externas da alpha preservadas.
+
+### 03/10/2026 — MED-01: checkpoints de código
+
+Core d19c316 e interface/harness 228c15f commitados após revisão seletiva. Gitleaks staged core22,32 KB e interface43,10 KB exit0/sem achados incluindo testes/script; diff --check passou. Não houve mudança de produto depois do pacote/jornadas finais; docs/memória pós-freeze são checkpoint separado. C7 ainda aguarda audit final, scan staged documental e push.
+
+### 03/10/2026 — MED-01: auditoria encerrada
+
+Agente independente concluiu YOUTUBE_AUDIT: APPROVE WITH MITIGATIONS para fonte final56563e23… + suplemento final de harness1b999d0e…, 18 arquivos comparados sem diferença. Probes reais/4 testes/segredos próprios aprovados, Low de teclado corrigido, High de tooling com exposição avaliada permanece. Jornada Windows/reprodução/crash/retry e regressões atribuídas ao implementador; offline não comprovado. Memória/documentos atualizados; apenas stage documental/commit/push e fechamento C7 restantes.

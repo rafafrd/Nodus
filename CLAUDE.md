@@ -125,3 +125,7 @@ Na resposta final da tarefa, apresente status, comportamento entregue, arquivos 
 ## Decisões ainda abertas
 
 Nome/marca final, licença de publicação, prova externa do editor assistido (ALP-02/C5), hospedagem web, modelos/perfis concretos e valores de orçamento não foram fechados nesta base. Confirme decisões novas no repositório ou com o usuário quando elas forem necessárias ao ticket; não reabra escolhas já tomadas.
+
+## Incremento MED-01
+
+Links YouTube por matéria e seleção de material em SQLite v4; conteúdo remoto só após abrir o player. Cinema/PiP interno compartilham um WebContentsView isolado, sessão efêmera e sem preload/Node/bridge/protocolo de estudos. Main valida remetente e vínculo por matéria. Não conceder capacidades privilegiadas ao vídeo nem cobrir seus controles com overlays. PiP arrasta pelo cabeçalho próprio e continua nas outras áreas. Cinema exige gates dos listeners das áreas persistentes além de inert. Ver ADR-0008 e docs/validation/YOUTUBE.md; disponibilidade remota não equivale à preservação local dos links.

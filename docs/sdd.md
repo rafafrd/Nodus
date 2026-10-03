@@ -1,6 +1,6 @@
 # SDD — especificação de implementação da alpha
 
-Versão: 0.3, 03/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v3 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
+Versão: 0.3, 03/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v4 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
 
 ## Escopo verificável
 
@@ -65,3 +65,11 @@ Motor, QTE e skillcheck estendem game:get/game:action e a mesma transação perf
 Explorer: project:list/choose/tree/open/save/draft/discard/view em src/shared/projects.ts. Seleção de pasta nativa registra capacidade específica, até 40 projetos e 12 abas. Árvore exibe até 500 itens por pasta e texto UTF-8 até 1MiB. src/main/projects.ts resolve caminhos/canonicalização, bloqueia traversal, junction/symlink e metadados .git inclusive aliases de caixa/8.3. HTML/JS é texto inerte no CodeMirror, sem executar preview/terminal/Git.
 
 Arquivo de projeto é canônico; SQLite guarda referência/abas e rascunho com hash-base. Save conserva backup, confere hash antes de rename e não confirma erro como sucesso. Conflito mantém edição e versão externa; conservar edição exige revisão e novo Save explícito. Fechar/trocar vista espera persistir rascunhos. Arquivo ausente conserva draft e impede Save. UTF-8/BOM/CRLF são preservados pela edição seletiva verificada. FS e SQLite não formam uma transação única: falha do audit após rename conserva draft e recovery, informa erro e requer conferência do disco. [ADR-0007](adr/0007-explorer-local.md) e [prova Windows](validation/ENGINE_EXPLORER.md).
+
+## MED-01 — vídeos, cinema e PiP
+
+video:list/add/remove e player:open/layout/close em src/shared/videos.ts, preload/index.ts e main/index.ts. UUID/vínculo/título/URL são validados no main. Videos normaliza formatos de YouTube/tempo e transaciona registro/removal/audit; schema v4 conserva dados anteriores e default PDF. Desk retorna videoId/materialView e rejeita vídeo de outra matéria. Seleção persiste por matéria, sem abrir rede no bootstrap.
+
+Player WebContentsView usa sessão própria efêmera, sem APIs privilegiadas/preload/Node; a URL é construída de ID validado. CSP principal frame-src none não muda. Permissions/popups/downloads/navegação e requests por domínio têm controles específicos; Referer identifica appId. [ADR-0008](adr/0008-video-isolado.md).
+
+Material oferece PDFs/Vídeos. Um guest alterna posição/tamanho entre inline, cinema e PiP interno sem recarregar. GSAP480ms/retarget/reduced-motion, header de arraste/teclado, resize/clipping e Escape recebido no guest. Cinema usa inert e gates explícitos de áreas; fechar destrói guest e libera gates. Link é conservado; o usuário abre/aciona Play novamente após restart. Sem downloads, chave de API ou promessa de reprodução de links que o YouTube restringe. [Validação](validation/YOUTUBE.md).

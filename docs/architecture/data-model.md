@@ -1,13 +1,14 @@
 # Dados da alpha
 
-Estado em 03/10/2026: schema v3 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts e src/shared/projects.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 03/10/2026: schema v4 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts e src/shared/projects.ts e src/shared/videos.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
 | Subject | id, nome, configuração visual | ID não muda ao renomear |
 | NoteReference | id, subjectId, caminho relativo, hash, título | Corpo vem do Markdown |
 | LocalMaterial | id, subjectId, referência de PDF | Binário local |
-| Desk | subjectId, nota/material, página, painéis, próxima ação | Contexto por matéria |
+| Desk | subjectId, nota/PDF/vídeo, tipo de material, página, painéis, próxima ação | Contexto por matéria |
+| StudyVideo | UUID, subjectId, título, youtubeId, startSeconds, URL normalizada | Unicidade matéria/vídeo; link local, reprodução remota explícita |
 | FocusSession | id, subjectId, duração escolhida, estado, segmentos | Pausa não conta tempo |
 | StudyTask | id, subjectId, texto | Identidade estável |
 | TaskStep | id, taskId, texto, concluída | Renomear conserva vínculo |
@@ -36,3 +37,5 @@ GAM-01 aplica migração aditiva v1→v2, sem reescrever as tabelas anteriores. 
 GAM-02 aplica migração aditiva v2→v3: game_challenges, project_folders e project_drafts. Engine/challengeId entram no JSON de perfil com defaults preservadores; não repetem starter nem resetam carteira/XP/ledger. Desafio guarda estágio/acertos/status, não aceita resultado do cliente; origem challenge:UUID é única. Novos registros usam rule_version=2; histórico v1 permanece.
 
 project_folders registra UUID/raiz canônica/nome; project_drafts guarda projeto+caminho, fonte e hash-base. projectView em settings conserva projeto selecionado, até12 abas e ativa. Arquivo de projeto permanece fonte principal, com recovery em perfil/project-recovery. SQLite conserva rascunho, sem importar arquivos privados para o Git do app. Não há sincronização/execução/Git automático de projetos.
+
+MED-01 migra v3→v4 em transação: videos, desks.video_id e desks.material_view (pdf por default). SQLite conserva título/URL/seleção, não conteúdo audiovisual. Remover limpa seleção/referência/audit conjuntamente. Reiniciar não inicia guest/rede. Notas/PDF/projetos/jogo anteriores permanecem; migrações/testes e a prova nativa têm evidências próprias em YOUTUBE.

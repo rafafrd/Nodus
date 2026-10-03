@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/smooth-ui** reúne mesa, Vale Sereno, motor, desafios e Explorer com edição local.
+Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/youtube-cinema** reúne mesa, Vale Sereno, motor, desafios, Explorer e YouTube com cinema/PiP.
 
 ## 1. Abrir agora neste PC
 
@@ -38,7 +38,7 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch codex/smooth-ui https://github.com/rafafrd/Nodus.git
+git clone --branch codex/youtube-cinema https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
@@ -87,6 +87,21 @@ start gera a build e abre Electron. A aplicação atual funciona localmente no W
 | Esc | Voltar do modo Só caderno à mesa |
 
 O botão **Módulos** abre a grade com caderno, PDF e ferramentas. **Só caderno** amplia a nota.
+
+## 4.1. Guardar vídeos do YouTube
+
+1. Na matéria desejada, abra **Material → Vídeos → + Link**.
+2. Cole o link do YouTube e, se quiser, dê um título para encontrar a aula depois. Links watch, youtu.be, Shorts, live e embed são reconhecidos. O tempo inicial do link é conservado; links repetidos na mesma matéria conservam a entrada e o tempo original.
+3. Clique em **Salvar link**. Ele fica nesta matéria, sem conectar ao YouTube. Não precisa escolher vault para salvar vídeos.
+4. Clique em **Abrir player** ou no vídeo da lista; depois use **Play** do YouTube. Esta etapa precisa de internet. Volume, legendas, velocidade e progresso usam os controles oficiais.
+5. No cabeçalho do player, **Modo cinema** amplia o vídeo e escurece a mesa. **Esc** ou **Sair do cinema** volta; também funciona com o player focado.
+6. **Vídeo em PiP** cria o player flutuante dentro do app. Arraste pelo título; com o título focado, use setas, Shift+setas para passos maiores, ou Home para o canto inferior direito. Ele permanece no Explorer e fica contido ao redimensionar a janela.
+7. **Voltar vídeo à mesa** retorna à matéria de origem. Trocar área/PDF/matéria, expandir caderno ou rolar o vídeo para fora do painel passa para PiP. A reprodução continua no mesmo player entre modos.
+8. **Fechar player** para a reprodução e conserva o link. O **×** da lista remove o link salvo. Reabrir o app restaura lista/seleção; abrir o player novamente é uma ação sua.
+
+PDF e vídeo têm seleções separadas: voltar a **PDFs** conserva o documento/página. Notas/rascunhos continuam pelo fluxo normal de salvar/retomar. Cinema suspende interação e atalhos de áreas cobertas; ver o vídeo não muda recompensas do jogo.
+
+Vídeos privados, indisponíveis, restritos por idade/região ou sem incorporação podem ser recusados pelo YouTube. O app não baixa o vídeo nem contorna essa restrição. Uma falha de conexão/processo mostra **Tentar novamente**; erros específicos do vídeo aparecem no player oficial. PiP fica dentro desta janela, não por cima de outros programas. Movimento reduzido acompanha a configuração já descrita no guia.
 
 ## 5. Jogar em Vale Sereno
 

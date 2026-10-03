@@ -250,3 +250,17 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C6 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): ganho local/carteira animada, pulso sem toast, economia autoritativa |
 | C7 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): normal/reduzido dinâmico, retarget, inert, Ctrl+S durante transição, QTE oculto/teclado e Escape |
 | C8 | aprovado | [SMOOTH_UI](SMOOTH_UI.md): typecheck, 18 testes, pacote/jornadas finais/R1–R7/jogo legado; 27bd358/d50af65/b0060f1 enviados ao origin, guia/quadro/memória atualizados; [AppSec](../security/SMOOTH_UI_AUDIT.md), Gitleaks staged/docs e verificador aprovados |
+
+## MED-01 — Links YouTube, cinema e PiP
+
+03/10/2026, branch codex/youtube-cinema; provas de pacote Windows/player oficial e fronteiras em [YOUTUBE](YOUTUBE.md).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [YOUTUBE](YOUTUBE.md): URLs/argumentos/ID/tempo, SQLite real/UUID/dedup/limite/rollback e vínculos por matéria |
+| C2 | aprovado | [YOUTUBE](YOUTUBE.md): migração aditiva v1/v2/v3→v4 preserva fonte/draft/mesa/economia; restart lista/seleção sem conectar, PDF2 |
+| C3 | aprovado | [YOUTUBE](YOUTUBE.md): player oficial reproduzido, guest isolado/efêmero sem Node/preload/bridge, permissões/popups negados e seis IPCs recusados de outro sender |
+| C4 | aprovado | [YOUTUBE](YOUTUBE.md): cinema/retarget/Escape recebido pelo guest e mesmo WebContents conservado |
+| C5 | aprovado | [YOUTUBE](YOUTUBE.md): PiP mouse/teclado, Explorer/compacto/owner-return e close conservando link |
+| C6 | aprovado | [YOUTUBE](YOUTUBE.md): reprodução/reduced-motion/clipping/diálogo, gates QTE e crash real do guest/retry sem derrubar mesa |
+| C7 | não verificado | [YOUTUBE](YOUTUBE.md): typecheck/21 testes/pacote/jornadas/regressões passaram; audit final/documentos/memória conferidos; scan staged documental/commit/push em fechamento |
