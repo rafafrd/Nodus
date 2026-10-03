@@ -9,7 +9,7 @@
 | C3 | aprovado | CSS duração 0s com off; câmera imediata/pose estável, on restaura movimento, preferência do Windows prevalece mesmo com checkbox on. Mesmo canvas. PiP reproduz durante off/cinema. |
 | C4 | aprovado | Input nativo PNG/JPEG decodificados e normalizados 256×256; SVG disfarçado rejeitado conserva foto; remoção conserva nome; novo upload/nome/tema/off retomados após restart. Unitários verificam limites/strict/rollback. |
 | C5 | aprovado | Contagens: 2 matérias/2 notas/2 PDFs/1 projeto, drafts reais, caminhos e DB bytes; API shell.openPath retornou sucesso para data da fixture. Argumentos extras/caminhos arbitrários negados; seis canais de sender diferente recusados. |
-| C6 | não verificado | Typecheck/24 testes/package/test:settings/test:videos/test:journey/test:smooth-ui passaram; audit/documentos/checkpoints/push em fechamento. |
+| C6 | aprovado | Typecheck/24 testes/package/Settings/Videos/Journey/Smooth-ui passaram; AppSec/memória/docs/quadros e Gitleaks staged aprovados;8f1a47e/5eb2142/c68a020/ccdd75d enviados ao origin/codex/settings-profile, push exit0. |
 
 ## Execução e pacote
 
@@ -48,4 +48,4 @@ VideoPlayer agora usa dispose privado silencioso na substituição, e close expl
 
 ## Checkpoints e scan de stage
 
-Core 8f1a47e (8 arquivos/13.42KB), UI 5eb2142 (20 arquivos/45.59KB) e correção player c68a020 (2 arquivos/2.58KB). Diff cached --check e Gitleaks 8.30.1 staged passaram em cada checkpoint, exit0/sem achados; inclui testes e harnesses/fixtures. Commits locais, push/documentos finais ainda pendentes neste registro. Fonte de produto/harness permanece a exercitada no pacote final; docs/memória pós-freeze são checkpoint separado.
+Core 8f1a47e (8 arquivos/13.42KB), UI 5eb2142 (20 arquivos/45.59KB) e correção player c68a020 (2 arquivos/2.58KB). Diff cached --check e Gitleaks 8.30.1 staged passaram em cada checkpoint, exit0/sem achados; inclui testes e harnesses/fixtures. Docs/audit ccdd75d acrescenta23 arquivos/53.42KB de stage documental, Gitleaks exit0/sem achados. Os quatro checkpoints foram enviados ao origin/codex/settings-profile, push exit0/upstream configurado em03/10/2026. C1–C6 aprovados; movimentação de ticket/quadro fica no checkpoint documental de encerramento. Fonte de produto/harness permanece a exercitada no pacote final; docs/memória pós-freeze são checkpoint separado.

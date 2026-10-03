@@ -123,3 +123,5 @@ Verificação final MED-01 após mover o ticket: inventário75 arquivos de docs;
 ## Atualização documental CFG-01, 03/10/2026
 
 Novo ticket CFG-01, [ADR-0009](../adr/0009-preferencias-locais.md), [prova Windows](SETTINGS.md) e [AppSec independente](../security/SETTINGS_AUDIT.md) concluído com mitigações. README/guia/PRD/quadro/retomada/arquitetura/dados/SDD/design/Git/CLAUDE/memória refletem preferências locais no schema v4,6IPC específicos,3 paletas, foto raster normalizada e movimento appoff OR Windows reduzido. Sem conta/sync/reset/dep nova; gestão consulta dados existentes e orienta backup. Guia de downgrade corrigido de v3 para v4, conforme código e MED-01. Provas externas continuam pendentes. Inventário leu79 arquivos de docs; check-bootstrap17 tickets/109 critérios/89Markdown aprovado no checkpoint com C6 ainda pendente de push. Links/contagens são reconferidos após movimentar o ticket.
+
+Verificação final CFG-01 após movimentar o ticket: inventário79 arquivos de docs; check-bootstrap17 tickets/109 critérios/89Markdown/299links locais aprovado. Contagens são documentais; critérios externos da alpha continuam pendentes.

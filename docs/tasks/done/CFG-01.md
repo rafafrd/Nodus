@@ -1,7 +1,7 @@
 ---
 id: CFG-01
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["ALP-03","UI-02","MED-01"]
 criteria_count: 6
 ---
@@ -17,6 +17,8 @@ C4. Nome/foto locais editáveis; foto PNG/JPEG limitada/validada e normalizada a
 C5. Gerenciamento mostra versão/runtime/pastas e contagens reais; operações de pasta recebem enum e resolvem apenas diretórios registrados. Erros não confirmam sucesso nem eliminam dados.
 C6. Testes/argumentos/rollback/pacote e jornada Windows reais, capturas, audit independente, docs/memória/quadro e commits/push registrados com limites.
 
-## Plano e retomada
+## Encerramento e retomada
 
-Preferências/contratos e foto normalizada → área/perfil/temas → controle comum de movimento → provas de dados/UI/restart/isolamento e regressões → audit/docs/commits/push. Implementação/pacote/typecheck/24 testes/test:settings final aprovados, com perfil/photo/3 temas/off/on/OS/gestão/restart/BOM/CRLF e sixIPCsender recusados; critérios C1–C5 com provas em [SETTINGS](../../validation/SETTINGS.md). Primeira ação restante: scan documental, checkpoint de docs e push; parecer independente aprovado com mitigações; Settings/Videos/Journey/Smooth-ui passaram no pacote final, correção O-011 comprovada. C6 ainda não aprovado.
+C1–C6 aprovados em [SETTINGS](../../validation/SETTINGS.md) e [ALPHA](../../validation/ALPHA.md). Perfil local/nome/foto,3 temas/off/OS/gestão entregues, sem reset/migration/dep nova. Typecheck,24 testes,pacote Windows, Settings/Videos/Journey/Smooth-ui finais passaram; correção O-011 conservou superfície/retry após restart. [Auditoria independente](../../security/SETTINGS_AUDIT.md) aprovada com mitigações locais; tooling High com exposição avaliada permanece.
+
+Core8f1a47e, UI5eb2142, fixplayerc68a020 e docs/auditccdd75d enviados ao origin/codex/settings-profile, push exit0/upstream configurado em03/10/2026. Gitleaks staged de todas as fases aprovou, incluindo docs/fixtures/tests/harness; quadros/memória/guia atualizados. Fechamento do ticket em checkpoint documental separado. Nenhuma implementação restante neste ticket. Próxima ação humana: abrir a build e usar Ajustes conforme o guia. Alpha externa ALP-02/C5, ALP-09/R8 permanece pendente; nenhum serviço/release publicado.

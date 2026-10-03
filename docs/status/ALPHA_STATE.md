@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-CFG-01 em andamento na branch codex/settings-profile, a partir de92cc357. Configurações/perfil/3 temas/movimento e gestão local implementados; typecheck/24 testes/package e jornada nativa final passaram. [Ticket](../tasks/doing/CFG-01.md), [provas](../validation/SETTINGS.md). C1–C5 aprovados; próxima ação: scan staged documental e push para C6; auditoria independente encerrada com mitigações; regressões de vídeos/estudos/transições passaram no pacote final, correção de player O-011 comprovada.
+CFG-01 concluído na branch codex/settings-profile, a partir de92cc357. Perfil local/nome/foto,3 temas/animações e gestão por Ajustes. C1–C6 aprovados: typecheck/24 testes,pacote e jornadas Windows Settings/Videos/Journey/Smooth-ui finais, contexto/PiP/restart preservados e O-011 corrigido. Core8f1a47e/UI5eb2142/fixc68a020/docsccdd75d enviados ao origin, push exit0/upstream configurado em03/10/2026. Auditoria independente aprovada com mitigações, sem vulnerabilidade nova confirmada; tooling High com exposição avaliada permanece. Gitleaks de todos os stages/guia/ADR/memória/documentos atualizados. [Ticket](../tasks/done/CFG-01.md), [provas](../validation/SETTINGS.md). Nenhuma implementação restante neste ticket; próxima ação humana: abrir a build e usar Ajustes conforme o [guia](../GUIA_DE_USO.md). Alpha externa continua parcial.
 
 MED-01 concluída na branch codex/youtube-cinema, a partir de 2690372: links YouTube por matéria, cinema e PiP interno arrastável. C1–C7 aprovados: 21 testes, typecheck, pacote Windows/player oficial reproduzido, continuidade entre modos, crash/retry isolado e regressões de estudos/engine/Explorer/transições no mesmo pacote. Core d19c316/interface228c15f/docs ad77aae enviados ao origin, push exit0 em03/10/2026/upstream configurado. AppSec independente aprovado com mitigações e sem achado de código aberto; Gitleaks dos stages incluindo documentos/fixtures passou, memória/guia/contratos atualizados. [Ticket](../tasks/done/MED-01.md) e [provas](../validation/YOUTUBE.md). Nenhuma implementação restante; próxima ação humana: usar Material → Vídeos → + Link conforme o [guia](../GUIA_DE_USO.md). Alpha externa permanece parcial.
 
@@ -38,7 +38,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-02 | done | Concluído | GAM-01, ALP-04, UI-01 | — |
 | UI-02 | done | Concluído | UI-01, GAM-02 | — |
 | MED-01 | done | Concluído | ALP-03, ALP-05, UI-02 | — |
-| CFG-01 | doing | Em andamento | ALP-03, UI-02, MED-01 | C6 |
+| CFG-01 | done | Concluído | ALP-03, UI-02, MED-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -50,4 +50,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [MED-01](../tasks/done/MED-01.md).
+Último ticket concluído: [CFG-01](../tasks/done/CFG-01.md).

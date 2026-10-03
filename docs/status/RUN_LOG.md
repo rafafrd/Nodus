@@ -186,3 +186,9 @@ Settings/Videos/Journey/Smooth-ui finais exit0 no mesmo ASAR08F62C1D…/EXEED36D
 ### 03/10/2026 — CFG-01: audit final e documentos
 
 Agente independente encerrou SETTINGS_AUDIT: APPROVE WITH MITIGATIONS para freeze34a7c877… composto com suplemento final1d13b934… (30 arquivos comparados, sem diferenças). Probes próprios SQLite/FS/header/schema/movimento/3 testes e Gitleaks aprovados; nenhuma vulnerabilidade nova confirmada, tooling High com exposição avaliada permanece. Correção O-011 revisada; pacote/jornadas Windows são do implementador, auditor não abriu Electron. Guia/ADR/arquitetura/contratos/PRD/design/quadro/validação/memória atualizados. Restam scan staged documental, commit/push e fechamento C6; nenhuma alteração de produto depois da última jornada.
+
+### 03/10/2026 — CFG-01: concluído
+
+Core8f1a47e, UI5eb2142, fixplayerc68a020 e docs/auditccdd75d enviados ao origin/codex/settings-profile; push exit0/upstream configurado. Stage documental23 arquivos/53.42KB Gitleaks aprovado, bootstrap17tickets/109critérios/89Markdown/295links e inventário79docs passaram. C1–C6 aprovados; ticket movido para done/concluido, links/quadro/retomada atualizados. Fechamento em commit documental separado; fonte/pacote/jornadas e identidades do auditor permanecem os de SETTINGS/SETTINGS_AUDIT. Build/capturas/perfis fictícios locais ignorados; nenhum serviço/release publicado. Próxima ação humana: abrir a build, usar Ajustes e avaliar as três paletas. Alpha externa permanece parcial.
+
+Verificação final CFG-01 após movimentar o ticket: inventário79 arquivos de docs; check-bootstrap17 tickets/109 critérios/89Markdown/299links locais aprovado. Contagens são documentais; critérios externos da alpha continuam pendentes.

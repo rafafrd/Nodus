@@ -276,4 +276,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C3 | aprovado | [SETTINGS](SETTINGS.md): off CSS/GSAP/Three dinâmico, on restaura, OS reduzido prevalece, reprodução conserva |
 | C4 | aprovado | [SETTINGS](SETTINGS.md): nome/PNG/JPEG256, rejeição conserva foto, remoção/restart/rollback/strict |
 | C5 | aprovado | [SETTINGS](SETTINGS.md): dados/paths/runtime reais, enum/ausência/erro e6IPCsender negados, shell aceita pasta fictícia |
-| C6 | não verificado | [SETTINGS](SETTINGS.md):24 testes/typecheck/package/native e regressões passados; audit/commit/push em fechamento |
+| C6 | aprovado | [SETTINGS](SETTINGS.md):24 testes/typecheck/package/jornadas/regressões, [AppSec](../security/SETTINGS_AUDIT.md), guias/memória/quadros e Gitleaks staged aprovados;8f1a47e/5eb2142/c68a020/ccdd75d enviados ao origin/codex/settings-profile |
