@@ -5,7 +5,7 @@
 Versão do pacote: 0.1  
 Data: 01/10/2026, America/Sao_Paulo  
 Base: ARQUITETURA_APP_ESTUDOS.md, ROADMAP_V0_1.md (plano 0.2) e BACKLOG_ALPHA_SEMANAS_1_2.md.  
-Estado: instruções preparadas; o aplicativo ainda não foi implementado nesta conversa.
+Estado desta edição: banco de prompts derivados da concepção de 01/10/2026. MVP local já implementado; consulte docs/tasks e docs/status/ALPHA_STATE.md. Os blocos descrevem critérios originais, não o estado atual nem autorização para recriar a base.
 
 São 11 prompts independentes, um por ticket. Cada bloco inclui contexto para uma sessão nova, dependências, resultado esperado, critérios, verificações e registro de retomada.
 
@@ -15,9 +15,9 @@ São 11 prompts independentes, um por ticket. Cada bloco inclui contexto para um
 2. Copie o bloco completo de ALP-01. Peça execução no ambiente de desenvolvimento, com acesso aos arquivos do projeto.
 3. Ao terminar, revise o status e as evidências. Passe ao próximo prompt quando suas dependências estiverem estáveis. Se faltar uma prova de ambiente, é possível continuar trabalho independente, preservando o critério pendente.
 4. Em uma sessão nova, disponibilize novamente o repositório e os documentos. O prompt manda ler docs/status/ALPHA_STATE.md para retomar.
-5. Os prompts terminam na tarefa atual. Eles não autorizam uma execução automática dos 11 tickets de uma vez.
+5. A execução segue a autorização atual do usuário e AGENTS.md: alpha sequencial avança quando autorizada, mantendo um ticket por vez. O banco de prompts por si só não inicia tarefas.
 
-O recorte entrega notas Markdown, armazenamento local, mesa, PDF, foco, checklist e primeiro espelho web autenticado. Grafo 3D, farm/loja/builds, editor de projetos, IA e agenda continuam no roadmap da primeira versão pública.
+O recorte entrega notas Markdown, armazenamento local, mesa, PDF, foco, checklist e primeiro espelho web autenticado. Grafo 3D, IA, agenda e execução/Git de projetos continuam no roadmap. Jogo e Explorer/editor locais foram antecipados por pedidos GAM-01/02.
 
 ## Ordem e atenção humana
 

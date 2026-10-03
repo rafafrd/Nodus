@@ -1,0 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+const walk = directory => fs.readdirSync(directory, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(directory, e.name)) : [path.join(directory, e.name)]);
+const group = f => f.includes('/planning/') ? 'histórico de concepção' : /TEMPLATE\.md$/.test(f) ? 'template' : f.includes('/tasks/') ? 'quadro/critérios e checkpoints' : f.includes('/validation/') || f.includes('/security/') || f.includes('/decisions/') || f.includes('/status/RUN_LOG') ? 'evidência datada/decisão' : f.includes('/adr/') ? 'decisão arquitetural com acompanhamento' : /PROMPTS_ALPHA|CODEX_START|bootstrap\.md/.test(f) ? 'referência/template de execução' : 'documento ativo de produto/uso/estado';
+const entries = walk('docs').sort().map(f => { const bytes = fs.readFileSync(f), name = f.replaceAll('\\', '/'); return { file: name, category: group(name), bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') }; });
+fs.mkdirSync('.local/evidence', { recursive: true }); fs.writeFileSync('.local/evidence/product-docs-inventory.json', JSON.stringify({ generatedAt: new Date().toISOString(), scope: 'cada arquivo de docs lido para inventário; classificação/links são documentais, não execução de requisitos futuros', count: entries.length, entries }, null, 2)); console.log(`${entries.length} arquivos em docs inventariados integralmente.`);

@@ -1,5 +1,7 @@
 # Documentação
 
+Para usar o app: [guia de uso](GUIA_DE_USO.md). Para retomar desenvolvimento: [estado atual](status/ALPHA_STATE.md) → [ticket](tasks/README.md). Para distinguir existente de futuro: [revisão de todos os documentos](validation/PRODUCT_DOCS.md).
+
 ## Leitura para começar
 
 [Setup Windows](setup/windows.md) → [Git](setup/git.md) → [agentes](setup/agents.md) → [retomada](status/ALPHA_STATE.md) → [ticket](tasks/README.md). Use a arquitetura e o SDD conforme o escopo da tarefa.
@@ -18,6 +20,8 @@
 | [Validação alpha](validation/ALPHA.md) | Evidência por critério |
 | [Guia de uso](GUIA_DE_USO.md) | Iniciar app, usar mesa/jogo e preservar dados |
 | [Validação do jogo](validation/GAME.md) | Cidade/economia e jornada Windows de GAM-01 |
+| [Motor/desafios/Explorer](validation/ENGINE_EXPLORER.md) | GAM-02, jornada e pacote Windows |
+| [Revisão de docs](validation/PRODUCT_DOCS.md) | Inventário completo, divergências/correções e limites |
 | [Validação bootstrap](validation/BOOTSTRAP.md) | Revisão deste pacote documental |
 | [Publicação](release/README.md) | Decisões e provas necessárias ao lançamento |
 

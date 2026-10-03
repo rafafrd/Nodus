@@ -12,4 +12,4 @@ Tiptap foi avaliado em configuração básica e apresentou perdas. Usar CodeMirr
 
 ## Consequências e evidência
 
-Não escolher por aparência ou quantidade de extensões. Registre versão, fixture, diff, editor externo e limites em docs/decisions/markdown-editor.md. Depois da prova, atualize esta ADR com escolha e motivos. Matriz atual: não verificada.
+Não escolher por aparência ou quantidade de extensões. Registre versão, fixture, diff, editor externo e limites em docs/decisions/markdown-editor.md. Depois da prova, atualize esta ADR com escolha e motivos. Matriz local aprovada nos casos registrados em ../decisions/markdown-editor.md; prova no editor externo/Obsidian permanece não verificada (ALP-02/C5).

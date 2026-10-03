@@ -119,6 +119,22 @@ Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa
 - Impacto e decisão: tooling afetado consta no audit, sem achado de código/exposição confirmada neste recorte local. Continuar o incremento com avaliação explícita; não declarar audit completo limpo nem aplicar downgrade sem compatibilidade/remediação comprovadas.
 - Evidência/próxima ação: docs/security/GAME_AUDIT.md registra cadeia, fontes e limites. Reavaliar na preparação de release, ao introduzir cache compartilhado ou quando houver remediação oficial. Dados de teste e empacotamento não exigiram sessão/cache remoto do app.
 
+### O-006 — validação estrita rejeitava salvamento inicial do Explorer
+
+03/10/2026/GAM-02, testes reais no Windows. save passava hash/text à schema strict de open, rejeitando toda gravação depois de preservar draft. Corrigido para referência projectId/path em cada open. tests/projects.test.ts e jornada empacotada/Ctrl+S passaram; problema capturado antes da entrega.
+
+### O-007 — NTFS permite alias de caixa/8.3 para metadados .git
+
+03/10/2026/GAM-02, probe independente em fixture real. Bloqueio literal .git permitia .GIT e GIT~1/config; alias8.3 permitiu ler/gravar config antes da correção. Corrigido com validação case-insensitive e bloqueio de componente .git no caminho canônico após realpath, antes de retornar resolução. Probes read/save negativos deixaram bytes intactos; junction/root substituída também negadas. Ver auditoria GAM-02; não apagar dados/projetos para testar contenção.
+
+### O-008 — ignore de build também ocultava documento de publicação
+
+03/10/2026/GAM-02, git ls-files docs/release vazio e check-ignore indicava release/ para docs/release/README.md. O link existia no PC mas o documento não acompanhava um checkout. Corrigido para /release/ na raiz, mantendo build privada ignorada e incluindo o documento de publicação no commit. O verificador também pulava todo diretório release; agora release/dist são ignorados somente na raiz. Prova em cópia real negou um link interno quebrado em docs/release. Verificação de links/quadro e git ls-files conferem a correção.
+
+### O-009 — carregar arquivo no CodeMirror parecia nova edição
+
+03/10/2026/GAM-02, harness Windows ao usar versão do arquivo depois de recuperar draft. O dispatch programático disparava onChange e mostrava Rascunho em edição apesar da fonte estar atualizada; bytes/draft do disco permaneceram corretos. Correção: distinguir sync de props e entrada do usuário no listener. Prova nova verifica status, decisões rápidas de Save/descarte, recovery e edição seguinte no pacote.
+
 ### O-NNN — título concreto
 
 - Estado: observado / investigando / corrigido sem nova prova / corrigido e verificado / reaberto.

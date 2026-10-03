@@ -197,9 +197,16 @@ Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Che
 
 Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Checkpoint encerrado na branch MVP com commits por fase. README/setup/arquitetura/quadro conferidos; typecheck, 8 testes, pacote e jornada R1-R7 Windows passaram. Auditoria por agente em docs/security/MVP_AUDIT.md: zero achados abertos, um Low corrigido e verificado via IPC/rollback, npm audit prod/completo e Gitleaks fonte/historico sem achados. Nuvem/editor externo pendentes explicitos, tempo humano nao informado; check-bootstrap passou.
 
-## Refinamento posterior — UI-01
+## UI-01 — Refinamento posterior
 
 02/10/2026, branch feat/frontend: grade de módulos com cantos retos, leitura ampliada e ferramentas refinadas. Evidência própria em [FRONTEND.md](FRONTEND.md). Typecheck, nove testes, empacotamento e jornada R1–R7 passaram novamente no Windows, incluindo nota/PDF/contextos/foco/checklist/conflito. ALP-02/C5, ALP-09 e R8 continuam pendentes; esse incremento visual não aprova a alpha integral. A identificação do novo pacote está na evidência de UI-01, separada da prova anterior da MVP.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [FRONTEND](FRONTEND.md), provas UI-01/Windows, contexto/rodadas datadas preservados |
+| C2 | aprovado | [FRONTEND](FRONTEND.md), provas UI-01/Windows, contexto/rodadas datadas preservados |
+| C3 | aprovado | [FRONTEND](FRONTEND.md), provas UI-01/Windows, contexto/rodadas datadas preservados |
+| C4 | aprovado | [FRONTEND](FRONTEND.md), provas UI-01/Windows, contexto/rodadas datadas preservados |
 
 ## GAM-01 — Cidade, farm, grind e loja
 
@@ -213,3 +220,18 @@ Execução 02/10/2026, Windows 11 (10.0.26200), Node host portátil 24.21.0. Che
 | C4 | aprovado | SQLite v2 aditivo, 13 testes, replay/rejeições/rollback e conciliação; probes do agente e IPC real descritos em GAME.md |
 | C5 | aprovado | Windows package:win/test:game/test:journey R1–R7/probe de outro sender passaram; rascunho/Markdown/PDF/mesa/foco preservados |
 | C6 | aprovado | Economia 728047d e interface 49489ad enviadas para origin/feat/game; regras/guia/auditoria/memória/quadro/retomada atualizados, Gitleaks e check-bootstrap |
+
+## GAM-02 — Motor, desafios e Explorer
+
+Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PRODUCT_DOCS](PRODUCT_DOCS.md).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [PRODUCT_DOCS](PRODUCT_DOCS.md): 68 arquivos inventariados, divergências corrigidas, planejamento histórico preservado; verificador e provas negativas |
+| C2 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): motor real 60→61 moedas, upgrade25/potência3, pulso→39; cooldown, replay e migração sem reset em SQLite |
+| C3 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): QTE por teclado 3/3 e skillcheck por timing 3/3, recompensas no main, ritmo/teclado/botões e cancelamento gratuito |
+| C4 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): dois diretórios reais, árvore/abas/retomada e oito capacidades IPC específicas; diálogo nativo permanece não automatizado |
+| C5 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): edição seletiva preserva BOM/CRLF, conflito/draft/recovery, fechamento imediato/restart e eventos rápidos de Save/resolução |
+| C6 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): 18 testes, .git caixa/alias8.3, traversal/junction/encoding/1MiB, argumento/replay/rollback e outro sender negado |
+| C7 | aprovado | [ENGINE_EXPLORER](ENGINE_EXPLORER.md): pacote Windows identificado, novas jornadas/capturas, R1–R7 e jogo legado repetidos no pacote final |
+| C8 | não verificado | Fechamento da revisão/segredos e push final em andamento |

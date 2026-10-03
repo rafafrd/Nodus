@@ -13,3 +13,7 @@ Guardar notas apenas em formato proprietário dificultaria editar fora do app. G
 ## Evidência e revisão
 
 Formato definitivo, biblioteca SQLite, migrações e política de recuperação serão registrados pelos tickets. Round-trip do editor e conflito ainda não foram verificados.
+
+## Acompanhamento em 03/10/2026
+
+ALP-03/04 foram implementados/verificados com node:sqlite, migrações e conflito/draft/backup reais. ADR-0005 escolheu fonte Markdown assistida em CodeMirror; JSON interno não é usado nesta implementação. Prova externa do editor permanece pendente em ALP-02/C5. Ver ../validation/ALPHA.md e ../decisions/vault-safety.md.

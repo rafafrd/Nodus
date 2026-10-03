@@ -17,3 +17,7 @@ Respeite identidade/configuração existente. Se faltar autor, configure apenas 
 O [pedido de início](CODEX_START.md) autoriza commits locais dos checkpoints em uma branch contínua, como feat/alpha. Preserve implementação e alterações anteriores; não crie branches independentes que percam o código necessário ao ticket seguinte. Se o repositório não estiver preparado, conclua trabalho independente e registre a etapa Git pendente.
 
 Um commit não aprova critérios pendentes. Push, criação de remoto e publicação exigem pedido específico. O Git do app é separado do vault de notas e de cada projeto de programação. Materiais privados, bancos e segredos não são versionados.
+
+## Estado em 03/10/2026
+
+Repositório e origin já existentes; não inicializar novamente. Pedidos posteriores autorizaram pushes de MVP, feat/frontend e feat/game. GAM-02 usa feat/engine-explorer, derivada de 083bdc0, com commits por fase e push no final por pedido explícito. Não implica publicação de serviço/release nem operação nos repositórios do vault/projetos.

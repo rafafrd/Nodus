@@ -1,5 +1,7 @@
 # Pedido de início da alpha
 
+Este é um template de autorização da alpha, não uma ordem permanente. Preserve o MVP e retome pelo estado/ticket; pedidos posteriores de branch/push/jogo/Explorer já registrados prevalecem no respectivo escopo.
+
 Abra a raiz do projeto no Codex. Copie somente o bloco abaixo. Ele autoriza a implementação local em sequência e commits locais; não publica o projeto.
 
 ```text

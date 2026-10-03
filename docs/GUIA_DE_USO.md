@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **feat/game** reúne a mesa de estudos e o primeiro jogo, Vale Sereno.
+Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **feat/engine-explorer** reúne mesa, Vale Sereno, motor, desafios e Explorer com edição local.
 
 ## 1. Abrir agora neste PC
 
@@ -38,7 +38,7 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch feat/game https://github.com/rafafrd/Nodus.git
+git clone --branch feat/engine-explorer https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
@@ -96,11 +96,13 @@ O perfil começa com **60 moedas, XP zero e quatro canteiros**. O progresso é l
 
 ### Um primeiro ciclo
 
-1. Na **Fazenda**, escolha Trigo e plante. Cada semente custa duas moedas; o cultivo amadurece em 45 segundos. Cenoura custa cinco e leva 90 segundos.
-2. Enquanto cresce, visite **Mina** ou **Bosque** pelos rótulos na cidade. Coletar rende recursos, moedas e XP; há intervalo de 1,5 segundo entre coletas.
-3. Volte à fazenda e clique em **Colher** quando o canteiro estiver pronto. Trigo rende oito moedas, cinco XP e uma unidade de trigo; cenoura rende 18 moedas, dez XP e uma unidade.
-4. Em **Mercado**, venda o inventário para ganhar mais moedas. Role o painel lateral para ver todas as opções.
-5. Compre melhorias. Elas ficam persistidas; a casa, o moinho e as lanternas aparecem no cenário. Terra fértil abre dois canteiros extras e a picareta dobra a pedra das coletas.
+1. A cidade abre no **Motor da vila**. Clique em **Acionar motor**: começa em uma moeda por pulso, com intervalo de 0,3 s. O primeiro upgrade custa **25 moedas** e aumenta a produção para **3 por pulso**. Upgrades seguintes crescem de preço, até o nível 10. A cada 10 pulsos, recebe 1 XP.
+2. Junte moedas para melhorar o motor ou comprar instalações no mercado. Esse é o caminho principal de farm ativo.
+3. Na **Fazenda**, escolha Trigo e plante. Cada semente custa duas moedas; o cultivo amadurece em 45 segundos. Cenoura custa cinco e leva 90 segundos.
+4. Enquanto cresce, visite **Mina** ou **Bosque** pelos rótulos na cidade. Coletar rende recursos, moedas e XP; há intervalo de 1,5 segundo entre coletas.
+5. Volte à fazenda e clique em **Colher** quando o canteiro estiver pronto. Trigo rende oito moedas, cinco XP e uma unidade de trigo; cenoura rende 18 moedas, dez XP e uma unidade.
+6. Em **Mercado**, venda o inventário para ganhar mais moedas. Role o painel lateral para ver todas as opções.
+7. Compre melhorias. Elas ficam persistidas; a casa, o moinho e as lanternas aparecem no cenário. Terra fértil abre dois canteiros extras e a picareta dobra a pedra das coletas.
 
 | Melhoria | Preço | Uso |
 | --- | --- | --- |
@@ -112,6 +114,15 @@ O perfil começa com **60 moedas, XP zero e quatro canteiros**. O progresso é l
 
 Arraste o cenário para explorar e use a roda do mouse ou **+ / −** para aproximar/afastar. **⌖** centraliza a câmera. Os rótulos dos locais também funcionam como botões.
 
+### Oficina: QTE e skillcheck
+
+Abra **Oficina** e escolha **Tranquilo** para começar. A tentativa é gratuita.
+
+- **Sincronizar o motor:** pressione A/S/D/W conforme a tecla grande ou clique no botão da tecla. Acerte3 etapas antes de cada barra esvaziar; recebe24moedas/12XP. Uma tecla errada ou tempo esgotado encerra sem descontar moedas.
+- **Calibrar a válvula:** espere o marcador entrar na faixa dourada e pressione **Espaço** ou **Calibrar válvula**. São3 calibrações; cada acerto aumenta a recompensa, até36moedas/15XP. O marcador vai e volta; pode esperar outra passagem.
+
+Tranquilo dá mais tempo/faixa maior; Normal exige mais precisão. **Encerrar tentativa** permite trocar desafio sem custo. Ao sair, a tentativa continua: QTE pode expirar; a válvula e a memória são retomáveis. Movimento reduzido suspende decoração da cidade, mas o marcador necessário ao timing continua visível.
+
 ### Memória e personagem
 
 Em **Memória**, escolha 3, 6 ou 9 pares e comece. Encontre conceito/definição, conceito/exemplo e fórmula/situação. Não há limite de tempo. Uma rodada completa rende moedas/XP conforme dificuldade, tentativas e melhor combo. Você pode iniciar outra rodada para continuar progredindo. O primeiro baralho é demonstrativo, com fundamentos curados de matemática/programação.
@@ -120,15 +131,29 @@ Em **Personagem**, distribua os pontos de cada nível e clique em **Salvar build
 
 XP e moedas indicam progressão do jogo. O app não usa esses números como medida de domínio acadêmico. Regras e valores ainda são provisórios: [detalhes do balanceamento](decisions/game-rules.md).
 
-## 6. Dados, backup e perfil de teste
+## 6. Explorer: seus projetos e arquivos
+
+1. Clique em **Explorer** na barra lateral da mesa ou da cidade.
+2. Use **Abrir pasta** ou **+** e escolha uma pasta de projeto no diálogo do Windows. Os projetos ficam na lista lateral, separados do vault de notas e do Git do app.
+3. Clique no nome do projeto e expanda as pastas. Clique em um arquivo para abrir uma aba. Pode manter arquivos de projetos diferentes abertos; o limite é12 abas/40 projetos.
+4. Edite e pressione **Ctrl+S** ou **Salvar**. Confira **Salvo no arquivo**: isso grava no arquivo real. Um ponto na aba indica edição pendente.
+5. Troque de aba/projeto/área ou feche normalmente: o rascunho fica no perfil e as abas são retomadas. **Rascunho recuperado** ainda não é arquivo salvo.
+6. Se outra ferramenta editar o arquivo, a edição limpa é atualizada; com texto pendente, aparece **Arquivo alterado fora do app**. Abra **Ver versão externa**, escolha **Usar arquivo externo** ou **Conservar minha edição para revisão**, revise e salve explicitamente.
+
+**↻** atualiza a árvore; **Estudos** volta à mesa e **Cidade** abre o jogo. Arquivos de texto UTF-8, inclusive BOM/CRLF, até1MiB são aceitos. Binários, junctions/links e metadados .git são bloqueados; node_modules não entra na árvore. Se o arquivo desaparecer, seu rascunho é preservado e Save fica indisponível até recuperar o arquivo no computador.
+
+Este incremento edita arquivos existentes como fonte. Criar/deletar arquivos, terminal, execução/preview HTML ou JS, Git de projetos e linguagem com autocomplete ficam para tickets posteriores. Alterações de arquivos geram cópias em project-recovery no perfil. Se ocorrer erro depois de gravar no disco, o app conserva o rascunho/backup; confira o arquivo antes de tentar de novo.
+
+## 7. Dados, backup e perfil de teste
 
 | Dado | Onde fica |
 | --- | --- |
 | Notas Markdown | Vault que você escolheu |
 | PDFs | Arquivos locais selecionados; app conserva referências |
-| Mesa, tarefas, foco, rascunhos e jogo | Perfil local em %APPDATA%\app-estudos |
+| Projetos | Pastas escolhidas; arquivos são editados no local original |
+| Mesa, tarefas, foco, rascunhos/abas de projetos e jogo | Perfil local em %APPDATA%\app-estudos |
 
-Para backup, **feche o app** e copie o vault, os PDFs necessários e a pasta de perfil inteira. Copiar apenas as notas conserva os arquivos Markdown; copiar o perfil também conserva jogo, mesas e rascunhos. Os arquivos do app não são criptografados pelo próprio aplicativo. Guarde dados pessoais fora do repositório.
+Para backup, **feche o app** e copie o vault, os PDFs necessários, suas pastas de projetos e a pasta de perfil inteira. Copiar apenas as notas conserva os arquivos Markdown; copiar o perfil também conserva jogo, mesas e rascunhos. Os arquivos do app não são criptografados pelo próprio aplicativo. Guarde dados pessoais fora do repositório.
 
 Para experimentar com dados separados, na raiz do projeto:
 
@@ -137,9 +162,9 @@ $guideProfile = Join-Path (Get-Location).Path '.local\perfil-guia'
 & '.\release\win-unpacked\App Estudos.exe' "--user-data-dir=$guideProfile"
 ```
 
-Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: a build do jogo usa SQLite v2 e a antiga build MVP usava v1.
+Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: esta build usa SQLite v3, GAM-01 usava v2 e a antiga MVP usava v1. Uma build antiga não abre schema novo; não apague o banco para contornar isso.
 
-## 7. Diagnóstico rápido
+## 8. Diagnóstico rápido
 
 | Situação | Próximo passo |
 | --- | --- |
@@ -150,6 +175,10 @@ Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para 
 | Outra app usa porta 5173 | Encerre a instância anterior do desenvolvimento e inicie novamente |
 | PDF foi movido | Use o controle de localizar/substituir material para vincular o arquivo atual |
 | Nota mostra conflito/rascunho | Leia as versões, preserve seu texto e confirme o salvamento desejado |
+| Arquivo bloqueado no Explorer | Confira UTF-8, tamanho até1MiB e se é arquivo regular dentro da pasta, sem link/.git |
+| QTE terminou sem prêmio | Tente o ritmo Tranquilo; use a tecla indicada dentro do prazo |
 | Compra/colheita indisponível | Confira moedas, canteiro pronto e se a melhoria já foi comprada |
 
 Se um comando falhar, registre a mensagem e a etapa. Preserve seu perfil/vault para diagnóstico. As provas desta entrega estão em [GAME](validation/GAME.md), [frontend](validation/FRONTEND.md) e [estado do projeto](status/ALPHA_STATE.md).
+
+Novos fluxos/provas: [ENGINE_EXPLORER](validation/ENGINE_EXPLORER.md); revisão dos documentos: [PRODUCT_DOCS](validation/PRODUCT_DOCS.md).

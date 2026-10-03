@@ -1,3 +1,5 @@
+> Checkpoint histórico do recorte inicial de02/10/2026, antes dos pedidos posteriores. Jogo e Explorer/editor locais foram antecipados em GAM-01/02; pushes autorizados depois desse checkpoint. Estado atual em ../status/ALPHA_STATE.md.
+
 # Recorte desta entrega
 
 02/10/2026. Pedido atual: MVP bem enxuto, baseado na documentação, front com Three.js e GSAP, commits por fase na branch MVP e auditoria final por agente. A execução entrega o núcleo local de ALP-01 a ALP-08, com documentação de ALP-11 e jornada local de ALP-10. ALP-02 continua parcial por prova em editor externo ausente; a implementação é edição assistida com prévia, preservadora, não WYSIWYG.

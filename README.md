@@ -6,6 +6,8 @@ O refinamento UI-01 fica na branch feat/frontend: superfícies retas e grade de 
 
 GAM-01 na branch feat/game acrescenta a cidade Vale Sereno, farm/grind, loja, Memória de Conceitos e build. Abra **Seu mundo** na barra lateral. Economia persistida no SQLite, sem precisar de vault; [regras provisórias](docs/decisions/game-rules.md) e [parecer de segurança](docs/security/GAME_AUDIT.md) descrevem o recorte local.
 
+GAM-02 na branch feat/engine-explorer acrescenta motor clicável com upgrades, dois desafios de timing e Explorer/editor de pastas reais com abas, Ctrl+S, hash/conflito e rascunhos recuperáveis. [Provas](docs/validation/ENGINE_EXPLORER.md) e [revisão de docs](docs/validation/PRODUCT_DOCS.md).
+
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
 ## Começar
@@ -21,6 +23,7 @@ npm.cmd run package:win
 node scripts/smoke-desktop.mjs --packaged
 npm.cmd run test:journey
 npm.cmd run test:game
+npm.cmd run test:engine-explorer
 node scripts/check-bootstrap.mjs
 ```
 
@@ -43,7 +46,9 @@ Versões usadas: Node host/embarcado 24.21.0, Electron 44.5.1, React 19.3.0, Typ
 4. Abra um PDF local, navegue por páginas e redimensione o caderno pelo separador/teclado. Documento, página e layout pertencem à matéria.
 5. No dock, abra foco para escolher minutos, pausar/retomar/encerrar; ou checklist para criar tarefas, etapas e próxima ação (→). Módulos/Todos (Alt+3) abre caderno, PDF, foco e checklist em uma grade; Alt+1/2 abre uma ferramenta. Só caderno amplia a nota; Esc volta à mesa. O leitor PDF permite ajustar à largura ou ver a página inteira.
 6. Troque matéria ou reabra: cada mesa retoma seu contexto. Fechar preserva rascunho sem tratá-lo como nota salva; foco pausa. Conflito externo mostra as duas versões para revisão explícita.
-7. Em Seu mundo, plante/colha, visite mina/bosque, venda recursos e compre melhorias no Mercado. Memória rende recompensas por rodada concluída; Personagem permite distribuir/redistribuir pontos grátis. Entrar pausa o foco e preserva o rascunho; Voltar à mesa retoma o estudo. Moedas/XP são do jogo, sem avaliação de domínio acadêmico.
+7. Em Seu mundo, acione e melhore o motor para farm ativo; jogue QTE/skillcheck na Oficina, plante/colha, visite mina/bosque, venda recursos e compre melhorias no Mercado. Memória rende recompensas por rodada concluída; Personagem permite distribuir/redistribuir pontos grátis. Entrar pausa o foco e preserva o rascunho; Voltar à mesa retoma o estudo. Moedas/XP são do jogo, sem avaliação de domínio acadêmico.
+
+8. Em Explorer, abra uma pasta real, navegue na árvore e edite arquivos UTF-8 existentes em abas. Ctrl+S grava; conflitos externos conservam versões e fechamento conserva draft. Sem execução/Git de projetos neste incremento.
 
 Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam nas pastas escolhidas. Não são criptografados pelo app. Instância de teste isolada: execute `App Estudos.exe --user-data-dir=C:\caminho\de\teste` com uma pasta de teste. Testes usam .local e conteúdo fictício; não configure dados pessoais nesses diretórios.
 
@@ -54,7 +59,7 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 | [AGENTS.md](AGENTS.md) | Regras compartilhadas e execução sequencial |
 | [CLAUDE.md](CLAUDE.md) | Contexto do produto e guia complementar |
 | [gotcha.md](gotcha.md) | Riscos previstos e ocorrências reais |
-| [docs/tasks/README.md](docs/tasks/README.md) | Onze tickets com dependências e critérios |
+| [docs/tasks/README.md](docs/tasks/README.md) | Tickets da alpha e incrementos com dependências/critérios |
 | [docs/status/ALPHA_STATE.md](docs/status/ALPHA_STATE.md) | Estado e próxima ação |
 | [docs/status/RUN_LOG.md](docs/status/RUN_LOG.md) | Histórico dos checkpoints |
 | [docs/validation/ALPHA.md](docs/validation/ALPHA.md) | Evidência por critério |
@@ -70,7 +75,7 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 
 ## Recorte e estado
 
-Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Farm/loja/builds ganharam um primeiro incremento local por pedido explícito após a mesa; grafo 3D, integração de notas/IA, agenda e projetos JS/TS seguem o roadmap. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
+Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Farm/loja/builds ganharam um primeiro incremento local por pedido explícito após a mesa; grafo 3D, integração de notas/IA, agenda e execução/Git de projetos seguem o roadmap; navegação/edição local foram antecipadas em GAM-02. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
 
 Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte inicial](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Push das branches autorizado posteriormente pelo usuário; sem publicação de release/serviço.
 
