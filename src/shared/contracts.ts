@@ -26,6 +26,14 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  listProjects(): Promise<Result<import('./projects').ProjectCatalog>>;
+  chooseProject(): Promise<Result<import('./projects').ProjectCatalog | null>>;
+  projectTree(input: z.infer<typeof import('./projects').projectTreeInput>): Promise<Result<import('./projects').ProjectTree>>;
+  openProjectFile(input: import('./projects').ProjectFileRef): Promise<Result<import('./projects').ProjectDocument>>;
+  saveProjectFile(input: z.infer<typeof import('./projects').projectWriteInput>): Promise<Result<import('./projects').ProjectSave>>;
+  recoverProjectDraft(input: z.infer<typeof import('./projects').projectWriteInput>): Promise<Result<void>>;
+  discardProjectDraft(input: import('./projects').ProjectFileRef): Promise<Result<import('./projects').ProjectDocument>>;
+  saveProjectView(input: import('./projects').ProjectView): Promise<Result<import('./projects').ProjectView>>;
   getGame(): Promise<Result<import('./game').GameState>>;
   gameAction(input: z.infer<typeof import('./game').gameInput>): Promise<Result<import('./game').GameResult>>;
   version(): Promise<Result<AppInfo>>;

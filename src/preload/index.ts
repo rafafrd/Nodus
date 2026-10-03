@@ -1,6 +1,14 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  listProjects: () => ipcRenderer.invoke('project:list'),
+  chooseProject: () => ipcRenderer.invoke('project:choose'),
+  projectTree: input => ipcRenderer.invoke('project:tree', input),
+  openProjectFile: input => ipcRenderer.invoke('project:open', input),
+  saveProjectFile: input => ipcRenderer.invoke('project:save', input),
+  recoverProjectDraft: input => ipcRenderer.invoke('project:draft', input),
+  discardProjectDraft: input => ipcRenderer.invoke('project:discard', input),
+  saveProjectView: input => ipcRenderer.invoke('project:view', input),
   getGame: () => ipcRenderer.invoke('game:get'),
   gameAction: input => ipcRenderer.invoke('game:action', input),
   version: () => ipcRenderer.invoke('app:version'),

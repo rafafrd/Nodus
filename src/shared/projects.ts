@@ -1,0 +1,15 @@
+import { z } from 'zod';
+export const PROJECT_TEXT_LIMIT = 1024 * 1024;
+export const relativeProjectPath = z.string().max(1024).refine(value => !value || value.split('/').every(part => part && part !== '.' && part !== '..' && !/[:\\\0<>|?*]/.test(part) && !/[ .]$/.test(part) && part.toLowerCase() !== '.git'), 'Caminho relativo inválido');
+export const projectIdInput = z.strictObject({ projectId: z.uuid() });
+export const projectTreeInput = z.strictObject({ projectId: z.uuid(), path: relativeProjectPath });
+export const projectFileInput = z.strictObject({ projectId: z.uuid(), path: relativeProjectPath.refine(v => Boolean(v)) });
+export const projectWriteInput = z.strictObject({ projectId: z.uuid(), path: relativeProjectPath.refine(v => Boolean(v)), hash: z.string().regex(/^[a-f0-9]{64}$/), text: z.string().max(PROJECT_TEXT_LIMIT).refine(v => !v.includes('\0') && !/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(v), 'Texto UTF-8 inválido') });
+export const projectViewInput = z.strictObject({ projectId: z.uuid().nullable(), tabs: z.array(projectFileInput).max(12), active: projectFileInput.nullable() });
+export type ProjectRef = { id: string; name: string; available: boolean };
+export type ProjectFileRef = z.infer<typeof projectFileInput>;
+export type ProjectView = z.infer<typeof projectViewInput>;
+export type ProjectCatalog = { projects: ProjectRef[]; view: ProjectView };
+export type ProjectTree = { entries: { name: string; path: string; kind: 'directory' | 'file' | 'link' }[]; truncated: boolean };
+export type ProjectDocument = ProjectFileRef & { text: string; hash: string | null; draft: { text: string; baseHash: string } | null; missing: boolean };
+export type ProjectSave = { state: 'saved'; document: ProjectDocument } | { state: 'conflict'; external: ProjectDocument };

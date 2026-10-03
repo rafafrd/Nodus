@@ -3,22 +3,23 @@ import type { z } from 'zod';
 import { Store } from './store';
 import { AppError } from '../shared/contracts';
 import { CROPS, SHOP, RESOURCES, MEMORY_PAIRS, classFor, levelFor, type GameState, type GameResult, type Build, type Plot, type Resource, type ShopId, type Round, gameInput } from '../shared/game';
+import { engineCost, enginePower, skillPosition, type Engine, type Challenge, type GameAction } from '../shared/game';
 
-type Player = { coins: number; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: number; roundId: string | null };
+type Player = { coins: number; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: number; roundId: string | null; engine: Engine; challengeId: string | null };
 type StoredRound = Omit<Round, 'cards'> & { cards: { id: number; pair: number; text: string; matched: boolean }[] };
 export class Game {
   constructor(readonly store: Store, readonly clock: () => number = Date.now) {}
   private load(): Player {
     const row = this.store.db.prepare('SELECT coins,xp,state FROM game_player WHERE id=1').get() as { coins: number; xp: number; state: string } | undefined;
-    if (row) return { ...JSON.parse(row.state), coins: row.coins, xp: row.xp };
-    const p: Player = { coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null };
+    if (row) { const state = JSON.parse(row.state); return { ...state, engine: state.engine ?? { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: state.challengeId ?? null, coins: row.coins, xp: row.xp }; }
+    const p: Player = { coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null, engine: { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: null };
     this.credit(p, 'starter', 'Boas-vindas à vila', 60, 0); this.save(p); return p;
   }
   private save(p: Player) { const { coins, xp, ...state } = p; this.store.db.prepare('INSERT INTO game_player(id,coins,xp,state) VALUES(1,?,?,?) ON CONFLICT(id) DO UPDATE SET coins=excluded.coins,xp=excluded.xp,state=excluded.state').run(coins, xp, JSON.stringify(state)); }
   private credit(p: Player, source: string, action: string, coins: number, xp: number, resources: Partial<Record<Resource, number>> = {}) {
     if (p.coins + coins < 0) throw new AppError('INSUFFICIENT_COINS', 'Você ainda não tem moedas suficientes.');
     for (const [key, delta] of Object.entries(resources)) if (p.inventory[key as Resource] + delta < 0) throw new AppError('INSUFFICIENT_RESOURCE', 'Você ainda não tem esse recurso em quantidade suficiente.');
-    this.store.db.prepare('INSERT INTO game_ledger(source,action,coins,xp,resources,at,rule_version) VALUES(?,?,?,?,?,?,1)').run(source, action, coins, xp, JSON.stringify(resources), this.clock());
+    this.store.db.prepare('INSERT INTO game_ledger(source,action,coins,xp,resources,at,rule_version) VALUES(?,?,?,?,?,?,2)').run(source, action, coins, xp, JSON.stringify(resources), this.clock());
     p.coins += coins; p.xp += xp; for (const [key, delta] of Object.entries(resources)) p.inventory[key as Resource] += delta;
   }
   private settle(p: Player, boundary = false) {
@@ -39,19 +40,52 @@ export class Game {
   private persistRound(round: StoredRound) { this.store.db.prepare('INSERT INTO game_rounds(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(round.id, JSON.stringify(round)); }
   private view(p: Player): GameState {
     const round = this.readRound(p.roundId);
-    return { ...p, level: levelFor(p.xp), className: classFor(p.build), now: this.clock(), passiveCoins: p.owned.includes('windmill') ? 4 + p.build.focus : 0, round: round ? { ...round, cards: round.cards.map(c => ({ id: c.id, matched: c.matched, label: c.matched || round.selected.includes(c.id) ? c.text : null })) } : null, recent: this.store.db.prepare('SELECT action,coins,xp,at FROM game_ledger ORDER BY id DESC LIMIT 6').all() as GameState['recent'] };
+    return { ...p, engine: { ...p.engine, power: enginePower(p.engine.level), upgradeCost: engineCost(p.engine.level) }, challenge: this.challenge(p), level: levelFor(p.xp), className: classFor(p.build), now: this.clock(), passiveCoins: p.owned.includes('windmill') ? 4 + p.build.focus : 0, round: round ? { ...round, cards: round.cards.map(c => ({ id: c.id, matched: c.matched, label: c.matched || round.selected.includes(c.id) ? c.text : null })) } : null, recent: this.store.db.prepare('SELECT action,coins,xp,at FROM game_ledger ORDER BY id DESC LIMIT 6').all() as GameState['recent'] };
   }
-  get(): GameState { return this.store.transaction(() => { const p = this.load(); this.settle(p); return this.view(p); }); }
+  private challenge(p: Player): Challenge | null { const row = p.challengeId && this.store.db.prepare('SELECT state FROM game_challenges WHERE id=?').get(p.challengeId); return row ? JSON.parse(String(row.state)) : null; }
+  private saveChallenge(c: Challenge) { this.store.db.prepare('INSERT INTO game_challenges(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(c.id, JSON.stringify(c)); }
+  private expire(p: Player) { const c = this.challenge(p); if (c?.status === 'active' && c.kind === 'qte' && this.clock() > c.stepAt + c.stepMs) { c.status = 'failed'; this.saveChallenge(c); this.store.audit('game.challenge-expire', c.id, 'ok'); } }
+  private play(p: Player, a: GameAction): string {
+    const now = this.clock(); let c = this.challenge(p);
+    if (a.kind === 'start-challenge') {
+      if (c?.status === 'active') return 'Desafio retomado. Termine ou encerre para começar outro.';
+      c = { id: randomUUID(), kind: a.game, pace: a.pace, status: 'active', stage: 0, hits: 0, sequence: Array.from({ length: 3 }, () => (['A', 'S', 'D', 'W'] as const)[randomInt(4)]), targets: Array.from({ length: 3 }, () => [30, 45, 60, 75][randomInt(4)]), stepAt: now, stepMs: a.game === 'qte' ? a.pace === 'relaxed' ? 3500 : 2000 : a.pace === 'relaxed' ? 3200 : 2000, zone: a.pace === 'relaxed' ? 32 : 18, coins: 0, xp: 0 };
+      p.challengeId = c.id; this.saveChallenge(c); return 'Desafio iniciado. Siga as instruções no centro.';
+    }
+    if (!c || c.id !== ('challengeId' in a ? a.challengeId : null) || c.status !== 'active') throw new AppError('INVALID_CHALLENGE', 'Esse desafio não está ativo.');
+    if (a.kind === 'cancel-challenge') { c.status = 'failed'; this.saveChallenge(c); return 'Desafio encerrado. Você pode tentar de novo sem custo.'; }
+    if (a.kind === 'qte-input' && c.kind === 'qte') {
+      if (a.key !== c.sequence[c.stage] || now > c.stepAt + c.stepMs) c.status = 'failed';
+      else { c.hits++; c.stage++; c.stepAt = now; }
+    } else if (a.kind === 'skill-input' && c.kind === 'skillcheck') {
+      if (Math.abs(skillPosition(now, c.stepAt, c.stepMs) - c.targets[c.stage]) <= c.zone / 2) c.hits++;
+      c.stage++; c.stepAt = now;
+    } else throw new AppError('INVALID_CHALLENGE', 'Essa ação pertence a outro tipo de desafio.');
+    if (c.stage === 3) {
+      c.status = 'completed'; c.coins = c.kind === 'qte' ? 24 : [0, 8, 20, 36][c.hits]; c.xp = c.kind === 'qte' ? 12 : c.hits * 5;
+      this.credit(p, `challenge:${c.id}`, c.kind === 'qte' ? 'Sincronização QTE' : 'Calibração de precisão', c.coins, c.xp);
+    }
+    this.saveChallenge(c); return c.status === 'failed' ? 'Tentativa encerrada. Sem perda de moedas; tente novamente.' : c.status === 'completed' ? `Desafio concluído: +${c.coins} moedas e +${c.xp} XP.` : 'Etapa registrada. Continue!';
+  }
+  get(): GameState { return this.store.transaction(() => { const p = this.load(); this.settle(p); this.expire(p); return this.view(p); }); }
   act(raw: z.infer<typeof gameInput>): GameResult {
     const input = gameInput.parse(raw);
     return this.store.transaction(() => {
-      const p = this.load(); this.settle(p);
+      const p = this.load(); this.settle(p); this.expire(p);
       const prior = this.store.db.prepare('SELECT request,message FROM game_operations WHERE id=?').get(input.operationId);
       const request = JSON.stringify(input.action);
       if (prior) { if (prior.request !== request) throw new AppError('OPERATION_CONFLICT', 'Essa operação já foi utilizada com outra ação.'); return { state: this.view(p), message: String(prior.message), replayed: true }; }
       const a = input.action, now = this.clock(), source = input.operationId;
       let message = 'Progresso salvo.';
-      if (a.kind === 'plant' || a.kind === 'harvest') {
+      if (a.kind === 'engine-click') {
+        if (p.engine.clicks && now - p.engine.lastClickAt < 300) throw new AppError('COOLDOWN', 'Espere o próximo pulso do motor.');
+        p.engine.clicks++; p.engine.lastClickAt = now; const coins = enginePower(p.engine.level);
+        this.credit(p, source, 'Pulso do motor', coins, p.engine.clicks % 10 === 0 ? 1 : 0); message = `+${coins} moedas. Motor trabalhando!`;
+      } else if (a.kind === 'engine-upgrade') {
+        const cost = engineCost(p.engine.level); if (cost === null) throw new AppError('MAX_LEVEL', 'Seu motor já está no nível máximo.');
+        this.credit(p, source, 'Melhoria do motor', -cost, 0); p.engine.level++; message = `Motor nível ${p.engine.level}: ${enginePower(p.engine.level)} moedas por clique.`;
+      } else if (['start-challenge', 'qte-input', 'skill-input', 'cancel-challenge'].includes(a.kind)) message = this.play(p, a);
+      else if (a.kind === 'plant' || a.kind === 'harvest') {
         const plot = p.plots.find(v => v.id === a.plot); if (!plot) throw new AppError('LOCKED', 'Desbloqueie esse terreno na loja.');
         if (a.kind === 'plant') {
           if (plot.crop) throw new AppError('OCCUPIED', 'Este canteiro já está plantado.');

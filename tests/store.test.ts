@@ -19,7 +19,7 @@ test('SQLite real preserva IDs, relações, migração e rollback após reinicia
     store.close(); store = new Store(dir);
     assert.equal(store.requireSubject(a.id).name, 'Álgebra');
     assert.equal(store.requireSubject(b.id).name, 'Física');
-    assert.equal(store.db.prepare('PRAGMA user_version').get()?.user_version, 2);
+    assert.equal(store.db.prepare('PRAGMA user_version').get()?.user_version, 3);
     assert.equal(store.bootstrap().subjects.length, 2);
   } finally { store.close(); assert.equal(path.dirname(dir), os.tmpdir()); assert.ok(path.basename(dir).startsWith('study-store-test-')); fs.rmSync(dir, { recursive: true, force: true }); }
 });

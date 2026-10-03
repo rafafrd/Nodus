@@ -30,8 +30,20 @@ export function classFor(build: Build) {
 export type Plot = { id: number; crop: CropId | null; plantedAt: number; readyAt: number };
 export type Card = { id: number; label: string | null; matched: boolean };
 export type Round = { id: string; difficulty: 'easy' | 'normal' | 'hard'; cards: Card[]; selected: number[]; attempts: number; combo: number; maxCombo: number; completed: boolean; coins: number; xp: number; startedAt: number };
-export type GameState = { coins: number; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: number; round: Round | null; recent: { action: string; coins: number; xp: number; at: number }[] };
+export const ENGINE_MAX_LEVEL = 10;
+export const enginePower = (level: number) => 1 + level * 2;
+export const engineCost = (level: number) => level >= ENGINE_MAX_LEVEL ? null : Math.ceil(25 * 1.8 ** level);
+export type Engine = { level: number; clicks: number; lastClickAt: number };
+export type Challenge = { id: string; kind: 'qte' | 'skillcheck'; pace: 'relaxed' | 'normal'; status: 'active' | 'completed' | 'failed'; stage: number; hits: number; sequence: ('A' | 'S' | 'D' | 'W')[]; targets: number[]; stepAt: number; stepMs: number; zone: number; coins: number; xp: number };
+export function skillPosition(now: number, stepAt: number, period: number) { const phase = Math.max(0, now - stepAt) % period / period; return phase < .5 ? phase * 200 : (1 - phase) * 200; }
+export type GameState = { coins: number; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: number; round: Round | null; engine: Engine & { power: number; upgradeCost: number | null }; challenge: Challenge | null; recent: { action: string; coins: number; xp: number; at: number }[] };
 export const gameAction = z.discriminatedUnion('kind', [
+  z.strictObject({ kind: z.literal('engine-click') }),
+  z.strictObject({ kind: z.literal('engine-upgrade') }),
+  z.strictObject({ kind: z.literal('start-challenge'), game: z.enum(['qte', 'skillcheck']), pace: z.enum(['relaxed', 'normal']) }),
+  z.strictObject({ kind: z.literal('qte-input'), challengeId: z.uuid(), key: z.enum(['A', 'S', 'D', 'W']) }),
+  z.strictObject({ kind: z.literal('skill-input'), challengeId: z.uuid() }),
+  z.strictObject({ kind: z.literal('cancel-challenge'), challengeId: z.uuid() }),
   z.strictObject({ kind: z.literal('plant'), plot: z.number().int().min(1).max(6), crop: z.enum(['wheat', 'carrot']) }),
   z.strictObject({ kind: z.literal('harvest'), plot: z.number().int().min(1).max(6) }),
   z.strictObject({ kind: z.literal('gather'), resource: z.enum(['stone', 'wood']) }),
