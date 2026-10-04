@@ -15,7 +15,7 @@ C2. Área Hoje apresenta tarefas/revisões/foco reais e retoma contexto, com est
 C3. Flashcards manuais vinculados à nota/trecho, resposta e revisão espaçada persistentes, fonte acessível; critérios acadêmicos separados de XP/moedas.
 C4. Marcações/comentários por área/página do PDF persistem por matéria/documento, sem modificar o PDF original ou aplicar marca de versão diferente.
 C5. Momentos de vídeos guardam tempo/texto e abrem o player nesse ponto, com vínculo/argumentos validados e continuidade dos modos existentes.
-C6. Backup mostra prévia/escopo, copia fontes/banco com integridade/limites e omissões explícitas, sem seguir links ou incluir segredos/metadados de Git.
+C6. Backup mostra prévia/escopo, copia fontes/banco com integridade/limites e omissões explícitas, sem seguir links; exclui metadados de Git e credenciais conhecidas por nome/extensão, explicando que conteúdo privado das notas integra a cópia.
 C7. Restauração valida snapshot/hash/schema/paths e cria perfil/arquivos separados; abrir cópia respeita fechamento/rascunhos, sem sobrescrever dados atuais.
 C8. Grafo Three.js por matéria usa notas/relações reais persistentes, seleção/prévia/abrir fonte, GSAP suave e gates/reduced-motion/limpeza.
 C9. Cidade ganha construções/decorações compráveis e aparência configurável, com preço/ledger/audit autoritativos e perfil existente preservado.
@@ -25,4 +25,4 @@ C12. Audit independente/segredos/dependências, guias/ADR/arquitetura/memória/q
 
 ## Plano e retomada
 
-Fase1: domínio/migração/busca/Hoje/flashcards. Fase2: anotações PDF/vídeo e exportação ampliada. Fase3: snapshot/restauração separados, grafo/cidade. C1–C3 aprovados no checkpoint1, conforme [evidências](../../validation/STUDY_EXPANSION.md); demais critérios pendentes. Backup é pasta de snapshot local; restauração clonada evita substituição silenciosa. Próxima ação: integrar canais e interfaces das marcações PDF/vídeo e ampliar exportação.
+Fase 1 em 58937e6; domínio das fases 2/3 em 1f69692; interface/harness em 61ef01b. As nove funcionalidades estão implementadas. C1–C11 aprovados: typecheck, 38 testes, pacote Windows/200 assets comparados/dez jornadas e PDF renderizado. Auditoria independente concluída com mitigações, O-013/O-014 corrigidos/verificados; advisory legado de tooling permanece. [Evidências](../../validation/STUDY_EXPANSION.md). Próxima ação: scan/commit documental, push e fechamento C12/quadro. Backup é pasta privada de snapshot local, com restauração separada; diálogo nativo de pasta não foi automatizado.

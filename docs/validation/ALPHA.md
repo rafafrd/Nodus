@@ -293,19 +293,19 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 
 ## NXT-01 — Estudo, revisão e conhecimento
 
-04/10/2026, codex/study-expansion, pedido de todas as nove sugestões; provas ainda em execução.
+04/10/2026, codex/study-expansion, nove sugestões implementadas; [provas](STUDY_EXPANSION.md) e regressões finais aprovadas. Encerramento documental/push em execução.
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | Busca global ainda em implementação |
-| C2 | não verificado | Hoje ainda em implementação |
-| C3 | não verificado | Flashcards ainda em implementação |
-| C4 | não verificado | PDF marks ainda em implementação |
-| C5 | não verificado | Vídeo moments ainda em implementação |
-| C6 | não verificado | Backup ainda em implementação |
-| C7 | não verificado | Restore ainda em implementação |
-| C8 | não verificado | Grafo ainda em implementação |
-| C9 | não verificado | Cidade ainda em implementação |
-| C10 | não verificado | Exportação ampliada ainda em implementação |
-| C11 | não verificado | Pacote/provas reais pendentes |
-| C12 | não verificado | Audit/docs/checkpoints/push pendentes |
+| C1 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): Ctrl+K/busca real, navegação entre matérias, buffers e uma janela de criação |
+| C2 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): Hoje/tarefas/vencidos/foco persistido e retomada pela UI |
+| C3 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): cartão de trecho/nota, revelar/avaliar, versão/replay/audit/clock e limite de intervalo verificados |
+| C4 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): marcação real no PDF, comentário/nota, SHA por versão e bytes originais preservados |
+| C5 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): momento manual 1:15 abre guest oficial com start=75; modos/retry/isolamento preservados |
+| C6 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): snapshot real, WAL/FS/limites/contenção/omissões e hash/segredos conhecidos |
+| C7 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): cópia isolada, remapeamento, fontes intactas e relaunch real; audit failure não arma fechamento |
+| C8 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): canvas Three.js/links/prévia/abrir fonte reais, GSAP/gates/movimento reduzido/limpeza revisados |
+| C9 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 40 pulsos reais/upgrade/três compras/noite persistida; ledger/audit/preços autoritativos |
+| C10 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): PDF preto real 4 páginas/imagem/capa/nota individual/destino registrado; picker não automatizado |
+| C11 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 38 testes/typecheck/pacote/200 assets conferidos/dez jornadas Windows e PDF renderizado aprovados |
+| C12 | não verificado | [AppSec](../security/STUDY_EXPANSION_AUDIT.md) concluído com mitigações, docs/memória/commits/scans em fechamento; push pendente |

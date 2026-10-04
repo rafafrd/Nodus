@@ -140,3 +140,9 @@ README/guia/PRD/quadro/retomada/arquitetura/dados/SDD/design/Git/CLAUDE/memória
 Checkpoint com C6 ainda pendente de commit/push: inventário leu83 arquivos de docs; check-bootstrap18 tickets/115 critérios/93Markdown/328links locais aprovado. Contagens são documentais, sem aprovação externa de alpha.
 
 Verificação final EXP-01 após movimentar o ticket: inventário83 arquivos de docs; check-bootstrap18tickets/115critérios/93Markdown/331links locais aprovado. C1–C6 concluídos no recorte da exportação; alpha externa continua parcial.
+
+## Atualização documental NXT-01, 04/10/2026
+
+README/guia/PRD/design/arquitetura/modelo/SDD/CLAUDE/memória/Git/quadro/retomada/validação refletem as nove sugestões locais: busca/Hoje/flashcards/marcações/momentos/backup-restauração separados/grafo manual/cosméticos/exportação ampliada. Corrigidas afirmações ativas de grafo ainda futuro e de backup somente no perfil. Snapshot privado não é nuvem, hash não autentica autor, exclusão de credenciais conhecidas não sanitiza notas e revisão não mede XP acadêmico. Planejamento histórico preservado. Novos ticket NXT-01, ADR-0011, STUDY_EXPANSION e STUDY_EXPANSION_AUDIT têm escopos próprios; audit/Windows/binário/documentos são provas separadas.
+
+Inventário deste checkpoint leu 87 arquivos de docs; check-bootstrap aprovou 19 tickets/127 critérios/97 Markdown/360 links locais, com C12 ainda pendente. A reconferência final após encerramento ficará abaixo; números documentais não aprovam nuvem/celular ou ALP-02/C5 externo.

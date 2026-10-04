@@ -213,5 +213,17 @@ Verificação final EXP-01 após mover ticket/links: inventário83docs; bootstra
 
 ### 04/10/2026 — NXT-01: checkpoint1
 
-Busca/Hoje/flashcards e schema5 aditivo implementados. Windows: typecheck,31testes,package e jornada real expansion passaram; fontes preservadas e canais estritos/sender verificados. C1–C3 aprovados, demais pendentes. Continuação: marcações PDF/vídeo e exportação ampliada; evidências em STUDY_EXPANSION.md.
+Busca/Hoje/flashcards e schema5 aditivo implementados, commit 58937e6. Windows: typecheck,31testes,package e jornada real expansion passaram; fontes preservadas e canais estritos/sender verificados. C1–C3 aprovados, demais pendentes. Continuação: marcações PDF/vídeo e exportação ampliada; evidências em STUDY_EXPANSION.md.
+
+### 04/10/2026 — NXT-01: domínio e integração das fases 2/3
+
+Commit 1f69692 acrescenta annotations, snapshots/restauração separados, imagens/destino PDF, cosméticos da cidade e contratos/preload/testes. Migração v5 permanece aditiva, lockfile inalterado. Typecheck e 38 testes passaram; as três jornadas novas no Windows exercitaram Ctrl+K/Hoje/revisão, PDF/vídeo/export, grafo/40 pulsos/upgrade/compras/noite, backup/restore/relaunch e audit failure sem fechar. Auditor independente reproduziu overflow de intervalo e eventos ausentes; O-013/cap de 365 dias, destino transacional e audit antes de relaunch foram corrigidos/verificados.
+
+Regressão Smooth encontrou O-014: container vazio de controles interceptava marcador. CSS agora captura ponteiro somente nos botões; mesma jornada sem force passou no pacote corrigido. Vídeos reais e PDF legado também passaram. Game antigo ainda usava saldo/quantidade de catálogo anterior; roteiro corrigido calcula soma e obtém saldo por rodadas reais. Build atual comparada com 200 arquivos dist no ASAR, sem diferenças; hashes correntes e repetição final em STUDY_EXPANSION. Gitleaks staged do core (22 arquivos/69,25 KB) e da interface/harness (19 arquivos/60,02 KB) sem achados; diff cached --check aprovado. Interface staged, regressões/audit/docs/commit/push em fechamento; nenhum serviço/release publicado.
+
+### 04/10/2026 — NXT-01: interface, regressões e auditoria final
+
+Interface/harness em 61ef01b. Dez jornadas passaram no mesmo EXE41FC22FB…/ASAR7F1B0ED2…: Game oito compras/rodadas/cultivos/renda passiva com app fechado, Smooth, Videos, PDF legado, Expansion, Annotations, Knowledge-Backup, Settings, Journey R1–R7 e Engine-Explorer com QTE/skillcheck. PDF final quatro páginas/A4/preto/imagem renderizado e visualmente inspecionado; fonte/draft/raízes originais conservados. Diálogos de pasta não automatizados, conforme os limites. No harness Engine, date histórico fixo não é o horário da execução atual; log/arquivo datados de 04/10 são registrados separadamente.
+
+Auditor independente encerrou STUDY_EXPANSION_AUDIT: APPROVE WITH MITIGATIONS, composição 8fdf7397…/224 entradas/52 fontes correntes, 14/14 testes/dez grupos de probes/callbacks/FS/SQLite e segredos aprovados. Sem Electron pelo auditor, nenhuma vulnerabilidade nova confirmada aberta. Npm audit atual prod0/full1High legado, exposição avaliada e não remediada. Docs/memória/ADR/guia/produto/quadro atualizados; C1–C11 aprovados, C12 aguarda scan/commit documental/push e fechamento. Inventário87docs/bootstrap19tickets/127critérios/97Markdown/360links aprovado no checkpoint anterior com C12 pendente.
 

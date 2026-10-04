@@ -1,8 +1,10 @@
 # Arquitetura ativa
 
-Estado em 03/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. GAM-02 acrescenta motor/desafios e Explorer/editor local de arquivos. MED-01 acrescenta links YouTube por matéria e um player remoto isolado com cinema/PiP. CFG-01 acrescenta perfil/preferências locais e gestão pela área Configurações. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
+Estado em 04/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. GAM-02 acrescenta motor/desafios e Explorer/editor local de arquivos. MED-01 acrescenta links YouTube por matéria e um player remoto isolado com cinema/PiP. CFG-01 acrescenta perfil/preferências locais e gestão pela área Configurações. NXT-01 conecta busca, Hoje, flashcards, marcações, momentos, grafo e cópias locais; as provas ficam na validação específica. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
 
 ## Estrutura proposta
+
+NXT-01 usa schema5 aditivo, catálogo/Hoje/revisão/annotations no main e grafo Three.js sobre notas/relações reais. IPCs específicos guardados cobrem essas operações, export ampliado e snapshots locais. Backups em Documentos são dados privados; importação valida manifest/hash/schema/paths e restaura roots/perfil separados. Ativação usa fechamento/drafts e relaunch, sem trocar o perfil aberto silenciosamente. Decorações/ambiente são estado cosmético na economia existente. [ADR-0011](../adr/0011-expansao-estudo-local.md), [provas](../validation/STUDY_EXPANSION.md); nuvem/ALP-09 continua futura.
 
 Monólito modular com desktop e uma interface web complementar. Crie diretórios e abstrações quando o ticket precisar deles, evitando pacotes vazios para módulos futuros.
 
@@ -26,8 +28,10 @@ flowchart TB
 | Jogo | Cidade/farm/loja/memória/build; economia autoritativa no main | GAM-01 |
 | Explorer | Pastas reais, árvore, abas, fonte UTF-8, save/conflito/recuperação; sem execução | GAM-02 |
 | Configurações | SQLite settings/contratos específicos, foto raster preparada no main, paletas CSS/observador comum de movimento | CFG-01 |
-| Exportação PDF | Markdown salvo/SSR seguro, Chromium isolado, A4 preto em Downloads e evento opaco | EXP-01 |
+| Exportação PDF | Markdown salvo/SSR seguro, Chromium isolado, A4 preto, imagens locais opcionais, Downloads/pasta escolhida e evento opaco | EXP-01/NXT-01 |
 | Vídeos | Links locais por matéria; WebContentsView remoto isolado, cinema/PiP interno | MED-01 |
+| Estudo conectado | Catálogo/busca, Hoje, flashcards, marcações PDF, momentos e relações manuais por matéria | NXT-01 |
+| Backups | Snapshot local limitado, hash/schema/paths validados e restauração em outro perfil | NXT-01 |
 | Supabase + web | Snapshot de nota, Auth e acesso por proprietário | ALP-09 |
 
 ## Limites importantes
@@ -40,7 +44,7 @@ No MVP local, SQLite guarda matérias/estado local; Markdown fica no vault e PDF
 
 ## Próximas fronteiras
 
-IA/OpenRouter, agenda Google, notificações, grafo Three.js e execução/Git de projetos seguem o roadmap. Navegação e edição de projetos foram antecipadas em GAM-02. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
+IA/OpenRouter, agenda Google, notificações e execução/Git de projetos seguem o roadmap. Navegação e edição de projetos foram antecipadas em GAM-02. NXT-01 implementa grafo Three.js com relações manuais; extração automática de relações e IA continuam futuras. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
 
 Veja [modelo de dados](data-model.md), [SDD](../sdd.md), [ADRs](../adr/README.md) e [arquitetura completa de concepção](../planning/ARQUITETURA_APP_ESTUDOS.md).
 

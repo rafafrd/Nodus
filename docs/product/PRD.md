@@ -1,8 +1,10 @@
 # PRD — decisões do produto
 
-Estado em 03/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. MED-01 acrescenta links YouTube por matéria, cinema e PiP interno, com reprodução oficial que precisa de internet. CFG-01 oferece configurações de perfil local (nome/foto), três temas, animações e consulta/abertura das pastas do app. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
+Estado em 04/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. MED-01 acrescenta links YouTube por matéria, cinema e PiP interno, com reprodução oficial que precisa de internet. CFG-01 oferece configurações de perfil local (nome/foto), três temas, animações e consulta/abertura das pastas do app. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
 
 EXP-01 oferece exportação explícita de uma pasta/subpastas de notas Markdown salvas, do vault ou Explorer, em PDF A4 formatado com fundo preto. Saída local em Downloads com capa/sumário/paginação, sem modificar fontes. O guia distingue caderno de leitura de backup completo; arquivos de código/PDFs anexados/imagens não entram. [Provas](../validation/PDF_EXPORT.md).
+
+NXT-01 amplia esse recorte por pedido explícito: busca global por títulos/contextos, Hoje com tarefas/revisões/foco, flashcards manuais vinculados às notas, marcações de áreas do PDF, momentos de vídeo e grafo Three.js com relações manuais. A cidade recebe três decorações e ambientes. Exportação aceita nota individual, capa personalizada, imagens locais opcionais e pasta de destino. Backup integrado mostra escopo/omissões, copia dados locais privados e restaura em perfil separado. Não oferece tutor/IA, calendário, revisão acadêmica automática, nuvem ou merge de perfis. [Provas e limites](../validation/STUDY_EXPANSION.md).
 
 ## Problema
 
