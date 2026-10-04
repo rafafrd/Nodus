@@ -22,6 +22,8 @@ import { VideoPlayer } from './video-player';
 import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos';
 import { PdfExporter } from './pdf-export';
 import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
+import { Study } from './study';
+import { searchInput,cardListInput,cardCreateInput,cardRefInput,cardReviewInput,linkCreateInput,linkRefInput } from '../shared/study';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }, { scheme:'nodus-pdf', privileges:{ standard:true, secure:true } }]);
 let window: BrowserWindow;
 let store: Store;
@@ -36,6 +38,7 @@ let management: AppManagementService;
 let videos: Videos;
 let player: VideoPlayer;
 let pdfExporter: PdfExporter;
+let study: Study;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -54,6 +57,16 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('study:catalog',z.undefined(),()=>study.catalog());
+  handle('study:search',searchInput,input=>study.search(input.query));
+  handle('study:today',z.undefined(),()=>{focus.tick();return study.today();});
+  handle('card:list',cardListInput,input=>study.cards(input.subjectId));
+  handle('card:create',cardCreateInput,input=>study.create(input));
+  handle('card:review',cardReviewInput,input=>study.review(input));
+  handle('card:remove',cardRefInput,input=>{study.remove(input);return null;});
+  handle('link:list',subjectIdInput,input=>study.links(input.subjectId));
+  handle('link:save',linkCreateInput,input=>study.link(input));
+  handle('link:remove',linkRefInput,input=>study.unlink(input));
   handle('pdf:folders', pdfSourceInput, input => pdfExporter.folders(input));
   handle('pdf:export', pdfExportInput, input => pdfExporter.export(input));
   handle('preferences:get', z.undefined(), () => preferences.get());
@@ -145,6 +158,7 @@ app.whenReady().then(() => {
   projects = new Projects(store);
   preferences = new UserPreferences(store); management = new AppManagementService(store);
   pdfExporter = new PdfExporter(store, vault);
+  study = new Study(store);
   videos = new Videos(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));

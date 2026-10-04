@@ -290,3 +290,22 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C4 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): Downloads sem sobrescrita, limites/EXPORT_BUSY/vazio e audit/rollback real SQLite+FS |
 | C5 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): UI/IPC/print/FS reais, isolamento de5 superfícies e Settings/R1–R7 aprovados |
 | C6 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):28 testes/typecheck/pacote/jornadas/renderização, [AppSec](../security/PDF_EXPORT_AUDIT.md), docs/memória/inventário/bootstrap e Gitleaks staged aprovados; fef5821/38651b4/32eb884 enviados ao origin/codex/pdf-export |
+
+## NXT-01 — Estudo, revisão e conhecimento
+
+04/10/2026, codex/study-expansion, pedido de todas as nove sugestões; provas ainda em execução.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | não verificado | Busca global ainda em implementação |
+| C2 | não verificado | Hoje ainda em implementação |
+| C3 | não verificado | Flashcards ainda em implementação |
+| C4 | não verificado | PDF marks ainda em implementação |
+| C5 | não verificado | Vídeo moments ainda em implementação |
+| C6 | não verificado | Backup ainda em implementação |
+| C7 | não verificado | Restore ainda em implementação |
+| C8 | não verificado | Grafo ainda em implementação |
+| C9 | não verificado | Cidade ainda em implementação |
+| C10 | não verificado | Exportação ampliada ainda em implementação |
+| C11 | não verificado | Pacote/provas reais pendentes |
+| C12 | não verificado | Audit/docs/checkpoints/push pendentes |

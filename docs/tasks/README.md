@@ -50,6 +50,8 @@ Incremento anterior: [CFG-01 — configurações, aparência e perfil](done/CFG-
 
 ## Conteúdo de um ticket
 
+Incremento ativo: [NXT-01 — estudo, revisão e conhecimento](doing/NXT-01.md), branch codex/study-expansion. Nove sugestões autorizadas; fases e critérios no ticket.
+
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
 
 Incremento solicitado após UI-01: [GAM-01 — cidade, farm, grind e loja](done/GAM-01.md), concluído na branch feat/game. Economia local e visual 3D; escopo/evidência próprios. [Guia de uso](../GUIA_DE_USO.md) cobre executável, desenvolvimento, estudos e jogo.

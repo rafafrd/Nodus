@@ -26,6 +26,16 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  studyCatalog(): Promise<Result<import('./study').StudyCatalog>>;
+  globalSearch(input: import('zod').z.infer<typeof import('./study').searchInput>): Promise<Result<import('./study').SearchHit[]>>;
+  today(): Promise<Result<import('./study').TodayState>>;
+  listFlashcards(input: {subjectId?:string}): Promise<Result<import('./study').Flashcard[]>>;
+  createFlashcard(input: import('zod').z.infer<typeof import('./study').cardCreateInput>): Promise<Result<import('./study').Flashcard>>;
+  reviewFlashcard(input: import('zod').z.infer<typeof import('./study').cardReviewInput>): Promise<Result<import('./study').Flashcard>>;
+  removeFlashcard(input: {subjectId:string;id:string}): Promise<Result<null>>;
+  noteLinks(input: {subjectId:string}): Promise<Result<import('./study').NoteLink[]>>;
+  saveNoteLink(input: import('zod').z.infer<typeof import('./study').linkCreateInput>): Promise<Result<import('./study').NoteLink[]>>;
+  removeNoteLink(input: {subjectId:string;id:string}): Promise<Result<import('./study').NoteLink[]>>;
   pdfExportFolders(input: import('./pdf-export').PdfSource): Promise<Result<import('./pdf-export').PdfFolder[]>>;
   exportFolderPdf(input: import('./pdf-export').PdfExportInput): Promise<Result<import('./pdf-export').PdfExportResult>>;
   getPreferences(): Promise<Result<import('./preferences').Preferences>>;

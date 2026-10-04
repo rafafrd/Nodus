@@ -23,7 +23,8 @@
     "test:smooth-ui": "tsx scripts/smoke-smooth-ui.ts --packaged",
     "test:videos": "tsx scripts/smoke-videos.ts --packaged",
     "test:settings": "tsx scripts/smoke-settings.ts",
-    "test:pdf-export": "tsx scripts/smoke-pdf-export.ts"
+    "test:pdf-export": "tsx scripts/smoke-pdf-export.ts",
+    "test:expansion": "tsx scripts/smoke-expansion.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",

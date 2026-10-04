@@ -1,6 +1,16 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  studyCatalog: () => ipcRenderer.invoke('study:catalog'),
+  globalSearch: input => ipcRenderer.invoke('study:search',input),
+  today: () => ipcRenderer.invoke('study:today'),
+  listFlashcards: input => ipcRenderer.invoke('card:list',input),
+  createFlashcard: input => ipcRenderer.invoke('card:create',input),
+  reviewFlashcard: input => ipcRenderer.invoke('card:review',input),
+  removeFlashcard: input => ipcRenderer.invoke('card:remove',input),
+  noteLinks: input => ipcRenderer.invoke('link:list',input),
+  saveNoteLink: input => ipcRenderer.invoke('link:save',input),
+  removeNoteLink: input => ipcRenderer.invoke('link:remove',input),
   pdfExportFolders: input => ipcRenderer.invoke('pdf:folders', input),
   exportFolderPdf: input => ipcRenderer.invoke('pdf:export', input),
   getPreferences: () => ipcRenderer.invoke('preferences:get'),
