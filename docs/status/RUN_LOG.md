@@ -227,3 +227,9 @@ Interface/harness em 61ef01b. Dez jornadas passaram no mesmo EXE41FC22FB…/ASAR
 
 Auditor independente encerrou STUDY_EXPANSION_AUDIT: APPROVE WITH MITIGATIONS, composição 8fdf7397…/224 entradas/52 fontes correntes, 14/14 testes/dez grupos de probes/callbacks/FS/SQLite e segredos aprovados. Sem Electron pelo auditor, nenhuma vulnerabilidade nova confirmada aberta. Npm audit atual prod0/full1High legado, exposição avaliada e não remediada. Docs/memória/ADR/guia/produto/quadro atualizados; C1–C11 aprovados, C12 aguarda scan/commit documental/push e fechamento. Inventário87docs/bootstrap19tickets/127critérios/97Markdown/360links aprovado no checkpoint anterior com C12 pendente.
 
+### 04/10/2026 — NXT-01: concluído
+
+Checkpoints 58937e6/1f69692/61ef01b/docs-audit7cbdd8a enviados ao origin/codex/study-expansion, push exit 0/upstream configurado. Stage documental22arquivos/66,58KB Gitleaks sem achados, diff cached --check aprovado; inventário87docs/bootstrap19tickets/127critérios/97Markdown/363links passou com C12 ainda pendente de push. C1–C12 agora aprovados, ticket movido para done/concluido, links/quadro/retomada atualizados. Fechamento documental é commit separado, com novo scan/reconferência. Fonte/harness/pacote e fonte congelada do auditor permanecem os de STUDY_EXPANSION/STUDY_EXPANSION_AUDIT. Nenhum serviço/release publicado; próxima ação humana: usar os novos fluxos conforme o guia. Alpha externa permanece parcial.
+
+Reconferência após mover o ticket: inventário87docs/bootstrap19tickets/127critérios/97Markdown/366links locais aprovado. Essas contagens são documentais e não substituem provas externas. Nenhuma alteração de produto/harness após as jornadas finais.
+

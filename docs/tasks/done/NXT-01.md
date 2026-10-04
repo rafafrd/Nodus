@@ -1,7 +1,7 @@
 ---
 id: NXT-01
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["ALP-04","CFG-01","EXP-01","GAM-02","MED-01"]
 criteria_count: 12
 ---
@@ -25,4 +25,6 @@ C12. Audit independente/segredos/dependências, guias/ADR/arquitetura/memória/q
 
 ## Plano e retomada
 
-Fase 1 em 58937e6; domínio das fases 2/3 em 1f69692; interface/harness em 61ef01b. As nove funcionalidades estão implementadas. C1–C11 aprovados: typecheck, 38 testes, pacote Windows/200 assets comparados/dez jornadas e PDF renderizado. Auditoria independente concluída com mitigações, O-013/O-014 corrigidos/verificados; advisory legado de tooling permanece. [Evidências](../../validation/STUDY_EXPANSION.md). Próxima ação: scan/commit documental, push e fechamento C12/quadro. Backup é pasta privada de snapshot local, com restauração separada; diálogo nativo de pasta não foi automatizado.
+Fase 1 em 58937e6; domínio das fases 2/3 em 1f69692; interface/harness em 61ef01b; documentos/audit em 7cbdd8a. Esses checkpoints foram enviados ao origin/codex/study-expansion em 04/10/2026, push exit 0/upstream configurado. C1–C12 aprovados: typecheck, 38 testes, pacote Windows/200 assets comparados/dez jornadas/PDF renderizado, auditoria independente, documentos/memória/bootstrap/inventário e scans staged. O-013/O-014 corrigidos/verificados; advisory legado de tooling permanece. [Evidências](../../validation/STUDY_EXPANSION.md).
+
+Nenhuma implementação restante neste ticket. Próxima ação humana: usar Hoje/Revisão/Grafo e Ajustes conforme o [guia](../../GUIA_DE_USO.md). Backup é pasta privada de snapshot local, com restauração separada; diálogo nativo de pasta não foi automatizado. Alpha externa continua parcial. Fechamento do quadro/documentos é checkpoint separado, sem alterar a fonte/pacote auditados.

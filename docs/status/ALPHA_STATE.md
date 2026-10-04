@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-NXT-01 em fechamento, branch codex/study-expansion a partir de 6597e28: nove sugestões implementadas (busca/Hoje/flashcards/marcações/momentos/backup-restauração/grafo/cidade/exportação). [Ticket](../tasks/doing/NXT-01.md), [provas](../validation/STUDY_EXPANSION.md). Fase 1 em 58937e6, domínio em 1f69692 e interface em 61ef01b, sem push ainda. C1–C11 aprovados: typecheck, 38 testes, pacote/200 assets conferidos/dez jornadas Windows/PDF renderizado e audit independente concluído com mitigações. O-013/O-014 corrigidos e verificados; tooling High permanece. Próxima ação: scan/commit documental, push e fechamento C12/quadro. Restore cria perfil/arquivos separados; diálogos nativos de pasta não foram automatizados. Alpha externa continua parcial.
+NXT-01 concluído na branch codex/study-expansion a partir de 6597e28: nove sugestões entregues (busca/Hoje/flashcards/marcações/momentos/backup-restauração/grafo/cidade/exportação). [Ticket](../tasks/done/NXT-01.md), [provas](../validation/STUDY_EXPANSION.md). Checkpoints 58937e6/1f69692/61ef01b/7cbdd8a enviados ao origin em 04/10/2026, push exit 0/upstream configurado. C1–C12 aprovados: typecheck, 38 testes, pacote/200 assets conferidos/dez jornadas Windows/PDF renderizado, audit independente com mitigações, docs/memória/scans/bootstrap/inventário. O-013/O-014 corrigidos/verificados; tooling High permanece. Nenhuma implementação restante; próxima ação humana: usar os novos fluxos conforme o [guia](../GUIA_DE_USO.md). Restore cria perfil/arquivos separados; diálogos nativos de pasta não foram automatizados. Alpha externa continua parcial.
 
 EXP-01 concluído na branch codex/pdf-export, a partir de6897adb. Exportação de notas Markdown salvas de vault/projeto/subpastas em A4 preto com capa/sumário/paginação, destino Downloads. C1–C6 aprovados:28 testes/typecheck/package/export/Settings/Journey Windows, PDFs3/13 páginas renderizados/inspecionados; O-012 corrigido com rollback real de falha do audit. Core fef5821/UI38651b4/docs-audit32eb884 enviados ao origin, push exit0/upstream configurado em03/10/2026. [Ticket](../tasks/done/EXP-01.md), [provas](../validation/PDF_EXPORT.md). Audit independente aprovado com mitigações, sem vulnerabilidade nova confirmada aberta; tooling High permanece. Docs/memória/scans staged/inventário/bootstrap aprovados. Nenhuma implementação restante; próxima ação humana: abrir Ajustes/Dados e app e exportar sua pasta conforme o [guia](../GUIA_DE_USO.md). Alpha externa segue parcial.
 
@@ -44,7 +44,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | MED-01 | done | Concluído | ALP-03, ALP-05, UI-02 | — |
 | CFG-01 | done | Concluído | ALP-03, UI-02, MED-01 | — |
 | EXP-01 | done | Concluído | ALP-04, CFG-01 | — |
-| NXT-01 | doing | Em andamento | ALP-04, CFG-01, EXP-01, GAM-02, MED-01 | C12 |
+| NXT-01 | done | Concluído | ALP-04, CFG-01, EXP-01, GAM-02, MED-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -56,4 +56,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [EXP-01](../tasks/done/EXP-01.md).
+Último ticket concluído: [NXT-01](../tasks/done/NXT-01.md).

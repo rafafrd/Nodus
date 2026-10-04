@@ -50,7 +50,7 @@ Incremento anterior: [CFG-01 — configurações, aparência e perfil](done/CFG-
 
 ## Conteúdo de um ticket
 
-Incremento ativo: [NXT-01 — estudo, revisão e conhecimento](doing/NXT-01.md), branch codex/study-expansion. Nove sugestões autorizadas; fases e critérios no ticket.
+Último incremento: [NXT-01 — estudo, revisão e conhecimento](done/NXT-01.md), concluído na branch codex/study-expansion. Nove sugestões entregues com provas Windows, auditoria, commits e push; fases/limites no ticket.
 
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
 

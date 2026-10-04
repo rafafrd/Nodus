@@ -293,7 +293,7 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 
 ## NXT-01 — Estudo, revisão e conhecimento
 
-04/10/2026, codex/study-expansion, nove sugestões implementadas; [provas](STUDY_EXPANSION.md) e regressões finais aprovadas. Encerramento documental/push em execução.
+04/10/2026, codex/study-expansion, nove sugestões implementadas; [provas](STUDY_EXPANSION.md), regressões finais, auditoria/documentos e push aprovados. C1–C12 concluídos no recorte local; alpha externa permanece parcial.
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
@@ -308,4 +308,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C9 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 40 pulsos reais/upgrade/três compras/noite persistida; ledger/audit/preços autoritativos |
 | C10 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): PDF preto real 4 páginas/imagem/capa/nota individual/destino registrado; picker não automatizado |
 | C11 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 38 testes/typecheck/pacote/200 assets conferidos/dez jornadas Windows e PDF renderizado aprovados |
-| C12 | não verificado | [AppSec](../security/STUDY_EXPANSION_AUDIT.md) concluído com mitigações, docs/memória/commits/scans em fechamento; push pendente |
+| C12 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md)/[AppSec](../security/STUDY_EXPANSION_AUDIT.md), docs/memória/scans staged/bootstrap/inventário aprovados; 58937e6/1f69692/61ef01b/7cbdd8a enviados ao origin/codex/study-expansion, push exit 0 |
