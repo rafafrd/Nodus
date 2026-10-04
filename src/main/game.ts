@@ -5,14 +5,14 @@ import { AppError } from '../shared/contracts';
 import { CROPS, SHOP, RESOURCES, MEMORY_PAIRS, classFor, levelFor, type GameState, type GameResult, type Build, type Plot, type Resource, type ShopId, type Round, gameInput } from '../shared/game';
 import { engineCost, enginePower, skillPosition, type Engine, type Challenge, type GameAction } from '../shared/game';
 
-type Player = { coins: number; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: number; roundId: string | null; engine: Engine; challengeId: string | null };
+type Player = { atmosphere: 'golden'|'dawn'|'night'; coins: number; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: number; roundId: string | null; engine: Engine; challengeId: string | null };
 type StoredRound = Omit<Round, 'cards'> & { cards: { id: number; pair: number; text: string; matched: boolean }[] };
 export class Game {
   constructor(readonly store: Store, readonly clock: () => number = Date.now) {}
   private load(): Player {
     const row = this.store.db.prepare('SELECT coins,xp,state FROM game_player WHERE id=1').get() as { coins: number; xp: number; state: string } | undefined;
-    if (row) { const state = JSON.parse(row.state); return { ...state, engine: state.engine ?? { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: state.challengeId ?? null, coins: row.coins, xp: row.xp }; }
-    const p: Player = { coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null, engine: { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: null };
+    if (row) { const state = JSON.parse(row.state); return { ...state, atmosphere:state.atmosphere??'golden', engine: state.engine ?? { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: state.challengeId ?? null, coins: row.coins, xp: row.xp }; }
+    const p: Player = { atmosphere:'golden', coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null, engine: { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: null };
     this.credit(p, 'starter', 'Boas-vindas à vila', 60, 0); this.save(p); return p;
   }
   private save(p: Player) { const { coins, xp, ...state } = p; this.store.db.prepare('INSERT INTO game_player(id,coins,xp,state) VALUES(1,?,?,?) ON CONFLICT(id) DO UPDATE SET coins=excluded.coins,xp=excluded.xp,state=excluded.state').run(coins, xp, JSON.stringify(state)); }
@@ -77,7 +77,8 @@ export class Game {
       if (prior) { if (prior.request !== request) throw new AppError('OPERATION_CONFLICT', 'Essa operação já foi utilizada com outra ação.'); return { state: this.view(p), message: String(prior.message), replayed: true }; }
       const a = input.action, now = this.clock(), source = input.operationId;
       let message = 'Progresso salvo.';
-      if (a.kind === 'engine-click') {
+      if(a.kind==='atmosphere'){p.atmosphere=a.value;message='Ambiente da vila atualizado.';}
+      else if (a.kind === 'engine-click') {
         if (p.engine.clicks && now - p.engine.lastClickAt < 300) throw new AppError('COOLDOWN', 'Espere o próximo pulso do motor.');
         p.engine.clicks++; p.engine.lastClickAt = now; const coins = enginePower(p.engine.level);
         this.credit(p, source, 'Pulso do motor', coins, p.engine.clicks % 10 === 0 ? 1 : 0); message = `+${coins} moedas. Motor trabalhando!`;

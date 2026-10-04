@@ -26,6 +26,18 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  backupPreview():Promise<Result<import('./backup').BackupPreview>>;
+  createBackup():Promise<Result<import('./backup').BackupReceipt>>;
+  chooseBackup():Promise<Result<import('./backup').BackupReceipt|null>>;
+  restoreBackup(input:{id:string}):Promise<Result<import('./backup').RestoreReceipt>>;
+  activateRestore(input:{id:string}):Promise<Result<null>>;
+  listPdfMarks(input: z.infer<typeof import('./study').markListInput>): Promise<Result<{marks:import('./study').PdfMark[];otherVersions:number}>>;
+  addPdfMark(input: z.infer<typeof import('./study').markCreateInput>): Promise<Result<import('./study').PdfMark>>;
+  removePdfMark(input: z.infer<typeof import('./study').markRefInput>): Promise<Result<null>>;
+  listVideoMoments(input: z.infer<typeof import('./study').momentListInput>): Promise<Result<import('./study').VideoMoment[]>>;
+  addVideoMoment(input: z.infer<typeof import('./study').momentCreateInput>): Promise<Result<import('./study').VideoMoment>>;
+  removeVideoMoment(input: z.infer<typeof import('./study').momentRefInput>): Promise<Result<null>>;
+  openVideoMoment(input: z.infer<typeof import('./study').momentRefInput>): Promise<Result<{video:import('./videos').StudyVideo;player:import('./videos').VideoPlayerState}>>;
   studyCatalog(): Promise<Result<import('./study').StudyCatalog>>;
   globalSearch(input: import('zod').z.infer<typeof import('./study').searchInput>): Promise<Result<import('./study').SearchHit[]>>;
   today(): Promise<Result<import('./study').TodayState>>;
@@ -37,6 +49,7 @@ export interface DesktopApi {
   saveNoteLink(input: import('zod').z.infer<typeof import('./study').linkCreateInput>): Promise<Result<import('./study').NoteLink[]>>;
   removeNoteLink(input: {subjectId:string;id:string}): Promise<Result<import('./study').NoteLink[]>>;
   pdfExportFolders(input: import('./pdf-export').PdfSource): Promise<Result<import('./pdf-export').PdfFolder[]>>;
+  choosePdfDestination(): Promise<Result<string|null>>;
   exportFolderPdf(input: import('./pdf-export').PdfExportInput): Promise<Result<import('./pdf-export').PdfExportResult>>;
   getPreferences(): Promise<Result<import('./preferences').Preferences>>;
   updatePreferences(input: import('zod').z.infer<typeof import('./preferences').preferenceInput>): Promise<Result<import('./preferences').Preferences>>;

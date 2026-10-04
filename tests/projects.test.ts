@@ -41,7 +41,7 @@ test('projeto não escapa raiz/junction e rejeita binário, volume/argumentos/li
   } finally { db.close(); }
 });
 
-test('migração v2 para v4 conserva jogo existente sem duplicar crédito inicial', () => {
+test('migração v2 para v5 conserva jogo existente sem duplicar crédito inicial', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/migration-v2-')); let db = new Store(dir), game = new Game(db); game.get(); const row = db.db.prepare('SELECT state FROM game_player').get()!; const legacy = JSON.parse(String(row.state)); delete legacy.engine; delete legacy.challengeId; db.db.prepare('UPDATE game_player SET state=?').run(JSON.stringify(legacy));
   db.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; DROP TABLE project_drafts; DROP TABLE project_folders; DROP TABLE game_challenges; PRAGMA user_version=2;'); db.close(); db = new Store(dir); game = new Game(db);
   try { assert.equal(game.get().coins, 60); assert.equal(game.get().engine.level, 0); assert.equal(db.db.prepare("SELECT count(*) n FROM game_ledger WHERE source='starter'").get()!.n, 1); assert.equal(db.db.prepare('PRAGMA user_version').get()!.user_version, 5); } finally { db.close(); }

@@ -69,7 +69,7 @@ test('memória é calculada no main: pares, tentativas, combos, retomada e recom
   } finally { db.close(); }
 });
 
-test('migração v1 para v4 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
+test('migração v1 para v5 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/game-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let db = new Store(path.join(dir, 'data'));
   try {
     const subject = db.createSubject({ name: 'Preservar', color: 'sage' }), vault = new Vault(db); vault.selectRoot(root); const note = vault.create({ subjectId: subject.id, title: 'Original' });

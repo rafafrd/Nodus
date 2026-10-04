@@ -1,6 +1,18 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  backupPreview:()=>ipcRenderer.invoke('backup:preview'),
+  createBackup:()=>ipcRenderer.invoke('backup:create'),
+  chooseBackup:()=>ipcRenderer.invoke('backup:choose'),
+  restoreBackup:input=>ipcRenderer.invoke('backup:restore',input),
+  activateRestore:input=>ipcRenderer.invoke('backup:activate',input),
+  listPdfMarks: input => ipcRenderer.invoke('mark:list',input),
+  addPdfMark: input => ipcRenderer.invoke('mark:add',input),
+  removePdfMark: input => ipcRenderer.invoke('mark:remove',input),
+  listVideoMoments: input => ipcRenderer.invoke('moment:list',input),
+  addVideoMoment: input => ipcRenderer.invoke('moment:add',input),
+  removeVideoMoment: input => ipcRenderer.invoke('moment:remove',input),
+  openVideoMoment: input => ipcRenderer.invoke('moment:open',input),
   studyCatalog: () => ipcRenderer.invoke('study:catalog'),
   globalSearch: input => ipcRenderer.invoke('study:search',input),
   today: () => ipcRenderer.invoke('study:today'),
@@ -12,6 +24,7 @@ const api: DesktopApi = {
   saveNoteLink: input => ipcRenderer.invoke('link:save',input),
   removeNoteLink: input => ipcRenderer.invoke('link:remove',input),
   pdfExportFolders: input => ipcRenderer.invoke('pdf:folders', input),
+  choosePdfDestination:()=>ipcRenderer.invoke('pdf:destination'),
   exportFolderPdf: input => ipcRenderer.invoke('pdf:export', input),
   getPreferences: () => ipcRenderer.invoke('preferences:get'),
   updatePreferences: input => ipcRenderer.invoke('preferences:update', input),

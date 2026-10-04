@@ -23,6 +23,10 @@ import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos
 import { PdfExporter } from './pdf-export';
 import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
 import { Study } from './study';
+import { Annotations } from './annotations';
+import { Backups } from './backups';
+import { backupRefInput } from '../shared/backup';
+import { markListInput,markCreateInput,markRefInput,momentListInput,momentCreateInput,momentRefInput } from '../shared/study';
 import { searchInput,cardListInput,cardCreateInput,cardRefInput,cardReviewInput,linkCreateInput,linkRefInput } from '../shared/study';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }, { scheme:'nodus-pdf', privileges:{ standard:true, secure:true } }]);
 let window: BrowserWindow;
@@ -39,6 +43,9 @@ let videos: Videos;
 let player: VideoPlayer;
 let pdfExporter: PdfExporter;
 let study: Study;
+let annotations: Annotations;
+let backups: Backups;
+let relaunchProfile:string|null=null;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -57,6 +64,18 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('backup:preview',z.undefined(),()=>backups.preview());
+  handle('backup:create',z.undefined(),()=>{focus.tick();return backups.create();});
+  handle('backup:choose',z.undefined(),async()=>{const picked=await dialog.showOpenDialog(window,{title:'Selecionar pasta do snapshot Nodus (snapshot.json)',defaultPath:path.join(app.getPath('documents'),'NodusBackups'),properties:['openDirectory']});return picked.canceled?null:backups.select(picked.filePaths[0]);});
+  handle('backup:restore',backupRefInput,input=>backups.restore(input.id));
+  handle('backup:activate',backupRefInput,input=>{const profile=backups.restoredProfile(input.id);store.audit('backup:activate',input.id,'ok');relaunchProfile=profile;setImmediate(()=>window.close());return null;});
+  handle('mark:list',markListInput,input=>annotations.marks(input));
+  handle('mark:add',markCreateInput,input=>annotations.addMark(input));
+  handle('mark:remove',markRefInput,input=>{annotations.removeMark(input);return null;});
+  handle('moment:list',momentListInput,input=>annotations.moments(input));
+  handle('moment:add',momentCreateInput,input=>annotations.addMoment(input));
+  handle('moment:remove',momentRefInput,input=>{annotations.removeMoment(input);return null;});
+  handle('moment:open',momentRefInput,async input=>{const moment=annotations.moment(input),video={...videos.get({subjectId:input.subjectId,id:input.videoId}),startSeconds:moment.seconds};return{video,player:await player.open(video,true)};});
   handle('study:catalog',z.undefined(),()=>study.catalog());
   handle('study:search',searchInput,input=>study.search(input.query));
   handle('study:today',z.undefined(),()=>{focus.tick();return study.today();});
@@ -68,6 +87,7 @@ function register() {
   handle('link:save',linkCreateInput,input=>study.link(input));
   handle('link:remove',linkRefInput,input=>study.unlink(input));
   handle('pdf:folders', pdfSourceInput, input => pdfExporter.folders(input));
+  handle('pdf:destination',z.undefined(),async()=>{const picked=await dialog.showOpenDialog(window,{title:'Pasta de destino dos PDFs',properties:['openDirectory','createDirectory']});return picked.canceled?null:pdfExporter.chooseDestination(picked.filePaths[0]);});
   handle('pdf:export', pdfExportInput, input => pdfExporter.export(input));
   handle('preferences:get', z.undefined(), () => preferences.get());
   handle('preferences:update', preferenceInput, input => preferences.update(input));
@@ -119,7 +139,7 @@ function register() {
   handle('note:save', noteWriteInput, input => vault.save(input));
   handle('note:draft', noteWriteInput, input => vault.draft(input));
   handle('note:discard', noteIdInput, input => vault.discard(input.id));
-  handle('app:finish-close', z.undefined(), () => { focus.pauseActive(); allowClose = true; setImmediate(() => window.close()); return null; });
+  handle('app:finish-close', z.undefined(), () => { focus.pauseActive();if(relaunchProfile)app.relaunch({args:[...process.argv.slice(1).filter(arg=>!arg.startsWith('--user-data-dir=')),`--user-data-dir=${relaunchProfile}`]});allowClose = true; setImmediate(() => window.close()); return null; });
   handle('desk:open', subjectIdInput, input => desks.open(input.subjectId));
   handle('desk:save', deskInput, input => desks.save(input));
   handle('material:list', subjectIdInput, input => desks.listMaterials(input.subjectId));
@@ -160,6 +180,8 @@ app.whenReady().then(() => {
   pdfExporter = new PdfExporter(store, vault);
   study = new Study(store);
   videos = new Videos(store);
+  annotations = new Annotations(store,desks,videos);
+  backups = new Backups(store,()=>app.getPath('documents'));
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
