@@ -5,6 +5,7 @@ import { Avatar, usePreferences } from './preferences';
 import { Icon } from './Icon';
 import './settings.css';
 import { PdfExportPanel } from './PdfExportPanel';
+import { BackupPanel } from './BackupPanel';
 type Section = 'profile' | 'appearance' | 'data';
 export default function SettingsWorkspace({ activeArea, navigate }: { activeArea: boolean; navigate(area: 'study' | 'explorer'): void }) {
   const prefs = usePreferences(), [section, setSection] = useState<Section>('profile'), [name, setName] = useState(prefs.value.name);
@@ -46,7 +47,7 @@ export default function SettingsWorkspace({ activeArea, navigate }: { activeArea
           <div className="settings-location"><h3>Pasta de dados do app</h3><p>Perfil, preferências, referências, rascunhos e progresso local.</p><input readOnly aria-label="Pasta de dados do app" value={management.dataDirectory}/><button disabled={opening} onClick={() => openFolder('data')}><Icon kind="folder"/> Abrir pasta de dados</button></div>
           <div className="settings-location"><h3>Pasta de notas</h3><p>Seus arquivos Markdown originais.</p><input readOnly aria-label="Pasta de notas" value={management.vault ?? 'Nenhuma pasta selecionada'}/><button disabled={opening || !management.vault} onClick={() => openFolder('vault')}><Icon kind="folder"/> Abrir pasta de notas</button><button onClick={() => navigate('study')}>Gerenciar notas <Icon kind="arrow"/></button></div>
           <PdfExportPanel vault={management.vault}/>
-          <div className="settings-backup"><Icon kind="note"/><p>Para fazer backup, feche o app e copie a pasta de dados e a pasta de notas. PDFs e arquivos dos projetos precisam de cópia própria, nas pastas originais.</p></div>
+          <BackupPanel/>
         </> : <p role="status">Carregando dados…</p>}
         <div className="settings-runtime"><div><strong>App Estudos {info ? `v${info.version}` : ''}</strong><p>Windows · funcionamento local{management ? ` · ${(management.databaseBytes / 1024 / 1024).toFixed(1)} MB de banco e arquivos auxiliares` : ''}</p><small>{info ? `Electron ${info.electron} · Node ${info.node}` : 'Consultando versão…'}</small></div><button onClick={() => setRevision(n => n + 1)}><Icon kind="refresh"/> Atualizar dados</button></div><button className="settings-projects" onClick={() => navigate('explorer')}>Gerenciar projetos no Explorer <Icon kind="arrow"/></button>
       </section>}

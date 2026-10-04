@@ -89,11 +89,14 @@ for (let pass = 0; pass < 2; pass++) {
       for (let i = 1; i <= 4; i++) { await page.getByRole('button', { name: `Colher canteiro ${i}`, exact: true }).click(); await ready(page); }
       assert.equal((await state(page)).inventory.wheat, 4);
       await page.getByRole('button', { name: 'Mercado', exact: true }).click(); await page.getByRole('button', { name: 'Vender Trigo', exact: true }).click(); await ready(page); assert.equal((await state(page)).inventory.wheat, 0);
-      // Grind by finishing genuine new rounds until the five upgrades are affordable.
-      for (let rounds = 0; rounds < 3 && (await state(page)).coins < 345; rounds++) await solve(page, 'hard');
+      // Fund the current real catalog through genuine rounds; never inject a wallet.
+      const ownedBefore = (await state(page)).owned;
+      const shoppingCost = SHOP.filter(item => !ownedBefore.includes(item.id)).reduce((sum, item) => sum + item.cost, 0);
+      for (let rounds = 0; rounds < 20 && (await state(page)).coins < shoppingCost; rounds++) await solve(page, 'hard');
+      assert.ok((await state(page)).coins >= shoppingCost, 'saldo obtido pelas rodadas deve cobrir as compras');
       await page.getByRole('button', { name: 'Mercado', exact: true }).click();
       for (const item of SHOP.filter(v => v.id !== 'windmill')) { await page.getByRole('button', { name: `Comprar ${item.name}`, exact: true }).click(); await ready(page); }
-      assert.equal((await state(page)).owned.length, 5); assert.equal((await state(page)).plots.length, 6); await shot(page, 'shop');
+      assert.deepEqual([...(await state(page)).owned].sort(), SHOP.map(item => item.id).sort()); assert.equal((await state(page)).plots.length, 6); await shot(page, 'shop');
       const noRepeat = await page.evaluate(operationId => window.desktop.gameAction({ operationId, action: { kind: 'buy', item: 'windmill' } }), randomUUID()); assert.ok(!noRepeat.ok && noRepeat.code === 'ALREADY_OWNED');
       await page.getByRole('button', { name: 'Personagem', exact: true }).click(); await page.getByRole('button', { name: 'Aumentar Prática', exact: true }).click(); await page.getByRole('button', { name: 'Salvar build · grátis', exact: true }).click(); await ready(page); assert.equal((await state(page)).className, 'Explorador'); await shot(page, 'build');
       await page.getByRole('button', { name: 'Redistribuir todos os pontos', exact: true }).click(); await ready(page); assert.equal((await state(page)).className, 'Viajante');
@@ -113,7 +116,7 @@ for (let pass = 0; pass < 2; pass++) {
       // An unfinished normal round survives a full executable restart, including its first revealed card.
       await page.getByRole('button', { name: 'Memória', exact: true }).click(); await page.getByRole('combobox', { name: 'Dificuldade da memória' }).selectOption('normal'); await page.getByRole('button', { name: /Jogar nova rodada/ }).click(); await ready(page);
       await page.getByRole('button', { name: 'Carta 1, fechada', exact: true }).click(); await ready(page); final = await state(page);
-      reports.push('Plantio real, espera de maturação, quatro colheitas/venda, mina/bosque, cinco compras, picareta dobrada, seis canteiros, build/respec, replay e rejeições IPC aprovados.');
+      reports.push(`Plantio real, espera de maturação, quatro colheitas/venda, mina/bosque, ${SHOP.length} compras, picareta dobrada, seis canteiros, build/respec, replay e rejeições IPC aprovados.`);
     } else {
       const restored = await state(page); assert.ok(restored.coins >= final.coins + 4); assert.equal(restored.xp, final.xp); assert.deepEqual(restored.inventory, final.inventory); assert.deepEqual(restored.owned, final.owned); assert.deepEqual(restored.build, final.build); assert.deepEqual(restored.plots, final.plots); assert.deepEqual(restored.round, final.round);
       await page.getByRole('button', { name: 'Memória', exact: true }).click(); assert.equal(await page.getByRole('combobox', { name: 'Dificuldade da memória' }).inputValue(), 'normal'); await shot(page, 'resumed-memory');

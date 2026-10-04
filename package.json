@@ -24,7 +24,9 @@
     "test:videos": "tsx scripts/smoke-videos.ts --packaged",
     "test:settings": "tsx scripts/smoke-settings.ts",
     "test:pdf-export": "tsx scripts/smoke-pdf-export.ts",
-    "test:expansion": "tsx scripts/smoke-expansion.ts"
+    "test:expansion": "tsx scripts/smoke-expansion.ts",
+    "test:annotations": "tsx scripts/smoke-annotations.ts",
+    "test:knowledge-backup": "tsx scripts/smoke-knowledge-backup.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",
