@@ -8,6 +8,8 @@ import { Vault } from './vault';
 import { Desks } from './desk';
 import { Focus } from './focus';
 import { Checklist } from './checklist';
+import { Game } from './game';
+import { gameInput } from '../shared/game';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
@@ -15,6 +17,7 @@ let vault: Vault;
 let desks: Desks;
 let focus: Focus;
 let checklist: Checklist;
+let game: Game;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -33,6 +36,8 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('game:get', z.undefined(), () => game.get());
+  handle('game:action', gameInput, input => game.act(input));
   handle('app:version', z.undefined(), () => ({ version: app.getVersion(), electron: process.versions.electron, node: process.versions.node }));
   handle('app:bootstrap', z.undefined(), () => store.bootstrap());
   handle('subject:create', subjectInput, input => store.createSubject(input));
@@ -86,6 +91,7 @@ app.whenReady().then(() => {
   desks = new Desks(store);
   focus = new Focus(store);
   checklist = new Checklist(store);
+  game = new Game(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);

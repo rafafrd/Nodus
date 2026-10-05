@@ -16,6 +16,7 @@
     "test": "tsx --test tests/*.test.ts",
     "test:desktop": "node scripts/smoke-desktop.mjs",
     "test:journey": "tsx scripts/smoke-journey.ts",
+    "test:game": "tsx scripts/smoke-game.ts --packaged",
     "package:win": "npm run build && electron-builder --win --dir",
     "check:docs": "node scripts/check-bootstrap.mjs"
   },

@@ -26,6 +26,8 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  getGame(): Promise<Result<import('./game').GameState>>;
+  gameAction(input: z.infer<typeof import('./game').gameInput>): Promise<Result<import('./game').GameResult>>;
   version(): Promise<Result<AppInfo>>;
   bootstrap(): Promise<Result<Bootstrap>>;
   createSubject(input: z.infer<typeof subjectInput>): Promise<Result<Subject>>;

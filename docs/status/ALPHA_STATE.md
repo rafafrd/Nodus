@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-UI-01 concluída na branch feat/frontend: grade de módulos com cantos retos, leitura/ferramentas e capturas reais verificadas. Implementação 4e460e0 enviada para origin/feat/frontend; MVP ae0c9f6 permanece em origin/MVP. Próxima ação humana: abrir release/win-unpacked/App Estudos.exe e avaliar a mesa com vault de teste. ALP-02/C5 externo e ALP-09 permanecem pendentes; detalhes em docs/validation/FRONTEND.md.
+GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade isométrica, farm/grind, loja, memória e build locais. Economia 728047d e interface 49489ad enviadas para origin/feat/game. Pacote Windows/jornada de jogo, retomada do estudo e R1–R7 passaram; auditoria sem vulnerabilidade de código confirmada e tooling High com exposição avaliada. Próxima ação humana: seguir docs/GUIA_DE_USO.md, abrir o executável e entrar em Seu mundo com perfil de teste para avaliar o ritmo/arte. UI-01 concluída; MVP ae0c9f6 permanece em origin/MVP. ALP-02/C5 externo e ALP-09 permanecem pendentes.
 
 ## Tickets
 
@@ -26,6 +26,7 @@ UI-01 concluída na branch feat/frontend: grade de módulos com cantos retos, le
 | ALP-10 | doing | Parcial | ALP-06, ALP-07, ALP-08, ALP-09 | C1, C3 |
 | ALP-11 | done | Concluído | ALP-01 | — |
 | UI-01 | done | Concluído | ALP-05, ALP-06, ALP-07, ALP-08 | — |
+| GAM-01 | done | Concluído | UI-01, ALP-03, ALP-07 | — |
 
 ## Checkpoints e atenção humana
 

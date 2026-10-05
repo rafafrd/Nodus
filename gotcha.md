@@ -111,6 +111,14 @@ Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa
 - Correção: aviso como overlay, scrollbar-gutter estável e ajuste usando a altura de conteúdo já medida sem descontar padding novamente. Nenhum dado da mesa/nota foi alterado.
 - Verificação: preview-frontend --packaged --stage=verified exigiu quatro amostras com canvas renderizado, tamanho constante, altura dentro do painel e ausência do aviso. Captura frontend-verified-pdf-fit.png inspecionada; smoke-pdf empacotado e jornada R1–R7 passaram. Evidência: docs/validation/FRONTEND.md.
 
+### O-005 — audit atual tem advisory High transitivo de tooling
+
+- Estado: observado e exposição avaliada em GAM-01, 02/10/2026, Windows/Node 24.21.0. Não corrigido por troca automática de dependência.
+- Reprodução: npm audit --json retorna oito entradas High; npm audit --omit=dev --json retorna zero. Lockfile inalterado; o zero histórico do MVP não representa a consulta atual.
+- Causa: um advisory GHSA-ch52-4w7c-c8xp em http-cache-semantics 4.2.0, na cadeia de electron-builder. Ataque requer cache HTTP compartilhado entre usuários; não foi encontrado esse caminho no produto/workflow configurado, que usa got sem cache habilitado.
+- Impacto e decisão: tooling afetado consta no audit, sem achado de código/exposição confirmada neste recorte local. Continuar o incremento com avaliação explícita; não declarar audit completo limpo nem aplicar downgrade sem compatibilidade/remediação comprovadas.
+- Evidência/próxima ação: docs/security/GAME_AUDIT.md registra cadeia, fontes e limites. Reavaliar na preparação de release, ao introduzir cache compartilhado ou quando houver remediação oficial. Dados de teste e empacotamento não exigiram sessão/cache remoto do app.
+
 ### O-NNN — título concreto
 
 - Estado: observado / investigando / corrigido sem nova prova / corrigido e verificado / reaberto.

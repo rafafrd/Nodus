@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  getGame: () => ipcRenderer.invoke('game:get'),
+  gameAction: input => ipcRenderer.invoke('game:action', input),
   version: () => ipcRenderer.invoke('app:version'),
   bootstrap: () => ipcRenderer.invoke('app:bootstrap'),
   createSubject: input => ipcRenderer.invoke('subject:create', input),
