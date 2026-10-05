@@ -10,6 +10,9 @@ export const SHOP = [
   { id: 'pickaxe', name: 'Picareta de ferro', cost: 85, description: 'Dobra a pedra recebida por coleta na mina.', icon: 'mine' },
   { id: 'cottage', name: 'Casa do viajante', cost: 120, description: 'Constrói sua casa junto à praça.', icon: 'home' },
   { id: 'lanterns', name: 'Luzes da vila', cost: 50, description: 'Lanternas douradas iluminam as ruas.', icon: 'light' },
+  { id: 'fountain', name: 'Fonte do jardim', cost: 45, description: 'Uma fonte de pedra e água junto ao jardim.', icon: 'light' },
+  { id: 'benches', name: 'Bancos do jardim', cost: 15, description: 'Três lugares para descansar sob as árvores.', icon: 'home' },
+  { id: 'greenhouse', name: 'Estufa de vidro', cost: 90, description: 'Uma construção decorativa junto à fazenda.', icon: 'farm' },
 ] as const;
 export type ShopId = typeof SHOP[number]['id'];
 export const SKILLS = [
@@ -36,8 +39,9 @@ export const engineCost = (level: number) => level >= ENGINE_MAX_LEVEL ? null : 
 export type Engine = { level: number; clicks: number; lastClickAt: number };
 export type Challenge = { id: string; kind: 'qte' | 'skillcheck'; pace: 'relaxed' | 'normal'; status: 'active' | 'completed' | 'failed'; stage: number; hits: number; sequence: ('A' | 'S' | 'D' | 'W')[]; targets: number[]; stepAt: number; stepMs: number; zone: number; coins: number; xp: number };
 export function skillPosition(now: number, stepAt: number, period: number) { const phase = Math.max(0, now - stepAt) % period / period; return phase < .5 ? phase * 200 : (1 - phase) * 200; }
-export type GameState = { coins: number; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: number; round: Round | null; engine: Engine & { power: number; upgradeCost: number | null }; challenge: Challenge | null; recent: { action: string; coins: number; xp: number; at: number }[] };
+export type GameState = { atmosphere: 'golden'|'dawn'|'night'; coins: number; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: number; round: Round | null; engine: Engine & { power: number; upgradeCost: number | null }; challenge: Challenge | null; recent: { action: string; coins: number; xp: number; at: number }[] };
 export const gameAction = z.discriminatedUnion('kind', [
+  z.strictObject({kind:z.literal('atmosphere'),value:z.enum(['golden','dawn','night'])}),
   z.strictObject({ kind: z.literal('engine-click') }),
   z.strictObject({ kind: z.literal('engine-upgrade') }),
   z.strictObject({ kind: z.literal('start-challenge'), game: z.enum(['qte', 'skillcheck']), pace: z.enum(['relaxed', 'normal']) }),
@@ -47,7 +51,7 @@ export const gameAction = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('plant'), plot: z.number().int().min(1).max(6), crop: z.enum(['wheat', 'carrot']) }),
   z.strictObject({ kind: z.literal('harvest'), plot: z.number().int().min(1).max(6) }),
   z.strictObject({ kind: z.literal('gather'), resource: z.enum(['stone', 'wood']) }),
-  z.strictObject({ kind: z.literal('buy'), item: z.enum(['windmill', 'fields', 'pickaxe', 'cottage', 'lanterns']) }),
+  z.strictObject({ kind: z.literal('buy'), item: z.enum(['windmill', 'fields', 'pickaxe', 'cottage', 'lanterns','fountain','benches','greenhouse']) }),
   z.strictObject({ kind: z.literal('sell'), resource: z.enum(['wheat', 'carrot', 'stone', 'wood']), quantity: z.number().int().min(1).max(10000) }),
   z.strictObject({ kind: z.literal('respec'), build: z.strictObject({ focus: z.number().int().min(0).max(100), review: z.number().int().min(0).max(100), planning: z.number().int().min(0).max(100), practice: z.number().int().min(0).max(100) }) }),
   z.strictObject({ kind: z.literal('start-round'), difficulty: z.enum(['easy', 'normal', 'hard']) }),

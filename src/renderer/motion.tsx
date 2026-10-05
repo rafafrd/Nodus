@@ -18,7 +18,7 @@ export function AreaStage({ active, children }: { active: string; children: Reac
     const layers = Array.from(stage.children) as HTMLElement[];
     const incoming = layers.find(el => el.dataset.area === active)!;
     let observer: MutationObserver | null = null, timeline: gsap.core.Timeline | null = null;
-    const direction = ['study', 'explorer', 'city', 'settings'].indexOf(active) >= ['study', 'explorer', 'city', 'settings'].indexOf(previous.current) ? 1 : -1;
+    const direction = ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(active) >= ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(previous.current) ? 1 : -1;
     layers.forEach(el => { gsap.killTweensOf(el); el.inert = true; el.setAttribute('aria-hidden', 'true'); });
     function complete() {
       layers.forEach(el => {

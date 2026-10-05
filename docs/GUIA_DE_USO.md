@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/pdf-export** reúne mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP, configurações e exportação das notas em PDF escuro.
+Guia da versão local Windows, atualizado em 04/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/study-expansion** reúne mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP, configurações exportação escura, busca, Hoje, revisão, grafo e cópias de segurança.
 
 ## 1. Abrir agora neste PC
 
@@ -169,16 +169,16 @@ Clique **Ajustes** ou no perfil, no rodapé da barra fixa. Voltar aos estudos co
 2. Em **Aparência**, escolha **Oliva**, **Grafite** ou **Azul noite**. O tema aplica e salva imediatamente, incluindo editores. Desative **Animações da interface** para parar transições/câmera/decoração; a preferência de movimento reduzido do Windows também é respeitada. Foco, timing dos desafios e reprodução dos vídeos continuam funcionando.
 3. Em **Dados e app**, consulte matérias/notas/PDFs/vídeos/projetos/rascunhos, versão/runtime e tamanho do banco. **Atualizar dados** renova a consulta. Use **Abrir pasta de dados/notas** para encontrar os diretórios registrados e os atalhos para gerenciar notas/projetos. O caminho da tela é o efetivo, inclusive em perfil de teste.
 
-As escolhas são retomadas ao reabrir. Esta área gerencia preferências e localização dos dados; backup ainda é feito pela cópia das pastas abaixo.
+As escolhas são retomadas ao reabrir. Esta área também cria backups e restaura uma cópia separada, conforme a seção 10.
 
 ### Exportar uma pasta em PDF
 
 1. Salve as notas/arquivos que quer incluir; rascunhos ainda não salvos ficam fora da exportação.
 2. Abra **Ajustes → Dados e app** e encontre **Sua pasta, em um caderno PDF**.
 3. Escolha **Pasta de notas** ou um projeto já aberto no **Explorer**. Em **Pasta**, escolha a origem inteira ou uma subpasta; as subpastas dela também entram.
-4. Clique **Exportar pasta em PDF**. Ao terminar, a tela mostra o caminho do arquivo em **Downloads**. Cada exportação usa um nome novo.
+4. Clique **Exportar pasta em PDF**. Pode escolher uma nota individual em **Conteúdo**, informar **Título da capa**, marcar **Incluir imagens locais PNG/JPEG** e usar **Escolher pasta de destino**. Ao terminar, a tela mostra o caminho efetivo. Sem escolha, o destino é Downloads; cada exportação usa um nome novo.
 
-O caderno A4 tem fundo preto inclusive nas margens, texto claro, capa, sumário clicável e páginas numeradas. Inclui apenas arquivos **.md**, em ordem de caminho/número; cada nota começa em uma nova página. Títulos, listas, citações, tabelas e código são formatados. O bloco inicial de frontmatter fica oculto no PDF; os arquivos originais conservam todos os bytes. Imagens aparecem como indicação textual, links externos como texto e fórmulas/wikilinks como fonte Markdown, sem buscar recursos na rede. Arquivos de código, PDFs anexados e pastas auxiliares/ocultas não são reunidos nesse caderno.
+O caderno A4 tem fundo preto inclusive nas margens, texto claro, capa, sumário clicável e páginas numeradas. Inclui apenas arquivos **.md**, em ordem de caminho/número; cada nota começa em uma nova página. Títulos, listas, citações, tabelas e código são formatados. O bloco inicial de frontmatter fica oculto no PDF; os arquivos originais conservam todos os bytes. Imagens opcionais PNG/JPEG locais contidas na origem podem ser incluídas; imagens remotas/omitidas ficam como indicação textual, links externos como texto e fórmulas/wikilinks como fonte Markdown, sem buscar recursos na rede. Arquivos de código, PDFs anexados e pastas auxiliares/ocultas não são reunidos nesse caderno.
 
 Se a pasta não tem Markdown ou excede os limites, a tela explica o problema. Escolha uma subpasta menor: até **200 notas**, **2 MiB por nota**, **6 MiB de texto total**, **4.000 entradas** e **16 níveis**. Uma geração por vez; notas inválidas ou alteradas durante a leitura interrompem a operação. O PDF é uma cópia para leitura, e o backup completo segue abaixo. [Provas da exportação](validation/PDF_EXPORT.md).
 
@@ -189,10 +189,10 @@ Se a pasta não tem Markdown ou excede os limites, a tela explica o problema. Es
 | Notas Markdown | Vault que você escolheu |
 | PDFs | Arquivos locais selecionados; app conserva referências |
 | Projetos | Pastas escolhidas; arquivos são editados no local original |
-| Cadernos PDF exportados | Downloads do usuário Windows; caminho mostrado após exportar |
+| Cadernos PDF exportados | Downloads ou pasta escolhida; caminho mostrado após exportar |
 | Mesa, tarefas, foco, rascunhos/abas de projetos e jogo | Perfil local em %APPDATA%\app-estudos |
 
-Para backup, **feche o app** e copie o vault, os PDFs necessários, suas pastas de projetos e a pasta de perfil inteira. Copiar apenas as notas conserva os arquivos Markdown; copiar o perfil também conserva jogo, mesas e rascunhos. Os arquivos do app não são criptografados pelo próprio aplicativo. Guarde dados pessoais fora do repositório.
+Para uma cópia manual completa, **feche o app** e copie o vault, os PDFs necessários, suas pastas de projetos e a pasta de perfil inteira. Copiar apenas as notas conserva os arquivos Markdown; copiar o perfil também conserva jogo, mesas e rascunhos. Os arquivos do app não são criptografados pelo próprio aplicativo. Guarde dados pessoais fora do repositório.
 
 Para experimentar com dados separados, na raiz do projeto:
 
@@ -201,7 +201,7 @@ $guideProfile = Join-Path (Get-Location).Path '.local\perfil-guia'
 & '.\release\win-unpacked\App Estudos.exe' "--user-data-dir=$guideProfile"
 ```
 
-Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: esta build usa SQLite v4 desde MED-01; GAM-02 usava v3 e GAM-01 usava v2; a antiga MVP usava v1. Uma build antiga não abre schema novo; não apague o banco para contornar isso.
+Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: esta build usa SQLite v5 desde NXT-01; MED-01 usava v4; GAM-02 usava v3 e GAM-01 usava v2; a antiga MVP usava v1. Uma build antiga não abre schema novo; não apague o banco para contornar isso.
 
 ## 9. Diagnóstico rápido
 
@@ -223,3 +223,21 @@ Se um comando falhar, registre a mensagem e a etapa. Preserve seu perfil/vault p
 A barra fixa troca áreas com transições curtas e conserva seus editores/contexto. As moedas animam até o saldo confirmado, e o ganho aparece junto do motor. Para reduzir movimento, desligue **Animações da interface** em **Ajustes → Aparência** ou desative **Efeitos de animação** em **Configurações → Acessibilidade → Efeitos visuais** do Windows 11, conforme o [Suporte Microsoft](https://support.microsoft.com/pt-br/accessibility/windows/make-it-easier-to-focus-on-tasks). O app remove animações decorativas, inclusive quando a preferência muda durante uma transição. Salvar não espera a animação terminar.
 
 Refinamento atual: [SMOOTH_UI](validation/SMOOTH_UI.md). Novos fluxos/provas: [ENGINE_EXPLORER](validation/ENGINE_EXPLORER.md); revisão dos documentos: [PRODUCT_DOCS](validation/PRODUCT_DOCS.md).
+
+## 10. Estudo conectado e cópias de segurança
+
+**Ctrl+K** ou a lupa da barra abre a busca global por títulos de notas, matérias, projetos, vídeos e ações. Use setas/Enter ou clique. Abrir uma fonte conserva rascunhos; a busca não lê o conteúdo completo dos arquivos. **Hoje** reúne tarefas abertas do checklist, revisões vencidas, minutos de foco registrados no dia e **Retomar mesa**. Pausas ficam fora do tempo; não há integração com agenda externa.
+
+**Revisão** permite criar flashcards manuais. Na nota, o botão **Criar flashcard do trecho** usa a seleção do editor, ou o início do texto quando não há seleção. Revise pergunta/resposta e salve. **Revelar resposta** libera as avaliações: **Esqueci** agenda em 10 minutos, **Difícil** mantém intervalo curto, **Lembrei** amplia, **Fácil** amplia mais, até 365 dias. O cartão guarda nota/trecho de origem e **Abrir nota** retorna ao caderno. Os filtros de vencidos/biblioteca e matéria ajudam a organizar. A avaliação é sua; XP e moedas continuam sendo apenas progresso do jogo.
+
+No PDF, clique **Marcar área**, arraste sobre a página e salve comentário/cor. Pode vincular a marca à nota aberta. A lista abaixo das páginas permite ir ao trecho, abrir a nota e excluir. São áreas destacadas, sem alterar o PDF ou selecionar seu texto. Se o arquivo mudar, recarregue/localize o material; marcas de outra versão ficam conservadas e separadas para evitar trechos incorretos.
+
+Em **Material → Vídeos**, **Momentos da aula** guarda uma anotação com o tempo informado por você, como 12:30 ou 1:02:10 (até 24 horas). Clique no momento para abrir o vídeo naquele ponto. A ação reinicia o player para saltar; depois cinema/PiP/mesa continuam disponíveis. O app não captura automaticamente a posição da reprodução.
+
+**Grafo** mostra notas da matéria e relações salvas. Escolha origem/destino e o nome da relação, depois **Conectar notas**; repetir a mesma dupla atualiza o nome. Selecione um nó ou use a lista para ver a prévia e **Abrir no caderno**. Arraste/role para explorar; até 200 notas ficam no cenário e a lista acessa todas. HTML/imagens remotas permanecem inertes. Movimento reduzido e animações desligadas também valem para a câmera.
+
+Na cidade, **Mercado** oferece **Fonte do jardim** (45), **Bancos do jardim** (15) e **Estufa de vidro** (90). São decorações, sem renda adicional. **Dourado**, **Amanhecer** e **Noite** mudam o ambiente e ficam salvos. Motor, desafios e economia seguem as regras anteriores.
+
+Em **Ajustes → Dados e app → Cópias de segurança**, clique **Conferir prévia do backup**, confira arquivos/omissões e **Criar backup agora**. A cópia inclui banco de estudo, preferências, rascunhos/recuperações, vault, arquivos dos projetos e PDFs disponíveis; vai para **Documentos/NodusBackups**. Salve as edições que quer como arquivos; rascunhos já preservados também entram no banco. Git, dependências, ocultos, links, saídas de snapshots, cache do navegador e credenciais conhecidas por nome/extensão ficam fora. Tokens escritos nas suas notas continuam sendo conteúdo privado da cópia. Proteja essa pasta: não há criptografia própria. Limites: 300 MiB, 5.000 arquivos, 16 níveis, 100 MiB por arquivo e 64 MiB de banco. Projetos/PDFs ausentes e notas excluídas são comunicados na prévia/recibo.
+
+Para restaurar, use a cópia recém-criada ou **Selecionar backup para restaurar** e escolha a pasta que contém snapshot.json. Confira a prévia e clique **Restaurar em uma cópia**. Hashes, caminhos e estrutura do banco são conferidos antes de abrir; fontes atuais permanecem no lugar. A cópia fica em **Documentos/NodusRestored**, com outro perfil/vault/projetos/PDFs. **Abrir cópia restaurada** reinicia o app após preservar os rascunhos atuais. Para voltar ao perfil original, feche e abra normalmente pelo seu atalho. PDFs/projetos ausentes continuam ausentes na cópia, sem acessar o caminho original. Não é restauração na nuvem nem merge de perfis. [Validação e limites](validation/STUDY_EXPANSION.md).

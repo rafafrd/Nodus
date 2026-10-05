@@ -17,8 +17,8 @@ export class VideoPlayer {
     window.on('resize', () => { if (this.view) this.layout({ ...this.view.getBounds(), visible: this.view.getVisible() }); });
   }
   private publish(state: VideoPlayerState) { this.state = state; if (!this.window.isDestroyed()) this.window.webContents.send('player:state', state); }
-  open(video: StudyVideo): VideoPlayerState {
-    if (this.current?.id === video.id && this.view && this.state.state !== 'error') return this.state;
+  open(video: StudyVideo,seek = false): VideoPlayerState {
+    if (!seek && this.current?.id === video.id && this.view && this.state.state !== 'error') return this.state;
     const url = youtubeEmbedUrl(video);
     this.dispose();
     const view = new WebContentsView({ webPreferences: { session: this.isolated, contextIsolation: true, sandbox: true, nodeIntegration: false, nodeIntegrationInSubFrames: false, nodeIntegrationInWorker: false, webSecurity: true, webviewTag: false, navigateOnDragDrop: false, disableDialogs: true } });

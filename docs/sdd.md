@@ -1,6 +1,6 @@
 # SDD — especificação de implementação da alpha
 
-Versão: 0.3, 03/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v4 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
+Versão: 0.4, 04/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v5 em src/main/store.ts. Snapshot na nuvem/ALP-09 permanece futuro; cópia/restauração local NXT-01 é descrita abaixo. Base: PRD, arquitetura e backlog original.
 
 ## Escopo verificável
 
@@ -17,6 +17,10 @@ Duas matérias, notas Markdown portáveis, mesas separadas, PDF com página salv
 | Abrir PDF | Referência autorizada | Documento/página ou erro/localizar arquivo | ALP-06 |
 | Listar pastas de exportação | source vault/projectId, strict | Raiz/subpastas canônicas contidas, sem links/auxiliares | EXP-01 |
 | Exportar pasta em PDF | source e folder relativo, strict | A4 preto em Downloads; recibo path/notes/bytes/skipped só após gravação/audit ou erro | EXP-01 |
+| Estudo conectado | shared/study: search/card/mark/moment/link strict, vínculos no main | Catálogo real, Hoje, revisão versionada, marcas por fingerprint e momentos/relações persistentes | NXT-01 |
+| Snapshot local | shared/backup: manifest estrito e capacidade UUID | Prévia/criar/importar/restaurar separados, sem substituição de fontes/perfil | NXT-01 |
+
+NXT-01: schema5/migração aditiva e DTOs shared/study/backup ampliam main/preload. card:review valida versão/UUID/payload e agenda com relógio do main/cap365dias, sem XP. mark:list/add/remove vincula fingerprint/área/página e moment:list/add/remove/open conserva nota temporal do vídeo; seek recria guest, demais modos o conservam. link:list/save/remove persiste relações intra-matéria, sem extrair significado automaticamente do Markdown. backup:preview/create/choose/restore/activate usa snapshots locais e IDs de capacidade; não representa ALP-09. Destino PDF escolhido é registrado no main+audit; nota individual/imagens opcionais seguem superfície de impressão isolada. Detalhes e consequências em [ADR-0011](adr/0011-expansao-estudo-local.md).
 | Iniciar/pausar/retomar foco | Sessão/duração/ação válida | Estado e segmentos persistidos | ALP-07 |
 | Alterar etapa | IDs válidos, texto/conclusão | Checklist persistido, contagem e próxima ação | ALP-08 |
 | Enviar snapshot | Usuário, operação, nota, revisão, hash | Recibo consistente e snapshot por proprietário | ALP-09 |

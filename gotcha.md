@@ -173,3 +173,11 @@ Observado no pacote Windows: VideoPlayer.open chamava close e publicava closed a
 ## O-012 — Exportação concluída sem evento de sucesso (EXP-01, 03/10/2026)
 
 Observado pelo auditor na fonte inicial: printToPDF e gravação confirmavam sucesso em Downloads, mas handler só auditava erros. Correção export-output exige audit pdf:export/UUID opaco/ok depois de write/fsync/close; falha remove apenas a saída nova e retorna erro sem recibo. Sem título/path/texto no evento. Teste unitário, probe independente e pacote real com trigger abort SQLite verificaram ausência de PDF novo/evento, arquivo anterior/fontes intactos e retomada após remover trigger. Provas em docs/validation/PDF_EXPORT.md. FS/SQLite não compartilham atomicidade contra crash/falha de cleanup; não alegar transação conjunta.
+
+## O-013 — Intervalo de revisão ilimitado (NXT-01, 04/10/2026)
+
+Probe SQLite independente repetiu avaliações Fácil antecipadas na biblioteca e encontrou due_at acima do intervalo aceito pelo driver/Date, com erro em SELECT após 15 avaliações. Correção no main limita intervalo a 365 dias, valida instante/data finitos e faz rollback por relógio inválido. Teste real com 50 avaliações e rollback passou. Destino PDF/ativação de cópia também passaram a exigir audit antes de confirmar estado/fechamento, sem caminhos privados no evento.
+
+## O-014 — Área vazia de controles interceptava marcador da cidade (NXT-01, 04/10/2026)
+
+Regressão Windows empacotada test:smooth-ui falhou ao clicar Visitar mina após mover a câmera para Fazenda: o container largo de Ambiente da vila interceptava o ponto do marcador. Correção em game.css deixa o container com pointer-events:none e somente os botões com pointer-events:auto. Novo pacote e mesma jornada aprovaram clique/câmera/retarget/movimento reduzido e viewport 1040×760, sem force ou mudança do roteiro. Fonte e identificação do pacote em STUDY_EXPANSION.

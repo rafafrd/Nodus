@@ -74,3 +74,5 @@
 .settings-export>p[role=status] { font-size:13px; color:var(--theme-muted); margin-top:16px; }
 .settings-export-result { padding:16px; border:1px solid var(--theme-border); margin-top:20px; display:grid; gap:12px; font-size:13px; }
 .settings-export-result strong { color:var(--theme-accent); } .settings-export-result input { width:100%; font:12px Consolas,monospace; } .settings-export-result small { color:var(--theme-muted); }
+
+.settings-backup-panel{margin-top:40px;padding-top:28px;border-top:1px solid var(--theme-border)}.settings-backup-panel h3{font:23px Georgia,serif;margin:0 0 14px}.settings-backup-panel p{font-size:13px;line-height:1.8;color:var(--theme-muted);margin:12px 0}.settings-backup-panel input{width:100%;display:block;margin:12px 0;font-size:12px}.settings-backup-panel>div{background:var(--theme-panel);border:1px solid var(--theme-border);padding:20px;margin:18px 0}.settings-backup-panel strong{display:block;font-size:14px}.settings-backup-panel hr{border:0;border-top:1px solid var(--theme-border);margin:30px 0}.settings-backup-panel button{margin:8px 8px 0 0}

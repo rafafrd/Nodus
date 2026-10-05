@@ -69,13 +69,13 @@ test('memória é calculada no main: pares, tentativas, combos, retomada e recom
   } finally { db.close(); }
 });
 
-test('migração v1 para v4 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
+test('migração v1 para v5 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/game-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let db = new Store(path.join(dir, 'data'));
   try {
     const subject = db.createSubject({ name: 'Preservar', color: 'sage' }), vault = new Vault(db); vault.selectRoot(root); const note = vault.create({ subjectId: subject.id, title: 'Original' });
     vault.draft({ id: note.ref.id, hash: note.hash, text: note.text + '\nRascunho preservado.' }); const original = fs.readFileSync(path.join(root, note.ref.path), 'utf8');
-    db.db.exec('ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; DROP TABLE project_drafts; DROP TABLE project_folders; DROP TABLE game_challenges; DROP TABLE game_player; DROP TABLE game_ledger; DROP TABLE game_operations; DROP TABLE game_rounds; PRAGMA user_version=1;'); db.close(); db = new Store(path.join(dir, 'data'));
-    assert.equal(db.db.prepare('PRAGMA user_version').get()?.user_version, 4); assert.equal(db.requireSubject(subject.id).name, 'Preservar'); assert.equal(new Vault(db).open(note.ref.id).draft!.text, note.text + '\nRascunho preservado.'); assert.equal(fs.readFileSync(path.join(root, note.ref.path), 'utf8'), original); assert.ok(db.db.prepare('SELECT subject_id FROM desks WHERE subject_id=?').get(subject.id));
+    db.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; DROP TABLE project_drafts; DROP TABLE project_folders; DROP TABLE game_challenges; DROP TABLE game_player; DROP TABLE game_ledger; DROP TABLE game_operations; DROP TABLE game_rounds; PRAGMA user_version=1;'); db.close(); db = new Store(path.join(dir, 'data'));
+    assert.equal(db.db.prepare('PRAGMA user_version').get()?.user_version, 5); assert.equal(db.requireSubject(subject.id).name, 'Preservar'); assert.equal(new Vault(db).open(note.ref.id).draft!.text, note.text + '\nRascunho preservado.'); assert.equal(fs.readFileSync(path.join(root, note.ref.path), 'utf8'), original); assert.ok(db.db.prepare('SELECT subject_id FROM desks WHERE subject_id=?').get(subject.id));
     assert.equal(new Game(db).get().coins, 60);
   } finally { db.close(); }
 });

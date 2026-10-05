@@ -210,3 +210,26 @@ PDF_EXPORT_AUDIT independente: APPROVE WITH MITIGATIONS para inicialb225d619… 
 Core fef5821/UI38651b4/docs-audit32eb884 enviados ao origin/codex/pdf-export, push exit0/upstream configurado. Stage documental24arquivos/46,52KB Gitleaks sem achados e diff cached --check aprovado, incluindo guia/memória/audit; bootstrap18tickets/115critérios/93Markdown/328links e inventário83docs passaram no checkpoint. C1–C6 aprovados; ticket movido para done/concluido, links/quadro/retomada atualizados. Fechamento do quadro é checkpoint documental separado, com nova reconferência. Fonte/harness/pacote permanecem os exercitados e identificados em PDF_EXPORT/PDF_EXPORT_AUDIT. Dados/capturas/PDF demonstrativo/pacote locais ignorados; nenhum serviço/release publicado. Próxima ação humana: exportar sua pasta de notas conforme o guia; alpha externa permanece parcial.
 
 Verificação final EXP-01 após mover ticket/links: inventário83docs; bootstrap18tickets/115critérios/93Markdown/331links locais aprovado. Contagens documentais não aprovam provas externas. Diff de fechamento conferido e fonte/harness preservados.
+
+### 04/10/2026 — NXT-01: checkpoint1
+
+Busca/Hoje/flashcards e schema5 aditivo implementados, commit 58937e6. Windows: typecheck,31testes,package e jornada real expansion passaram; fontes preservadas e canais estritos/sender verificados. C1–C3 aprovados, demais pendentes. Continuação: marcações PDF/vídeo e exportação ampliada; evidências em STUDY_EXPANSION.md.
+
+### 04/10/2026 — NXT-01: domínio e integração das fases 2/3
+
+Commit 1f69692 acrescenta annotations, snapshots/restauração separados, imagens/destino PDF, cosméticos da cidade e contratos/preload/testes. Migração v5 permanece aditiva, lockfile inalterado. Typecheck e 38 testes passaram; as três jornadas novas no Windows exercitaram Ctrl+K/Hoje/revisão, PDF/vídeo/export, grafo/40 pulsos/upgrade/compras/noite, backup/restore/relaunch e audit failure sem fechar. Auditor independente reproduziu overflow de intervalo e eventos ausentes; O-013/cap de 365 dias, destino transacional e audit antes de relaunch foram corrigidos/verificados.
+
+Regressão Smooth encontrou O-014: container vazio de controles interceptava marcador. CSS agora captura ponteiro somente nos botões; mesma jornada sem force passou no pacote corrigido. Vídeos reais e PDF legado também passaram. Game antigo ainda usava saldo/quantidade de catálogo anterior; roteiro corrigido calcula soma e obtém saldo por rodadas reais. Build atual comparada com 200 arquivos dist no ASAR, sem diferenças; hashes correntes e repetição final em STUDY_EXPANSION. Gitleaks staged do core (22 arquivos/69,25 KB) e da interface/harness (19 arquivos/60,02 KB) sem achados; diff cached --check aprovado. Interface staged, regressões/audit/docs/commit/push em fechamento; nenhum serviço/release publicado.
+
+### 04/10/2026 — NXT-01: interface, regressões e auditoria final
+
+Interface/harness em 61ef01b. Dez jornadas passaram no mesmo EXE41FC22FB…/ASAR7F1B0ED2…: Game oito compras/rodadas/cultivos/renda passiva com app fechado, Smooth, Videos, PDF legado, Expansion, Annotations, Knowledge-Backup, Settings, Journey R1–R7 e Engine-Explorer com QTE/skillcheck. PDF final quatro páginas/A4/preto/imagem renderizado e visualmente inspecionado; fonte/draft/raízes originais conservados. Diálogos de pasta não automatizados, conforme os limites. No harness Engine, date histórico fixo não é o horário da execução atual; log/arquivo datados de 04/10 são registrados separadamente.
+
+Auditor independente encerrou STUDY_EXPANSION_AUDIT: APPROVE WITH MITIGATIONS, composição 8fdf7397…/224 entradas/52 fontes correntes, 14/14 testes/dez grupos de probes/callbacks/FS/SQLite e segredos aprovados. Sem Electron pelo auditor, nenhuma vulnerabilidade nova confirmada aberta. Npm audit atual prod0/full1High legado, exposição avaliada e não remediada. Docs/memória/ADR/guia/produto/quadro atualizados; C1–C11 aprovados, C12 aguarda scan/commit documental/push e fechamento. Inventário87docs/bootstrap19tickets/127critérios/97Markdown/360links aprovado no checkpoint anterior com C12 pendente.
+
+### 04/10/2026 — NXT-01: concluído
+
+Checkpoints 58937e6/1f69692/61ef01b/docs-audit7cbdd8a enviados ao origin/codex/study-expansion, push exit 0/upstream configurado. Stage documental22arquivos/66,58KB Gitleaks sem achados, diff cached --check aprovado; inventário87docs/bootstrap19tickets/127critérios/97Markdown/363links passou com C12 ainda pendente de push. C1–C12 agora aprovados, ticket movido para done/concluido, links/quadro/retomada atualizados. Fechamento documental é commit separado, com novo scan/reconferência. Fonte/harness/pacote e fonte congelada do auditor permanecem os de STUDY_EXPANSION/STUDY_EXPANSION_AUDIT. Nenhum serviço/release publicado; próxima ação humana: usar os novos fluxos conforme o guia. Alpha externa permanece parcial.
+
+Reconferência após mover o ticket: inventário87docs/bootstrap19tickets/127critérios/97Markdown/366links locais aprovado. Essas contagens são documentais e não substituem provas externas. Nenhuma alteração de produto/harness após as jornadas finais.
+

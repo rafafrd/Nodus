@@ -30,6 +30,7 @@ export class Videos {
     return this.store.transaction(() => {
       const video = this.get(input);
       this.store.db.prepare('UPDATE desks SET video_id=NULL WHERE video_id=?').run(video.id);
+      this.store.db.prepare('DELETE FROM video_moments WHERE video_id=?').run(video.id);
       this.store.db.prepare('DELETE FROM videos WHERE id=?').run(video.id);
       this.store.audit('video.remove', video.id, 'ok'); return null;
     });

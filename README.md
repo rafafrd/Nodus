@@ -18,6 +18,8 @@ EXP-01 na branch codex/pdf-export acrescenta **Ajustes → Dados e app → Expor
 
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
+NXT-01 em codex/study-expansion acrescenta Ctrl+K, Hoje, flashcards com revisão espaçada, marcações PDF, momentos de vídeo, grafo Three.js de notas reais, três decorações/ambientes da vila e backup/restauração em perfil separado. PDF preto aceita nota individual, capa, imagens locais limitadas e destino escolhido. SQLite v5 é aditivo. [Provas](docs/validation/STUDY_EXPANSION.md), [decisão](docs/adr/0011-expansao-estudo-local.md) e [auditoria independente](docs/security/STUDY_EXPANSION_AUDIT.md) registram escopo e limites; alpha externa continua parcial.
+
 ## Começar
 
 Use Node 24 e npm no Windows. A cópia portátil usada nesta execução está em .local/node-v24.21.0-win-x64; ela não é versionada. Com Node 24 no PATH:
@@ -36,6 +38,9 @@ npm.cmd run test:smooth-ui
 npm.cmd run test:videos
 npm.cmd run test:settings
 npm.cmd run test:pdf-export
+npm.cmd run test:expansion
+npm.cmd run test:annotations
+npm.cmd run test:knowledge-backup
 node scripts/check-bootstrap.mjs
 ```
 
@@ -62,7 +67,7 @@ Versões usadas: Node host/embarcado 24.21.0, Electron 44.5.1, React 19.3.0, Typ
 
 8. Em Explorer, abra uma pasta real, navegue na árvore e edite arquivos UTF-8 existentes em abas. Ctrl+S grava; conflitos externos conservam versões e fechamento conserva draft. Sem execução/Git de projetos neste incremento.
 
-Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam nas pastas escolhidas. Não são criptografados pelo app. Instância de teste isolada: execute `App Estudos.exe --user-data-dir=C:\caminho\de\teste` com uma pasta de teste. Testes usam .local e conteúdo fictício; não configure dados pessoais nesses diretórios.
+Banco e rascunhos ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam nas pastas escolhidas. Backups criados pelo app ficam em Documentos/NodusBackups e as cópias restauradas em Documentos/NodusRestored. Não são criptografados pelo app. Instância de teste isolada: execute `App Estudos.exe --user-data-dir=C:\caminho\de\teste` com uma pasta de teste. Testes usam .local e conteúdo fictício; não configure dados pessoais nesses diretórios.
 
 ## Mapa
 
@@ -87,7 +92,7 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 
 ## Recorte e estado
 
-Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Farm/loja/builds ganharam um primeiro incremento local por pedido explícito após a mesa; grafo 3D, integração de notas/IA, agenda e execução/Git de projetos seguem o roadmap; navegação/edição local foram antecipadas em GAM-02. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
+Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duração escolhida, retomar a mesa e consultar pelo celular uma nota confirmada na nuvem com PC desligado. Farm/loja/builds ganharam um primeiro incremento local por pedido explícito após a mesa; navegação/edição local foram antecipadas em GAM-02 e grafo 3D com relações manuais em NXT-01. IA, agenda, extração automática de relações e execução/Git de projetos seguem o roadmap. Tempo humano disponível: até 3 horas por semana; o prazo se ajusta para preservar o escopo.
 
 Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte inicial](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Push das branches autorizado posteriormente pelo usuário; sem publicação de release/serviço.
 

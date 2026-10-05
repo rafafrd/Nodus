@@ -23,6 +23,7 @@ Para usar o app: [guia de uso](GUIA_DE_USO.md). Para retomar desenvolvimento: [e
 | [Motor/desafios/Explorer](validation/ENGINE_EXPLORER.md) | GAM-02, jornada e pacote Windows |
 | [Configurações e perfil](validation/SETTINGS.md) | CFG-01, temas/movimento/foto e gestão local com prova Windows |
 | [Exportação em PDF](validation/PDF_EXPORT.md) | EXP-01, pasta Markdown em caderno A4 preto, coleta/paginação/isolamento e prova Windows |
+| [Estudo conectado e backups](validation/STUDY_EXPANSION.md) | NXT-01, nove incrementos locais, restauração separada, jornadas Windows e limites |
 | [YouTube, cinema e PiP](validation/YOUTUBE.md) | MED-01, reprodução oficial isolada e jornada Windows |
 | [Transições e refinamento](validation/SMOOTH_UI.md) | UI-02, navegação/painéis/câmera e prova Windows |
 | [Revisão de docs](validation/PRODUCT_DOCS.md) | Inventário completo, divergências/correções e limites |

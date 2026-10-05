@@ -290,3 +290,22 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C4 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): Downloads sem sobrescrita, limites/EXPORT_BUSY/vazio e audit/rollback real SQLite+FS |
 | C5 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): UI/IPC/print/FS reais, isolamento de5 superfícies e Settings/R1–R7 aprovados |
 | C6 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):28 testes/typecheck/pacote/jornadas/renderização, [AppSec](../security/PDF_EXPORT_AUDIT.md), docs/memória/inventário/bootstrap e Gitleaks staged aprovados; fef5821/38651b4/32eb884 enviados ao origin/codex/pdf-export |
+
+## NXT-01 — Estudo, revisão e conhecimento
+
+04/10/2026, codex/study-expansion, nove sugestões implementadas; [provas](STUDY_EXPANSION.md), regressões finais, auditoria/documentos e push aprovados. C1–C12 concluídos no recorte local; alpha externa permanece parcial.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): Ctrl+K/busca real, navegação entre matérias, buffers e uma janela de criação |
+| C2 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): Hoje/tarefas/vencidos/foco persistido e retomada pela UI |
+| C3 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): cartão de trecho/nota, revelar/avaliar, versão/replay/audit/clock e limite de intervalo verificados |
+| C4 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): marcação real no PDF, comentário/nota, SHA por versão e bytes originais preservados |
+| C5 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): momento manual 1:15 abre guest oficial com start=75; modos/retry/isolamento preservados |
+| C6 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): snapshot real, WAL/FS/limites/contenção/omissões e hash/segredos conhecidos |
+| C7 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): cópia isolada, remapeamento, fontes intactas e relaunch real; audit failure não arma fechamento |
+| C8 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): canvas Three.js/links/prévia/abrir fonte reais, GSAP/gates/movimento reduzido/limpeza revisados |
+| C9 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 40 pulsos reais/upgrade/três compras/noite persistida; ledger/audit/preços autoritativos |
+| C10 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): PDF preto real 4 páginas/imagem/capa/nota individual/destino registrado; picker não automatizado |
+| C11 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 38 testes/typecheck/pacote/200 assets conferidos/dez jornadas Windows e PDF renderizado aprovados |
+| C12 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md)/[AppSec](../security/STUDY_EXPANSION_AUDIT.md), docs/memória/scans staged/bootstrap/inventário aprovados; 58937e6/1f69692/61ef01b/7cbdd8a enviados ao origin/codex/study-expansion, push exit 0 |

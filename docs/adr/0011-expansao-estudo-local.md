@@ -1,0 +1,21 @@
+# ADR-0011 — Estudo conectado e snapshots locais separados
+
+04/10/2026. Aceita para NXT-01, MVP pessoal Windows. Implementação e verificações em [STUDY_EXPANSION](../validation/STUDY_EXPANSION.md).
+
+## Decisão
+
+SQLite v5 adiciona flashcards/card_reviews, pdf_marks, video_moments e note_links, sem reset. Markdown permanece canônico. Busca usa catálogo de títulos/contextos; Hoje combina checklist aberto, vencimento de cartões e segmentos de foco persistidos. Revisão manual usa relógio do main, versão esperada e UUID vinculado ao payload; o intervalo máximo é 365 dias e datas inválidas fazem rollback. O agendamento não concede XP/moedas. Grafo Three.js mostra até 200 notas reais por matéria, relações manuais e prévia inerte; lista acessa todas. GSAP retargeta câmera e respeita área ativa/reduced-motion, sem framework interno novo.
+
+Marcações PDF são retângulos normalizados/comentários e nota opcional; SHA256 dos bytes separa versões. Main confere a versão antes de ler/gravar marcas. PDF original nunca recebe escrita. Momentos de vídeo usam tempo manual0–86400s e texto, com vínculo por matéria/vídeo. Abrir momento recria o guest oficial isolado para aplicar startSeconds; troca de cinema/PiP continua mantendo esse guest. Retry conserva o momento.
+
+Exportação mantém a superfície HTML estática isolada. Nota individual vem de arquivo salvo, capa aceita título curto, destino é Downloads ou pasta escolhida no diálogo nativo e registrada no main. Imagens opcionais são PNG/JPEG relativas contidas na origem, sem links/auxiliares/rede. Dimensões são verificadas antes do codec; PNG normalizado elimina metadados. Limites:2MiB/imagem,4MP/4096lado,50imagens/12MiB total; omissões ficam no recibo e descrição textual. Script/Node/preload/frames permanecem ausentes na impressão; CSP permite só data: controlado para imagens.
+
+## Snapshot/restauração
+
+Backups são pastas em Documentos/NodusBackups com snapshot.json, SHA256/tamanho por arquivo e banco consistente produzido por VACUUM INTO parametrizado. [SQLite](https://sqlite.org/lang_vacuum.html) documenta esse snapshot do banco ativo; isso não cria transação conjunta com fontes externas. Uso de DatabaseSync e opções disponíveis conferido na [documentação Node24](https://nodejs.org/download/release/latest-v24.x/docs/api/sqlite.html) e no runtime nativo. Fontes são copiadas em leituras com contenção, links negados e comparação stat/identidade. Somente DB, recovery, vault, projetos registrados e PDFs referenciados entram; storage do Chromium fica fora. Ocultos, Git, dependências, saídas conhecidas e credenciais por nome/extensão são excluídos. Conteúdo privado nas notas/drafts é parte do backup, sem criptografia/varredura automática de segredos. Omissões e limites são explícitos:100MiB/arquivo,64MiB/DB,300MiB/5.000arquivos/16níveis,10.000entradas. Não copia NodusBackups/NodusRestored recursivamente.
+
+Importação usa pasta escolhida no main e capacidade UUID temporária; renderer não envia paths. Prévia e restauração revalidam manifest/hash/limites, paths Windows e unicidade sem diferença de caixa. Banco readOnly/trusted_schema=OFF/sem extensões precisa corresponder ao schema gerado pelo app, sem objetos SQL extras, com quick_check/FK válidos. Arquivos são criados com wx em novo UUID em Documentos/NodusRestored. Vault/projetos/PDFs são remapeados somente para essa cópia; destinos antigos de export são removidos. Projeto/PDF ausente fica registrado, sem fallback ao caminho original. Ativação exige recibo criado nesta sessão, confere perfil e usa fechamento normal para preservar drafts/foco antes de app.relaunch. Abrir normalmente usa o perfil original.
+
+## Consequências e limites
+
+Snapshots não são nuvem/ALP-09, ZIP ou merge de perfis. Hash detecta corrupção/alteração após prévia; não autentica quem criou uma cópia intencionalmente forjada. Schema/paths confinam capacidades, mas não são sandbox para conta Windows comprometida. FS/SQLite não têm commit conjunto, locks cooperativos de edição externa ou orçamento universal de CPU. Falhas removem somente saídas recém-criadas; fontes atuais são preservadas. Serviço síncrono/local e limites são deliberados para o MVP; criptografia, assinatura e expansão de capacidade exigem ticket próprio.

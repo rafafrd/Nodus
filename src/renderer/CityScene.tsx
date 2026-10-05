@@ -35,7 +35,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const camera = new T.OrthographicCamera(-24, 24, 15, -15, .1, 200); camera.position.set(28, 28, 34);
       const orbit = new OrbitControls(camera, renderer.domElement); orbit.target.set(0, .3, 0); orbit.enableRotate = false; orbit.enableDamping = false; orbit.minZoom = .75; orbit.maxZoom = 2.2; orbit.screenSpacePanning = true;
       orbit.mouseButtons = { LEFT: T.MOUSE.PAN, MIDDLE: T.MOUSE.DOLLY, RIGHT: T.MOUSE.PAN }; orbit.update();
-      scene.add(new T.HemisphereLight('#fff4df', '#718a83', 1.9));
+      const ambient=new T.HemisphereLight('#fff4df', '#718a83', 1.9);scene.add(ambient);
       const sun = new T.DirectionalLight('#ffe3bd', 3.2); sun.position.set(-12, 24, 12); sun.castShadow = true;
       sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 65 }); sun.shadow.normalBias = .04; scene.add(sun);
       const geometries = new Set<InstanceType<typeof T.BufferGeometry>>(), materials = new Map<string, InstanceType<typeof T.MeshStandardMaterial>>();
@@ -126,6 +126,9 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const sailGeo = new T.BufferGeometry(); sailGeo.setAttribute('position', new T.Float32BufferAttribute([0, .5, 0, 0, 1.8, 0, .8, .5, 0], 3)); sailGeo.computeVertexNormals(); geometries.add(sailGeo); const sailMaterial = mat('#e6dabe'); sailMaterial.side = T.DoubleSide; boat.add(new T.Mesh(sailGeo, sailMaterial));
       // Lanterns are an owned cosmetic, visible after purchase.
       const lanterns = new T.Group(); scene.add(lanterns);
+      const purchasedFountain=group(-1.5,4);mesh(purchasedFountain,cylinder,'#bfb69c',0,.18,0,1.1,.3,1.1);mesh(purchasedFountain,cylinder,'#70aeb4',0,.35,0,.86,.06,.86);mesh(purchasedFountain,cylinder,'#c9c2a8',0,.66,0,.16,.6,.16);mesh(purchasedFountain,cylinder,'#c9c2a8',0,1,0,.58,.12,.58);mesh(purchasedFountain,cylinder,'#8ec6c8',0,1.08,0,.4,.04,.4);
+      const benches=new T.Group();scene.add(benches);for(const [x,z] of [[-5,3],[-2,4.6],[4,-3]]){box(benches,'#856c48',x,.7,z,1.7,.16,.55);box(benches,'#856c48',x,1,z-.22,1.7,.5,.1);for(const leg of [-.6,.6])box(benches,'#56685f',x+leg,.5,z,.11,.5,.45);}
+      const greenhouse=group(6,-6.8);box(greenhouse,'#b9c9c0',0,.1,0,2.6,.18,2.5);box(greenhouse,'#79a69c',0,1,0,2.2,1.8,2);for(const x of [-1.1,0,1.1])box(greenhouse,'#dae2ca',x,1,1.04,.06,1.8,.06);for(const y of [.2,1,1.9])box(greenhouse,'#dae2ca',0,y,1.04,2.2,.055,.06);mesh(greenhouse,cone,'#a8c3af',0,2.25,0,1.6,.8,1.55);
       for (const [x, z] of [[-5, 1.4], [-1.5, 1.4], [-4, 4.4], [6, .3], [6, 4]]) { box(lanterns, '#627168', x, 1.3, z, .085, 2.1, .085); const lamp = box(lanterns, '#e5bd6e', x, 2.34, z, .26, .35, .26); lamp.material = mat('#edc47a', true); box(lanterns, '#59685f', x, 2.55, z, .33, .08, .33); }
       // Citizens walk only on paths. Their motion carries no economic effect.
       const citizens: InstanceType<typeof T.Group>[] = [];
@@ -157,7 +160,9 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
         frame = 0;
         if (live.current.active && !document.hidden && (reduced.matches || gsap.isTweening(cameraPose) || now - last >= 33)) {
           last = now; const { state: s, selected } = live.current; mill.visible = s.owned.includes('windmill'); millFoundation.visible = !mill.visible; cottage.visible = s.owned.includes('cottage'); lanterns.visible = s.owned.includes('lanterns');
+          purchasedFountain.visible=s.owned.includes('fountain');benches.visible=s.owned.includes('benches');greenhouse.visible=s.owned.includes('greenhouse');const sky=s.atmosphere==='night'?'#182b36':s.atmosphere==='dawn'?'#c6c5c3':'#bacbc7';(scene.background as InstanceType<typeof T.Color>).set(sky);ambient.intensity=s.atmosphere==='night'?.65:1.9;sun.intensity=s.atmosphere==='night'?.8:s.atmosphere==='dawn'?2.2:3.2;sun.color.set(s.atmosphere==='dawn'?'#edc3be':s.atmosphere==='night'?'#9fbcd8':'#ffe3bd');
           engine.scale.setScalar(1 + s.engine.level * .025);
+          (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(s.atmosphere==='night'?'#203d48':s.atmosphere==='dawn'?'#a4b6b8':'#98b9b3');
           upgradeParts.forEach((part, i) => { part.visible = i < s.engine.level; });
           const delta = lastAnimation ? Math.min(.05, (now - lastAnimation) / 1000) : 0; lastAnimation = now;
           if (!reduced.matches) { animationTime += delta; wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }

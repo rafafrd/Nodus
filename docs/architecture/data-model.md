@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 03/10/2026: schema v4 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts e src/shared/projects.ts e src/shared/videos.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 04/10/2026: schema v5 real em src/main/store.ts; contratos em src/shared/contracts.ts, game/projects/videos/study/backup. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist, revisão e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -17,6 +17,12 @@ Estado em 03/10/2026: schema v4 real em src/main/store.ts; contratos em src/shar
 | GameLedger | source única, ação, deltas, instante, rule_version | Origem única para crédito/débito e conciliação |
 | GameOperation | UUID, request validado, message | Replay conserva efeito; outro payload é rejeitado |
 | GameRound | UUID, state JSON | Pares privados, tentativas/seleção/completion persistidos |
+| Flashcard / CardReview | nota opcional, pergunta/resposta/trecho, due/intervalo/versão; UUID/request/rating/at | Main agenda até365dias, replay vinculado e optimistic version; não modifica fonte/XP |
+| PdfMark | matéria/PDF/nota opcional, fingerprint SHA256, página/retângulo/cor/comentário | Versões separadas, PDF original intacto |
+| VideoMoment | matéria/vídeo, segundos, texto | Vínculo validado e player explícito no ponto manual |
+| NoteLink | matéria/origem/destino/rótulo | Dupla única, mesma matéria, referências reais |
+
+NXT-01 cria somente essas cinco tabelas e índice flashcards_due na migração v5. Decorações/atmosphere evoluem JSON do perfil de jogo com default golden, sem redefinir moedas/progresso. Snapshots locais têm manifest v1/SHA256 e cópia consistente do banco; restauração remapeia roots e referências para novo perfil. [ADR-0011](../adr/0011-expansao-estudo-local.md) delimita importação/limites e diferencia ALP-09.
 
 ## Autoridade
 

@@ -29,3 +29,5 @@ MED-01 usa codex/youtube-cinema, derivada de 2690372. Mantém autorização de b
 CFG-01 usa codex/settings-profile, derivada de92cc357 com autorização vigente de branch/commits por fase/push final. Pacote/fotos/perfis fictícios ficam locais; nenhuma dependência/lockfile/migration nova. Fechamento e hashes em SETTINGS.
 
 EXP-01 usa codex/pdf-export, derivada de6897adb, com autorização vigente de commits por fase/push final. Exportação usa dependências existentes; PDFs de demonstração, perfis e pacote ficam locais/ignorados. Provas e checkpoints em PDF_EXPORT.
+
+NXT-01 usa codex/study-expansion, derivada de 6597e28, com a mesma autorização vigente de branch, commits por fase e push final. As nove sugestões da conversa formam um incremento local contínuo, sem criar serviço/release. Snapshots, perfis restaurados, capturas, PDF e pacote das provas ficam em .local/release, ignorados. Checkpoints e limites em STUDY_EXPANSION.
