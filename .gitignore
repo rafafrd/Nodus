@@ -3,7 +3,7 @@ node_modules/
 dist/
 build/
 out/
-release/
+/release/
 coverage/
 src/renderer/public/pdf-assets/
 *.tsbuildinfo

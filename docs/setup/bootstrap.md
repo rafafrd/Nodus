@@ -1,5 +1,7 @@
 # Script único — estrutura e conteúdo
 
+Referência histórica de geração, anterior à implementação. Para usar o app existente, siga [guia de uso](../GUIA_DE_USO.md); para desenvolver, retome pelo ticket.
+
 Arquivo entregue: BOOTSTRAP_APP_ESTUDOS.ps1. Salve fora da pasta que você pretende limpar. Todos os conteúdos estão embutidos: ele não depende de ZIP ou downloads.
 
 ## Executar

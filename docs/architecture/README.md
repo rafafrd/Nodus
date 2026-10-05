@@ -1,6 +1,6 @@
 # Arquitetura ativa
 
-Estado em 02/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
+Estado em 03/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault, mesa por matéria, PDF, foco e checklist implementados no MVP local. GAM-01 acrescenta cidade Three.js e economia local, conforme regras específicas. GAM-02 acrescenta motor/desafios e Explorer/editor local de arquivos. Supabase e consulta web ainda não implementados. Evidências em docs/validation/ALPHA.md.
 
 ## Estrutura proposta
 
@@ -24,6 +24,7 @@ flowchart TB
 | SQLite | Identidade, referências, layout, foco, tarefas e operações | ALP-03 em diante |
 | PDF | Leitura local com arquivo/página no checkpoint | ALP-06 |
 | Jogo | Cidade/farm/loja/memória/build; economia autoritativa no main | GAM-01 |
+| Explorer | Pastas reais, árvore, abas, fonte UTF-8, save/conflito/recuperação; sem execução | GAM-02 |
 | Supabase + web | Snapshot de nota, Auth e acesso por proprietário | ALP-09 |
 
 ## Limites importantes
@@ -36,6 +37,6 @@ No MVP local, SQLite guarda matérias/estado local; Markdown fica no vault e PDF
 
 ## Próximas fronteiras
 
-IA/OpenRouter, agenda Google, notificações, grafo Three.js e programação seguem o roadmap. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
+IA/OpenRouter, agenda Google, notificações, grafo Three.js e execução/Git de projetos seguem o roadmap. Navegação e edição de projetos foram antecipadas em GAM-02. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
 
 Veja [modelo de dados](data-model.md), [SDD](../sdd.md), [ADRs](../adr/README.md) e [arquitetura completa de concepção](../planning/ARQUITETURA_APP_ESTUDOS.md).

@@ -30,7 +30,11 @@ function walk(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const p = path.join(dir, entry.name);
-    if (entry.isDirectory()) return ignoredDirs.has(entry.name) ? [] : walk(p);
+    if (entry.isDirectory()) {
+      const ignored = ignoredDirs.has(entry.name)
+        && (!['dist', 'release'].includes(entry.name) || dir === root);
+      return ignored ? [] : walk(p);
+    }
     return entry.isFile() ? [p] : [];
   });
 }
@@ -64,7 +68,7 @@ const tasks = new Map();
 for (const folder of ['todo', 'doing', 'done']) {
   const dir = path.join(root, 'docs/tasks', folder);
   if (!fs.existsSync(dir)) continue;
-  for (const filename of fs.readdirSync(dir).filter((name) => /^ALP-\d{2}\.md$/.test(name))) {
+  for (const filename of fs.readdirSync(dir).filter((name) => /^[A-Z]+-\d{2}\.md$/.test(name))) {
     const text = read('docs/tasks/' + folder + '/' + filename);
     const header = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
     if (!header) { fail(filename + ': frontmatter ausente'); continue; }
@@ -99,7 +103,7 @@ for (const task of tasks.values()) {
   }
 }
 const state = read('docs/status/ALPHA_STATE.md');
-const rows = [...state.matchAll(/^\| (ALP-\d{2}) \| (todo|doing|done) \| ([^|]+) \|/gm)];
+const rows = [...state.matchAll(/^\| ([A-Z]+-\d{2}) \| (todo|doing|done) \| ([^|]+) \|/gm)];
 const indexed = new Map();
 for (const row of rows) {
   if (indexed.has(row[1])) fail(row[1] + ': duplicado na tabela de retomada');

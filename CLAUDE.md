@@ -20,7 +20,7 @@ O app resolve materiais/notas espalhados, acúmulo de conteúdo antes da prova e
 | Primeira versão pública | Núcleo ampliado de estudo/IA/planejamento, celular, grafo 3D, farm/loja/builds e projetos JS/TS com execução local e Git |
 | Incrementos seguintes | Python, SQL, laboratórios locais CVE/CTF, formatos de prática e jogo ampliados |
 
-Grafo, farm/builds e programação permanecem na primeira pública. A disponibilidade humana é de até 3 h por semana. As reservas do backlog são atenção para configurar, orientar, revisar e testar, não duração garantida de implementação. Se os checkpoints atrasarem, preserve funcionalidades e revise o prazo. O ticket atual delimita o trabalho desta sessão.
+Grafo e execução/Git de projetos permanecem no roadmap. GAM-01 antecipou cidade/farm/loja/memória/builds; GAM-02 acrescenta motor, QTE/skillcheck e Explorer com edição UTF-8 local, por pedidos explícitos. Esses incrementos não concluem a primeira pública. A disponibilidade humana é de até 3 h por semana. As reservas do backlog são atenção para configurar, orientar, revisar e testar, não duração garantida de implementação. Se os checkpoints atrasarem, preserve funcionalidades e revise o prazo. O ticket atual delimita o trabalho desta sessão.
 
 ## Direção técnica
 
@@ -70,7 +70,7 @@ Faça perguntas curtas quando faltar informação material sobre comportamento, 
 
 ## Invariantes dos dados e integrações
 
-Markdown é a fonte principal do corpo das notas. JSON do editor é representação de trabalho. Preserve frontmatter desconhecido, links, wikilinks, tabelas, fórmulas, código e conteúdo ainda não representável. Faça prova de abrir/salvar/reabrir e edição seletiva; a aparência do editor não comprova preservação.
+Markdown é a fonte principal do corpo das notas. A representação de trabalho atual é fonte Markdown em CodeMirror, com prévia separada (ADR-0005). JSON de editor não é usado para salvar notas. Preserve frontmatter desconhecido, links, wikilinks, tabelas, fórmulas, código e conteúdo ainda não representável. Faça prova de abrir/salvar/reabrir e edição seletiva; a aparência do editor não comprova preservação.
 
 Nota, matéria, tarefa, etapa, sessão e operação têm identidades estáveis. Renomear não pode romper vínculos. Hash, revisão, caminho e ID têm funções distintas. SQLite guarda estado/referências; migrações preservam dados. Rascunho de recuperação é distinguido da nota canônica.
 
@@ -94,9 +94,11 @@ Estudo e minigames podem gerar XP/moedas; respec é gratuito e a classe deriva d
 
 Mesa de estudo escura e sóbria: materiais grandes no centro, indicadores compactos nas bordas, barra lateral, dock, painéis encaixados e ferramentas flutuantes. Controles têm identidade própria, rótulos, foco e estados claros. Evite a aparência padrão de kits Radix/shadcn.
 
-Grafo e base futura permitem cenários e animações mais ricos. Grafo abre prévia lateral; base é isométrica. Animação não esconde erro, interrompe edição ou prejudica leitura. Celebração futura de conquista tem opção de pular.
+Grafo futuro e ampliação da base permitem cenários mais ricos; a vila isométrica local já existe em GAM-01/02. Grafo abre prévia lateral; base é isométrica. Animação não esconde erro, interrompe edição ou prejudica leitura. Celebração futura de conquista tem opção de pular.
 
 A interface chama operações específicas do preload; não ganha acesso genérico ao disco ou execução. Preview futuro de projetos fica separado das APIs privilegiadas. Execução de projetos usa o ambiente local; laboratórios de vulnerabilidades conhecidas vêm depois, com Docker/WSL2 instalados pelo usuário e verificados pelo app.
+
+Explorer atual é editor de fonte inerte para arquivos existentes, com pastas registradas, caminhos contidos, hash, backup e drafts. Não oferece terminal, execução ou Git de projetos. Ver ADR-0007 e evidências GAM-02.
 
 ## Quadro e evidências
 
@@ -122,4 +124,4 @@ Na resposta final da tarefa, apresente status, comportamento entregue, arquivos 
 
 ## Decisões ainda abertas
 
-Nome/marca final, licença de publicação, editor visual comprovado, hospedagem web, modelos/perfis concretos e valores de orçamento não foram fechados nesta base. Confirme decisões novas no repositório ou com o usuário quando elas forem necessárias ao ticket; não reabra escolhas já tomadas.
+Nome/marca final, licença de publicação, prova externa do editor assistido (ALP-02/C5), hospedagem web, modelos/perfis concretos e valores de orçamento não foram fechados nesta base. Confirme decisões novas no repositório ou com o usuário quando elas forem necessárias ao ticket; não reabra escolhas já tomadas.

@@ -18,15 +18,19 @@ try {
         const {ipcRenderer} = require('electron');
         const read = await ipcRenderer.invoke('game:get');
         const write = await ipcRenderer.invoke('game:action', {operationId: require('node:crypto').randomUUID(), action: {kind:'gather',resource:'stone'}});
-        return {read,write};
+        const projects = await ipcRenderer.invoke('project:list');
+        const choose = await ipcRenderer.invoke('project:choose');
+        const projectWrite = await ipcRenderer.invoke('project:save', {projectId:require('node:crypto').randomUUID(),path:'file.txt',hash:'0'.repeat(64),text:'fixture'});
+        return {read,write,projects,choose,projectWrite};
       })()`);
     } finally { foreign.destroy(); }
   });
   assert.ok(!denied.read.ok && denied.read.code === 'FORBIDDEN'); assert.ok(!denied.write.ok && denied.write.code === 'FORBIDDEN');
+  for (const result of [denied.projects, denied.choose, denied.projectWrite]) assert.ok(!result.ok && result.code === 'FORBIDDEN');
   const after = await page.evaluate(() => window.desktop.getGame()); assert.ok(after.ok && before.ok);
   if (after.ok && before.ok) assert.deepEqual({ ...after.value, now: 0 }, { ...before.value, now: 0 });
   const config = await app.evaluate(({ BrowserWindow }) => { const p = BrowserWindow.getAllWindows()[0].webContents.getLastWebPreferences(); return { sandbox: p.sandbox, contextIsolation: p.contextIsolation, nodeIntegration: p.nodeIntegration, webSecurity: p.webSecurity }; });
   assert.deepEqual(config, { sandbox: true, contextIsolation: true, nodeIntegration: false, webSecurity: true });
-  fs.writeFileSync('.local/evidence/game-ipc-results.json', JSON.stringify({ date: '2026-10-02', packaged: true, denied, config, effect: 'wallet/xp/inventory unchanged' }, null, 2));
-  console.log('Pacote Windows: game:get/game:action rejeitam outra janela; configuração isolada preservada e estado sem efeito.');
+  fs.writeFileSync('.local/evidence/engine-project-ipc-results.json', JSON.stringify({ date: '2026-10-03', packaged: true, denied, config, effect: 'wallet/xp/inventory unchanged' }, null, 2));
+  console.log('Pacote Windows: game:get/game:action e project:list/choose/save rejeitam outra janela; configuração isolada preservada e estado sem efeito.');
 } finally { await app.close(); }

@@ -10,7 +10,7 @@ export class Store {
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version);
-    if (version > 2) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
+    if (version > 3) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
     if (version === 0) this.transaction(() => this.db.exec(`
       CREATE TABLE settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE subjects(id TEXT PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL);
@@ -32,6 +32,12 @@ export class Store {
       CREATE TABLE game_operations(id TEXT PRIMARY KEY, request TEXT NOT NULL, message TEXT NOT NULL);
       CREATE TABLE game_rounds(id TEXT PRIMARY KEY, state TEXT NOT NULL);
       PRAGMA user_version=2;
+    `));
+    if (version < 3) this.transaction(() => this.db.exec(`
+      CREATE TABLE game_challenges(id TEXT PRIMARY KEY, state TEXT NOT NULL);
+      CREATE TABLE project_folders(id TEXT PRIMARY KEY, root TEXT NOT NULL UNIQUE, name TEXT NOT NULL);
+      CREATE TABLE project_drafts(project_id TEXT NOT NULL REFERENCES project_folders(id), path TEXT NOT NULL, text TEXT NOT NULL, base_hash TEXT NOT NULL, PRIMARY KEY(project_id,path));
+      PRAGMA user_version=3;
     `));
   }
   transaction<T>(action: () => T): T {

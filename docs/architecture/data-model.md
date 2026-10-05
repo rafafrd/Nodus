@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 02/10/2026: schema v2 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 03/10/2026: schema v3 real em src/main/store.ts; contratos em src/shared/contracts.ts e src/shared/game.ts e src/shared/projects.ts. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -32,3 +32,7 @@ UI-01 acrescenta `both` aos valores validados de Desk.tool (`focus`, `checklist`
 ALP-04 registra o frontmatter efetivo e sua preservação. ALP-09 registra o protocolo de revisões/recibos e as políticas por proprietário. Nenhum desses formatos deve ser anunciado como definitivo antes da respectiva prova.
 
 GAM-01 aplica migração aditiva v1→v2, sem reescrever as tabelas anteriores. src/main/game.ts transaciona ação, ledger, perfil, operação e audit; rodada guarda os pares privados, mas a visão enviada contém somente cartas já reveladas/encontradas. Saldo/XP possuem CHECK não negativo. UUID de operação e source do ledger são índices únicos. [Regras provisórias](../decisions/game-rules.md) definem liquidação/passivo e limites do perfil local.
+
+GAM-02 aplica migração aditiva v2→v3: game_challenges, project_folders e project_drafts. Engine/challengeId entram no JSON de perfil com defaults preservadores; não repetem starter nem resetam carteira/XP/ledger. Desafio guarda estágio/acertos/status, não aceita resultado do cliente; origem challenge:UUID é única. Novos registros usam rule_version=2; histórico v1 permanece.
+
+project_folders registra UUID/raiz canônica/nome; project_drafts guarda projeto+caminho, fonte e hash-base. projectView em settings conserva projeto selecionado, até12 abas e ativa. Arquivo de projeto permanece fonte principal, com recovery em perfil/project-recovery. SQLite conserva rascunho, sem importar arquivos privados para o Git do app. Não há sincronização/execução/Git automático de projetos.

@@ -13,3 +13,7 @@ Um desktop baseado em outro runtime exigiria integrações diferentes da prefer�
 ## Evidência
 
 Critérios de ALP-01 ainda não verificados. Aceitar esta direção não equivale a uma build Windows funcionando.
+
+## Acompanhamento em 03/10/2026
+
+ALP-01 foi verificado no Windows nativo e está done; ver ../validation/ALPHA.md. Aceitação da direção e prova de execução têm registros separados.

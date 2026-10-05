@@ -1,6 +1,6 @@
 # SDD — especificação de implementação da alpha
 
-Versão: 0.2, 02/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v1 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
+Versão: 0.3, 03/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v3 em src/main/store.ts. As seções de snapshot descrevem ALP-09 ainda não implementado no MVP local. Base: PRD, arquitetura e backlog original.
 
 ## Escopo verificável
 
@@ -57,3 +57,11 @@ GAM-01, solicitado após UI-01, acrescenta cidade isométrica, cultivo/colheita,
 Critérios ALP-01 a ALP-11 nos tickets e resultados em docs/validation/ALPHA.md. Testes atingem preservação, persistência, contratos inválidos, conflito, tempo e reenvio. Build não aberta e configuração externa ausente continuam não verificadas.
 
 Depois de implementar um fluxo, atualize aqui seus contratos reais ou aponte para o código/schema correspondente. Preserve a diferença entre planejado e implementado e evite listas duplicadas de critérios.
+
+## Incremento GAM-02 — motor, desafios e projetos
+
+Motor, QTE e skillcheck estendem game:get/game:action e a mesma transação perfil/ledger/operação/audit. Preços, cooldown de 300ms, limite de 10 upgrades, teclas/tempo/zonas e recompensas pertencem ao main. Renderer envia apenas ação/UUID; nenhuma pontuação ou instante é aceito. [Regras](decisions/game-rules.md) registram a revisão 2. Memória permanece sem cronômetro.
+
+Explorer: project:list/choose/tree/open/save/draft/discard/view em src/shared/projects.ts. Seleção de pasta nativa registra capacidade específica, até 40 projetos e 12 abas. Árvore exibe até 500 itens por pasta e texto UTF-8 até 1MiB. src/main/projects.ts resolve caminhos/canonicalização, bloqueia traversal, junction/symlink e metadados .git inclusive aliases de caixa/8.3. HTML/JS é texto inerte no CodeMirror, sem executar preview/terminal/Git.
+
+Arquivo de projeto é canônico; SQLite guarda referência/abas e rascunho com hash-base. Save conserva backup, confere hash antes de rename e não confirma erro como sucesso. Conflito mantém edição e versão externa; conservar edição exige revisão e novo Save explícito. Fechar/trocar vista espera persistir rascunhos. Arquivo ausente conserva draft e impede Save. UTF-8/BOM/CRLF são preservados pela edição seletiva verificada. FS e SQLite não formam uma transação única: falha do audit após rename conserva draft e recovery, informa erro e requer conferência do disco. [ADR-0007](adr/0007-explorer-local.md) e [prova Windows](validation/ENGINE_EXPLORER.md).

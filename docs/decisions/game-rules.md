@@ -38,3 +38,11 @@ SQLite v2 acrescenta quatro tabelas sem resetar v1: perfil, ledger, operações 
 Entrar na cidade preserva o rascunho e pausa o foco ativo, inclusive quando seu proprietário é outra matéria. Jogar não credita minutos de estudo. Voltar retoma a mesa; Markdown permanece canônico, nenhuma compra exige nota ou vault. Cenário Three.js é apresentação, sem autoridade econômica; GSAP anima transições. Preferência de movimento reduzido suspende animações e usa redraw sob demanda; aba oculta suspende o loop. Sem alegar medições de GPU que não foram feitas.
 
 Fonte/SQLite permanecem acessíveis ao usuário Windows. Não há autenticação remota, criptografia de perfil, antifraude competitivo ou assinatura do pacote. Escopo do parecer de segurança e provas efetivas ficam em docs/security e docs/validation/GAME.md.
+
+## Revisão 2 — GAM-02, 03/10/2026
+
+Motor da vila é a fonte principal ativa. Nível inicial0, potência 1+2×nível moedas/pulso, cooldown300ms global do motor, 1XP a cada10 pulsos. Custo do próximo upgrade = teto(25×1,8^nível), máximo nível10/potência21. A melhoria aumenta modelo 3D e produção; saldo/preço/cap ficam no main. Cultivo, mina, bosque, moinho e loja anteriores continuam complementares.
+
+Oficina oferece dois desafios de3 etapas. QTE escolhe A/S/D/W e exige tecla correta antes do limite por etapa: tranquilo3500ms/normal2000ms. Concluído rende24moedas/12XP; tecla errada/timeout/cancelar sem multa. Skillcheck: marcador triangular 0→100→0, período tranquilo3200ms/normal2000ms, faixa32/18 pontos centrada em alvos30/45/60/75. Main usa instante de recepção, não o frame/UI ou score do cliente. Após3 calibrações, moedas por0/1/2/3 acertos=0/8/20/36, XP5 por acerto. Não há penalidade por cancelar. A rodada ativa pode ser retomada; QTE continua sujeito ao prazo após sair/fechar.
+
+Desafios novos legítimos podem render novamente. Replay de operação/origem challenge:UUID não repete crédito. Migração aditiva v3 guarda game_challenges e projetos; defaults do perfil antigo preservam carteira/XP e motor0. Novos ledgers usam rule_version2, anteriores permanecem v1. Estudo/foco não recebem XP automaticamente neste recorte; memória mantém seu funcionamento sem limite de tempo.

@@ -10,6 +10,8 @@ import { Focus } from './focus';
 import { Checklist } from './checklist';
 import { Game } from './game';
 import { gameInput } from '../shared/game';
+import { Projects } from './projects';
+import { projectTreeInput, projectFileInput, projectWriteInput, projectViewInput } from '../shared/projects';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
@@ -18,6 +20,7 @@ let desks: Desks;
 let focus: Focus;
 let checklist: Checklist;
 let game: Game;
+let projects: Projects;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -36,6 +39,14 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('project:list', z.undefined(), () => projects.catalog());
+  handle('project:choose', z.undefined(), async () => { const picked = await dialog.showOpenDialog(window, { title: 'Abrir pasta de projeto', properties: ['openDirectory'] }); return picked.canceled ? null : projects.chooseRoot(picked.filePaths[0]); });
+  handle('project:tree', projectTreeInput, input => projects.tree(input));
+  handle('project:open', projectFileInput, input => projects.open(input));
+  handle('project:save', projectWriteInput, input => projects.save(input));
+  handle('project:draft', projectWriteInput, input => projects.draft(input));
+  handle('project:discard', projectFileInput, input => projects.discard(input));
+  handle('project:view', projectViewInput, input => projects.view(input));
   handle('game:get', z.undefined(), () => game.get());
   handle('game:action', gameInput, input => game.act(input));
   handle('app:version', z.undefined(), () => ({ version: app.getVersion(), electron: process.versions.electron, node: process.versions.node }));
@@ -92,6 +103,7 @@ app.whenReady().then(() => {
   focus = new Focus(store);
   checklist = new Checklist(store);
   game = new Game(store);
+  projects = new Projects(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);

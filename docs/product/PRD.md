@@ -1,6 +1,6 @@
 # PRD — decisões do produto
 
-Estado: requisitos consolidados; implementação da alpha ainda não iniciada.
+Estado em 03/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
 
 ## Problema
 
@@ -25,10 +25,10 @@ Notas visuais com Markdown/Obsidian, arquivos originais no PC, serviços gerenci
 
 Foco tem duração escolhida. Revisões se adaptam ao desempenho; status acadêmico tem critérios visíveis e fica separado do XP. Quizzes mostram fontes; o tutor identifica complemento de conhecimento geral e ajuda com outro exemplo antes de voltar ao exercício. Correções consolidadas ao final da sessão.
 
-Estudo e minigames podem gerar moedas/XP; farm híbrido com coleta automática e interações, loja, respec gratuito e classes derivadas dos pontos. Primeiro jogo: memória sem limite de tempo, com conceito/definição, conceito/exemplo e fórmula/situação. Progresso é preservado durante ausência.
+Estudo e minigames podem gerar moedas/XP; farm híbrido com coleta automática e interações, loja, respec gratuito e classes derivadas dos pontos. Motor clicável com upgrades é a fonte principal ativa de farm; moinho continua passivo. QTE e skillcheck são desafios opcionais de timing com ritmo tranquilo/normal. Primeiro jogo: memória sem limite de tempo, com conceito/definição, conceito/exemplo e fórmula/situação. Progresso é preservado durante ausência.
 
 ## Recortes
 
-Alpha: matérias, nota preservadora, mesa, PDF, foco, checklist e snapshot web. Primeira pública: núcleo ampliado, grafo, farm/loja/builds e programação JS/TS. Python/SQL e laboratórios vêm nos incrementos seguintes. Consulte o roadmap histórico para a ordem.
+Alpha: matérias, nota preservadora, mesa, PDF, foco, checklist e snapshot web. Primeira pública: núcleo ampliado, grafo, farm/loja/builds e programação JS/TS. Python/SQL e laboratórios vêm nos incrementos seguintes. A ordem histórica foi ajustada pelos pedidos GAM-01/GAM-02: jogo local e navegação/edição de projetos existem; execução, terminal, Git de projetos, nuvem e IA continuam futuros. Consulte tickets e estado atual para a ordem efetiva.
 
 Capacidade humana: até 3 horas por semana. Meta inicial de 2–3 meses é condicional; preserve funcionalidades e ajuste o prazo se os checkpoints exigirem. Nome/marca, licença e valores de orçamento não foram fechados.

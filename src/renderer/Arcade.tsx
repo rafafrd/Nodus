@@ -1,0 +1,23 @@
+import { useEffect, useRef, useState } from 'react';
+import { skillPosition, type GameState, type GameAction } from '../shared/game';
+export function Arcade({ state, busy, execute }: { state: GameState; busy: boolean; execute(action: GameAction): void }) {
+  const [pace, setPace] = useState<'relaxed' | 'normal'>('relaxed'), [now, setNow] = useState(state.now);
+  const clock = useRef({ server: state.now, received: performance.now() });
+  useEffect(() => { clock.current = { server: state.now, received: performance.now() }; }, [state]);
+  useEffect(() => { let frame = 0; const tick = () => { setNow(clock.current.server + performance.now() - clock.current.received); frame = requestAnimationFrame(tick); }; frame = requestAnimationFrame(tick); return () => cancelAnimationFrame(frame); }, []);
+  const c = state.challenge, active = c?.status === 'active';
+  const live = useRef({ c, busy, execute }); live.current = { c, busy, execute };
+  useEffect(() => { const key = (e: KeyboardEvent) => { const { c, busy, execute } = live.current; if (!c || c.status !== 'active' || busy || e.repeat || (e.target instanceof HTMLElement && e.target.closest('input,select,textarea,[contenteditable]'))) return;
+    const k = e.key.toUpperCase(); if (c.kind === 'qte' && ['A', 'S', 'D', 'W'].includes(k)) { e.preventDefault(); execute({ kind: 'qte-input', challengeId: c.id, key: k as 'A' }); }
+    if (c.kind === 'skillcheck' && e.code === 'Space') { e.preventDefault(); execute({ kind: 'skill-input', challengeId: c.id }); }
+  }; window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key); }, []);
+  const target = c?.targets[c.stage] ?? 50, pos = c ? skillPosition(now, c.stepAt, c.stepMs) : 0;
+  return <section className="arcade-stage"><span className="game-kicker">OFICINA / DESAFIOS CURTOS</span><h1>Acerte o momento.</h1><p>Três passos, uma recompensa. Tentar é gratuito.</p>
+    <div className="arcade-choices"><button disabled={busy || active} onClick={() => execute({ kind: 'start-challenge', game: 'qte', pace })}><span>01 / QTE</span><h2>Sincronizar o motor</h2><p>Aperte a tecla indicada antes que o tempo termine.</p><b>24 moedas · 12 XP →</b></button><button disabled={busy || active} onClick={() => execute({ kind: 'start-challenge', game: 'skillcheck', pace })}><span>02 / SKILLCHECK</span><h2>Calibrar a válvula</h2><p>Pare o marcador na faixa dourada. Cada acerto conta.</p><b>Até 36 moedas · 15 XP →</b></button></div>
+    <label className="arcade-pace">Seu ritmo <select aria-label="Ritmo dos desafios" disabled={active} value={pace} onChange={e => setPace(e.target.value as typeof pace)}><option value="relaxed">Tranquilo · mais tempo e faixa maior</option><option value="normal">Normal · precisão extra</option></select></label>
+    {c && <div className="challenge-panel" data-testid="challenge-panel"><div className="challenge-progress"><span>{c.kind === 'qte' ? 'SINCRONIZAÇÃO' : 'CALIBRAÇÃO'}</span><span>{Math.min(3, c.stage + 1)} / 3</span></div>
+      {active ? c.kind === 'qte' ? <><div className="qte-key" data-testid="qte-key">{c.sequence[c.stage]}</div><div className="qte-time"><div style={{ width: `${Math.max(0, 100 * (1 - (now - c.stepAt) / c.stepMs))}%` }}/></div><p>Teclado A / S / D / W ou clique na tecla abaixo.</p><div className="qte-buttons">{(['A', 'S', 'D', 'W'] as const).map(key => <button key={key} aria-label={`Tecla ${key}`} disabled={busy} onClick={() => execute({ kind: 'qte-input', challengeId: c.id, key })}>{key}</button>)}</div></> : <><h2>{c.hits} acertos</h2><div className="skill-track" data-testid="skill-track" data-position={pos} data-target={target}><div className="skill-zone" style={{ left: `${target - c.zone / 2}%`, width: `${c.zone}%` }}/><div className="skill-marker" style={{ left: `${pos}%` }}/></div><p>Quando o marcador entrar na faixa dourada, pressione Espaço ou:</p><button className="primary" disabled={busy} onClick={() => execute({ kind: 'skill-input', challengeId: c.id })}>Calibrar válvula</button></> : <div role="status"><h2>{c.status === 'completed' ? 'Desafio concluído.' : 'Vamos tentar de novo?'}</h2><p>{c.status === 'completed' ? `+${c.coins} moedas · +${c.xp} XP · ${c.hits} acertos` : 'O tempo acabou ou uma tecla saiu da sequência. Suas moedas foram preservadas.'}</p></div>}
+      {active && <button className="challenge-cancel" disabled={busy} onClick={() => execute({ kind: 'cancel-challenge', challengeId: c.id })}>Encerrar tentativa · sem custo</button>}
+    </div>}
+  </section>;
+}

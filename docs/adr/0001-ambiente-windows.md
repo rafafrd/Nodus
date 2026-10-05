@@ -17,3 +17,7 @@ WSL2 foi oferecido e o usuário preferiu nativo. WSL2/Docker continua no plano d
 ## Evidência
 
 Escolha do usuário nesta etapa. Referências de ferramentas no setup Windows. Instalação no PC ainda não executada por este pacote.
+
+## Acompanhamento em 03/10/2026
+
+Windows nativo/Node24 portátil/empacotamento foram executados em ALP-01; ver ../validation/ALPHA.md e ../decisions/runtime-mvp.md. O registro acima descreve a decisão original, não o estado atual.
