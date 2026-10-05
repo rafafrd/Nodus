@@ -10,7 +10,7 @@ export class Store {
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version);
-    if (version > 3) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
+    if (version > 4) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
     if (version === 0) this.transaction(() => this.db.exec(`
       CREATE TABLE settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE subjects(id TEXT PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL);
@@ -38,6 +38,12 @@ export class Store {
       CREATE TABLE project_folders(id TEXT PRIMARY KEY, root TEXT NOT NULL UNIQUE, name TEXT NOT NULL);
       CREATE TABLE project_drafts(project_id TEXT NOT NULL REFERENCES project_folders(id), path TEXT NOT NULL, text TEXT NOT NULL, base_hash TEXT NOT NULL, PRIMARY KEY(project_id,path));
       PRAGMA user_version=3;
+    `));
+    if (version < 4) this.transaction(() => this.db.exec(`
+      CREATE TABLE videos(id TEXT PRIMARY KEY,subject_id TEXT NOT NULL REFERENCES subjects(id),title TEXT NOT NULL,youtube_id TEXT NOT NULL,start_seconds INTEGER NOT NULL DEFAULT 0,url TEXT NOT NULL,UNIQUE(subject_id,youtube_id));
+      ALTER TABLE desks ADD COLUMN video_id TEXT REFERENCES videos(id);
+      ALTER TABLE desks ADD COLUMN material_view TEXT NOT NULL DEFAULT 'pdf';
+      PRAGMA user_version=4;
     `));
   }
   transaction<T>(action: () => T): T {

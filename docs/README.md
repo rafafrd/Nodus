@@ -21,6 +21,7 @@ Para usar o app: [guia de uso](GUIA_DE_USO.md). Para retomar desenvolvimento: [e
 | [Guia de uso](GUIA_DE_USO.md) | Iniciar app, usar mesa/jogo e preservar dados |
 | [Validação do jogo](validation/GAME.md) | Cidade/economia e jornada Windows de GAM-01 |
 | [Motor/desafios/Explorer](validation/ENGINE_EXPLORER.md) | GAM-02, jornada e pacote Windows |
+| [YouTube, cinema e PiP](validation/YOUTUBE.md) | MED-01, reprodução oficial isolada e jornada Windows |
 | [Transições e refinamento](validation/SMOOTH_UI.md) | UI-02, navegação/painéis/câmera e prova Windows |
 | [Revisão de docs](validation/PRODUCT_DOCS.md) | Inventário completo, divergências/correções e limites |
 | [Validação bootstrap](validation/BOOTSTRAP.md) | Revisão deste pacote documental |

@@ -1,6 +1,10 @@
-export type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit';
+export type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip';
 export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
   const paths = {
+    video: <><rect x="3" y="5" width="18" height="14"/><path d="m10 9 5 3-5 3z"/></>,
+    play: <path d="m7 3 14 9-14 9z"/>,
+    cinema: <><rect x="2" y="4" width="20" height="14"/><path d="M8 22h8M12 18v4M2 8h20"/></>,
+    pip: <><rect x="2" y="4" width="20" height="16"/><rect x="12" y="12" width="8" height="6"/><path d="M5 7l5 5M5 12h5V7"/></>,
     edit: <path d="m4 16 12-12 4 4-12 12H4zM13 7l4 4M4 16l4 4"/>,
     city: <path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-7h6v7M3 11l9-8 9 8"/>,
     shop: <><path d="M4 10v11h16V10M3 4h18l1 6H2zM9 21v-7h6v7"/><path d="M7 4v6M12 4v6M17 4v6"/></>,

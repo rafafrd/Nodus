@@ -10,6 +10,8 @@ GAM-02 na branch feat/engine-explorer acrescenta motor clicável com upgrades, d
 
 UI-02 na branch codex/smooth-ui aplica navegação fixa, tipografia/ícones próprios, sintaxe/caminho e largura do Explorer, câmera/contexto da cidade, feedback do motor e transições GSAP com interrupção e movimento reduzido dinâmico. [Provas](docs/validation/SMOOTH_UI.md).
 
+MED-01 na branch codex/youtube-cinema acrescenta links YouTube por matéria, cinema e PiP interno arrastável. Um player oficial isolado conserva reprodução entre modos; links ficam no SQLite e requerem abertura explícita/internet. [Provas](docs/validation/YOUTUBE.md).
+
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
 ## Começar
@@ -27,6 +29,7 @@ npm.cmd run test:journey
 npm.cmd run test:game
 npm.cmd run test:engine-explorer
 npm.cmd run test:smooth-ui
+npm.cmd run test:videos
 node scripts/check-bootstrap.mjs
 ```
 
@@ -83,3 +86,5 @@ Alpha: escolher matéria, abrir nota/PDF, registrar etapas, usar foco com duraç
 Resultados reais, incluindo provas pendentes, estão na validação e no quadro. [Recorte inicial](docs/decisions/mvp-scope.md): ALP-01 e ALP-03–08 locais implementados, ALP-02 parcial por conferência em editor externo, ALP-09 a fazer e ALP-10 parcial sem a jornada de nuvem. ALP-11 documenta os checkpoints. Nome definitivo, licença pública e hospedagem ainda não definidos. Push das branches autorizado posteriormente pelo usuário; sem publicação de release/serviço.
 
 Auditoria independente: aprovação com mitigações para uso pessoal local, zero achados abertos, um Low de logging corrigido e confirmado no pacote. Perfil Windows protegido, dados fora do Git e recovery preservado são as mitigações do recorte; pacote sem assinatura e dados sem criptografia própria. As provas e o modelo de ameaças estão no relatório acima. Próxima prova humana: abrir a build, criar uma matéria com vault de teste e conferir a saída .local/evidence/editor-output.md em editor externo.
+
+Em Material → Vídeos → + Link, salve a URL/título e abra o player. Cinema escurece a mesa; Escape volta. PiP segue no Explorer, pode ser arrastado pelo título ou movido por setas/Shift/Home. Fechar para reprodução e conserva o link; restart não conecta automaticamente.

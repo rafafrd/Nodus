@@ -8,6 +8,8 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+MED-01 concluída na branch codex/youtube-cinema, a partir de 2690372: links YouTube por matéria, cinema e PiP interno arrastável. C1–C7 aprovados: 21 testes, typecheck, pacote Windows/player oficial reproduzido, continuidade entre modos, crash/retry isolado e regressões de estudos/engine/Explorer/transições no mesmo pacote. Core d19c316/interface228c15f/docs ad77aae enviados ao origin, push exit0 em03/10/2026/upstream configurado. AppSec independente aprovado com mitigações e sem achado de código aberto; Gitleaks dos stages incluindo documentos/fixtures passou, memória/guia/contratos atualizados. [Ticket](../tasks/done/MED-01.md) e [provas](../validation/YOUTUBE.md). Nenhuma implementação restante; próxima ação humana: usar Material → Vídeos → + Link conforme o [guia](../GUIA_DE_USO.md). Alpha externa permanece parcial.
+
 UI-02 concluída na branch codex/smooth-ui, a partir de 0da34c7. As oito sugestões foram aplicadas, com ênfase em transições/retarget/câmera e movimento reduzido dinâmico. Implementação 27bd358, acabamento d50af65 e documentação/auditoria b0060f1 enviados ao origin, push exit 0 em 03/10/2026. C1–C8 aprovados: typecheck, 18 testes, pacote/jornadas Windows, R1–R7/jogo legado, AppSec independente e Gitleaks incluindo stage documental passaram. [Ticket](../tasks/done/UI-02.md) e [provas](../validation/SMOOTH_UI.md). Nenhuma implementação restante neste ticket; próxima ação humana: abrir a build com perfil de teste conforme o guia e avaliar o movimento. Alpha externa continua parcial.
 
 GAM-02 concluída na branch feat/engine-explorer, derivada de 083bdc0: motor com upgrades, QTE/skillcheck e Explorer/editor de projetos. Core 62dbd60, interface 1c6366a e documentação 6e1a636 enviados para origin/feat/engine-explorer em 03/10/2026. C1–C8 aprovados com provas Windows, incluindo novas jornadas, R1–R7 e jogo legado no pacote final. Auditoria independente sem vulnerabilidade de código aberta, tooling High com exposição avaliada; segredos/memória/docs conferidos. Não há implementação restante neste ticket. Próxima ação humana: [seguir o guia](../GUIA_DE_USO.md), abrir a build com perfil de teste e avaliar ritmo/navegação. Provas externas da alpha permanecem em seus tickets; nenhum serviço/release publicado.
@@ -33,6 +35,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-01 | done | Concluído | UI-01, ALP-03, ALP-07 | — |
 | GAM-02 | done | Concluído | GAM-01, ALP-04, UI-01 | — |
 | UI-02 | done | Concluído | UI-01, GAM-02 | — |
+| MED-01 | done | Concluído | ALP-03, ALP-05, UI-02 | — |
 
 ## Checkpoints e atenção humana
 
@@ -44,4 +47,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [UI-02](../tasks/done/UI-02.md).
+Último ticket concluído: [MED-01](../tasks/done/MED-01.md).

@@ -135,6 +135,10 @@ Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa
 
 03/10/2026/GAM-02, harness Windows ao usar versão do arquivo depois de recuperar draft. O dispatch programático disparava onChange e mostrava Rascunho em edição apesar da fonte estar atualizada; bytes/draft do disco permaneceram corretos. Correção: distinguir sync de props e entrada do usuário no listener. Prova nova verifica status, decisões rápidas de Save/descarte, recovery e edição seguinte no pacote.
 
+### O-010 — cinema não cancelava listeners da oficina
+
+03/10/2026/MED-01, auditoria independente em fonte congelada: abrir cinema sobre Cidade deixava GameView com activeArea true. inert bloqueava foco/gestos, mas listener global aceitava A e avançava etapa QTE0→1 na prova JSDOM/SQLite real. Corrigido em App.tsx passando activeArea false para GameView e ProjectWorkspace durante cinema; ao fechar, controller restaura modo inline e libera gates. Probe próprio negou entrada oculta e retomou exatamente um passo visível. Jornada no pacote Windows final confirmou etapa/acertos inalterados sob cinema e cancelamento após fechamento. Ver YOUTUBE_AUDIT/YOUTUBE; não usar inert como cancelamento de listeners globais.
+
 ### O-NNN — título concreto
 
 - Estado: observado / investigando / corrigido sem nova prova / corrigido e verificado / reaberto.

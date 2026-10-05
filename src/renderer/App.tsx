@@ -10,6 +10,7 @@ import { Icon as Mark } from './Icon';
 import { ActivityRail, type Area } from './ActivityRail';
 import { AreaStage, useSurfaceMotion, usePanelLayout } from './motion';
 import { MotionDialog } from './MotionDialog';
+import { useVideos, VideoLibrary, VideoSurface } from './VideoWorkspace';
 import './refinement.css';
 import './styles.css';
 const GameView = lazy(() => import('./GameView'));
@@ -43,6 +44,7 @@ export function App() {
   const workspace = useRef<HTMLDivElement>(null);
   useSurfaceMotion(workspace, active?.id ?? "empty", !gameOpen && !explorerOpen);
   const capturePanels = usePanelLayout(workspace, `${active?.id}:${desk?.tool}:${readingOnly}`, !gameOpen && !explorerOpen);
+  const videos = useVideos({ subject: active, shown: currentArea === 'study' && desk?.materialView === 'video' && !readingOnly, selectedId: desk?.videoId ?? null, select: videoId => checkpoint({ videoId }), returnToVideo: async video => { const subject = subjects.find(s => s.id === video.subjectId); if (subject && subject.id !== latest.current.active?.id) await select(subject); showReading(false); await checkpoint({ videoId: video.id, materialView: 'video' }); await navigate('study'); }, onError: setError });
   function showReading(value: boolean) { capturePanels(); setReadingOnly(value); }
   useEffect(() => { if (note.doc) setNotes(n => n.map(v => v.id === note.doc!.ref.id ? note.doc!.ref : v)); }, [note.doc?.ref.id, note.doc?.ref.title]);
   useEffect(() => window.desktop.onStorageError(setError), []);
@@ -64,7 +66,7 @@ export function App() {
   }, []);
   useEffect(() => {
     function key(event: KeyboardEvent) {
-      if (area.current.gameOpen || area.current.explorerOpen) return;
+      if (area.current.gameOpen || area.current.explorerOpen || document.querySelector('.video-cinema')) return;
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') { event.preventDefault(); void latest.current.note.save(); }
       if (event.key === 'Escape') showReading(false);
       if (event.altKey && ['1', '2', '3'].includes(event.key)) { event.preventDefault(); showReading(false); void checkpoint({ tool: event.key === '1' ? 'focus' : event.key === '2' ? 'checklist' : 'both' }); }
@@ -122,7 +124,7 @@ export function App() {
   async function chooseMaterial(replaceId?: string) {
     if (!active) return;
     const subjectId = active.id; const r = await window.desktop.chooseMaterial({ subjectId, replaceId });
-    if (r.ok && r.value && latest.current.active?.id === subjectId) { setMaterials(m => replaceId ? m.map(v => v.id === replaceId ? r.value! : v) : [...m, r.value!]); setMaterialGeneration(v => v + 1); await checkpoint({ materialId: r.value.id, page: 1 }); } else if (!r.ok) setError(r.message);
+    if (r.ok && r.value && latest.current.active?.id === subjectId) { setMaterials(m => replaceId ? m.map(v => v.id === replaceId ? r.value! : v) : [...m, r.value!]); setMaterialGeneration(v => v + 1); await checkpoint({ materialId: r.value.id, page: 1, materialView: 'pdf' }); } else if (!r.ok) setError(r.message);
   }
   const material = materials.find(m => m.id === desk?.materialId);
   const visibleNotes = notes.filter(n => n.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
@@ -176,7 +178,9 @@ export function App() {
             <NoteEditor key={note.doc.ref.id} title={note.doc.ref.title} text={note.text} onChange={note.change} preview={desk?.preview ?? false}/><div className="note-foot"><span><span className={`connection ${note.text === note.doc.text && !note.conflict ? 'connected' : ''}`}/>{note.conflict ? 'Revisão necessária' : note.text === note.doc.text ? 'Arquivo atualizado' : 'Edição em andamento'}</span><span>{words} palavras <span className="meta-dot">·</span> ~{Math.max(1, Math.ceil(words / 200))} min de leitura</span></div> </> : <div className="panel-empty"><Mark kind="note"/><h2>Ideias que ficam.</h2><p>{vault ? 'Crie uma nota ou importe um Markdown deste vault.' : 'Escolha uma pasta de notas para guardar seus arquivos.'}</p><button className="primary" onClick={vault ? () => newModal('note') : chooseVault}>{vault ? '+ Criar nota' : 'Escolher pasta de notas'}</button></div>}
         </section>
         <div className="divider"><input type="range" min="30" max="75" value={desk?.split ?? 55} aria-label="Largura do caderno" onChange={e => checkpoint({ split: Number(e.target.value) })}/></div>
-        <div className="right-column"><section className="panel document-panel" data-motion-panel="pdf"><div className="panel-header"><span className="panel-caption"><span className="panel-index">02</span><Mark kind="book"/> MATERIAL</span><button onClick={() => chooseMaterial()}>Abrir PDF ↗</button></div>{materials.length > 0 && <select aria-label="Documento ativo" value={desk?.materialId ?? ''} onChange={e => checkpoint({ materialId: e.target.value || null, page: 1 })}><option value="">Escolher documento</option>{materials.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>}{material && desk ? <PdfPane key={`${material.id}:${materialGeneration}`} material={material} page={desk.page} onPage={page => checkpoint({ page })} onLocate={() => chooseMaterial(material.id)}/> : <div className="panel-empty"><Mark kind="book"/><h3>Seu material, à mão.</h3><p>Abra um PDF para consultar junto das notas.</p><button onClick={() => chooseMaterial()}>+ Selecionar documento</button></div>}</section>
+        <div className="right-column"><section className="panel document-panel" data-motion-panel="pdf"><div className="panel-header"><span className="panel-caption"><span className="panel-index">02</span><Mark kind="book"/> MATERIAL</span><button onClick={() => chooseMaterial()}>Abrir PDF ↗</button></div>
+          <nav className="material-tabs" aria-label="Tipo de material"><button className={desk?.materialView !== 'video' ? 'selected' : ''} aria-pressed={desk?.materialView !== 'video'} onClick={() => checkpoint({ materialView: 'pdf' })}><Mark kind="book"/> PDFs</button><button className={desk?.materialView === 'video' ? 'selected' : ''} aria-pressed={desk?.materialView === 'video'} onClick={() => checkpoint({ materialView: 'video' })}><Mark kind="video"/> Vídeos</button></nav>
+          {desk?.materialView === 'video' ? <VideoLibrary controller={videos}/> : <>{materials.length > 0 && <select aria-label="Documento ativo" value={desk?.materialId ?? ''} onChange={e => checkpoint({ materialId: e.target.value || null, page: 1 })}><option value="">Escolher documento</option>{materials.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>}{material && desk ? <PdfPane key={`${material.id}:${materialGeneration}`} material={material} page={desk.page} onPage={page => checkpoint({ page })} onLocate={() => chooseMaterial(material.id)}/> : <div className="panel-empty"><Mark kind="book"/><h3>Seu material, à mão.</h3><p>Abra um PDF para consultar junto das notas.</p><button onClick={() => chooseMaterial()}>+ Selecionar documento</button></div>}</>}</section>
           {desk?.tool !== 'none' && <section className="panel tool-panel" data-motion-panel="tool"><div className="panel-header"><span className="panel-caption"><span className="panel-index">{desk?.tool === 'focus' ? '03' : '04'}</span><Mark kind={desk?.tool === 'focus' ? 'focus' : 'check'}/>{desk?.tool === 'focus' ? 'FOCO' : 'PRÓXIMOS PASSOS'}</span><button onClick={() => checkpoint({ tool: desk?.tool === 'both' ? 'focus' : 'none' })} aria-label={desk?.tool === 'both' ? 'Fechar módulo checklist' : 'Fechar ferramenta'}><Mark kind="close"/></button></div>{desk?.tool === 'focus' ? <FocusPanel key={active.id} subjectId={active.id} onError={setError}/> : <ChecklistPanel key={active.id} subjectId={active.id} nextStepId={desk?.nextStepId ?? null} onNext={nextStepId => checkpoint({ nextStepId })} onError={setError}/>}</section>}
         </div>
         {desk?.tool === 'both' && <section className="panel focus-module" data-motion-panel="focus"><div className="panel-header"><span className="panel-caption"><span className="panel-index">03</span><Mark kind="focus"/> FOCO</span><button aria-label="Fechar módulo foco" onClick={() => checkpoint({ tool: 'checklist' })}><Mark kind="close"/></button></div><FocusPanel key={active.id} subjectId={active.id} onError={setError}/></section>}
@@ -188,7 +192,7 @@ export function App() {
   </div>;
   return <div className="nodus-shell"><ActivityRail active={currentArea} navigate={area => void navigate(area)} pending={navigationPending}/><AreaStage active={currentArea}>
     <div className="area-layer" data-area="study">{study}</div>
-    {visited.includes('explorer') && <div className="area-layer" data-area="explorer"><Suspense fallback={<div className="area-loading">Retomando projetos…</div>}><ProjectWorkspace activeArea={explorerOpen} registerFlush={fn => { projectFlush.current = fn; }}/></Suspense></div>}
-    {visited.includes('city') && <div className="area-layer" data-area="city"><Suspense fallback={<div className="area-loading">Preparando Vale Sereno…</div>}><GameView activeArea={gameOpen} onClose={() => void navigate('study')} onExplorer={() => void navigate('explorer')}/></Suspense></div>}
-  </AreaStage>{error && currentArea !== 'study' && <div className="navigation-error" role="alert">{error}<button aria-label="Fechar aviso da navegação" onClick={() => setError('')}><Mark kind="close"/></button></div>}</div>;
+    {visited.includes('explorer') && <div className="area-layer" data-area="explorer"><Suspense fallback={<div className="area-loading">Retomando projetos…</div>}><ProjectWorkspace activeArea={explorerOpen && videos.mode !== 'cinema'} registerFlush={fn => { projectFlush.current = fn; }}/></Suspense></div>}
+    {visited.includes('city') && <div className="area-layer" data-area="city"><Suspense fallback={<div className="area-loading">Preparando Vale Sereno…</div>}><GameView activeArea={gameOpen && videos.mode !== 'cinema'} onClose={() => void navigate('study')} onExplorer={() => void navigate('explorer')}/></Suspense></div>}
+  </AreaStage><VideoSurface controller={videos}/>{error && currentArea !== 'study' && <div className="navigation-error" role="alert">{error}<button aria-label="Fechar aviso da navegação" onClick={() => setError('')}><Mark kind="close"/></button></div>}</div>;
 }

@@ -23,3 +23,5 @@ Um commit não aprova critérios pendentes. Push, criação de remoto e publica�
 Repositório e origin já existentes; não inicializar novamente. Pedidos posteriores autorizaram pushes de MVP, feat/frontend e feat/game. GAM-02 usa feat/engine-explorer, derivada de 083bdc0, com commits por fase e push no final por pedido explícito. Não implica publicação de serviço/release nem operação nos repositórios do vault/projetos.
 
 UI-02 usa codex/smooth-ui, derivada de 0da34c7. O usuário autorizou outra branch, commits por fase e push no final; essa autorização não exige nova confirmação a cada checkpoint.
+
+MED-01 usa codex/youtube-cinema, derivada de 2690372. Mantém autorização de branch, commits por fase e push final. Links públicos fictícios das provas são versionados; perfis, banco, capturas e pacote permanecem locais/ignorados.

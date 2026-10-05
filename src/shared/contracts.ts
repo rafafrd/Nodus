@@ -13,8 +13,8 @@ export const noteIdInput = z.strictObject({ id: idSchema });
 export const createNoteInput = z.strictObject({ subjectId: idSchema, title: z.string().trim().min(1).max(160) });
 export const noteWriteInput = z.strictObject({ id: idSchema, text: z.string().max(2 * 1024 * 1024), hash: z.string().regex(/^[a-f0-9]{64}$/) });
 export type Material = { id: string; subjectId: string; name: string };
-export type Desk = { subjectId: string; noteId: string | null; materialId: string | null; page: number; split: number; tool: 'focus' | 'checklist' | 'both' | 'none'; preview: boolean; nextStepId: string | null };
-export const deskInput = z.strictObject({ subjectId: idSchema, noteId: idSchema.nullable().optional(), materialId: idSchema.nullable().optional(), page: z.number().int().min(1).max(100000).optional(), split: z.number().int().min(30).max(75).optional(), tool: z.enum(['focus', 'checklist', 'both', 'none']).optional(), preview: z.boolean().optional(), nextStepId: idSchema.nullable().optional() });
+export type Desk = { subjectId: string; noteId: string | null; materialId: string | null; videoId: string | null; materialView: 'pdf' | 'video'; page: number; split: number; tool: 'focus' | 'checklist' | 'both' | 'none'; preview: boolean; nextStepId: string | null };
+export const deskInput = z.strictObject({ subjectId: idSchema, noteId: idSchema.nullable().optional(), materialId: idSchema.nullable().optional(), videoId: idSchema.nullable().optional(), materialView: z.enum(['pdf', 'video']).optional(), page: z.number().int().min(1).max(100000).optional(), split: z.number().int().min(30).max(75).optional(), tool: z.enum(['focus', 'checklist', 'both', 'none']).optional(), preview: z.boolean().optional(), nextStepId: idSchema.nullable().optional() });
 export const materialChoiceInput = z.strictObject({ subjectId: idSchema, replaceId: idSchema.optional() });
 export type FocusSession = { id: string; subjectId: string; durationMs: number; elapsedMs: number; state: 'running' | 'paused' | 'completed' | 'ended'; recovered: boolean };
 export type FocusState = { session: FocusSession | null; activeOwner: Subject | null };
@@ -26,6 +26,14 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  listVideos(input: z.infer<typeof subjectIdInput>): Promise<Result<import('./videos').StudyVideo[]>>;
+  addVideo(input: z.infer<typeof import('./videos').videoAddInput>): Promise<Result<import('./videos').StudyVideo>>;
+  removeVideo(input: z.infer<typeof import('./videos').videoRefInput>): Promise<Result<null>>;
+  openVideoPlayer(input: z.infer<typeof import('./videos').videoRefInput>): Promise<Result<import('./videos').VideoPlayerState>>;
+  layoutVideoPlayer(input: z.infer<typeof import('./videos').videoLayoutInput>): Promise<Result<null>>;
+  closeVideoPlayer(): Promise<Result<null>>;
+  onVideoPlayer(callback: (state: import('./videos').VideoPlayerState) => void): () => void;
+  onVideoEscape(callback: () => void): () => void;
   listProjects(): Promise<Result<import('./projects').ProjectCatalog>>;
   chooseProject(): Promise<Result<import('./projects').ProjectCatalog | null>>;
   projectTree(input: z.infer<typeof import('./projects').projectTreeInput>): Promise<Result<import('./projects').ProjectTree>>;

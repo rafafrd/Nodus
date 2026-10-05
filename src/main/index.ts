@@ -12,6 +12,9 @@ import { Game } from './game';
 import { gameInput } from '../shared/game';
 import { Projects } from './projects';
 import { projectTreeInput, projectFileInput, projectWriteInput, projectViewInput } from '../shared/projects';
+import { Videos } from './videos';
+import { VideoPlayer } from './video-player';
+import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos';
 protocol.registerSchemesAsPrivileged([{ scheme: 'study', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
 let window: BrowserWindow;
 let store: Store;
@@ -21,6 +24,8 @@ let focus: Focus;
 let checklist: Checklist;
 let game: Game;
 let projects: Projects;
+let videos: Videos;
+let player: VideoPlayer;
 let focusTimer: ReturnType<typeof setInterval>;
 let allowClose = false;
 const devUrl = !app.isPackaged && process.env.APP_DEV_URL === 'http://127.0.0.1:5173' ? process.env.APP_DEV_URL : undefined;
@@ -39,6 +44,12 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('video:list', subjectIdInput, input => videos.list(input.subjectId));
+  handle('video:add', videoAddInput, input => videos.add(input));
+  handle('video:remove', videoRefInput, input => { const video = videos.get(input); videos.remove(input); player.remove(video.id); return null; });
+  handle('player:open', videoRefInput, input => player.open(videos.get(input)));
+  handle('player:layout', videoLayoutInput, input => player.layout(input));
+  handle('player:close', z.undefined(), () => player.close());
   handle('project:list', z.undefined(), () => projects.catalog());
   handle('project:choose', z.undefined(), async () => { const picked = await dialog.showOpenDialog(window, { title: 'Abrir pasta de projeto', properties: ['openDirectory'] }); return picked.canceled ? null : projects.chooseRoot(picked.filePaths[0]); });
   handle('project:tree', projectTreeInput, input => projects.tree(input));
@@ -89,6 +100,7 @@ function register() {
 }
 function createWindow() {
   window = new BrowserWindow({ width: 1440, height: 940, minWidth: 1000, minHeight: 700, backgroundColor: '#0c1014', title: 'App Estudos', autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, webSecurity: true } });
+  player = new VideoPlayer(window);
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event, url) => { if (url !== startUrl) event.preventDefault(); });
   window.on('close', event => { if (!allowClose) { event.preventDefault(); window.webContents.send('app:before-close'); } });
@@ -104,6 +116,7 @@ app.whenReady().then(() => {
   checklist = new Checklist(store);
   game = new Game(store);
   projects = new Projects(store);
+  videos = new Videos(store);
   focusTimer = setInterval(() => { try { focus.tick(); } catch { window?.webContents.send('app:storage-error', 'Não foi possível gravar o checkpoint de foco. Pause e tente novamente.'); } }, 1000);
   session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
