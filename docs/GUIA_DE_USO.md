@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/youtube-cinema** reúne mesa, Vale Sereno, motor, desafios, Explorer e YouTube com cinema/PiP.
+Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/settings-profile** reúne mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP e configurações de perfil/aparência.
 
 ## 1. Abrir agora neste PC
 
@@ -38,7 +38,7 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch codex/youtube-cinema https://github.com/rafafrd/Nodus.git
+git clone --branch codex/settings-profile https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
@@ -161,7 +161,17 @@ Arraste o separador ao lado da árvore para ajustar sua largura. Com foco no sep
 
 Este incremento edita arquivos existentes como fonte. Criar/deletar arquivos, terminal, execução/preview HTML ou JS, Git de projetos e autocomplete de linguagem ficam para tickets posteriores. Alterações de arquivos geram cópias em project-recovery no perfil. Se ocorrer erro depois de gravar no disco, o app conserva o rascunho/backup; confira o arquivo antes de tentar de novo.
 
-## 7. Dados, backup e perfil de teste
+## 7. Configurações: perfil, temas e app
+
+Clique **Ajustes** ou no perfil, no rodapé da barra fixa. Voltar aos estudos conserva os documentos e rascunhos; um vídeo em PiP continua disponível.
+
+1. Em **Perfil**, digite o nome e clique **Salvar perfil**. **Adicionar/Trocar foto** abre seleção de arquivo; use PNG ou JPEG até 5 MB, 4 milhões de pixels e 4096 px por lado. O app recorta o centro e prepara foto quadrada de 256×256. **Remover foto** conserva o nome. Nome e foto ficam neste PC.
+2. Em **Aparência**, escolha **Oliva**, **Grafite** ou **Azul noite**. O tema aplica e salva imediatamente, incluindo editores. Desative **Animações da interface** para parar transições/câmera/decoração; a preferência de movimento reduzido do Windows também é respeitada. Foco, timing dos desafios e reprodução dos vídeos continuam funcionando.
+3. Em **Dados e app**, consulte matérias/notas/PDFs/vídeos/projetos/rascunhos, versão/runtime e tamanho do banco. **Atualizar dados** renova a consulta. Use **Abrir pasta de dados/notas** para encontrar os diretórios registrados e os atalhos para gerenciar notas/projetos. O caminho da tela é o efetivo, inclusive em perfil de teste.
+
+As escolhas são retomadas ao reabrir. Esta área gerencia preferências e localização dos dados; backup ainda é feito pela cópia das pastas abaixo.
+
+## 8. Dados, backup e perfil de teste
 
 | Dado | Onde fica |
 | --- | --- |
@@ -179,9 +189,9 @@ $guideProfile = Join-Path (Get-Location).Path '.local\perfil-guia'
 & '.\release\win-unpacked\App Estudos.exe' "--user-data-dir=$guideProfile"
 ```
 
-Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: esta build usa SQLite v3, GAM-01 usava v2 e a antiga MVP usava v1. Uma build antiga não abre schema novo; não apague o banco para contornar isso.
+Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para as notas. Ao abrir o executável normalmente, você usa o perfil padrão. Antes de mudar para uma versão anterior do app, conserve backup: esta build usa SQLite v4 desde MED-01; GAM-02 usava v3 e GAM-01 usava v2; a antiga MVP usava v1. Uma build antiga não abre schema novo; não apague o banco para contornar isso.
 
-## 8. Diagnóstico rápido
+## 9. Diagnóstico rápido
 
 | Situação | Próximo passo |
 | --- | --- |
@@ -198,6 +208,6 @@ Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para 
 
 Se um comando falhar, registre a mensagem e a etapa. Preserve seu perfil/vault para diagnóstico. As provas desta entrega estão em [GAME](validation/GAME.md), [frontend](validation/FRONTEND.md) e [estado do projeto](status/ALPHA_STATE.md).
 
-A barra fixa troca áreas com transições curtas e conserva seus editores/contexto. As moedas animam até o saldo confirmado, e o ganho aparece junto do motor. Para reduzir movimento, desative **Efeitos de animação** em **Configurações → Acessibilidade → Efeitos visuais** do Windows 11, conforme o [Suporte Microsoft](https://support.microsoft.com/pt-br/accessibility/windows/make-it-easier-to-focus-on-tasks). O app remove animações decorativas, inclusive quando a preferência muda durante uma transição. Salvar não espera a animação terminar.
+A barra fixa troca áreas com transições curtas e conserva seus editores/contexto. As moedas animam até o saldo confirmado, e o ganho aparece junto do motor. Para reduzir movimento, desligue **Animações da interface** em **Ajustes → Aparência** ou desative **Efeitos de animação** em **Configurações → Acessibilidade → Efeitos visuais** do Windows 11, conforme o [Suporte Microsoft](https://support.microsoft.com/pt-br/accessibility/windows/make-it-easier-to-focus-on-tasks). O app remove animações decorativas, inclusive quando a preferência muda durante uma transição. Salvar não espera a animação terminar.
 
 Refinamento atual: [SMOOTH_UI](validation/SMOOTH_UI.md). Novos fluxos/provas: [ENGINE_EXPLORER](validation/ENGINE_EXPLORER.md); revisão dos documentos: [PRODUCT_DOCS](validation/PRODUCT_DOCS.md).

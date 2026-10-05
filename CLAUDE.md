@@ -129,3 +129,9 @@ Nome/marca final, licença de publicação, prova externa do editor assistido (A
 ## Incremento MED-01
 
 Links YouTube por matéria e seleção de material em SQLite v4; conteúdo remoto só após abrir o player. Cinema/PiP interno compartilham um WebContentsView isolado, sessão efêmera e sem preload/Node/bridge/protocolo de estudos. Main valida remetente e vínculo por matéria. Não conceder capacidades privilegiadas ao vídeo nem cobrir seus controles com overlays. PiP arrasta pelo cabeçalho próprio e continua nas outras áreas. Cinema exige gates dos listeners das áreas persistentes além de inert. Ver ADR-0008 e docs/validation/YOUTUBE.md; disponibilidade remota não equivale à preservação local dos links.
+
+## Incremento CFG-01
+
+Perfil/preferências locais usam settings.preferences no schema v4 existente. Seis IPCs específicos e strict preservam guarda sender/mainFrame/origem. Foto PNG/JPEG até5MiB/4MP/4096lado: dimensões antes do codec, decode/crop/resize nativo→PNG256; sem path/URL e sem nome/foto/caminho em audit. Salvamento transaciona preferences/audit. Defaults de JSON inválido não reescrevem raw no load.
+
+PreferencesProvider carrega antes do App, confirma após IPC; CSS vars mudam três paletas sem remount. motionPreference combina off app/OS e limpa listeners; tempo essencial de foco/desafios/vídeo permanece. Quarta área deve conservar filas/rascunhos e gates de área/cinema. Gestão só enum data/vault e diretórios registrados; sem reset/updater/terminal. ADR-0009/SETTINGS registram provas e limites; audit independente tem fonte congelada distinta do pacote Windows do implementador.

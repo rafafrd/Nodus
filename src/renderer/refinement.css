@@ -1,28 +1,28 @@
 /* UI-02: shared identity and motion surfaces; no game/domain authority here. */
-.nodus-shell { --muted:#a4afa6; --line:#303a33; --surface:#151b18; --sage:#d2bc8a; display:grid; grid-template-columns:68px minmax(0,1fr); height:100vh; overflow:hidden; background:#111714; font-family:'Segoe UI Variable','Segoe UI',sans-serif; }
-.activity-rail { display:flex; flex-direction:column; align-items:stretch; z-index:20; background:#101512; border-right:1px solid #303a32; padding:20px 0 14px; }
-.rail-brand { color:#d2bc8a; display:grid; place-items:center; margin:4px 0 28px; }
+.nodus-shell { --muted:var(--theme-muted); --line:var(--theme-border); --surface:var(--theme-panel); --sage:var(--theme-accent); display:grid; grid-template-columns:68px minmax(0,1fr); height:100vh; overflow:hidden; background:var(--theme-bg); font-family:'Segoe UI Variable','Segoe UI',sans-serif; }
+.activity-rail { display:flex; flex-direction:column; align-items:stretch; z-index:20; background:var(--theme-rail); border-right:1px solid var(--theme-border); padding:20px 0 14px; }
+.rail-brand { color:var(--theme-accent); display:grid; place-items:center; margin:4px 0 28px; }
 .rail-brand svg { width:27px; height:27px; }
-.activity-rail button { display:flex; flex-direction:column; align-items:center; gap:9px; min-height:80px; padding:18px 3px; color:#a6b2a7; border-left:2px solid transparent; font-size:11px; }
-.activity-rail button.selected { background:#d2bc8a09; border-left-color:#d2bc8a; color:#e6d4ab; }
+.activity-rail button { display:flex; flex-direction:column; align-items:center; gap:9px; min-height:80px; padding:18px 3px; color:var(--theme-muted); border-left:2px solid transparent; font-size:11px; }
+.activity-rail button.selected { background:rgb(var(--theme-accent-rgb) / 0.0353); border-left-color:var(--theme-accent); color:var(--theme-accent); }
 .activity-rail button svg { width:23px; height:23px; }
-.rail-local { display:flex; flex-direction:column; align-items:center; gap:8px; color:#9aaa96; font-size:11px; margin-top:auto; }
-.area-stage { position:relative; min-width:0; min-height:0; isolation:isolate; background:#151b18; overflow:hidden; }
+.rail-local { display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--theme-muted); font-size:11px; margin-top:auto; }
+.area-stage { position:relative; min-width:0; min-height:0; isolation:isolate; background:var(--theme-panel); overflow:hidden; }
 .area-layer { position:absolute; inset:0; opacity:0; visibility:hidden; transform-origin:center; }
-.area-loading { display:grid; place-items:center; height:100%; color:#d8c79e; font-size:15px; }
+.area-loading { display:grid; place-items:center; height:100%; color:var(--theme-accent); font-size:15px; }
 .navigation-error { position:fixed; left:88px; bottom:20px; right:20px; z-index:30; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:14px 20px; background:#4b3328; border:1px solid #ab876d; color:#f2ddc8; font-size:14px; }
 .nodus-shell button { transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
 .nodus-shell button:disabled { opacity:1; color:#99a493; background:#232b23; border-color:#3d4839; cursor:not-allowed; }
 .nodus-shell .primary:disabled { color:#bac0a8; background:#3d4330; border-color:#555b41; }
-.nodus-shell .app-shell { background:#131916; }
-.nodus-shell .sidebar { background:#171e19; border-right-color:#303a32; }
+.nodus-shell .app-shell { background:var(--theme-bg); }
+.nodus-shell .sidebar { background:var(--theme-sidebar); border-right-color:var(--theme-border); }
 .nodus-shell .brand small { font-size:11px; letter-spacing:.6px; }
 .nodus-shell .section-label, .nodus-shell .panel-caption, .nodus-shell .eyebrow, .nodus-shell .local-label { font-size:12px; letter-spacing:.8px; }
 .nodus-shell .subject, .nodus-shell .notes-list button, .nodus-shell .search, .nodus-shell .vault-button { font-size:14px; }
 .nodus-shell .subject small, .nodus-shell .sidebar-caption, .nodus-shell .vault-button small, .nodus-shell .panel-index, .nodus-shell .panel-header button, .nodus-shell .note-meta, .nodus-shell .note-foot, .nodus-shell .statusbar { font-size:12px; }
-.nodus-shell .panel { border-color:#303a32; box-shadow:none; background:#171d19; }
-.nodus-shell .panel-header { background:#1d251f; border-bottom-color:#303a32; }
-.nodus-shell .format-toolbar { border-color:#303a32; background:#151c17; }
+.nodus-shell .panel { border-color:var(--theme-border); box-shadow:none; background:var(--theme-panel); }
+.nodus-shell .panel-header { background:var(--theme-raised); border-bottom-color:var(--theme-border); }
+.nodus-shell .format-toolbar { border-color:var(--theme-border); background:var(--theme-sidebar); }
 .nodus-shell .tool-dock button, .nodus-shell .focus-actions button, .nodus-shell .focus-detail, .nodus-shell .checklist-body input, .nodus-shell .task-name { font-size:14px; }
 .nodus-shell .focus-state, .nodus-shell .focus-caption, .nodus-shell .dock-caption, .nodus-shell .focus-owner { font-size:12px; }
 .nodus-shell .note-editor .cm-content { font-size:15px !important; }
@@ -65,7 +65,7 @@
 .nodus-shell .game-nav { padding:26px 12px 20px; gap:3px; }
 .nodus-shell .game-nav-caption { font-size:12px; text-align:left; letter-spacing:.8px; margin-bottom:21px; padding-left:10px; }
 .nodus-shell .game-nav>button { flex-direction:row; justify-content:flex-start; padding:15px 12px; gap:12px; font-size:14px; margin:0; border:none; border-left:2px solid transparent; }
-.nodus-shell .game-nav>button.selected { border-left-color:#d2bc8a; background:#d2bc8a0c; }
+.nodus-shell .game-nav>button.selected { border-left-color:var(--theme-accent); background:rgb(var(--theme-accent-rgb) / 0.0471); }
 .nodus-shell .game-nav-bottom { font-size:11px; }
 .nodus-shell .game-inspector { padding:24px; border-left-color:#303d30; }
 .nodus-shell .game-kicker, .nodus-shell .inspector-title, .nodus-shell .game-select, .nodus-shell .player-strip small { font-size:12px; letter-spacing:.6px; }

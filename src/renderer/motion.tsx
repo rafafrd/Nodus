@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { gsap } from 'gsap';
+import { motionPreference } from './preferences';
 
 export const motion = { enter: .46, exit: .24, panel: .32, ease: 'power3.out' };
 export function useReducedMotion() {
-  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
-  useEffect(() => { const query = matchMedia('(prefers-reduced-motion: reduce)'); const change = () => setReduced(query.matches); query.addEventListener('change', change); change(); return () => query.removeEventListener('change', change); }, []);
+  const [reduced, setReduced] = useState(() => motionPreference().matches);
+  useEffect(() => { const query = motionPreference(); const change = () => setReduced(query.matches); query.addEventListener('change', change); change(); return () => query.removeEventListener('change', change); }, []);
   return reduced;
 }
 
@@ -17,7 +18,7 @@ export function AreaStage({ active, children }: { active: string; children: Reac
     const layers = Array.from(stage.children) as HTMLElement[];
     const incoming = layers.find(el => el.dataset.area === active)!;
     let observer: MutationObserver | null = null, timeline: gsap.core.Timeline | null = null;
-    const direction = ['study', 'explorer', 'city'].indexOf(active) >= ['study', 'explorer', 'city'].indexOf(previous.current) ? 1 : -1;
+    const direction = ['study', 'explorer', 'city', 'settings'].indexOf(active) >= ['study', 'explorer', 'city', 'settings'].indexOf(previous.current) ? 1 : -1;
     layers.forEach(el => { gsap.killTweensOf(el); el.inert = true; el.setAttribute('aria-hidden', 'true'); });
     function complete() {
       layers.forEach(el => {

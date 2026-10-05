@@ -42,7 +42,9 @@ Incremento anterior: [GAM-02 — motor, desafios e Explorer](done/GAM-02.md), co
 
 Incremento anterior: [UI-02 — refinamento e transições suaves](done/UI-02.md), concluído na branch codex/smooth-ui. Oito sugestões aplicadas, transições normais/reduzidas e dados/contexto preservados; [provas Windows](../validation/SMOOTH_UI.md), audit, commits/push e guia registrados.
 
-Último incremento: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), concluído na branch codex/youtube-cinema. C1–C7 aprovados com player oficial/rede real, pacote/jornadas Windows e auditoria; commits por fase/push e guia registrados.
+Incremento anterior: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), concluído na branch codex/youtube-cinema. C1–C7 aprovados com player oficial/rede real, pacote/jornadas Windows e auditoria; commits por fase/push e guia registrados.
+
+Último incremento: [CFG-01 — configurações, aparência e perfil](done/CFG-01.md), concluído na branch codex/settings-profile. C1–C6 aprovados com preferências/foto/temas/movimento/gestão, pacote/jornadas Windows, auditoria e commits/push registrados.
 
 ## Conteúdo de um ticket
 

@@ -1,0 +1,46 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { Store } from '../src/main/store';
+import { UserPreferences } from '../src/main/preferences';
+import { AppManagementService } from '../src/main/app-management';
+import { photoDimensions } from '../src/main/photo-input';
+import { defaultPreferences, PHOTO_LIMIT, preferenceInput, photoInput } from '../src/shared/preferences';
+const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a4qQAAAAASUVORK5CYII=', 'base64');
+test('perfil/preferências persistem sem schema novo; updates e foto/audit fazem rollback sem tocar outros settings', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/preferences-data-')); let store = new Store(dir);
+  try {
+    const subject = store.createSubject({ name: 'Matéria preservada', color: 'sage' }); store.setSetting('other-setting', 'keep');
+    let prefs = new UserPreferences(store); assert.deepEqual(prefs.get(), defaultPreferences);
+    prefs.update({ name: 'Perfil de teste', theme: 'midnight', animations: false }); const photo = `data:image/png;base64,${png.toString('base64')}`; prefs.setPhoto(photo);
+    store.close(); store = new Store(dir); prefs = new UserPreferences(store);
+    assert.deepEqual(prefs.get(), { name: 'Perfil de teste', theme: 'midnight', animations: false, photo });
+    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 4); assert.equal(store.requireSubject(subject.id).name, 'Matéria preservada');
+    const before = store.setting('preferences');
+    store.db.exec("CREATE TRIGGER fail_pref BEFORE INSERT ON audit_events WHEN NEW.action LIKE 'preferences.%' OR NEW.action LIKE 'profile.%' BEGIN SELECT RAISE(FAIL,'fixture audit fail'); END;");
+    assert.throws(() => prefs.update({ theme: 'graphite' })); assert.throws(() => prefs.setPhoto(null)); assert.equal(store.setting('preferences'), before); assert.equal(store.setting('other-setting'), 'keep');
+    store.db.exec('DROP TRIGGER fail_pref'); prefs.setPhoto(null); assert.equal(prefs.get().photo, null); assert.equal(prefs.get().name, 'Perfil de teste');
+    assert.equal(store.db.prepare("SELECT count(*) n FROM audit_events WHERE action='profile.photo-remove'").get()!.n, 1);
+    store.setSetting('preferences', '{malformed'); assert.deepEqual(prefs.get(), defaultPreferences); assert.equal(store.setting('preferences'), '{malformed');
+    for (const invalid of [{}, {theme:'remote'}, {name:'x'.repeat(81)}, {name:'x\0'}, {theme:undefined}, {photo:'https://example.test/photo.png'}, {animations:'false'}]) assert.equal(preferenceInput.safeParse(invalid).success, false);
+  } finally { store.close(); }
+});
+test('foto aceita somente bytes limitados e dimensões raster limitadas antes do codec nativo', () => {
+  assert.deepEqual(photoDimensions(png), { width: 1, height: 1 }); assert.equal(photoInput.safeParse({bytes:new Uint8Array(png)}).success, true);
+  for (const input of [{bytes:[]}, {bytes:new Uint8Array()}, {bytes:new Uint8Array(PHOTO_LIMIT+1)}, {bytes:new Uint8Array(png),path:'C:/outside'}]) assert.equal(photoInput.safeParse(input).success, false);
+  for (const invalid of [Buffer.from('<svg></svg>'),Buffer.from('https://example.test/image.png'),Buffer.alloc(50),Buffer.alloc(PHOTO_LIMIT+1)]) assert.throws(() => photoDimensions(invalid));
+  const huge = Buffer.from(png); huge.writeUInt32BE(4096,16); huge.writeUInt32BE(4096,20); assert.throws(() => photoDimensions(huge));
+  const zero = Buffer.from(png); zero.writeUInt32BE(0,16); assert.throws(() => photoDimensions(zero));
+  const jpeg = Buffer.from([255,216,255,192,0,11,8,0,20,0,30,1,1,17,0,255,217]); assert.deepEqual(photoDimensions(jpeg),{width:30,height:20});
+});
+test('gestão conta banco real e só resolve diretórios registrados, negando enum extra, arquivo e pasta ausente', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/preferences-management-')), store = new Store(dir), management = new AppManagementService(store);
+  try {
+    store.createSubject({ name: 'Fixture', color:'sage' }); const vault = path.join(dir,'vault'); fs.mkdirSync(vault); store.setSetting('vault',vault);
+    assert.equal(management.get().counts.subjects,1); assert.equal(management.get().counts.notes,0); assert.ok(management.get().databaseBytes>0);
+    assert.equal(management.folder({folder:'data'}),fs.realpathSync.native(dir)); assert.equal(management.folder({folder:'vault'}),fs.realpathSync.native(vault));
+    for(const invalid of [{folder:'C:/outside'}, {folder:'data',path:'C:/outside'}, {}, undefined]) assert.throws(()=>management.folder(invalid));
+    store.setSetting('vault',path.join(dir,'study.sqlite')); assert.throws(()=>management.folder({folder:'vault'})); store.setSetting('vault',path.join(dir,'missing')); assert.throws(()=>management.folder({folder:'vault'}));
+  } finally { store.close(); }
+});

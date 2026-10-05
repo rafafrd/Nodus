@@ -13,6 +13,9 @@ import { MotionDialog } from './MotionDialog';
 import { useVideos, VideoLibrary, VideoSurface } from './VideoWorkspace';
 import './refinement.css';
 import './styles.css';
+import './themes.css';
+import './settings.css';
+const SettingsWorkspace = lazy(() => import('./SettingsWorkspace'));
 const GameView = lazy(() => import('./GameView'));
 const ProjectWorkspace = lazy(() => import('./ProjectWorkspace'));
 export function App() {
@@ -33,17 +36,17 @@ export function App() {
   const [focusOwner, setFocusOwner] = useState<string | null>(null);
   const [readingOnly, setReadingOnly] = useState(false);
   const [currentArea, setCurrentArea] = useState<Area>('study'), [visited, setVisited] = useState<Area[]>(['study']);
-  const gameOpen = currentArea === 'city', explorerOpen = currentArea === 'explorer';
+  const gameOpen = currentArea === 'city', explorerOpen = currentArea === 'explorer', settingsOpen = currentArea === 'settings';
   const destination = useRef<Area>('study'), visibleArea = useRef<Area>('study'), navigating = useRef(false);
   const [navigationPending, setNavigationPending] = useState(false);
   const projectFlush = useRef<(() => Promise<boolean>) | null>(null);
-  const area = useRef({ gameOpen, explorerOpen }); area.current = { gameOpen, explorerOpen };
+  const area = useRef({ gameOpen, explorerOpen, settingsOpen }); area.current = { gameOpen, explorerOpen, settingsOpen };
   const note = useNote(setError);
   const latest = useRef({ note, active, desk }); latest.current = { note, active, desk };
   const sequence = useRef(0);
   const workspace = useRef<HTMLDivElement>(null);
-  useSurfaceMotion(workspace, active?.id ?? "empty", !gameOpen && !explorerOpen);
-  const capturePanels = usePanelLayout(workspace, `${active?.id}:${desk?.tool}:${readingOnly}`, !gameOpen && !explorerOpen);
+  useSurfaceMotion(workspace, active?.id ?? "empty", currentArea === 'study');
+  const capturePanels = usePanelLayout(workspace, `${active?.id}:${desk?.tool}:${readingOnly}`, currentArea === 'study');
   const videos = useVideos({ subject: active, shown: currentArea === 'study' && desk?.materialView === 'video' && !readingOnly, selectedId: desk?.videoId ?? null, select: videoId => checkpoint({ videoId }), returnToVideo: async video => { const subject = subjects.find(s => s.id === video.subjectId); if (subject && subject.id !== latest.current.active?.id) await select(subject); showReading(false); await checkpoint({ videoId: video.id, materialView: 'video' }); await navigate('study'); }, onError: setError });
   function showReading(value: boolean) { capturePanels(); setReadingOnly(value); }
   useEffect(() => { if (note.doc) setNotes(n => n.map(v => v.id === note.doc!.ref.id ? note.doc!.ref : v)); }, [note.doc?.ref.id, note.doc?.ref.title]);
@@ -66,7 +69,7 @@ export function App() {
   }, []);
   useEffect(() => {
     function key(event: KeyboardEvent) {
-      if (area.current.gameOpen || area.current.explorerOpen || document.querySelector('.video-cinema')) return;
+      if (area.current.gameOpen || area.current.explorerOpen || area.current.settingsOpen || document.querySelector('.video-cinema')) return;
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') { event.preventDefault(); void latest.current.note.save(); }
       if (event.key === 'Escape') showReading(false);
       if (event.altKey && ['1', '2', '3'].includes(event.key)) { event.preventDefault(); showReading(false); void checkpoint({ tool: event.key === '1' ? 'focus' : event.key === '2' ? 'checklist' : 'both' }); }
@@ -153,6 +156,7 @@ export function App() {
         if (!await latest.current.note.stash() || projectFlush.current && !await projectFlush.current()) break;
         if (target === 'city') await import('./GameView');
         if (target === 'explorer') await import('./ProjectWorkspace');
+        if (target === 'settings') await import('./SettingsWorkspace');
         if (destination.current !== target) continue;
         if (target === 'city' && !await pauseForCity()) break;
         setVisited(v => v.includes(target) ? v : [...v, target]); visibleArea.current = target; setCurrentArea(target);
@@ -194,5 +198,6 @@ export function App() {
     <div className="area-layer" data-area="study">{study}</div>
     {visited.includes('explorer') && <div className="area-layer" data-area="explorer"><Suspense fallback={<div className="area-loading">Retomando projetos…</div>}><ProjectWorkspace activeArea={explorerOpen && videos.mode !== 'cinema'} registerFlush={fn => { projectFlush.current = fn; }}/></Suspense></div>}
     {visited.includes('city') && <div className="area-layer" data-area="city"><Suspense fallback={<div className="area-loading">Preparando Vale Sereno…</div>}><GameView activeArea={gameOpen && videos.mode !== 'cinema'} onClose={() => void navigate('study')} onExplorer={() => void navigate('explorer')}/></Suspense></div>}
+    {visited.includes('settings') && <div className="area-layer" data-area="settings"><Suspense fallback={<div className="area-loading">Abrindo configurações…</div>}><SettingsWorkspace activeArea={settingsOpen && videos.mode !== 'cinema'} navigate={area => void navigate(area)}/></Suspense></div>}
   </AreaStage><VideoSurface controller={videos}/>{error && currentArea !== 'study' && <div className="navigation-error" role="alert">{error}<button aria-label="Fechar aviso da navegação" onClick={() => setError('')}><Mark kind="close"/></button></div>}</div>;
 }

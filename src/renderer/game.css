@@ -84,7 +84,7 @@
 .inventory-sell > div { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #bbc6a6; padding: 9px 0; border-bottom: 1px solid #33422c; }
 .inventory-sell small { color: #8da278; margin-left: 7px; }
 .inventory-sell button { padding: 7px 0; font-size: 9px; color: #b6c68d; }
-.game-footer { display: flex; align-items: center; gap: 31px; border-top: 1px solid #33432d; background: #141c18; height: 51px; padding: 0 27px; flex-shrink: 0; }
+.game-footer { display: flex; align-items: center; gap: 31px; border-top: 1px solid #33432d; background: var(--theme-sidebar); height: 51px; padding: 0 27px; flex-shrink: 0; }
 .game-footer > span { font-size: 7px; color: #7d9570; letter-spacing: 1.4px; margin-right: 5px; }
 .game-footer > div { display: flex; align-items: center; gap: 10px; color: #9bb28e; font-size: 10px; }
 .game-footer strong { font-size: 12px; color: #d9d6b3; font-weight: 400; }

@@ -12,6 +12,8 @@ UI-02 na branch codex/smooth-ui aplica navegação fixa, tipografia/ícones pró
 
 MED-01 na branch codex/youtube-cinema acrescenta links YouTube por matéria, cinema e PiP interno arrastável. Um player oficial isolado conserva reprodução entre modos; links ficam no SQLite e requerem abertura explícita/internet. [Provas](docs/validation/YOUTUBE.md).
 
+CFG-01 na branch codex/settings-profile acrescenta **Ajustes**: perfil local com nome/foto, três temas, controle de animações e contagens/pastas/versões reais. Preferências persistem sem reset do banco ou recriação dos documentos. [Provas](docs/validation/SETTINGS.md).
+
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
 ## Começar
@@ -30,6 +32,7 @@ npm.cmd run test:game
 npm.cmd run test:engine-explorer
 npm.cmd run test:smooth-ui
 npm.cmd run test:videos
+npm.cmd run test:settings
 node scripts/check-bootstrap.mjs
 ```
 

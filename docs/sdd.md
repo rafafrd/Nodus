@@ -73,3 +73,9 @@ video:list/add/remove e player:open/layout/close em src/shared/videos.ts, preloa
 Player WebContentsView usa sessão própria efêmera, sem APIs privilegiadas/preload/Node; a URL é construída de ID validado. CSP principal frame-src none não muda. Permissions/popups/downloads/navegação e requests por domínio têm controles específicos; Referer identifica appId. [ADR-0008](adr/0008-video-isolado.md).
 
 Material oferece PDFs/Vídeos. Um guest alterna posição/tamanho entre inline, cinema e PiP interno sem recarregar. GSAP480ms/retarget/reduced-motion, header de arraste/teclado, resize/clipping e Escape recebido no guest. Cinema usa inert e gates explícitos de áreas; fechar destrói guest e libera gates. Link é conservado; o usuário abre/aciona Play novamente após restart. Sem downloads, chave de API ou promessa de reprodução de links que o YouTube restringe. [Validação](validation/YOUTUBE.md).
+
+## CFG-01 — configurações locais
+
+preferences:get/update, profile:photo/photo-remove e app:management/folder em shared/preferences.ts/contracts.ts/preload/main. Payload strict validado e sender/mainFrame/origem verificados pelo handler existente. Foto recebe bytes limitados PNG/JPEG, preflight de dimensões e nativeImage→PNG256×256 no main; audit não registra nome/foto/caminho. Pasta só enum data/vault, resolve diretório registrado e erro do shell é explícito. Schema v4/arquivos canônicos anteriores conservados.
+
+Provider lê antes da mesa, confirma após IPC e aplica CSS datasets; tema não remonta editores/cidade. Quarta área usa filas/gates existentes; atalhos dos estudos são desativados nas configurações. Observador compartilhado combina off do app com reduced-motion do sistema para GSAP/Three/CSS; foco/QTE/skillcheck/vídeos mantêm tempo essencial. Gestão consulta contagens/versões/pastas reais e orienta backup. [ADR-0009](adr/0009-preferencias-locais.md), [provas](validation/SETTINGS.md).

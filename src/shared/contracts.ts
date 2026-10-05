@@ -26,6 +26,12 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  getPreferences(): Promise<Result<import('./preferences').Preferences>>;
+  updatePreferences(input: import('zod').z.infer<typeof import('./preferences').preferenceInput>): Promise<Result<import('./preferences').Preferences>>;
+  setProfilePhoto(input: import('zod').z.infer<typeof import('./preferences').photoInput>): Promise<Result<import('./preferences').Preferences>>;
+  removeProfilePhoto(): Promise<Result<import('./preferences').Preferences>>;
+  getAppManagement(): Promise<Result<import('./preferences').AppManagement>>;
+  openAppFolder(input: import('zod').z.infer<typeof import('./preferences').folderInput>): Promise<Result<null>>;
   listVideos(input: z.infer<typeof subjectIdInput>): Promise<Result<import('./videos').StudyVideo[]>>;
   addVideo(input: z.infer<typeof import('./videos').videoAddInput>): Promise<Result<import('./videos').StudyVideo>>;
   removeVideo(input: z.infer<typeof import('./videos').videoRefInput>): Promise<Result<null>>;

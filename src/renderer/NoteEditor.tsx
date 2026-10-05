@@ -9,7 +9,7 @@ import { formatSelection, type EditKind } from '../shared/markdown';
 import { Icon } from './Icon';
 import { useSurfaceMotion } from './motion';
 const theme = EditorView.theme({
-  '&': { color: '#dcded6', backgroundColor: 'transparent', height: '100%' },
+  '&': { color: 'var(--theme-text)', backgroundColor: 'transparent', height: '100%' },
   '.cm-content': { fontFamily: 'Consolas, monospace', fontSize: '14px', lineHeight: '1.9', padding: '25px 0' },
   '.cm-gutters': { backgroundColor: 'transparent', color: '#829279', border: 'none', paddingRight: '9px' },
   '.cm-cursor': { borderLeftColor: '#bfd09c' }, '.cm-scroller': { overflow: 'auto' },
