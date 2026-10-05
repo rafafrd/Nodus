@@ -277,3 +277,16 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C4 | aprovado | [SETTINGS](SETTINGS.md): nome/PNG/JPEG256, rejeição conserva foto, remoção/restart/rollback/strict |
 | C5 | aprovado | [SETTINGS](SETTINGS.md): dados/paths/runtime reais, enum/ausência/erro e6IPCsender negados, shell aceita pasta fictícia |
 | C6 | aprovado | [SETTINGS](SETTINGS.md):24 testes/typecheck/package/jornadas/regressões, [AppSec](../security/SETTINGS_AUDIT.md), guias/memória/quadros e Gitleaks staged aprovados;8f1a47e/5eb2142/c68a020/ccdd75d enviados ao origin/codex/settings-profile |
+
+## EXP-01 — Exportar pasta em PDF escuro
+
+03/10/2026, branch codex/pdf-export; provas próprias Windows/PDF em [PDF_EXPORT](PDF_EXPORT.md).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): origens reais/subpastas/strict/canonical/links/auxiliares e sender negados |
+| C2 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): Markdown GFM/Unicode formatado, HTML/links/imagens inertes, bytes da fonte conservados |
+| C3 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):3/13 páginas A4 reais/renderizadas, preto nas margens, capa/sumário/paginação inspecionados |
+| C4 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): Downloads sem sobrescrita, limites/EXPORT_BUSY/vazio e audit/rollback real SQLite+FS |
+| C5 | aprovado | [PDF_EXPORT](PDF_EXPORT.md): UI/IPC/print/FS reais, isolamento de5 superfícies e Settings/R1–R7 aprovados |
+| C6 | aprovado | [PDF_EXPORT](PDF_EXPORT.md):28 testes/typecheck/pacote/jornadas/renderização, [AppSec](../security/PDF_EXPORT_AUDIT.md), docs/memória/inventário/bootstrap e Gitleaks staged aprovados; fef5821/38651b4/32eb884 enviados ao origin/codex/pdf-export |

@@ -2,6 +2,8 @@
 
 Estado em 03/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. MED-01 acrescenta links YouTube por matéria, cinema e PiP interno, com reprodução oficial que precisa de internet. CFG-01 oferece configurações de perfil local (nome/foto), três temas, animações e consulta/abertura das pastas do app. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
 
+EXP-01 oferece exportação explícita de uma pasta/subpastas de notas Markdown salvas, do vault ou Explorer, em PDF A4 formatado com fundo preto. Saída local em Downloads com capa/sumário/paginação, sem modificar fontes. O guia distingue caderno de leitura de backup completo; arquivos de código/PDFs anexados/imagens não entram. [Provas](../validation/PDF_EXPORT.md).
+
 ## Problema
 
 Materiais/notas espalhados e acúmulo de conteúdo antes das provas. O app reúne uma mesa por matéria, planejamento ajustável e práticas com evidência de aprendizagem. Serve ao usuário individual e também será um projeto de destaque no portfólio.

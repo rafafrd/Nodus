@@ -22,7 +22,8 @@
     "check:docs": "node scripts/check-bootstrap.mjs",
     "test:smooth-ui": "tsx scripts/smoke-smooth-ui.ts --packaged",
     "test:videos": "tsx scripts/smoke-videos.ts --packaged",
-    "test:settings": "tsx scripts/smoke-settings.ts"
+    "test:settings": "tsx scripts/smoke-settings.ts",
+    "test:pdf-export": "tsx scripts/smoke-pdf-export.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",

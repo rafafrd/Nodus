@@ -14,6 +14,8 @@ MED-01 na branch codex/youtube-cinema acrescenta links YouTube por matéria, cin
 
 CFG-01 na branch codex/settings-profile acrescenta **Ajustes**: perfil local com nome/foto, três temas, controle de animações e contagens/pastas/versões reais. Preferências persistem sem reset do banco ou recriação dos documentos. [Provas](docs/validation/SETTINGS.md).
 
+EXP-01 na branch codex/pdf-export acrescenta **Ajustes → Dados e app → Exportar pasta em PDF**. Notas Markdown do vault ou de projetos do Explorer, incluindo subpastas, viram um caderno A4 com fundo preto, capa, sumário e páginas numeradas. O PDF é salvo em Downloads; arquivos originais permanecem intactos. [Provas](docs/validation/PDF_EXPORT.md).
+
 **[Guia para iniciar e usar](docs/GUIA_DE_USO.md)**: executável, desenvolvimento, pacote Windows, mesa, jogo e backup.
 
 ## Começar
@@ -33,6 +35,7 @@ npm.cmd run test:engine-explorer
 npm.cmd run test:smooth-ui
 npm.cmd run test:videos
 npm.cmd run test:settings
+npm.cmd run test:pdf-export
 node scripts/check-bootstrap.mjs
 ```
 

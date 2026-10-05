@@ -15,6 +15,8 @@ Duas matérias, notas Markdown portáveis, mesas separadas, PDF com página salv
 | Abrir/salvar nota | Referência autorizada, conteúdo, revisão lida | Arquivo confirmado ou conflito/erro recuperável | ALP-04 |
 | Salvar checkpoint | Matéria e campos da mesa | Estado recuperável | ALP-05 |
 | Abrir PDF | Referência autorizada | Documento/página ou erro/localizar arquivo | ALP-06 |
+| Listar pastas de exportação | source vault/projectId, strict | Raiz/subpastas canônicas contidas, sem links/auxiliares | EXP-01 |
+| Exportar pasta em PDF | source e folder relativo, strict | A4 preto em Downloads; recibo path/notes/bytes/skipped só após gravação/audit ou erro | EXP-01 |
 | Iniciar/pausar/retomar foco | Sessão/duração/ação válida | Estado e segmentos persistidos | ALP-07 |
 | Alterar etapa | IDs válidos, texto/conclusão | Checklist persistido, contagem e próxima ação | ALP-08 |
 | Enviar snapshot | Usuário, operação, nota, revisão, hash | Recibo consistente e snapshot por proprietário | ALP-09 |

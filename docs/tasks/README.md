@@ -44,7 +44,9 @@ Incremento anterior: [UI-02 — refinamento e transições suaves](done/UI-02.md
 
 Incremento anterior: [MED-01 — YouTube, cinema e PiP](done/MED-01.md), concluído na branch codex/youtube-cinema. C1–C7 aprovados com player oficial/rede real, pacote/jornadas Windows e auditoria; commits por fase/push e guia registrados.
 
-Último incremento: [CFG-01 — configurações, aparência e perfil](done/CFG-01.md), concluído na branch codex/settings-profile. C1–C6 aprovados com preferências/foto/temas/movimento/gestão, pacote/jornadas Windows, auditoria e commits/push registrados.
+Incremento anterior: [CFG-01 — configurações, aparência e perfil](done/CFG-01.md), concluído na branch codex/settings-profile. C1–C6 aprovados com preferências/foto/temas/movimento/gestão, pacote/jornadas Windows, auditoria e commits/push registrados.
+
+Último incremento: [EXP-01 — exportar pasta em PDF escuro](done/EXP-01.md), concluído na branch codex/pdf-export. C1–C6 aprovados com caderno A4 preto de Markdown salvo, pacote/jornadas Windows/renderização, auditoria e commits/push registrados.
 
 ## Conteúdo de um ticket
 

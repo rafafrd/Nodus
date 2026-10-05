@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  pdfExportFolders: input => ipcRenderer.invoke('pdf:folders', input),
+  exportFolderPdf: input => ipcRenderer.invoke('pdf:export', input),
   getPreferences: () => ipcRenderer.invoke('preferences:get'),
   updatePreferences: input => ipcRenderer.invoke('preferences:update', input),
   setProfilePhoto: input => ipcRenderer.invoke('profile:photo', input),
