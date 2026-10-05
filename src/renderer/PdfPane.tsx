@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy } from 'pdfjs-dist';
 import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import type { Material } from '../shared/contracts';
+import { Icon } from './Icon';
 GlobalWorkerOptions.workerSrc = workerUrl;
 export function PdfPane({ material, page, onPage, onLocate }: { material: Material; page: number; onPage(page: number): void; onLocate(): void }) {
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
   const [error, setError] = useState(''); const [rendered, setRendered] = useState(0); const [pageText, setPageText] = useState('');
   const [width, setWidth] = useState(400); const [input, setInput] = useState(String(page));
+  const [height, setHeight] = useState(500); const [fitPage, setFitPage] = useState(false);
   const canvas = useRef<HTMLCanvasElement>(null); const host = useRef<HTMLDivElement>(null);
   const latest = useRef({ page, onPage }); latest.current = { page, onPage };
-  useEffect(() => { const observer = new ResizeObserver(entries => setWidth(entries[0].contentRect.width)); if (host.current) observer.observe(host.current); return () => observer.disconnect(); }, []);
+  useEffect(() => { const observer = new ResizeObserver(entries => { setWidth(entries[0].contentRect.width); setHeight(entries[0].contentRect.height); }); if (host.current) observer.observe(host.current); return () => observer.disconnect(); }, []);
   useEffect(() => {
     let stopped = false; let destroy = () => {}; setPdf(null); setError(''); setRendered(0);
     void (async () => {
@@ -31,7 +33,7 @@ export function PdfPane({ material, page, onPage, onLocate }: { material: Materi
       try {
         const sheet = await pdf.getPage(page); if (stopped || !canvas.current) return;
         const basic = sheet.getViewport({ scale: 1 });
-        const viewport = sheet.getViewport({ scale: Math.min((width - 28) / basic.width, 4096 / basic.height, 1.5) });
+        const viewport = sheet.getViewport({ scale: Math.min(Math.max(8, width - 32) / basic.width, fitPage ? Math.max(8, height) / basic.height : Infinity, 4096 / basic.height, 1.5) });
         const element = canvas.current; const dpr = Math.min(devicePixelRatio, 1.5);
         element.width = Math.ceil(viewport.width * dpr); element.height = Math.ceil(viewport.height * dpr); element.style.width = `${viewport.width}px`; element.style.height = `${viewport.height}px`;
         const task = sheet.render({ canvas: element, canvasContext: element.getContext('2d')!, viewport, transform: [dpr, 0, 0, dpr, 0, 0] }); cancel = () => task.cancel(); await task.promise;
@@ -40,9 +42,9 @@ export function PdfPane({ material, page, onPage, onLocate }: { material: Materi
       } catch { if (!stopped) setError('Não foi possível renderizar esta página do PDF.'); }
     })();
     return () => { stopped = true; cancel(); };
-  }, [pdf, page, width]);
+  }, [pdf, page, width, height, fitPage]);
   function go(value: number) { if (pdf && Number.isInteger(value) && value >= 1 && value <= pdf.numPages) onPage(value); else setInput(String(page)); }
-  return <div className="pdf-reader"><div className="pdf-controls"><button aria-label="Página anterior" disabled={!pdf || page <= 1} onClick={() => go(page - 1)}>←</button><span><input type="number" min="1" max={pdf?.numPages ?? 1} aria-label="Página do PDF" value={input} onChange={e => setInput(e.target.value)} onBlur={() => go(Number(input))} onKeyDown={e => { if (e.key === 'Enter') go(Number(input)); }}/> / <span data-testid="pdf-pages">{pdf?.numPages ?? '—'}</span></span><button aria-label="Próxima página" disabled={!pdf || page >= pdf.numPages} onClick={() => go(page + 1)}>→</button><button className="text-button" onClick={onLocate}>Localizar PDF</button></div>
+  return <div className="pdf-reader"><div className="pdf-controls"><button className="previous-page" aria-label="Página anterior" title="Página anterior" disabled={!pdf || page <= 1} onClick={() => go(page - 1)}><Icon kind="arrow"/></button><span className="page-number"><input type="number" min="1" max={pdf?.numPages ?? 1} aria-label="Página do PDF" value={input} onChange={e => setInput(e.target.value)} onBlur={() => go(Number(input))} onKeyDown={e => { if (e.key === 'Enter') go(Number(input)); }}/> / <span data-testid="pdf-pages">{pdf?.numPages ?? '—'}</span></span><button aria-label="Próxima página" title="Próxima página" disabled={!pdf || page >= pdf.numPages} onClick={() => go(page + 1)}><Icon kind="arrow"/></button><span className="pdf-control-divider"/><button className={fitPage ? 'selected' : ''} aria-label={fitPage ? 'Ajustar largura' : 'Ajustar página'} aria-pressed={fitPage} title={fitPage ? 'Ajustar à largura' : 'Ver a página inteira'} onClick={() => setFitPage(v => !v)}><Icon kind={fitPage ? 'collapse' : 'expand'}/></button><button aria-label="Localizar PDF" title="Localizar PDF" onClick={onLocate}><Icon kind="folder"/></button></div>
     <div ref={host} className="pdf-scroll">{error ? <div className="pdf-error" role="alert"><p>{error}</p><button onClick={onLocate}>Localizar arquivo novamente</button></div> : <><canvas ref={canvas} aria-label={`Página ${page} do PDF ${material.name}`} data-rendered-page={rendered}/>{rendered === 0 && <p className="pdf-loading">Carregando página…</p>}<p className="sr-only" data-testid="pdf-text">{pageText}</p></>}</div>
   </div>;
 }

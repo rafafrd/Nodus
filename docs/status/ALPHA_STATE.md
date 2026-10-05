@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-ALP-11: MVP local entregue, auditoria final concluida e commits por fase na MVP. Primeira acao humana: abrir release/win-unpacked/App Estudos.exe com vault de teste e conferir .local/evidence/editor-output.md em editor externo para ALP-02/C5. ALP-09 permanece proximo incremento da alpha integral.
+UI-01 concluída na branch feat/frontend: grade de módulos com cantos retos, leitura/ferramentas e capturas reais verificadas. Implementação 4e460e0 enviada para origin/feat/frontend; MVP ae0c9f6 permanece em origin/MVP. Próxima ação humana: abrir release/win-unpacked/App Estudos.exe e avaliar a mesa com vault de teste. ALP-02/C5 externo e ALP-09 permanecem pendentes; detalhes em docs/validation/FRONTEND.md.
 
 ## Tickets
 
@@ -25,6 +25,7 @@ ALP-11: MVP local entregue, auditoria final concluida e commits por fase na MVP.
 | ALP-09 | todo | A fazer | ALP-04 | C1, C2, C3, C4, C5, C6, C7, C8, C9 |
 | ALP-10 | doing | Parcial | ALP-06, ALP-07, ALP-08, ALP-09 | C1, C3 |
 | ALP-11 | done | Concluído | ALP-01 | — |
+| UI-01 | done | Concluído | ALP-05, ALP-06, ALP-07, ALP-08 | — |
 
 ## Checkpoints e atenção humana
 

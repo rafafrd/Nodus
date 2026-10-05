@@ -103,6 +103,14 @@ Use um ID O-NNN e vincule o risco G-NN pertinente, quando houver. Registre causa
 - Correção: arquivamento antes da transação; DELETE e note.draft-discard com ID/resultado na mesma transação, sem conteúdo ou caminho nos logs.
 - Verificação: testes/vault.test.ts conserva arquivo/backup e confere um evento; prova SQLite do auditor forçou falha de INSERT do evento e confirmou rollback do DELETE. Evidência local .local/security-discard-results.json e relatório final em docs/security/MVP_AUDIT.md.
 
+### O-004 — aviso de carregamento oscilava o tamanho disponível do PDF
+
+- Estado: corrigido e verificado em UI-01, 02/10/2026, Windows 11 10.0.26200, Electron 44.5.1.
+- Reprodução: grade com PDF e ajuste de página inteiro; o canvas já aparecia, mas o aviso de carregamento reaparecia e a barra de rolagem alternava.
+- Causa: aviso no fluxo do documento acrescentava altura; a barra de rolagem alterava a largura medida pelo ResizeObserver e disparava nova renderização.
+- Correção: aviso como overlay, scrollbar-gutter estável e ajuste usando a altura de conteúdo já medida sem descontar padding novamente. Nenhum dado da mesa/nota foi alterado.
+- Verificação: preview-frontend --packaged --stage=verified exigiu quatro amostras com canvas renderizado, tamanho constante, altura dentro do painel e ausência do aviso. Captura frontend-verified-pdf-fit.png inspecionada; smoke-pdf empacotado e jornada R1–R7 passaram. Evidência: docs/validation/FRONTEND.md.
+
 ### O-NNN — título concreto
 
 - Estado: observado / investigando / corrigido sem nova prova / corrigido e verificado / reaberto.

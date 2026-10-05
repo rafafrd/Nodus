@@ -40,6 +40,8 @@ ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser 
 
 ## Conteúdo de um ticket
 
+Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
+
 Frontmatter, objetivo, dependências, prompt completo com critérios e verificações, registro de execução e referência de evidência. Use [o template](TEMPLATE.md) para novos tickets. Um prompt preparado não é uma tarefa entregue.
 
 ## Fonte e evolução

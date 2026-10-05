@@ -2,6 +2,8 @@
 
 App pessoal de estudos. MVP local na branch MVP: Electron, React e TypeScript, notas Markdown com edição assistida/prévia, SQLite, mesa por matéria, PDF, foco e checklist. Three.js compõe o cenário discreto; GSAP anima os painéis. Executado e empacotado no Windows; consulta web é um próximo incremento.
 
+O refinamento UI-01 fica na branch feat/frontend: superfícies retas e grade de quatro módulos, seguindo a referência fornecida pelo usuário. Consulte [a verificação do frontend](docs/validation/FRONTEND.md) para capturas e resultados.
+
 ## Começar
 
 Use Node 24 e npm no Windows. A cópia portátil usada nesta execução está em .local/node-v24.21.0-win-x64; ela não é versionada. Com Node 24 no PATH:
@@ -34,7 +36,7 @@ Versões usadas: Node host/embarcado 24.21.0, Electron 44.5.1, React 19.3.0, Typ
 2. Crie uma nota ou importe um .md já dentro desse vault. A importação adiciona apenas identidade e associação ao frontmatter se ausentes. Este MVP usa um vault por banco.
 3. Use Editar para fonte e toolbar; Leitura abre a prévia. Ctrl+S salva no arquivo. HTML e imagens remotas da nota não são executados/carregados; fórmulas e wikilinks são conservados na fonte, com limites da prévia descritos na [decisão do editor](docs/decisions/markdown-editor.md).
 4. Abra um PDF local, navegue por páginas e redimensione o caderno pelo separador/teclado. Documento, página e layout pertencem à matéria.
-5. No dock, abra foco para escolher minutos, pausar/retomar/encerrar; ou checklist para criar tarefas, etapas e próxima ação (→).
+5. No dock, abra foco para escolher minutos, pausar/retomar/encerrar; ou checklist para criar tarefas, etapas e próxima ação (→). Módulos/Todos (Alt+3) abre caderno, PDF, foco e checklist em uma grade; Alt+1/2 abre uma ferramenta. Só caderno amplia a nota; Esc volta à mesa. O leitor PDF permite ajustar à largura ou ver a página inteira.
 6. Troque matéria ou reabra: cada mesa retoma seu contexto. Fechar preserva rascunho sem tratá-lo como nota salva; foco pausa. Conflito externo mostra as duas versões para revisão explícita.
 
 Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam nas pastas escolhidas. Não são criptografados pelo app. Instância de teste isolada: execute `App Estudos.exe --user-data-dir=C:\caminho\de\teste` com uma pasta de teste. Testes usam .local e conteúdo fictício; não configure dados pessoais nesses diretórios.
@@ -50,6 +52,7 @@ Banco, rascunhos e backups ficam em `%APPDATA%/app-estudos`; vault/PDFs ficam na
 | [docs/status/ALPHA_STATE.md](docs/status/ALPHA_STATE.md) | Estado e próxima ação |
 | [docs/status/RUN_LOG.md](docs/status/RUN_LOG.md) | Histórico dos checkpoints |
 | [docs/validation/ALPHA.md](docs/validation/ALPHA.md) | Evidência por critério |
+| [docs/validation/FRONTEND.md](docs/validation/FRONTEND.md) | Refinamento UI-01, execução e capturas |
 | [docs/security/MVP_AUDIT.md](docs/security/MVP_AUDIT.md) | Auditoria final por agente, provas e limites |
 | [docs/architecture/README.md](docs/architecture/README.md) | Módulos e contratos |
 | [docs/sdd.md](docs/sdd.md) | Especificação da alpha |
