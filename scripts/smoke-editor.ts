@@ -1,0 +1,30 @@
+import { _electron as electron } from 'playwright';
+import electronPath from 'electron';
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { prepareFixture } from './test-fixture';
+const fixture = prepareFixture('editor-smoke');
+fs.mkdirSync('.local/evidence', { recursive: true });
+const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
+const app = await electron.launch({ executablePath: electronPath, args: ['.', `--user-data-dir=${path.join(fixture.dir, 'data')}`], env });
+try {
+  const page = await app.firstWindow();
+  await page.getByRole('button', { name: 'Matéria A', exact: true }).click();
+  await page.getByRole('button', { name: 'Nota A', exact: true }).click();
+  await page.getByRole('button', { name: 'Editar', exact: true }).click();
+  const editor = page.getByRole('textbox', { name: 'Conteúdo da nota' });
+  const text = fixture.noteA.text + '\nTrecho fixture editável.';
+  await editor.fill(text); await editor.press('Control+End');
+  await editor.press('Home'); await editor.press('Shift+End');
+  await page.getByRole('button', { name: 'Negrito', exact: true }).click();
+  await page.getByRole('button', { name: 'Salvar nota', exact: true }).click();
+  await page.getByRole('status').filter({ hasText: 'Salvo no arquivo' }).waitFor();
+  const after = fs.readFileSync(path.join(fixture.root, fixture.noteA.ref.path), 'utf8');
+  assert.equal(after, fixture.noteA.text + '\n**Trecho fixture editável.**');
+  const opened = await page.evaluate(id => window.desktop.openNote({ id }), fixture.noteA.ref.id);
+  assert.ok(opened.ok); if (opened.ok) assert.equal(opened.value.text, after);
+  await page.screenshot({ path: '.local/evidence/editor.png' });
+  fs.writeFileSync('.local/evidence/editor-output.md', after);
+  console.log('Editor/toolbar/arquivo reais: alteração seletiva conserva todos os bytes restantes da fixture; instância isolada.');
+} finally { await app.close(); }

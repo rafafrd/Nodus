@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import { JSDOM } from 'jsdom';
+import { Editor } from '@tiptap/core';
+import StarterKit from '@tiptap/starter-kit';
+import { Markdown } from '@tiptap/markdown';
+const dom = new JSDOM('<!doctype html><html><body></body></html>');
+Object.assign(globalThis, { window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, Node: dom.window.Node, getComputedStyle: dom.window.getComputedStyle });
+Object.defineProperty(globalThis, 'navigator', { value: dom.window.navigator, configurable: true });
+const source = fs.readFileSync('tests/fixtures/compatibility.md', 'utf8');
+const editor = new Editor({ extensions: [StarterKit, Markdown], content: source, contentType: 'markdown' });
+const output = editor.getMarkdown();
+fs.mkdirSync('.local/evidence', { recursive: true });
+fs.writeFileSync('.local/evidence/tiptap-roundtrip.md', output);
+console.log(JSON.stringify({ candidate: 'Tiptap 3.31.4 + StarterKit + Markdown', exact: source === output, unknownFrontmatter: output.includes('custom_unknown: preserve-me'), comment: output.includes('<!-- anotação'), customElement: output.includes('<custom-element'), formula: output.includes('E = mc^2') }, null, 2));
+editor.destroy();

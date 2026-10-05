@@ -1,0 +1,13 @@
+# Padrões verificados e riscos
+
+02/10/2026. Preservar Markdown como fonte; a configuração básica Tiptap 3.31.4 perdeu campos/comentários/bloco personalizado na fixture, por isso o MVP usa editor assistido sem parse/serialize no salvamento. Não usar esse candidato básico como persistência.
+
+SQL parametrizado, UUID estável, foreign_keys ativo e migração em transação. Nunca resetar banco para migrar. Não expor ipcRenderer, fs, shell, caminho arbitrário ou exec ao renderer. UI não confirma salvamento antes de resposta; conflito conserva fonte externa e rascunho. Conteúdo de notas, tokens e caminhos pessoais não entram em eventos de auditoria.
+
+Rascunhos são recuperação, não autoridade do corpo. Backup antes de substituir arquivo; limites de concorrência com editor externo em docs/decisions/vault-safety.md. Fixtures/testes também entram na busca de segredos. Dependências do produto e da cadeia de build devem ser avaliadas separadamente e com evidências reais.
+
+Auditoria concluída em 02/10/2026, docs/security/MVP_AUDIT.md: APPROVE WITH MITIGATIONS para uso pessoal local, sem aprovação de serviços/publicação. Gitleaks 8.30.1 no snapshot integral da fonte/fixtures e histórico de todos os refs: zero segredos detectados. npm audit --omit=dev e completo: zero vulnerabilidades reportadas; Electron deve entrar no audit completo porque é runtime embarcado apesar de devDependency. Repetir ao preparar release; não transformar zero findings em garantia permanente.
+
+SEC-001 / CWE-778: descarte explícito apagava draft com recovery mas sem evento de sucesso. Corrigido: recovery antes, DELETE e audit('note.draft-discard', ID, 'ok') na mesma transação. Antipadrão proibido: mutação sensível concluída sem evento ou evento fora da transação que pode mentir sobre sucesso. Nunca logar texto/caminho privado. Teste real verificou exatamente um evento, nota intacta e recovery; falha do INSERT do audit por trigger SQLite real reverteu DELETE e preservou draft. Pacote final verificado pelo IPC.
+
+Ao provar CSP, avaliação via debugger/CDP pode permitir eval que o produto nega; use o contexto nativo do renderer e confira a política empacotada. A versão PDF.js instalada removeu isEvalSupported; não recomendar a antiga opção por memória. corsEnabled em scheme não é autenticação/isolamento: só assets do app e sem conteúdo web não confiável nessa sessão. Para futuras superfícies, separar sessão/preload e reavaliar fronteiras antes de implementar.

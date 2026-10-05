@@ -1,0 +1,63 @@
+export type Result<T> = { ok: true; value: T } | { ok: false; code: string; message: string };
+export type AppInfo = { version: string; electron: string; node: string };
+export type Subject = { id: string; name: string; color: string };
+export type Bootstrap = { subjects: Subject[]; vault: string | null; activeSubjectId: string | null };
+export const idSchema = z.uuid();
+export const subjectInput = z.strictObject({ name: z.string().trim().min(1).max(120), color: z.enum(['sage', 'blue', 'rose', 'amber']) });
+export const renameInput = z.strictObject({ id: idSchema, name: z.string().trim().min(1).max(120) });
+export type NoteRef = { id: string; subjectId: string; path: string; title: string; hash: string; revision: number };
+export type NoteDocument = { ref: NoteRef; text: string; hash: string; draft: { text: string; baseHash: string } | null };
+export type SaveResult = { state: 'saved'; document: NoteDocument } | { state: 'conflict'; external: NoteDocument };
+export const subjectIdInput = z.strictObject({ subjectId: idSchema });
+export const noteIdInput = z.strictObject({ id: idSchema });
+export const createNoteInput = z.strictObject({ subjectId: idSchema, title: z.string().trim().min(1).max(160) });
+export const noteWriteInput = z.strictObject({ id: idSchema, text: z.string().max(2 * 1024 * 1024), hash: z.string().regex(/^[a-f0-9]{64}$/) });
+export type Material = { id: string; subjectId: string; name: string };
+export type Desk = { subjectId: string; noteId: string | null; materialId: string | null; page: number; split: number; tool: 'focus' | 'checklist' | 'none'; preview: boolean; nextStepId: string | null };
+export const deskInput = z.strictObject({ subjectId: idSchema, noteId: idSchema.nullable().optional(), materialId: idSchema.nullable().optional(), page: z.number().int().min(1).max(100000).optional(), split: z.number().int().min(30).max(75).optional(), tool: z.enum(['focus', 'checklist', 'none']).optional(), preview: z.boolean().optional(), nextStepId: idSchema.nullable().optional() });
+export const materialChoiceInput = z.strictObject({ subjectId: idSchema, replaceId: idSchema.optional() });
+export type FocusSession = { id: string; subjectId: string; durationMs: number; elapsedMs: number; state: 'running' | 'paused' | 'completed' | 'ended'; recovered: boolean };
+export type FocusState = { session: FocusSession | null; activeOwner: Subject | null };
+export const focusStartInput = z.strictObject({ subjectId: idSchema, minutes: z.number().int().min(1).max(480) });
+export const focusActionInput = z.strictObject({ subjectId: idSchema, id: idSchema, action: z.enum(['pause', 'resume', 'finish']) });
+export type Step = { id: string; taskId: string; text: string; done: boolean };
+export type StudyTask = { id: string; subjectId: string; text: string; steps: Step[] };
+export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().trim().min(1).max(200) });
+export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
+export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
+export interface DesktopApi {
+  version(): Promise<Result<AppInfo>>;
+  bootstrap(): Promise<Result<Bootstrap>>;
+  createSubject(input: z.infer<typeof subjectInput>): Promise<Result<Subject>>;
+  renameSubject(input: z.infer<typeof renameInput>): Promise<Result<Subject>>;
+  chooseVault(): Promise<Result<string | null>>;
+  listNotes(input: z.infer<typeof subjectIdInput>): Promise<Result<NoteRef[]>>;
+  createNote(input: z.infer<typeof createNoteInput>): Promise<Result<NoteDocument>>;
+  importNote(input: z.infer<typeof subjectIdInput>): Promise<Result<NoteDocument | null>>;
+  openNote(input: z.infer<typeof noteIdInput>): Promise<Result<NoteDocument>>;
+  saveNote(input: z.infer<typeof noteWriteInput>): Promise<Result<SaveResult>>;
+  recoverDraft(input: z.infer<typeof noteWriteInput>): Promise<Result<null>>;
+  discardDraft(input: z.infer<typeof noteIdInput>): Promise<Result<NoteDocument>>;
+  onBeforeClose(callback: () => void): () => void;
+  finishClose(): Promise<Result<null>>;
+  openDesk(input: z.infer<typeof subjectIdInput>): Promise<Result<Desk>>;
+  saveDesk(input: z.infer<typeof deskInput>): Promise<Result<Desk>>;
+  listMaterials(input: z.infer<typeof subjectIdInput>): Promise<Result<Material[]>>;
+  chooseMaterial(input: z.infer<typeof materialChoiceInput>): Promise<Result<Material | null>>;
+  readMaterial(input: z.infer<typeof noteIdInput>): Promise<Result<Uint8Array>>;
+  getFocus(input: z.infer<typeof subjectIdInput>): Promise<Result<FocusState>>;
+  startFocus(input: z.infer<typeof focusStartInput>): Promise<Result<FocusState>>;
+  actFocus(input: z.infer<typeof focusActionInput>): Promise<Result<FocusState>>;
+  onStorageError(callback: (message: string) => void): () => void;
+  listTasks(input: z.infer<typeof subjectIdInput>): Promise<Result<StudyTask[]>>;
+  createTask(input: z.infer<typeof taskInput>): Promise<Result<StudyTask>>;
+  createStep(input: z.infer<typeof stepInput>): Promise<Result<Step>>;
+  updateStep(input: z.infer<typeof stepUpdateInput>): Promise<Result<Step>>;
+}
+export class AppError extends Error {
+  constructor(public code: string, message: string) { super(message); }
+}
+export function empty(value: unknown) {
+  if (value !== undefined) throw new AppError('INVALID_ARGUMENT', 'Esta operação não recebe argumentos.');
+}
+import { z } from 'zod';

@@ -1,0 +1,13 @@
+import { spawn } from 'node:child_process';
+import electron from 'electron';
+import { createServer } from 'vite';
+const dev = process.argv.includes('--dev');
+await import('./build.mjs');
+const server = dev ? await createServer() : null;
+await server?.listen();
+const env = { ...process.env };
+delete env.ELECTRON_RUN_AS_NODE;
+if (dev) env.APP_DEV_URL = 'http://127.0.0.1:5173';
+const child = spawn(electron, ['.'], { stdio: 'inherit', env });
+child.on('exit', async code => { await server?.close(); process.exitCode = code ?? 1; });
+process.on('SIGINT', () => child.kill());
