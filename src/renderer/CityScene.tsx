@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { GameState } from '../shared/game';
+import { gsap } from 'gsap';
+import { Icon } from './Icon';
 
 export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
@@ -8,13 +10,15 @@ const PLACES: { id: Place; name: string; x: number; z: number }[] = [
   { id: 'mine', name: 'MINA', x: -10.3, z: -5.8 }, { id: 'forest', name: 'BOSQUE', x: -9.8, z: 7.6 },
   { id: 'mill', name: 'MOINHO', x: 4.4, z: 5.7 }, { id: 'plaza', name: 'PRAÇA', x: -3, z: 2.1 },
 ];
-export function CityScene({ state, selected, onSelect }: { state: GameState; selected: Place; onSelect(place: Place): void }) {
+export function CityScene({ state, selected, onSelect, active, onReady }: { state: GameState; selected: Place; active: boolean; onSelect(place: Place): void; onReady(): void }) {
   const host = useRef<HTMLDivElement>(null), labels = useRef<(HTMLButtonElement | null)[]>([]);
-  const live = useRef({ state, selected, onSelect }); live.current = { state, selected, onSelect };
+  const live = useRef({ state, selected, onSelect, active, onReady }); live.current = { state, selected, onSelect, active, onReady };
+  const focus = useRef((_place: Place) => {});
   const controls = useRef({ zoom: (_amount: number) => {}, reset: () => {} });
   const redraw = useRef(() => {});
   const [error, setError] = useState('');
-  useEffect(() => { redraw.current(); }, [state, selected]);
+  useEffect(() => { redraw.current(); }, [state, active]);
+  useEffect(() => { focus.current(selected); redraw.current(); }, [selected]);
   useEffect(() => {
     let stopped = false, cleanup = () => {};
     void Promise.all([import('three'), import('three/addons/controls/OrbitControls.js')]).then(([T, { OrbitControls }]) => {
@@ -22,16 +26,16 @@ export function CityScene({ state, selected, onSelect }: { state: GameState; sel
       const element = host.current;
       let renderer: InstanceType<typeof T.WebGLRenderer>;
       try { renderer = new T.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'low-power' }); }
-      catch { setError('O cenário 3D não pôde ser aberto. As ferramentas ao lado continuam disponíveis.'); return; }
+      catch { setError('O cenário 3D não pôde ser aberto. As ferramentas ao lado continuam disponíveis.'); live.current.onReady(); return; }
       renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
-      renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.22;
+      renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
       renderer.domElement.setAttribute('aria-label', 'Cidade isométrica, selecione um local pelos botões'); renderer.domElement.dataset.testid = 'city-canvas'; element.prepend(renderer.domElement);
       const scene = new T.Scene(); scene.background = new T.Color('#bacbc7');
       const camera = new T.OrthographicCamera(-24, 24, 15, -15, .1, 200); camera.position.set(28, 28, 34);
       const orbit = new OrbitControls(camera, renderer.domElement); orbit.target.set(0, .3, 0); orbit.enableRotate = false; orbit.enableDamping = false; orbit.minZoom = .75; orbit.maxZoom = 2.2; orbit.screenSpacePanning = true;
       orbit.mouseButtons = { LEFT: T.MOUSE.PAN, MIDDLE: T.MOUSE.DOLLY, RIGHT: T.MOUSE.PAN }; orbit.update();
-      scene.add(new T.HemisphereLight('#fff4d6', '#6a8890', 2.5));
-      const sun = new T.DirectionalLight('#ffe2b5', 4); sun.position.set(-12, 24, 12); sun.castShadow = true;
+      scene.add(new T.HemisphereLight('#fff4df', '#718a83', 1.9));
+      const sun = new T.DirectionalLight('#ffe3bd', 3.2); sun.position.set(-12, 24, 12); sun.castShadow = true;
       sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 65 }); sun.shadow.normalBias = .04; scene.add(sun);
       const geometries = new Set<InstanceType<typeof T.BufferGeometry>>(), materials = new Map<string, InstanceType<typeof T.MeshStandardMaterial>>();
       const unitBox = new T.BoxGeometry(1, 1, 1), sphere = new T.IcosahedronGeometry(1, 0), cone = new T.ConeGeometry(1, 1, 5), cylinder = new T.CylinderGeometry(1, 1, 1, 12); [unitBox, sphere, cone, cylinder].forEach(g => geometries.add(g));
@@ -84,6 +88,9 @@ export function CityScene({ state, selected, onSelect }: { state: GameState; sel
       const wheel = new T.Group(); wheel.position.set(0, 1, .8); engine.add(wheel);
       const wheelGeo = new T.TorusGeometry(.67, .12, 6, 20); geometries.add(wheelGeo); mesh(wheel, wheelGeo, '#dfba74', 0, 0, 0, 1, 1, 1);
       for (let i = 0; i < 6; i++) { const spoke = box(wheel, '#937950', 0, 0, 0, 1.2, .08, .09); spoke.rotation.z = i * Math.PI / 6; }
+      const upgrades = new T.Group(); engine.add(upgrades);
+      const upgradeParts: InstanceType<typeof T.Mesh>[] = [];
+      for (let i = 0; i < 10; i++) { const part = box(upgrades, i < 5 ? '#c8ab6f' : '#87a494', -.85 + (i % 5) * .42, .52 + Math.floor(i / 5) * .4, -.65, .23, .26, .23); upgradeParts.push(part); }
       // Fountain with still water and a small monument.
       const fountain = group(-3, .3); mesh(fountain, cylinder, '#b6b9a2', 0, .25, 0, .98, .5, .98); mesh(fountain, cylinder, '#77a8b5', 0, .53, 0, .81, .03, .81); mesh(fountain, cylinder, '#d3ceb0', 0, .85, 0, .17, 1.4, .17); mesh(fountain, sphere, '#e4d39e', 0, 1.58, 0, .32, .38, .32);
       // Farm beds use live crop state, not decorative balances.
@@ -129,34 +136,51 @@ export function CityScene({ state, selected, onSelect }: { state: GameState; sel
       PLACES.forEach(place => { const hit = new T.Mesh(unitBox, hitMaterial); hit.position.set(place.x, 1.3, place.z); hit.scale.set(3.5, 3, 3.5); hit.userData.place = place.id; scene.add(hit); hitTargets.push(hit); });
       const ray = new T.Raycaster(), pointer = new T.Vector2(); let down = { x: 0, y: 0 };
       function hit(event: PointerEvent) { const bounds = renderer.domElement.getBoundingClientRect(); pointer.set((event.clientX - bounds.left) / bounds.width * 2 - 1, -(event.clientY - bounds.top) / bounds.height * 2 + 1); ray.setFromCamera(pointer, camera); return ray.intersectObjects(hitTargets)[0]?.object.userData.place as Place | undefined; }
-      const pointerDown = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY }; };
+      const pointerDown = (e: PointerEvent) => { gsap.killTweensOf(cameraPose); down = { x: e.clientX, y: e.clientY }; };
       const pointerUp = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) < 6) { const place = hit(e); if (place) live.current.onSelect(place); } };
       const pointerMove = (e: PointerEvent) => { renderer.domElement.style.cursor = hit(e) ? 'pointer' : 'grab'; };
       renderer.domElement.addEventListener('pointerdown', pointerDown); renderer.domElement.addEventListener('pointerup', pointerUp); renderer.domElement.addEventListener('pointermove', pointerMove);
-      const reset = () => { camera.zoom = 1; camera.position.set(28, 28, 34); orbit.target.set(0, .3, 0); camera.updateProjectionMatrix(); orbit.update(); };
-      controls.current = { zoom: amount => { camera.zoom = Math.max(.75, Math.min(2.2, camera.zoom + amount)); camera.updateProjectionMatrix(); restart(); }, reset: () => { reset(); restart(); } };
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)'); let frame = 0, last = 0;
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)'); let frame = 0, last = 0, ready = false, animationTime = 0, lastAnimation = 0;
+      const cameraPose = { x: 0, z: 0, zoom: 1 };
+      const applyCamera = () => { orbit.target.set(cameraPose.x, .3, cameraPose.z); camera.position.set(28 + cameraPose.x, 28, 34 + cameraPose.z); camera.zoom = cameraPose.zoom; camera.updateProjectionMatrix(); orbit.update(); restart(); };
+      function moveCamera(x: number, z: number, zoom: number) {
+        gsap.killTweensOf(cameraPose);
+        Object.assign(cameraPose, { x: orbit.target.x, z: orbit.target.z, zoom: camera.zoom });
+        renderer.domElement.dataset.camera = reduced.matches ? 'idle' : 'moving';
+        if (reduced.matches) { Object.assign(cameraPose, { x, z, zoom }); applyCamera(); }
+        else gsap.to(cameraPose, { x, z, zoom, duration: .85, ease: 'power3.inOut', overwrite: true, onUpdate: applyCamera, onComplete: () => { renderer.domElement.dataset.camera = 'idle'; restart(); } });
+      }
+      focus.current = id => { const p = PLACES.find(v => v.id === id)!; moveCamera(p.x * .58, p.z * .58, 1.12); };
+      controls.current = { zoom: amount => moveCamera(orbit.target.x, orbit.target.z, Math.max(.75, Math.min(2.2, camera.zoom + amount))), reset: () => moveCamera(0, 0, 1) };
       function draw(now: number) {
         frame = 0;
-        if (!document.hidden && (reduced.matches || now - last >= 33)) {
+        if (live.current.active && !document.hidden && (reduced.matches || gsap.isTweening(cameraPose) || now - last >= 33)) {
           last = now; const { state: s, selected } = live.current; mill.visible = s.owned.includes('windmill'); millFoundation.visible = !mill.visible; cottage.visible = s.owned.includes('cottage'); lanterns.visible = s.owned.includes('lanterns');
           engine.scale.setScalar(1 + s.engine.level * .025);
-          if (!reduced.matches) { wheel.rotation.z = now * .0005; sails.rotation.z = now * .0002; boat.position.y = .24 + Math.sin(now * .001) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((now * .00023 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(now * .008 + i)) * .03; }); }
+          upgradeParts.forEach((part, i) => { part.visible = i < s.engine.level; });
+          const delta = lastAnimation ? Math.min(.05, (now - lastAnimation) / 1000) : 0; lastAnimation = now;
+          if (!reduced.matches) { animationTime += delta; wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
           renderer.render(scene, camera);
           PLACES.forEach((p, i) => { const projected = new T.Vector3(p.x, p.id === 'mine' ? 3.7 : 3, p.z).project(camera); const label = labels.current[i]; if (label) { label.style.left = `${(projected.x * .5 + .5) * element.clientWidth}px`; label.style.top = `${(-projected.y * .5 + .5) * element.clientHeight}px`; label.style.visibility = projected.x < -1 || projected.x > 1 || projected.y < -1 || projected.y > 1 ? 'hidden' : 'visible'; } });
           renderer.domElement.dataset.ready = 'true';
+          renderer.domElement.dataset.engineLevel = String(s.engine.level);
+          renderer.domElement.dataset.targetX = String(orbit.target.x); renderer.domElement.dataset.targetZ = String(orbit.target.z); renderer.domElement.dataset.zoom = String(camera.zoom);
+          if (!ready) { ready = true; live.current.onReady(); }
         }
-        if (!document.hidden && !reduced.matches) frame = requestAnimationFrame(draw);
+        if (live.current.active && !document.hidden && !reduced.matches) frame = requestAnimationFrame(draw);
       }
-      function restart() { cancelAnimationFrame(frame); frame = 0; if (!document.hidden) frame = requestAnimationFrame(draw); }
+      function restart() { if (!live.current.active || document.hidden) { cancelAnimationFrame(frame); frame = 0; lastAnimation = 0; gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; return; } if (!frame) frame = requestAnimationFrame(draw); }
       redraw.current = restart; orbit.addEventListener('change', restart);
       const observer = new ResizeObserver(() => { const width = Math.max(1, element.clientWidth), height = Math.max(1, element.clientHeight), aspect = width / height; camera.left = -15 * aspect; camera.right = 15 * aspect; camera.updateProjectionMatrix(); renderer.setSize(width, height); restart(); }); observer.observe(element);
-      document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', restart); restart();
-      cleanup = () => { redraw.current = () => {}; cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', restart); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
-    }).catch(() => { if (!stopped) setError('Não foi possível carregar o cenário.'); });
+      const stopForPreference = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; restart(); };
+      const stopForGesture = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; };
+      orbit.addEventListener('start', stopForGesture);
+      document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', stopForPreference); restart();
+      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
+    }).catch(() => { if (!stopped) { setError('Não foi possível carregar o cenário.'); live.current.onReady(); } });
     return () => { stopped = true; cleanup(); };
   }, []);
-  return <div className="city-map" ref={host}>{PLACES.map((p, i) => <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''}`} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`}><span/>{p.name}</button>)}<div className="city-camera"><button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}>+</button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}>−</button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}>⌖</button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
+  return <div className="city-map" ref={host}>{PLACES.map((p, i) => <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''}`} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`} title={p.name}><span/><b className="place-name">{p.name}</b></button>)}<div className="city-camera"><button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}><Icon kind="plus"/></button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}><Icon kind="minus"/></button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}><Icon kind="target"/></button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
 }

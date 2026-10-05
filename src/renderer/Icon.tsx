@@ -1,6 +1,22 @@
-type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table';
+export type Kind = 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit';
 export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
   const paths = {
+    edit: <path d="m4 16 12-12 4 4-12 12H4zM13 7l4 4M4 16l4 4"/>,
+    city: <path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-7h6v7M3 11l9-8 9 8"/>,
+    shop: <><path d="M4 10v11h16V10M3 4h18l1 6H2zM9 21v-7h6v7"/><path d="M7 4v6M12 4v6M17 4v6"/></>,
+    memory: <><rect x="3" y="4" width="8" height="16"/><rect x="13" y="4" width="8" height="16"/><path d="m5 12 2-3 2 3-2 3zm10 0 2-3 2 3-2 3z"/></>,
+    engine: <><path d="m9 3-1 3-3 1-2 4 2 2v4l4 2 3-1 3 1 4-2v-4l2-2-2-4-3-1-1-3z"/><circle cx="12" cy="12" r="4"/></>,
+    person: <><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></>,
+    coin: <><circle cx="12" cy="12" r="9"/><path d="m12 7 4 5-4 5-4-5z"/></>,
+    tree: <path d="m12 2 7 10h-4l5 6H4l5-6H5zM12 18v4"/>,
+    stone: <path d="m3 15 5-9 8-3 6 11-6 7-10-1zM8 6l4 7 10 1M12 13l4 8"/>,
+    chevron: <path d="m9 5 7 7-7 7"/>,
+    refresh: <><path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5"/></>,
+    plus: <path d="M12 4v16M4 12h16"/>, minus: <path d="M4 12h16"/>, close: <path d="m5 5 14 14M19 5 5 19"/>,
+    target: <><circle cx="12" cy="12" r="6"/><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/></>,
+    file: <path d="M5 3h9l5 5v13H5zM14 3v6h5"/>,
+    json: <path d="M9 3H7v7l-3 2 3 2v7h2m6-18h2v7l3 2-3 2v7h-2"/>,
+    image: <><rect x="3" y="3" width="18" height="18"/><circle cx="8" cy="8" r="2"/><path d="m3 17 5-5 4 4 4-6 5 7"/></>,
     orbit: <><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(-35 12 12)"/></>,
     note: <path d="M6 3h9l3 3v15H6zM14 3v5h4M9 12h6M9 16h5"/>,
     book: <path d="M3 5c4-1 7 0 9 2 2-2 5-3 9-2v15c-4-1-7 0-9 1-2-1-5-2-9-1zM12 7v14"/>,

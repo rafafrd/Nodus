@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { skillPosition, type GameState, type GameAction } from '../shared/game';
-export function Arcade({ state, busy, execute }: { state: GameState; busy: boolean; execute(action: GameAction): void }) {
+export function Arcade({ state, busy, execute, visible = true }: { visible?: boolean; state: GameState; busy: boolean; execute(action: GameAction): void }) {
   const [pace, setPace] = useState<'relaxed' | 'normal'>('relaxed'), [now, setNow] = useState(state.now);
   const clock = useRef({ server: state.now, received: performance.now() });
   useEffect(() => { clock.current = { server: state.now, received: performance.now() }; }, [state]);
-  useEffect(() => { let frame = 0; const tick = () => { setNow(clock.current.server + performance.now() - clock.current.received); frame = requestAnimationFrame(tick); }; frame = requestAnimationFrame(tick); return () => cancelAnimationFrame(frame); }, []);
+  useEffect(() => { if (!visible) return; let frame = 0; const tick = () => { setNow(clock.current.server + performance.now() - clock.current.received); frame = requestAnimationFrame(tick); }; frame = requestAnimationFrame(tick); return () => cancelAnimationFrame(frame); }, [visible]);
   const c = state.challenge, active = c?.status === 'active';
-  const live = useRef({ c, busy, execute }); live.current = { c, busy, execute };
-  useEffect(() => { const key = (e: KeyboardEvent) => { const { c, busy, execute } = live.current; if (!c || c.status !== 'active' || busy || e.repeat || (e.target instanceof HTMLElement && e.target.closest('input,select,textarea,[contenteditable]'))) return;
+  const live = useRef({ c, busy, execute, visible }); live.current = { c, busy, execute, visible };
+  useEffect(() => { const key = (e: KeyboardEvent) => { const { c, busy, execute, visible } = live.current; if (!visible || !c || c.status !== 'active' || busy || e.repeat || (e.target instanceof HTMLElement && e.target.closest('input,select,textarea,[contenteditable]'))) return;
     const k = e.key.toUpperCase(); if (c.kind === 'qte' && ['A', 'S', 'D', 'W'].includes(k)) { e.preventDefault(); execute({ kind: 'qte-input', challengeId: c.id, key: k as 'A' }); }
     if (c.kind === 'skillcheck' && e.code === 'Space') { e.preventDefault(); execute({ kind: 'skill-input', challengeId: c.id }); }
   }; window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key); }, []);

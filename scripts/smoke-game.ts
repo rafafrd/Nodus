@@ -83,7 +83,7 @@ for (let pass = 0; pass < 2; pass++) {
       await page.getByRole('button', { name: 'Mercado', exact: true }).click(); await page.getByRole('button', { name: 'Comprar Moinho', exact: true }).click(); await ready(page);
       assert.ok((await state(page)).owned.includes('windmill'));
       await solve(page, 'normal'); await solve(page, 'hard');
-      await page.getByRole('button', { name: 'Cidade', exact: true }).click(); await page.locator('canvas[data-ready=true]').waitFor(); await page.getByRole('button', { name: 'Visitar fazenda', exact: true }).click();
+      await page.getByRole('button', { name: 'Vila', exact: true }).click(); await page.locator('canvas[data-ready=true]').waitFor(); await page.getByRole('button', { name: 'Visitar fazenda', exact: true }).click();
       const due = Math.max(...(await state(page)).plots.map(p => p.readyAt));
       if (Date.now() < due) { console.log('Aguardando crescimento real dos cultivos.'); await page.waitForTimeout(Math.min(45000, due - Date.now() + 1100)); }
       for (let i = 1; i <= 4; i++) { await page.getByRole('button', { name: `Colher canteiro ${i}`, exact: true }).click(); await ready(page); }
@@ -97,7 +97,7 @@ for (let pass = 0; pass < 2; pass++) {
       const noRepeat = await page.evaluate(operationId => window.desktop.gameAction({ operationId, action: { kind: 'buy', item: 'windmill' } }), randomUUID()); assert.ok(!noRepeat.ok && noRepeat.code === 'ALREADY_OWNED');
       await page.getByRole('button', { name: 'Personagem', exact: true }).click(); await page.getByRole('button', { name: 'Aumentar Prática', exact: true }).click(); await page.getByRole('button', { name: 'Salvar build · grátis', exact: true }).click(); await ready(page); assert.equal((await state(page)).className, 'Explorador'); await shot(page, 'build');
       await page.getByRole('button', { name: 'Redistribuir todos os pontos', exact: true }).click(); await ready(page); assert.equal((await state(page)).className, 'Viajante');
-      await page.getByRole('button', { name: 'Cidade', exact: true }).click(); await page.locator('canvas[data-ready=true]').waitFor(); await page.getByRole('button', { name: 'Visitar mina', exact: true }).click();
+      await page.getByRole('button', { name: 'Vila', exact: true }).click(); await page.locator('canvas[data-ready=true]').waitFor(); await page.getByRole('button', { name: 'Visitar mina', exact: true }).click();
       const stock = (await state(page)).inventory.stone; await page.getByRole('button', { name: /Explorar mina/ }).click(); await ready(page); assert.equal((await state(page)).inventory.stone, stock + 2);
       await page.getByRole('button', { name: 'Visitar fazenda', exact: true }).click();
       await page.getByRole('combobox', { name: 'Tipo de cultivo' }).selectOption('carrot');

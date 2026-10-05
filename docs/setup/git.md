@@ -21,3 +21,5 @@ Um commit não aprova critérios pendentes. Push, criação de remoto e publica�
 ## Estado em 03/10/2026
 
 Repositório e origin já existentes; não inicializar novamente. Pedidos posteriores autorizaram pushes de MVP, feat/frontend e feat/game. GAM-02 usa feat/engine-explorer, derivada de 083bdc0, com commits por fase e push no final por pedido explícito. Não implica publicação de serviço/release nem operação nos repositórios do vault/projetos.
+
+UI-02 usa codex/smooth-ui, derivada de 0da34c7. O usuário autorizou outra branch, commits por fase e push no final; essa autorização não exige nova confirmação a cada checkpoint.

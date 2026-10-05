@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **feat/engine-explorer** reúne mesa, Vale Sereno, motor, desafios e Explorer com edição local.
+Guia da versão local Windows, atualizado em 03/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/smooth-ui** reúne mesa, Vale Sereno, motor, desafios e Explorer com edição local.
 
 ## 1. Abrir agora neste PC
 
@@ -38,7 +38,7 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch feat/engine-explorer https://github.com/rafafrd/Nodus.git
+git clone --branch codex/smooth-ui https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
@@ -90,7 +90,7 @@ O botão **Módulos** abre a grade com caderno, PDF e ferramentas. **Só caderno
 
 ## 5. Jogar em Vale Sereno
 
-Clique em **Seu mundo** na barra lateral. O jogo também funciona antes de criar matérias/vault. Ao entrar, o app preserva seu rascunho e pausa o foco ativo. Use **Voltar à mesa** para continuar os estudos; retome o foco quando quiser voltar a contar tempo.
+Clique em **Cidade** na barra fixa à esquerda. O jogo também funciona antes de criar matérias/vault. Ao entrar, o app preserva seu rascunho e pausa o foco ativo. Use **Voltar à mesa** para continuar os estudos; retome o foco quando quiser voltar a contar tempo.
 
 O perfil começa com **60 moedas, XP zero e quatro canteiros**. O progresso é local e compartilhado entre as matérias desse perfil.
 
@@ -112,7 +112,7 @@ O perfil começa com **60 moedas, XP zero e quatro canteiros**. O progresso é l
 | Casa do viajante | 120 | Sua casa junto à praça |
 | Luzes da vila | 50 | Lanternas nas ruas |
 
-Arraste o cenário para explorar e use a roda do mouse ou **+ / −** para aproximar/afastar. **⌖** centraliza a câmera. Os rótulos dos locais também funcionam como botões.
+Arraste o cenário para explorar e use a roda do mouse ou **+ / −** para aproximar/afastar. O botão de mira centraliza a câmera. Selecionar um local aproxima a câmera suavemente; arrastar ou usar a roda interrompe o deslocamento. Os nomes aparecem ao selecionar, passar o mouse ou usar foco de teclado. Os rótulos dos locais também funcionam como botões.
 
 ### Oficina: QTE e skillcheck
 
@@ -133,16 +133,18 @@ XP e moedas indicam progressão do jogo. O app não usa esses números como medi
 
 ## 6. Explorer: seus projetos e arquivos
 
-1. Clique em **Explorer** na barra lateral da mesa ou da cidade.
+1. Clique em **Explorer** na barra fixa à esquerda; ela também oferece **Estudos** e **Cidade** em todas as áreas.
 2. Use **Abrir pasta** ou **+** e escolha uma pasta de projeto no diálogo do Windows. Os projetos ficam na lista lateral, separados do vault de notas e do Git do app.
 3. Clique no nome do projeto e expanda as pastas. Clique em um arquivo para abrir uma aba. Pode manter arquivos de projetos diferentes abertos; o limite é12 abas/40 projetos.
 4. Edite e pressione **Ctrl+S** ou **Salvar**. Confira **Salvo no arquivo**: isso grava no arquivo real. Um ponto na aba indica edição pendente.
 5. Troque de aba/projeto/área ou feche normalmente: o rascunho fica no perfil e as abas são retomadas. **Rascunho recuperado** ainda não é arquivo salvo.
 6. Se outra ferramenta editar o arquivo, a edição limpa é atualizada; com texto pendente, aparece **Arquivo alterado fora do app**. Abra **Ver versão externa**, escolha **Usar arquivo externo** ou **Conservar minha edição para revisão**, revise e salve explicitamente.
 
+Arraste o separador ao lado da árvore para ajustar sua largura. Com foco no separador, **←/→** alteram 10 px e **Home/End** usam os limites; dois cliques voltam à largura inicial. Clique nas pastas do caminho acima do editor para revelá-las na árvore. TS/TSX/JS/JSX, JSON, HTML, CSS e Markdown têm cores de sintaxe; são texto, sem executar o arquivo.
+
 **↻** atualiza a árvore; **Estudos** volta à mesa e **Cidade** abre o jogo. Arquivos de texto UTF-8, inclusive BOM/CRLF, até1MiB são aceitos. Binários, junctions/links e metadados .git são bloqueados; node_modules não entra na árvore. Se o arquivo desaparecer, seu rascunho é preservado e Save fica indisponível até recuperar o arquivo no computador.
 
-Este incremento edita arquivos existentes como fonte. Criar/deletar arquivos, terminal, execução/preview HTML ou JS, Git de projetos e linguagem com autocomplete ficam para tickets posteriores. Alterações de arquivos geram cópias em project-recovery no perfil. Se ocorrer erro depois de gravar no disco, o app conserva o rascunho/backup; confira o arquivo antes de tentar de novo.
+Este incremento edita arquivos existentes como fonte. Criar/deletar arquivos, terminal, execução/preview HTML ou JS, Git de projetos e autocomplete de linguagem ficam para tickets posteriores. Alterações de arquivos geram cópias em project-recovery no perfil. Se ocorrer erro depois de gravar no disco, o app conserva o rascunho/backup; confira o arquivo antes de tentar de novo.
 
 ## 7. Dados, backup e perfil de teste
 
@@ -181,4 +183,6 @@ Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para 
 
 Se um comando falhar, registre a mensagem e a etapa. Preserve seu perfil/vault para diagnóstico. As provas desta entrega estão em [GAME](validation/GAME.md), [frontend](validation/FRONTEND.md) e [estado do projeto](status/ALPHA_STATE.md).
 
-Novos fluxos/provas: [ENGINE_EXPLORER](validation/ENGINE_EXPLORER.md); revisão dos documentos: [PRODUCT_DOCS](validation/PRODUCT_DOCS.md).
+A barra fixa troca áreas com transições curtas e conserva seus editores/contexto. As moedas animam até o saldo confirmado, e o ganho aparece junto do motor. Para reduzir movimento, desative **Efeitos de animação** em **Configurações → Acessibilidade → Efeitos visuais** do Windows 11, conforme o [Suporte Microsoft](https://support.microsoft.com/pt-br/accessibility/windows/make-it-easier-to-focus-on-tasks). O app remove animações decorativas, inclusive quando a preferência muda durante uma transição. Salvar não espera a animação terminar.
+
+Refinamento atual: [SMOOTH_UI](validation/SMOOTH_UI.md). Novos fluxos/provas: [ENGINE_EXPLORER](validation/ENGINE_EXPLORER.md); revisão dos documentos: [PRODUCT_DOCS](validation/PRODUCT_DOCS.md).

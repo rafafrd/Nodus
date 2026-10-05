@@ -134,3 +134,21 @@ Interface 1c6366a commitada. Novas jornadas, R1–R7 e jogo legado repetidos no 
 ### 03/10/2026 — GAM-02: Concluído
 
 Core 62dbd60, interface 1c6366a e documentação/auditoria 6e1a636 enviados para origin/feat/engine-explorer; push exit 0/upstream configurado. Stage documental de 37 arquivos/~75 KB passou Gitleaks sem achados, check-bootstrap/diff --check aprovados. C1–C8 registrados como aprovados, ticket movido para done/concluido e links/retomada atualizados. Fechamento do quadro é um commit documental separado. Build Windows/capturas permanecem locais, nenhum serviço/release publicado. Próxima ação humana: usar o guia e avaliar a build com perfil de teste; alpha integral continua parcial por editor externo/nuvem/R8.
+
+### 03/10/2026 — UI-02: Em andamento
+
+Pedido de aplicar as oito sugestões visuais, com esforço maior em transições suaves. Branch codex/smooth-ui parte de 0da34c7, working tree limpa antes da tarefa. Plano curto em UI-02: identidade/navegação, ciclos de transição/câmera, Explorer/feedback, provas Windows e checkpoint. Autorização anterior de commits/push por fase mantida; nenhuma publicação de serviço/release. Resultados novos ainda não verificados.
+
+### 03/10/2026 — UI-02: implementação/provas Windows
+
+Implementação 27bd358: oito sugestões aplicadas, maior esforço em retarget/cancelamento de área/painéis/câmera/superfícies, sem clonar documentos nem esperar animação para salvar. Rail fixo, SVG/legibilidade/superfícies, Explorer com sintaxe/caminho/largura e motor com feedback local. Typecheck, 18 testes e pacote Windows passaram. Jornada UI-02, engine/Explorer/QTE/skillcheck, R1–R7 e jogo legado passaram no pacote final identificado em SMOOTH_UI; produção passiva provada com 61 s fechado. Capturas/vídeo reais locais, fixtures de serviços sem mocks. Gitleaks stage 83,13KB exit 0. Auditoria independente/documentação/push em fechamento; C1–C7 aprovados, C8 pendente, ticket permanece doing. Nenhuma alteração de main/preload/schema ou publicação.
+
+### 03/10/2026 — UI-02: acabamento e audit
+
+Ajuste d50af65 restaura a amostra de moedas antes do primeiro paint; seis amostras reais do contador na jornada passaram, seguidas das regressões de engine/Explorer, estudos e jogo no mesmo pacote final. Novo ASAR/EXE em SMOOTH_UI; arquivos anteriores no relatório do auditor são históricos. Fonte independente aprovada com mitigações: freeze 4728… + suplemento f30de98c…, zero achado de código aberto, quatro testes próprios/probes/Gitleaks passados; tooling High mantém avaliação de precondições. Memória atualizada; Gitleaks do stage de acabamento 940 bytes exit 0. Documentação/links/push em fechamento, C8 ainda não verificado até envio.
+
+### 03/10/2026 — UI-02: concluído
+
+Implementação 27bd358, acabamento d50af65 e docs/audit b0060f1 enviados ao origin/codex/smooth-ui; push exit 0 e upstream configurado. C1–C8 aprovados; ticket movido para done/concluido e links/retomada atualizados. Stage documental 15 arquivos/45,46KB Gitleaks sem achados; fechamento do quadro em commit documental separado. Pacote/capturas/vídeo e perfis fictícios ficam locais/ignorados. Nenhum serviço/release publicado. Próxima ação humana: abrir a build com perfil de teste conforme o guia e conferir fluidez. Alpha integral permanece parcial por editor externo/nuvem/R8.
+
+Verificação final: audit-product-docs leu 71 arquivos; check-bootstrap aprovou 15 tickets/96 critérios/81 Markdown/242 links locais. As provas externas continuam pendentes; a verificação documental não as aprova.
