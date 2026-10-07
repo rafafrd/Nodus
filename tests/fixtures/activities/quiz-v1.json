@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "1.0",
+  "requestId": "11111111-1111-4111-8111-111111111111",
+  "materialSnapshotId": "22222222-2222-4222-8222-222222222222",
+  "title": "Fixture ilustrativa: HTTP e JavaScript",
+  "language": "pt-BR",
+  "difficulty": "medium",
+  "type": "quiz",
+  "items": [
+    {
+      "id": "q01",
+      "topic": "HTTP",
+      "question": "Qual código indica recurso não encontrado?",
+      "options": [
+        {
+          "id": "A",
+          "text": "200"
+        },
+        {
+          "id": "B",
+          "text": "404"
+        },
+        {
+          "id": "C",
+          "text": "500"
+        },
+        {
+          "id": "D",
+          "text": "301"
+        }
+      ],
+      "correctOptionId": "B",
+      "explanation": "404 informa que o recurso solicitado não foi encontrado.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q02",
+      "topic": "HTTP",
+      "question": "Qual código normalmente indica sucesso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "404"
+        },
+        {
+          "id": "B",
+          "text": "500"
+        },
+        {
+          "id": "C",
+          "text": "200"
+        },
+        {
+          "id": "D",
+          "text": "403"
+        }
+      ],
+      "correctOptionId": "C",
+      "explanation": "200 indica sucesso da solicitação.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q03",
+      "topic": "HTTP",
+      "question": "Qual código indica erro interno do servidor?",
+      "options": [
+        {
+          "id": "A",
+          "text": "500"
+        },
+        {
+          "id": "B",
+          "text": "201"
+        },
+        {
+          "id": "C",
+          "text": "200"
+        },
+        {
+          "id": "D",
+          "text": "301"
+        }
+      ],
+      "correctOptionId": "A",
+      "explanation": "500 indica falha interna do servidor.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q04",
+      "topic": "Métodos HTTP",
+      "question": "Qual método consulta um recurso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "POST"
+        },
+        {
+          "id": "B",
+          "text": "DELETE"
+        },
+        {
+          "id": "C",
+          "text": "PATCH"
+        },
+        {
+          "id": "D",
+          "text": "GET"
+        }
+      ],
+      "correctOptionId": "D",
+      "explanation": "GET solicita a representação de um recurso.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q05",
+      "topic": "Métodos HTTP",
+      "question": "Qual método envia dados para processamento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "GET"
+        },
+        {
+          "id": "B",
+          "text": "POST"
+        },
+        {
+          "id": "C",
+          "text": "HEAD"
+        },
+        {
+          "id": "D",
+          "text": "OPTIONS"
+        }
+      ],
+      "correctOptionId": "B",
+      "explanation": "POST envia dados ao recurso para processamento.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q06",
+      "topic": "JavaScript: const",
+      "question": "Qual operação é permitida em const itens = []?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Reatribuir itens = []."
+        },
+        {
+          "id": "B",
+          "text": "Declarar itens novamente."
+        },
+        {
+          "id": "C",
+          "text": "Executar itens.push(1)."
+        },
+        {
+          "id": "D",
+          "text": "Excluir o vínculo usando delete."
+        }
+      ],
+      "correctOptionId": "C",
+      "explanation": "const impede reatribuição, mas permite mutação do array.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q07",
+      "topic": "JavaScript: let",
+      "question": "Qual declaração admite reatribuição?",
+      "options": [
+        {
+          "id": "A",
+          "text": "let valor = 1"
+        },
+        {
+          "id": "B",
+          "text": "const valor = 1"
+        },
+        {
+          "id": "C",
+          "text": "const objeto = {}"
+        },
+        {
+          "id": "D",
+          "text": "const lista = []"
+        }
+      ],
+      "correctOptionId": "A",
+      "explanation": "Um vínculo declarado com let pode receber outro valor.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "q08",
+      "topic": "JSON",
+      "question": "Qual valor pode aparecer em JSON?",
+      "options": [
+        {
+          "id": "A",
+          "text": "undefined"
+        },
+        {
+          "id": "B",
+          "text": "Uma função"
+        },
+        {
+          "id": "C",
+          "text": "Um símbolo"
+        },
+        {
+          "id": "D",
+          "text": "null"
+        }
+      ],
+      "correctOptionId": "D",
+      "explanation": "null representa ausência de valor em JSON.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    },
+    {
+      "id": "q09",
+      "topic": "JSON",
+      "question": "Como são delimitadas strings em JSON?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Aspas simples"
+        },
+        {
+          "id": "B",
+          "text": "Aspas duplas"
+        },
+        {
+          "id": "C",
+          "text": "Crases"
+        },
+        {
+          "id": "D",
+          "text": "Parênteses"
+        }
+      ],
+      "correctOptionId": "B",
+      "explanation": "O formato JSON exige aspas duplas nas strings.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    },
+    {
+      "id": "q10",
+      "topic": "JavaScript: arrays",
+      "question": "O que push faz em um array?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ordena todos os itens"
+        },
+        {
+          "id": "B",
+          "text": "Remove todos os itens"
+        },
+        {
+          "id": "C",
+          "text": "Acrescenta um item ao final"
+        },
+        {
+          "id": "D",
+          "text": "Converte para JSON"
+        }
+      ],
+      "correctOptionId": "C",
+      "explanation": "push acrescenta elementos ao final do array.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    }
+  ]
+}

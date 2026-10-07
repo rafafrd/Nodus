@@ -4,6 +4,8 @@ Estado em 04/10/2026: Electron/React/TypeScript, editor assistido, SQLite, vault
 
 ## Estrutura proposta
 
+IA-01 acrescenta atividades manuais por IA externa: Zod4/JSON Schema compartilhado, parser estrito, seleção explícita e snapshots locais. StudyActivities no main transaciona importação/revisões/tentativas; Study.review continua responsável pelos cartões. PDF.js existente extrai páginas em sessão/BrowserWindow efêmeras sem IPC privilegiado e com rede negada. SQLite7 é aditivo; backups5/6/7 conservados. [Contrato](../contracts/study-activity-v1.md), [fluxo](../features/atividades-ia-externa.md), [ADR-0017](../adr/0017-atividades-ia-externa.md). Não há chamada automática de IA ou chave neste fluxo.
+
 NXT-01 usa schema5 aditivo, catálogo/Hoje/revisão/annotations no main e grafo Three.js sobre notas/relações reais. IPCs específicos guardados cobrem essas operações, export ampliado e snapshots locais. Backups em Documentos são dados privados; importação valida manifest/hash/schema/paths e restaura roots/perfil separados. Ativação usa fechamento/drafts e relaunch, sem trocar o perfil aberto silenciosamente. Decorações/ambiente são estado cosmético na economia existente. [ADR-0011](../adr/0011-expansao-estudo-local.md), [provas](../validation/STUDY_EXPANSION.md); nuvem/ALP-09 continua futura.
 
 Monólito modular com desktop e uma interface web complementar. Crie diretórios e abstrações quando o ticket precisar deles, evitando pacotes vazios para módulos futuros.
@@ -44,7 +46,7 @@ No MVP local, SQLite guarda matérias/estado local; Markdown fica no vault e PDF
 
 ## Próximas fronteiras
 
-IA/OpenRouter, agenda Google, notificações e execução/Git de projetos seguem o roadmap. Navegação e edição de projetos foram antecipadas em GAM-02. NXT-01 implementa grafo Three.js com relações manuais; extração automática de relações e IA continuam futuras. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
+IA integrada/OpenRouter, agenda Google, notificações e execução/Git de projetos seguem o roadmap. Navegação e edição de projetos foram antecipadas em GAM-02. NXT-01 implementa grafo Three.js com relações manuais; extração automática de relações e IA continuam futuras. Farm/loja/build têm um primeiro incremento local GAM-01; integração com notas e sincronização do jogo continuam futuras. Serviços locais continuam com Node; funções de nuvem devem respeitar seu runtime próprio. Não partilhe dependências de runtime no domínio apenas porque ambas usam TypeScript.
 
 Veja [modelo de dados](data-model.md), [SDD](../sdd.md), [ADRs](../adr/README.md) e [arquitetura completa de concepção](../planning/ARQUITETURA_APP_ESTUDOS.md).
 

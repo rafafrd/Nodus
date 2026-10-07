@@ -281,3 +281,8 @@ Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; p
 **Legado** aparece mais tarde. Confira a prévia, cancele para continuar ou confirme o novo ciclo. Reinicia saldo/unidades/melhorias temporárias/sinais ativos/motor e encerra Oficina ativa; conserva estudo, notas, materiais, projetos, XP, inventário, cultivos, mercado, Memória, skins, conquistas, sinais guardados e permanentes. Não exige prestígio para continuar usando o app.
 
 [Regras atuais](architecture/economy.md), [simulação e limites](decisions/deep-production-balance.md), [capturas e provas Windows](validation/DEEP_PRODUCTION.md). Missões semanais, coleções e platinums permanecem futuros.
+
+
+## Criar atividades em qualquer IA
+
+Na matéria, Prática → Criar questionário/Criar flashcards. Selecione fontes e dificuldade, prepare e copie o prompt. Cole na IA escolhida, importe o JSON por texto/arquivo e use Importar e começar. Erro oferece relatório e pedido de correção para a mesma conversa. Revisão → Atividades retoma pedidos/tentativas salvos. [Passo a passo e limites](features/atividades-ia-externa.md).

@@ -71,14 +71,14 @@ test('busca/Hoje/relações consultam entidades reais; foco pausado não acresce
         f.store.close();
     }
 });
-test('migração real v4 para v6 é aditiva e restart conserva cartões/vínculos sem reset', () => {
+test('migração real v4 para v7 é aditiva e restart conserva cartões/vínculos sem reset', () => {
     const f = fixture(5), original = fs.readFileSync(path.join(f.root, f.n.ref.path)); new Game(f.store); const game={coins:60};
     f.store.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; PRAGMA user_version=4;');
     f.store.close();
     const migrated = new Store(path.join(f.dir, 'data'));
     let id = '';
     try {
-        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 6);
+        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 7);
         assert.equal(new Game(migrated).get().coins, game.coins);
         assert.deepEqual(fs.readFileSync(path.join(f.root, f.n.ref.path)), original);
         id = new Study(migrated).create({ subjectId: f.a.id, noteId: f.n.ref.id, question: 'Persistir?', answer: 'Sim.', excerpt: '' }).id;

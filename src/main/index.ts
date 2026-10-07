@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, protocol, net, session, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, protocol, net, session, dialog, clipboard } from 'electron';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
@@ -23,6 +23,10 @@ import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos
 import { PdfExporter } from './pdf-export';
 import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
 import { Study } from './study';
+import { StudyActivities } from './study-activities';
+import { ActivitySources } from './activity-sources';
+import { extractPdfText } from './pdf-text-extraction';
+import { prepareActivityInput,requestRef,responseInput,activityRef,quizStartInput,quizAnswerInput,quizFinishInput,activityCardInput } from '../shared/study-activity';
 import { Annotations } from './annotations';
 import { Backups } from './backups';
 import { windowCommand } from '../shared/window';
@@ -44,6 +48,7 @@ let videos: Videos;
 let player: VideoPlayer;
 let pdfExporter: PdfExporter;
 let study: Study;
+let activities: StudyActivities;
 let annotations: Annotations;
 let backups: Backups;
 let relaunchProfile:string|null=null;
@@ -65,6 +70,21 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('activity:sources',subjectIdInput,input=>activities.sources.catalog(input.subjectId));
+  handle('activity:prepare',prepareActivityInput,input=>activities.prepare(input));
+  handle('activity:requests',subjectIdInput,input=>activities.requests(input.subjectId));
+  handle('activity:request',requestRef,input=>activities.request(input));
+  handle('activity:validate',responseInput,input=>activities.validate(input));
+  handle('activity:correction',responseInput,input=>activities.correction(input));
+  handle('activity:copy',requestRef.extend({mode:z.enum(['prompt','correction']),text:z.string().max(8*1024*1024).optional()}),async input=>{const prepared=activities.promptToCopy(input);await clipboard.writeText(prepared.text);if(await clipboard.readText()!==prepared.text)throw new AppError('CLIPBOARD_FAILED','Não foi possível confirmar a cópia. Use o texto disponível para copiar manualmente.');return {copied:true,short:prepared.short};});
+  handle('activity:import',responseInput,input=>activities.import(input));
+  handle('activity:list',subjectIdInput,input=>activities.list(input.subjectId));
+  handle('activity:cards',activityRef,input=>activities.cards(input));
+  handle('activity:rate',activityCardInput,input=>activities.rate(input));
+  handle('activity:reference',requestRef.extend({sourceId:z.string().min(1).max(120),chunkId:z.string().min(1).max(120)}),input=>activities.reference(input.subjectId,input.requestId,input.sourceId,input.chunkId));
+  handle('quiz:start',quizStartInput,input=>activities.start(input));
+  handle('quiz:answer',quizAnswerInput,input=>activities.answer(input));
+  handle('quiz:finish',quizFinishInput,input=>activities.finish(input));
   handle('window:get', z.undefined(), () => windowState());
   handle('window:command', windowCommand, ({ action }) => {
     if (action === 'minimize') window.minimize();
@@ -191,6 +211,7 @@ app.whenReady().then(() => {
   preferences = new UserPreferences(store); management = new AppManagementService(store);
   pdfExporter = new PdfExporter(store, vault);
   study = new Study(store);
+  activities = new StudyActivities(store,new ActivitySources(store,vault,desks,extractPdfText),study);
   videos = new Videos(store);
   annotations = new Annotations(store,desks,videos);
   backups = new Backups(store,()=>app.getPath('documents'));

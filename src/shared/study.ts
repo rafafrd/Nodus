@@ -19,7 +19,7 @@ export type StudyCatalog = {
         name: string;
     }[];
 };
-export const cardCreateInput = z.strictObject({ subjectId: id, noteId: id.nullable(), question: text(1000), answer: text(4000), excerpt: z.string().max(2000) });
+export const cardCreateInput = z.strictObject({ subjectId: id, noteId: id.nullable(), question: text(1000), answer: text(4000), excerpt: z.string().max(4000) });
 export const cardRefInput = z.strictObject({ subjectId: id, id });
 export const cardListInput = z.strictObject({ subjectId: id.optional() });
 export const cardReviewInput = z.strictObject({ subjectId: id, id, operationId: id, version: z.number().int().min(0), rating: z.enum(['again', 'hard', 'good', 'easy']) });

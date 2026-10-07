@@ -26,6 +26,21 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  activitySources(input:{subjectId:string}):Promise<Result<import('./study-activity').SourceStatus[]>>;
+  prepareActivity(input:z.input<typeof import('./study-activity').prepareActivityInput>):Promise<Result<import('./study-activity').ActivityRequest>>;
+  activityRequests(input:{subjectId:string}):Promise<Result<Omit<import('./study-activity').ActivityRequest,'packet'|'prompt'|'sourceSizes'>[]>>;
+  activityRequest(input:{subjectId:string;requestId:string}):Promise<Result<import('./study-activity').ActivityRequest>>;
+  validateActivity(input:z.infer<typeof import('./study-activity').responseInput>):Promise<Result<import('./study-activity').ValidationReport>>;
+  activityCorrection(input:z.infer<typeof import('./study-activity').responseInput>):Promise<Result<{text:string;short:boolean}>>;
+  copyActivityPrompt(input:{subjectId:string;requestId:string;mode:'prompt'|'correction';text?:string}):Promise<Result<{copied:boolean;short:boolean}>>;
+  importActivity(input:z.infer<typeof import('./study-activity').responseInput>):Promise<Result<{activity:import('./study-activity').ActivitySummary;existing:boolean}>>;
+  listActivities(input:{subjectId:string}):Promise<Result<import('./study-activity').ActivitySummary[]>>;
+  activityCards(input:z.infer<typeof import('./study-activity').activityRef>):Promise<Result<import('./study-activity').ActivityCard[]>>;
+  rateActivityCard(input:z.infer<typeof import('./study-activity').activityCardInput>):Promise<Result<import('./study').Flashcard>>;
+  activityReference(input:{subjectId:string;requestId:string;sourceId:string;chunkId:string}):Promise<Result<import('./study-activity').SourceContext>>;
+  startQuiz(input:z.input<typeof import('./study-activity').quizStartInput>):Promise<Result<import('./study-activity').QuizSession>>;
+  answerQuiz(input:z.infer<typeof import('./study-activity').quizAnswerInput>):Promise<Result<import('./study-activity').QuizSession>>;
+  finishQuiz(input:z.infer<typeof import('./study-activity').quizFinishInput>):Promise<Result<import('./study-activity').QuizSession>>;
   getWindowState(): Promise<Result<import('./window').WindowState>>;
   controlWindow(input: z.infer<typeof import('./window').windowCommand>): Promise<Result<import('./window').WindowState>>;
   onWindowState(callback: (state: import('./window').WindowState) => void): () => void;
