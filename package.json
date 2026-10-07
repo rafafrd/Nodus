@@ -30,6 +30,7 @@
     "test:editorial": "tsx scripts/smoke-editorial.ts --packaged",
     "test:city-progression": "tsx scripts/smoke-city-progression.ts --packaged",
     "test:clean-workspace": "tsx scripts/smoke-clean-workspace.ts",
+    "test:study-tabs": "tsx scripts/smoke-study-tabs.ts",
     "test:deep-economy": "tsx scripts/smoke-deep-economy.ts --packaged",
     "simulate:economy": "tsx scripts/simulate-economy.ts"
   },

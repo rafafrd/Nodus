@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-07T16:01:26.011Z",
+  "fixture": "Isolated synthetic study-tabs fixture via real vault/SQLite/IPC",
+  "checks": [
+    "Nove subitens laterais, nenhum seletor no topo; arraste real com prévia e teclado adicionam janelas; três painéis com esquerda inteira.",
+    "Grade 2×2, limite de quatro e foco sem duplicação; divisores por mouse/setas; viewport 1040×760; abas por clique/setas/Ctrl+T/W/Tab/1 e isolamento da composição.",
+    "Player oficial real carrega inline, não intercepta drag/resize e conserva o mesmo WebContents ao trocar de aba/PiP.",
+    "Reinício conserva abas/divisores/foco, PDF2, rascunhos de nota/projeto e foco pausado; todas as fontes intactas; movimento reduzido; nenhum pageerror."
+  ],
+  "beforeClose": {
+    "activeTabId": "00000000-0000-4000-8000-000000000001",
+    "tabs": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "panes": [
+          "study",
+          "pdf",
+          "video",
+          "graph"
+        ],
+        "focused": "graph",
+        "columnSplit": 56.277955271565496,
+        "rowSplit": 53.83693045563549
+      },
+      {
+        "id": "3dadc657-b5eb-4071-a107-52f2f387e62e",
+        "panes": [
+          "explorer"
+        ],
+        "focused": "explorer",
+        "columnSplit": 50,
+        "rowSplit": 50
+      }
+    ]
+  },
+  "geometry": [
+    {
+      "area": "study",
+      "x": 156,
+      "y": 74,
+      "width": 483.1875,
+      "height": 349.078125,
+      "right": 639.1875,
+      "bottom": 423.078125
+    },
+    {
+      "area": "pdf",
+      "x": 642.1875,
+      "y": 74,
+      "width": 397.796875,
+      "height": 349.078125,
+      "right": 1039.984375,
+      "bottom": 423.078125
+    },
+    {
+      "area": "video",
+      "x": 156,
+      "y": 426.078125,
+      "width": 483.1875,
+      "height": 301.90625,
+      "right": 639.1875,
+      "bottom": 727.984375
+    },
+    {
+      "area": "graph",
+      "x": 642.1875,
+      "y": 426.078125,
+      "width": 397.796875,
+      "height": 301.90625,
+      "right": 1039.984375,
+      "bottom": 727.984375
+    }
+  ],
+  "screenshots": [
+    "single.png",
+    "drag-preview.png",
+    "three.png",
+    "four.png",
+    "limit.png",
+    "resized.png",
+    "compact.png",
+    "tabs.png",
+    "player-drag.png",
+    "restart.png"
+  ],
+  "errors": []
+}

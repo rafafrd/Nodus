@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefO
 import { gsap } from 'gsap';
 import { formatAmount } from '../shared/amount';
 import { motionPreference } from './preferences';
+import { workspaceRects, type WorkspaceTab } from '../shared/workspace';
 
 export const motion = { enter: .46, exit: .24, panel: .32, ease: 'power3.out' };
 export function useReducedMotion() {
@@ -11,15 +12,15 @@ export function useReducedMotion() {
 }
 
 /** Only presentation layers overlap. The leaving layer is inert immediately. */
-export function AreaStage({ active, visible, sizes, children }: { active: string; visible?:readonly string[];sizes?:readonly number[];children: ReactNode }) {
+export function AreaStage({ active, layout, children }: { active: string; layout: WorkspaceTab; children: ReactNode }) {
   const host = useRef<HTMLDivElement>(null), previous = useRef(active);
   const reduced = useReducedMotion();
-  useLayoutEffect(()=>{const panes=visible??[active],weights=sizes??[100];Array.from(host.current!.children).forEach(element=>{const el=element as HTMLElement,index=panes.indexOf(el.dataset.area??'');if(index<0)return;el.style.left=`${weights.slice(0,index).reduce((a,b)=>a+b,0)}%`;el.style.right='auto';el.style.width=panes.length===1?'100%':`calc(${weights[index]}% - ${index===panes.length-1?0:6}px)`;});},[active,visible?.join(','),sizes?.join(',')]);
+  useLayoutEffect(()=>{const rectangles=workspaceRects(layout);Array.from(host.current!.children).forEach(element=>{const el=element as HTMLElement,index=layout.panes.indexOf(el.dataset.area as WorkspaceTab['focused']);if(index<0)return;const rect=rectangles[index];el.style.left=`${rect.left}%`;el.style.top=`${rect.top}%`;el.style.right='auto';el.style.bottom='auto';el.style.width=rect.width===100?'100%':`calc(${rect.width}% - ${rect.left===0?3:0}px)`;el.style.height=rect.height===100?'100%':`calc(${rect.height}% - ${rect.top===0?3:0}px)`;});},[layout.id,layout.panes.join(','),layout.columnSplit,layout.rowSplit]);
   useLayoutEffect(() => {
     const stage = host.current!;
     const layers = Array.from(stage.children) as HTMLElement[];
     const incoming = layers.find(el => el.dataset.area === active)!;
-    const shown=visible??[active];
+    const shown:readonly string[]=layout.panes;
     let observer: MutationObserver | null = null, timeline: gsap.core.Timeline | null = null;
     const direction = ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(active) >= ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(previous.current) ? 1 : -1;
     layers.forEach(el => { gsap.killTweensOf(el); el.inert = true; el.setAttribute('aria-hidden', 'true'); });
@@ -46,7 +47,7 @@ export function AreaStage({ active, visible, sizes, children }: { active: string
     if (ready() || ['study','pdf','video'].includes(active)) start();
     else { stage.dataset.motion = 'loading'; observer = new MutationObserver(() => { if (ready()) start(); }); observer.observe(incoming, { subtree: true, attributes: true, childList: true }); }
     return () => { observer?.disconnect(); timeline?.kill(); layers.forEach(el => gsap.killTweensOf(el)); };
-  }, [active, reduced,visible?.join(',')]);
+  }, [active, reduced,layout.id,layout.panes.join(',')]);
   return <div className="area-stage" ref={host} data-testid="area-stage">{children}</div>;
 }
 

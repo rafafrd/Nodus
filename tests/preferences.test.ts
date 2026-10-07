@@ -16,11 +16,11 @@ test('tema original anterior é conservado; principais persistem com rollback e 
     const legacy = { name:'Perfil anterior', theme:'olive', animations:false, photo:null };
     const raw = JSON.stringify(legacy); store.setSetting('preferences', raw);
     let prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout });
+    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
     assert.equal(store.setting('preferences'),raw, 'Leitura compatível não regrava o perfil');
     const ids = [randomUUID(),randomUUID()]; prefs.update({ theme:'editorial', featuredProjectIds:ids,editorialBackground:false });
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout });
+    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
     const before=store.setting('preferences');
     for(const featuredProjectIds of [['invalid'],[ids[0],ids[0]],Array.from({length:41},()=>randomUUID())]) {
       assert.throws(()=>prefs.update({featuredProjectIds})); assert.equal(store.setting('preferences'),before);
@@ -56,6 +56,27 @@ test('foto aceita somente bytes limitados e dimensões raster limitadas antes do
   const huge = Buffer.from(png); huge.writeUInt32BE(4096,16); huge.writeUInt32BE(4096,20); assert.throws(() => photoDimensions(huge));
   const zero = Buffer.from(png); zero.writeUInt32BE(0,16); assert.throws(() => photoDimensions(zero));
   const jpeg = Buffer.from([255,216,255,192,0,11,8,0,20,0,30,1,1,17,0,255,217]); assert.deepEqual(photoDimensions(jpeg),{width:30,height:20});
+});
+
+test('menu recolhido persiste junto das abas; argumentos inválidos e falha de audit conservam o estado', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/sidebar-preferences-')); let store = new Store(dir);
+  try {
+    let prefs = new UserPreferences(store);
+    prefs.update({sidebarCollapsed:true});
+    const tabs = structuredClone(prefs.get().workspaceTabs);
+    tabs.tabs[0].panes = ['study','pdf','graph']; tabs.tabs[0].columnSplit = 62;
+    prefs.update({workspaceTabs:tabs, name:'Perfil de teste'});
+    store.close(); store = new Store(dir); prefs = new UserPreferences(store);
+    assert.equal(prefs.get().sidebarCollapsed,true); assert.deepEqual(prefs.get().workspaceTabs,tabs);
+    const before = store.setting('preferences');
+    for (const sidebarCollapsed of ['true',1,null,undefined]) {
+      assert.throws(() => prefs.update({sidebarCollapsed} as never)); assert.equal(store.setting('preferences'),before);
+    }
+    store.db.exec("CREATE TRIGGER sidebar_fail BEFORE INSERT ON audit_events WHEN NEW.action='preferences.update' BEGIN SELECT RAISE(FAIL,'fixture'); END;");
+    assert.throws(() => prefs.update({sidebarCollapsed:false})); assert.equal(store.setting('preferences'),before);
+    store.db.exec('DROP TRIGGER sidebar_fail'); prefs.update({sidebarCollapsed:false});
+    assert.equal(prefs.get().sidebarCollapsed,false); assert.deepEqual(prefs.get().workspaceTabs,tabs); assert.equal(prefs.get().name,'Perfil de teste');
+  } finally { store.close(); }
 });
 test('gestão conta banco real e só resolve diretórios registrados, negando enum extra, arquivo e pasta ausente', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/preferences-management-')), store = new Store(dir), management = new AppManagementService(store);

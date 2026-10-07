@@ -1,5 +1,7 @@
 # Quadro de tarefas
 
+Incremento atual: [UI-06 — Menu lateral recolhível e indicador discreto](done/UI-06.md), concluído na branch codex/study-tabs/PR12. UI-05/GAM-04 preservados. [Prova Windows](../validation/SIDEBAR.md).
+
 Execução local da alpha iniciada em 02/10/2026; consulte os tickets e as evidências. Os diretórios são todo, doing e done; use os nomes exatos. Cada ID tem um único arquivo no quadro.
 
 ## Regra de movimentação

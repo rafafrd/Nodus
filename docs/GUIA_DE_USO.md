@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 06/10/2026. O executável ainda se chama **App Estudos**. A branch local **codex/clean-workspace** acrescenta áreas isoladas/divisão opcional, Oficina contínua e grafo fluido, preservando janela própria, fundo acessível, skins e economia progressiva ao tema Editorial e projetos principais/secundários à mesa, Vale Sereno, motor, desafios, Explorer, YouTube/cinema/PiP, configurações, exportação escura, busca, Hoje, revisão, grafo e cópias de segurança.
+Guia da versão local Windows, atualizado em 07/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/study-tabs** acrescenta navegação lateral, abas e grade de até quatro janelas, preservando o estudo local e a economia profunda do observatório, temas, janela própria, Oficina contínua, grafo, Explorer, YouTube/cinema/PiP, exportação e cópias de segurança.
 
 ## 1. Abrir agora neste PC
 
@@ -72,7 +72,13 @@ O app inicia com um módulo **Caderno**. Use **+ Matéria** para criar a matéri
 
 Crie **+ Nova nota**, escreva em **Editar** e abra **Formatação e ações** quando precisar dos controles de negrito, listas, código, tabela ou flashcard. **Leitura** ocupa o espaço do editor com a prévia. **Salvar** ou **Ctrl+S** grava no arquivo; confira **Salvo no arquivo**. Um rascunho recuperado continua separado da fonte até você salvar. A fonte Markdown conserva campos desconhecidos, fórmulas, referências e código; edição externa concorrente apresenta as versões para revisão.
 
-No topo, o seletor **Módulo** troca a área focada. A navegação à esquerda também troca essa área. **+ Módulo** abre uma área adicional, até três: Caderno, PDF, Vídeo, Hoje, Revisão, Grafo, Explorer, Cidade e Ajustes. Arraste a divisória para ajustar larguras; com foco nela, setas alteram 2%, Shift+seta altera 5%, Home equilibra o par. O mínimo é 20% da tela por área. O **×** fecha uma área; **Tela única** conserva a área focada. Módulos e larguras são retomados após reinício; abas/drafts/documentos permanecem ao recolher áreas.
+Todos os módulos ficam nos subitens do menu lateral: Caderno, PDF, Vídeo, Revisão, Grafo, Hoje, Explorer, Cidade e Ajustes. **Clique** deixa somente aquele módulo na aba atual, preservando outras abas. **Arraste para o espaço central** para acrescentar uma janela; a prévia mostra a divisão. O botão **+** do subitem aparece no hover/foco e oferece a mesma ação pelo teclado. Cada aba aceita até quatro módulos distintos; arrastar um já aberto apenas o foca.
+
+Use o botão **Recolher menu lateral**, à esquerda das abas, para esconder o menu inteiro e ampliar o espaço de trabalho. O mesmo botão **Expandir menu lateral** o reabre; Enter/Espaço também funcionam. A escolha fica salva ao reiniciar e não altera suas abas, janelas ou divisores. A linha ao lado de cada módulo aparece apenas no hover/foco, com espaço antes do ícone.
+
+No topo ficam as **abas de trabalho**, com **+** para criar e **×** para fechar. Cada aba conserva seus módulos, painel focado e divisores após reinício. Uma janela ocupa tudo; duas dividem em colunas; três usam esquerda inteira e dois à direita; quatro formam **2×2**. Arraste os divisores para ajustar largura/altura. Com foco no divisor, use setas, Shift+seta para 5% e Home para voltar a 50%; limites20–80%. O **×** do painel o fecha, e o ícone **Ampliar** o deixa sozinho na aba. Cabeçalhos e conteúdo se adaptam ao tamanho do painel.
+
+Atalhos: **Ctrl+T** cria uma aba; **Ctrl+W** fecha a atual, conservando pelo menos uma; **Ctrl+Tab/Shift+Ctrl+Tab** alternam; **Ctrl+1…8** selecionam pelo número e **Ctrl+9** vai à última. Na barra, setas/Home/End também selecionam. Até32abas locais. Composição/foco/tamanhos são independentes; matéria, nota, documento, player e estado interno dos módulos são compartilhados entre abas. Os rascunhos permanecem ao trocar ou fechar abas. [Decisão](adr/0016-abas-e-grade-de-estudo.md), [provas Windows](validation/STUDY_TABS.md).
 
 PDF e Vídeo são módulos próprios e podem ficar juntos do Caderno ou de qualquer outra área. Em **PDF → Abrir PDF**, escolha o material local; documento e página ficam associados à matéria. Caderno/PDF/Vídeo usam o mesmo contexto de matéria, escolhido em Acervo ou nos seletores dos materiais. Há uma instância de cada área; abrir duas matérias independentes em dois cadernos não faz parte deste incremento.
 

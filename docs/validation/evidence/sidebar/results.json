@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-07T16:30:06.521Z",
+  "checks": [
+    "Linha oculta em repouso; hover/foco visÃ­veis com 16px antes do Ã­cone.",
+    "Menu inteiro oculto, 188px liberados, reabertura por Enter/clique; duas abas e divisores conservados, trÃªs/quatro painÃ©is e viewport1040Ã—760.",
+    "Quatro temas, movimento reduzido, restart/PDF2 e fontes intactas; falha SQLite real conserva menu aberto e permite retry; nenhum pageerror."
+  ],
+  "line": {
+    "opacity": "1",
+    "gap": 16,
+    "top": 8
+  },
+  "expanded": {
+    "x": 188,
+    "width": 1252,
+    "right": 1440
+  },
+  "collapsed": {
+    "x": 0,
+    "width": 1440,
+    "right": 1440
+  },
+  "geometry": [
+    {
+      "area": "study",
+      "x": 0,
+      "width": 569,
+      "right": 569,
+      "bottom": 398
+    },
+    {
+      "area": "pdf",
+      "x": 572,
+      "width": 468,
+      "right": 1040,
+      "bottom": 398
+    },
+    {
+      "area": "video",
+      "x": 572,
+      "width": 468,
+      "right": 1040,
+      "bottom": 728
+    },
+    {
+      "area": "graph",
+      "x": 0,
+      "width": 569,
+      "right": 569,
+      "bottom": 728
+    }
+  ],
+  "beforeClose": {
+    "activeTabId": "00000000-0000-4000-8000-000000000001",
+    "tabs": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "panes": [
+          "study",
+          "pdf",
+          "graph",
+          "video"
+        ],
+        "focused": "video",
+        "columnSplit": 55,
+        "rowSplit": 50
+      },
+      {
+        "id": "2f412dc2-e690-4592-9de7-d74b850f3bb2",
+        "panes": [
+          "home"
+        ],
+        "focused": "home",
+        "columnSplit": 50,
+        "rowSplit": 50
+      }
+    ]
+  },
+  "screenshots": [
+    "expanded.png",
+    "hover.png",
+    "collapsed-three.png",
+    "compact-four.png",
+    "restart.png"
+  ],
+  "errors": []
+}

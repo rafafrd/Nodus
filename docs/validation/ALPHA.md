@@ -367,3 +367,26 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C6 | aprovado | Objetivo/detalhes e distrito103meshes em três skins, movimento reduzido, compacto sem overflow |
 | C7 | aprovado |52testes/typecheck/pacote201assets, deep-economy/skins/clean-workspace/Journey no mesmo pacote,3modelos/capturas inspecionadas |
 | C8 | aprovado | Bootstrap/diff/Gitleaks326,60KB sem achados; commit6d20ce7/push/upstream e [PR11](https://github.com/rafafrd/Nodus/pull/11) com3Mermaid/6badges/12prints/API verificados; docs/ADR/guia/quadro/retomada atualizados |
+
+## UI-05 — Abas e grade de estudo
+
+07/10/2026, branch codex/study-tabs, GAM-04 preservado. [Prova Windows](STUDY_TABS.md); C1–C6 concluídos.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Nove subitens; ausência do seletor/menu superior; clique muda somente a composição atual |
+| C2 | aprovado | Arraste real/MIME/preview; alternativa +/Enter; bloqueio da quinta e foco de módulo existente |
+| C3 | aprovado | Criação/seleção/fechamento/setas/atalhos; composição/foco/divisores independentes e restart |
+| C4 | aprovado | Três com esquerda inteira, quatro2×2; mouse/setas,1040×760 e container queries |
+| C5 | aprovado | Compatibilidade/rollback estritos; drafts/fontes/PDF2/foco; player oficial/guest/isolamento/crash/retry |
+| C6 | aprovado | [STUDY_TABS](STUDY_TABS.md):56testes/typecheck/pacote201assets;study-tabs/player/clean-workspace/JourneyR1–R7;10capturas, O-021/ADR/docs/guia/quadro/bootstrap conferidos |
+
+## UI-06 — Menu lateral recolhível
+
+07/10/2026, codex/study-tabs/PR12. [Prova Windows](SIDEBAR.md); C1–C3 concluídos.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Linha invisível em repouso, hover/foco com16px antes do ícone; arraste/clique/teclado preservados |
+| C2 | aprovado | Menu inteiro oculto,188px liberados, botão acessível/Enter/clique, persistência/restart/perfil antigo/rollback; abas/divisores/fontes/PDF2 conservados |
+| C3 | aprovado |10testes/typecheck/build/pacote201assets; smoke-sidebar e estudo/player oficial real; quatro temas/reduced motion/1040×760;5capturas inspecionadas, docs/ADR/guia atualizados |
