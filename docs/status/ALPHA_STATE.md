@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-07/10/2026: [DOC-01](../tasks/doing/DOC-01.md) em andamento na branch codex/readme-showcase de main/c95aabd. Atualizar README com funcionalidades integradas, galeria real, Mermaid/badges/tabelas e início Windows. IA externa apresentada como em revisão no PR13, conferido aberto/não integrado. Próxima ação: validar recursos e renderização, registrar provas e entregar documentação para main.
+07/10/2026: [DOC-01](../tasks/done/DOC-01.md) concluído na branch codex/readme-showcase de main/c95aabd. README atual com10prints/9badges/3Mermaid/12tabelas/divs compatíveis e início Windows. C1–C4 aprovados: catálogo/scripts/stack conferidos, API GFM/recursos200, página GitHub real com19imagens/3SVGs/5âncoras/1440×1000/430×932/claro-escuro e sem overflow global; [provas](../validation/README_SHOWCASE.md). e6d7e18/ff11163 enviados; [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main/draft=false/anexo no chat; diffs documentais/Gitleaks40,71KB e17,92KB/bootstrap aprovados. IA externa permanece em revisão no PR13, conferido aberto/não integrado. Próxima ação humana: revisar/integrar PR14; nenhuma fonte do app/release/merge alterada nesta entrega.
 
 07/10/2026: [UI-06](../tasks/done/UI-06.md) concluído na branch codex/study-tabs/PR12. Linha somente no hover/foco com16px antes do ícone; menu inteiro recolhível, botão para reabrir, escolha persistida e188px liberados.10testes/typecheck/build/pacote Windows201assets conferidos; smoke-sidebar/estudo/player oficial real aprovados no mesmo pacote,5capturas inspecionadas. Abas/divisores/PDF2/fontes/rollback e quatro temas conservados. [Provas](../validation/SIDEBAR.md). Implementação527ee7f enviada; PR12 atualizado com3Mermaid/4badges/15prints públicos200/API, bootstrap25tickets/166critérios/diff/Gitleaks91,71KB aprovados. PR11 integrado à main durante este incremento; diff de estudo/interface conferido sem arquivos src de jogo/economia. Nenhuma implementação restante; próxima ação: revisar PR12.
 
@@ -67,7 +67,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
 | UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 | UI-06 | done | Concluído | UI-05 | — |
-| DOC-01 | doing | Em andamento | UI-06, GAM-04 | C4 |
+| DOC-01 | done | Concluído | UI-06, GAM-04 | — |
 
 ## Checkpoints e atenção humana
 

@@ -48,4 +48,6 @@ O roteiro inicial abriu todos os details da página e acionou também os diálog
 
 ## Retomada
 
-C1–C3 aprovados pelos checks e apresentação real. C4 aguarda PR/checkpoint de fechamento. Nenhum build/teste funcional repetido: não há fonte/dependência/lockfile alterado. PR13 continua aberto/não integrado na reconferência; main permanece c95aabd. Próxima ação: abrir proposta documental para main e registrar a entrega.
+C1–C4 aprovados pelos checks, apresentação real e entrega Git. Nenhum build/teste funcional repetido: não há fonte/dependência/lockfile alterado. PR13 continua aberto/não integrado na reconferência; main permanece c95aabd. Commits e6d7e18/ff11163 enviados com upstream; [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main/draft=false e anexado ao chat. API confirmou head/body/base; proposta exclusivamente documental. Stage de prova17.922bytes/Gitleaks sem achados, bootstrap26tickets/170critérios/120Markdown/510links aprovado. O checkpoint de fechamento move DOC-01 para done e conserva README/assets já renderizados. Próxima ação humana: revisar/integrar PR14; nenhum merge/release realizado.
+
+Fechamento documental: bootstrap26tickets/170critérios/120Markdown/512links aprovado; diff cached/scan do stage final exclusivamente documental aprovados, sem segredos encontrados. README e recursos renderizados permanecem idênticos ao checkpoint visual.

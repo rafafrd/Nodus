@@ -1,8 +1,8 @@
 # Quadro de tarefas
 
-Incremento atual: [DOC-01 — README e demonstrações](doing/DOC-01.md), em andamento na branch codex/readme-showcase de main/c95aabd. Apenas documentação/apresentação; IA externa conserva status em revisão do PR13. Próxima ação: conferir renderização/links e publicar a proposta para main.
+Incremento atual: [DOC-01 — README e demonstrações](done/DOC-01.md), concluído na branch codex/readme-showcase de main/c95aabd. C1–C4 aprovados:10prints/9badges/3Mermaid/divs/12tabelas, recursos e apresentação GitHub real. e6d7e18/ff11163 enviados, [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main. Apenas documentação/apresentação; IA externa conserva status em revisão do PR13. Próxima ação humana: revisar/integrar PR14.
 
-Incremento atual: [UI-06 — Menu lateral recolhível e indicador discreto](done/UI-06.md), concluído na branch codex/study-tabs/PR12. UI-05/GAM-04 preservados. [Prova Windows](../validation/SIDEBAR.md).
+Incremento anterior: [UI-06 — Menu lateral recolhível e indicador discreto](done/UI-06.md), concluído na branch codex/study-tabs/PR12. UI-05/GAM-04 preservados. [Prova Windows](../validation/SIDEBAR.md).
 
 Execução local da alpha iniciada em 02/10/2026; consulte os tickets e as evidências. Os diretórios são todo, doing e done; use os nomes exatos. Cada ID tem um único arquivo no quadro.
 
@@ -41,7 +41,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 | ALP-09 | Primeiro espelho autenticado na nuvem | ALP-04 | [Abrir](todo/ALP-09.md) |
 | ALP-10 | Verificação do fluxo completo e recuperação | ALP-06, ALP-07, ALP-08, ALP-09 | [Abrir](doing/ALP-10.md) |
 | ALP-11 | Setup, decisões e retomada | ALP-01 | [Abrir](done/ALP-11.md) |
-| DOC-01 | README com funcionalidades, capturas e diagramas | UI-06, GAM-04 | [Abrir](doing/DOC-01.md) |
+| DOC-01 | README com funcionalidades, capturas e diagramas | UI-06, GAM-04 | [Abrir](done/DOC-01.md) |
 
 ALP-01 a ALP-10 seguem a sequência. ALP-11 consolida documentação e pode ser repetido após ALP-04 e no fim da alpha. Todos os tickets atualizam documentação durante a execução; ALP-11 não aprova automaticamente recursos pendentes.
 
