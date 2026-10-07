@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "requestId": "11111111-1111-4111-8111-111111111111",
+  "materialSnapshotId": "22222222-2222-4222-8222-222222222222",
+  "title": "Fixture ilustrativa: HTTP e JavaScript",
+  "language": "pt-BR",
+  "difficulty": "medium",
+  "type": "flashcards",
+  "items": [
+    {
+      "id": "f01",
+      "topic": "HTTP",
+      "front": "Qual código indica recurso não encontrado?",
+      "back": "404",
+      "explanation": "404 informa que o recurso solicitado não foi encontrado.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f02",
+      "topic": "HTTP",
+      "front": "Qual código normalmente indica sucesso?",
+      "back": "200",
+      "explanation": "200 indica sucesso da solicitação.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f03",
+      "topic": "HTTP",
+      "front": "Qual código indica erro interno do servidor?",
+      "back": "500",
+      "explanation": "500 indica falha interna do servidor.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f04",
+      "topic": "Métodos HTTP",
+      "front": "Qual método consulta um recurso?",
+      "back": "GET",
+      "explanation": "GET solicita a representação de um recurso.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f05",
+      "topic": "Métodos HTTP",
+      "front": "Qual método envia dados para processamento?",
+      "back": "POST",
+      "explanation": "POST envia dados ao recurso para processamento.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f06",
+      "topic": "JavaScript: const",
+      "front": "Qual operação é permitida em const itens = []?",
+      "back": "Executar itens.push(1).",
+      "explanation": "const impede reatribuição, mas permite mutação do array.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f07",
+      "topic": "JavaScript: let",
+      "front": "Qual declaração admite reatribuição?",
+      "back": "let valor = 1",
+      "explanation": "Um vínculo declarado com let pode receber outro valor.",
+      "provenance": {
+        "basis": "material",
+        "references": [
+          {
+            "sourceId": "note:33333333-3333-4333-8333-333333333333",
+            "chunkId": "c1"
+          }
+        ],
+        "supplement": null
+      }
+    },
+    {
+      "id": "f08",
+      "topic": "JSON",
+      "front": "Qual valor pode aparecer em JSON?",
+      "back": "null",
+      "explanation": "null representa ausência de valor em JSON.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    },
+    {
+      "id": "f09",
+      "topic": "JSON",
+      "front": "Como são delimitadas strings em JSON?",
+      "back": "Aspas duplas",
+      "explanation": "O formato JSON exige aspas duplas nas strings.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    },
+    {
+      "id": "f10",
+      "topic": "JavaScript: arrays",
+      "front": "O que push faz em um array?",
+      "back": "Acrescenta um item ao final",
+      "explanation": "push acrescenta elementos ao final do array.",
+      "provenance": {
+        "basis": "general_knowledge",
+        "references": [],
+        "supplement": "Detalhamento de JSON e arrays, relacionado aos tópicos selecionados."
+      }
+    }
+  ]
+}

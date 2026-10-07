@@ -46,7 +46,7 @@ test('migração v3 para v6 conserva bytes, rascunho, mesa e economia existentes
     new Game(store); const game={coins:60}; const desk = new Desks(store).get(a.id);
     // Produce a real v3 schema in the isolated fixture, never touch a user's DB.
     store.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; PRAGMA user_version=3;'); store.close(); store = new Store(path.join(dir, 'data'));
-    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 6);
+    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 7);
     assert.deepEqual(new Desks(store).get(a.id), desk); assert.deepEqual(fs.readFileSync(path.join(root, note.ref.path)), original);
     assert.equal(new Vault(store).open(note.ref.id).draft!.text, note.text + '\nRascunho'); assert.equal(new Game(store).get().coins, game.coins);
   } finally { store.close(); }

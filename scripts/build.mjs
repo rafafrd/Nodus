@@ -5,3 +5,6 @@ for (const folder of ['cmaps', 'standard_fonts']) await fs.cp(`node_modules/pdfj
 await build({ entryPoints: ['src/main/index.ts'], bundle: true, platform: 'node', format: 'cjs', external: ['electron'], outfile: 'dist/main.cjs' });
 await build({ entryPoints: ['src/preload/index.ts'], bundle: true, platform: 'node', format: 'cjs', external: ['electron'], outfile: 'dist/preload.cjs' });
 await viteBuild();
+await build({entryPoints:['src/renderer/pdf-text-extraction.ts'],bundle:true,platform:'browser',format:'iife',outfile:'dist/renderer/pdf-extraction.js'});
+await fs.copyFile('node_modules/pdfjs-dist/build/pdf.worker.min.mjs','dist/renderer/pdf-extraction-worker.mjs');
+await fs.writeFile('dist/renderer/pdf-extraction.html',`<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self'; connect-src 'self'; style-src 'none'"><script src="./pdf-extraction.js"></script>`);

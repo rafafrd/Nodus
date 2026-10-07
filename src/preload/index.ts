@@ -1,6 +1,21 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  activitySources: input=>ipcRenderer.invoke('activity:sources',input),
+  prepareActivity: input=>ipcRenderer.invoke('activity:prepare',input),
+  activityRequests: input=>ipcRenderer.invoke('activity:requests',input),
+  activityRequest: input=>ipcRenderer.invoke('activity:request',input),
+  validateActivity: input=>ipcRenderer.invoke('activity:validate',input),
+  activityCorrection: input=>ipcRenderer.invoke('activity:correction',input),
+  copyActivityPrompt: input=>ipcRenderer.invoke('activity:copy',input),
+  importActivity: input=>ipcRenderer.invoke('activity:import',input),
+  listActivities: input=>ipcRenderer.invoke('activity:list',input),
+  activityCards: input=>ipcRenderer.invoke('activity:cards',input),
+  rateActivityCard: input=>ipcRenderer.invoke('activity:rate',input),
+  activityReference: input=>ipcRenderer.invoke('activity:reference',input),
+  startQuiz: input=>ipcRenderer.invoke('quiz:start',input),
+  answerQuiz: input=>ipcRenderer.invoke('quiz:answer',input),
+  finishQuiz: input=>ipcRenderer.invoke('quiz:finish',input),
   getWindowState: () => ipcRenderer.invoke('window:get'),
   controlWindow: input => ipcRenderer.invoke('window:command', input),
   onWindowState: callback => { const listener = (_event: Electron.IpcRendererEvent, state: import('../shared/window').WindowState) => callback(state); ipcRenderer.on('window:state', listener); return () => ipcRenderer.removeListener('window:state', listener); },

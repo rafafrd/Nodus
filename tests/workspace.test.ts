@@ -34,7 +34,7 @@ test('leitura de perfil com três colunas antigas conserva dados e converte divi
     const prefs = new UserPreferences(store), current = prefs.get(), active = activeWorkspace(current.workspaceTabs);
     assert.equal(current.name, legacy.name); assert.equal(current.theme, 'olive'); assert.equal(current.animations, false);
     assert.deepEqual(active.panes, legacy.workspaceLayout.panes); assert.equal(active.columnSplit, 46); assert.ok(Math.abs(active.rowSplit - 26 / 54 * 100) < .0001);
-    assert.equal(store.setting('preferences'), raw); assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 6);
+    assert.equal(store.setting('preferences'), raw); assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 7);
   } finally { store.close(); }
 });
 

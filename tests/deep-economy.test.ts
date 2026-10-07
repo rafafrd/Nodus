@@ -94,7 +94,7 @@ test('SQLite v5→v6 conserva saldo/XP/ledger, ganho antigo de prestígio e hist
   const migrated=game.get();assert.equal(migrated.coins,123);assert.equal(migrated.xp,456);assert.equal(migrated.economy.prestigeGain,2);assert.ok(migrated.economy.upgrades.includes('pulse-1'));assert.equal(db.db.prepare('SELECT rule_version FROM game_ledger').get()!.rule_version,3);
   const old=game.act({operationId:randomUUID(),action:{kind:'prestige',expectedCycles:0,expectedGain:2}}).state;assert.equal(old.economy.prestige,2);assert.equal(old.economy.prestigeGain,0);assert.equal(old.xp,456);
   const huge='1'+'0'.repeat(100);db.db.prepare('UPDATE game_player SET coins=?').run(huge);game.act({operationId:randomUUID(),action:{kind:'engine-click'}});assert.equal(game.get().coins,add(huge,1));
-  const saved=game.get();db.close();db=new Store(dir);game=new Game(db,()=>1000000);assert.deepEqual(game.get(),saved);assert.equal(db.db.prepare('PRAGMA user_version').get()!.user_version,6);
+  const saved=game.get();db.close();db=new Store(dir);game=new Game(db,()=>1000000);assert.deepEqual(game.get(),saved);assert.equal(db.db.prepare('PRAGMA user_version').get()!.user_version,7);
   assert.equal(PRODUCERS.length,16);assert.equal(UPGRADES.length+PERMANENT.length,305);assert.equal(ACHIEVEMENTS.filter(a=>a.secret).length,20);assert.ok(ACHIEVEMENTS.filter(a=>!a.secret).length>=250);assert.equal(BALANCE.version,2);
  }finally{db.close();}
 });

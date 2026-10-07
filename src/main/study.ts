@@ -34,9 +34,10 @@ export class Study {
         this.store.requireSubject(subjectId); return this.store.db.prepare(`SELECT ${cardColumns} FROM flashcards ${subjectId ? 'WHERE subject_id=?' : ''} ORDER BY due_at,rowid`).all(...(subjectId ? [subjectId] : [])) as Flashcard[]; }
     private card(id: string, subjectId: string): Flashcard { const row = this.store.db.prepare(`SELECT ${cardColumns} FROM flashcards WHERE id=? AND subject_id=?`).get(id, subjectId) as Flashcard | undefined; if (!row)
         throw new AppError('INVALID_REFERENCE', 'Cartão não encontrado nesta matéria.'); return row; }
-    create(raw: z.infer<typeof cardCreateInput>) { const input = cardCreateInput.parse(raw); return this.store.transaction(() => { this.store.requireSubject(input.subjectId); if (input.noteId)
+    create(raw: z.infer<typeof cardCreateInput>) { return this.store.transaction(() => this.createInTransaction(raw)); }
+    createInTransaction(raw: z.infer<typeof cardCreateInput>) { const input = cardCreateInput.parse(raw); this.store.requireSubject(input.subjectId); if (input.noteId)
         this.requireNote(input.noteId, input.subjectId); if (Number(this.store.db.prepare('SELECT COUNT(*) n FROM flashcards').get()!.n) >= 5000)
-        throw new AppError('CARD_LIMIT', 'Limite de 5.000 cartões alcançado.'); const id = randomUUID(); this.store.db.prepare('INSERT INTO flashcards(id,subject_id,note_id,question,answer,excerpt,due_at) VALUES(?,?,?,?,?,?,?)').run(id, input.subjectId, input.noteId, input.question, input.answer, input.excerpt, this.now()); this.store.audit('card.create', id, 'ok'); return this.card(id, input.subjectId); }); }
+        throw new AppError('CARD_LIMIT', 'Limite de 5.000 cartões alcançado.'); const id = randomUUID(); this.store.db.prepare('INSERT INTO flashcards(id,subject_id,note_id,question,answer,excerpt,due_at) VALUES(?,?,?,?,?,?,?)').run(id, input.subjectId, input.noteId, input.question, input.answer, input.excerpt, this.now()); this.store.audit('card.create', id, 'ok'); return this.card(id, input.subjectId); }
     remove(input: {
         subjectId: string;
         id: string;

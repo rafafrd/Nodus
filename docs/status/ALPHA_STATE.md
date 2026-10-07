@@ -8,6 +8,8 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+07/10/2026: [IA-01](../tasks/done/IA-01.md) concluído na branch local codex/external-study-activities de f6d1a67. Seleção completa/prompt/correção manual/JSON1.0/importação/prática real; snapshots/pedidos/revisões e tentativas persistentes, SQLite7 aditivo/backup5–7. C1–C10 aprovados: typecheck/suíte inicial67/67/revisão final19/19/build/pacote Windows204assets idênticos/jornada real/três reaberturas/11capturas; O-022 corrigido. [Provas](../validation/atividades-ia-externa.md), [uso](../features/atividades-ia-externa.md), ADR17/docs/quadro atualizados. Nenhuma implementação restante nesta feature; próxima ação humana: Prática na matéria, copiar prompt para a IA escolhida e importar. Sem stage/commit/push/PR/publicação; integrações atuais e pendências externas da alpha preservadas.
+
 07/10/2026: [UI-06](../tasks/done/UI-06.md) concluído na branch codex/study-tabs/PR12. Linha somente no hover/foco com16px antes do ícone; menu inteiro recolhível, botão para reabrir, escolha persistida e188px liberados.10testes/typecheck/build/pacote Windows201assets conferidos; smoke-sidebar/estudo/player oficial real aprovados no mesmo pacote,5capturas inspecionadas. Abas/divisores/PDF2/fontes/rollback e quatro temas conservados. [Provas](../validation/SIDEBAR.md). Implementação527ee7f enviada; PR12 atualizado com3Mermaid/4badges/15prints públicos200/API, bootstrap25tickets/166critérios/diff/Gitleaks91,71KB aprovados. PR11 integrado à main durante este incremento; diff de estudo/interface conferido sem arquivos src de jogo/economia. Nenhuma implementação restante; próxima ação: revisar PR12.
 
 07/10/2026: [UI-05](../tasks/done/UI-05.md) concluído na nova branch codex/study-tabs de 8f6cbcb, GAM-04 preservado. Módulos laterais/clique único/arraste, abas locais e até quatro painéis em grade; três com esquerda inteira. C1–C6 aprovados:56testes/typecheck/build/pacote Windows201assets idênticos, study-tabs/YouTube real/clean-workspace/JourneyR1–R7;10capturas inspecionadas. Divisores/abas/foco/drafts/fontes/PDF2 e filas do jogo conservados, O-021 corrigido/verificado. [Provas e limites](../validation/STUDY_TABS.md). Implementação8352932 commitada/enviada com upstream; [PR12](https://github.com/rafafrd/Nodus/pull/12) aberto para main com2Mermaid/4badges/10prints públicos200 e anexo no chat; base PR11 aberta na criação, integrada à main durante UI-06. Bootstrap/diff/Gitleaks187,77KB sem achados; docs/ADR/guia/quadro/dados atualizados. Nenhuma implementação restante. Próxima ação humana: revisar PR12 e avaliar menu lateral/arraste/abas. Contexto de estudo compartilhado; alpha externa permanece parcial.
@@ -65,6 +67,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
 | UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 | UI-06 | done | Concluído | UI-05 | — |
+| IA-01 | done | Concluído | NXT-01, UI-06 | — |
 
 ## Checkpoints e atenção humana
 
@@ -76,4 +79,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [UI-06](../tasks/done/UI-06.md).
+Último ticket concluído: [IA-01](../tasks/done/IA-01.md).
