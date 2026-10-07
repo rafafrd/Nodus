@@ -8,6 +8,8 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+07/10/2026: [DOC-01](../tasks/doing/DOC-01.md) em andamento na branch codex/readme-showcase de main/c95aabd. Atualizar README com funcionalidades integradas, galeria real, Mermaid/badges/tabelas e início Windows. IA externa apresentada como em revisão no PR13, conferido aberto/não integrado. Próxima ação: validar recursos e renderização, registrar provas e entregar documentação para main.
+
 07/10/2026: [UI-06](../tasks/done/UI-06.md) concluído na branch codex/study-tabs/PR12. Linha somente no hover/foco com16px antes do ícone; menu inteiro recolhível, botão para reabrir, escolha persistida e188px liberados.10testes/typecheck/build/pacote Windows201assets conferidos; smoke-sidebar/estudo/player oficial real aprovados no mesmo pacote,5capturas inspecionadas. Abas/divisores/PDF2/fontes/rollback e quatro temas conservados. [Provas](../validation/SIDEBAR.md). Implementação527ee7f enviada; PR12 atualizado com3Mermaid/4badges/15prints públicos200/API, bootstrap25tickets/166critérios/diff/Gitleaks91,71KB aprovados. PR11 integrado à main durante este incremento; diff de estudo/interface conferido sem arquivos src de jogo/economia. Nenhuma implementação restante; próxima ação: revisar PR12.
 
 07/10/2026: [UI-05](../tasks/done/UI-05.md) concluído na nova branch codex/study-tabs de 8f6cbcb, GAM-04 preservado. Módulos laterais/clique único/arraste, abas locais e até quatro painéis em grade; três com esquerda inteira. C1–C6 aprovados:56testes/typecheck/build/pacote Windows201assets idênticos, study-tabs/YouTube real/clean-workspace/JourneyR1–R7;10capturas inspecionadas. Divisores/abas/foco/drafts/fontes/PDF2 e filas do jogo conservados, O-021 corrigido/verificado. [Provas e limites](../validation/STUDY_TABS.md). Implementação8352932 commitada/enviada com upstream; [PR12](https://github.com/rafafrd/Nodus/pull/12) aberto para main com2Mermaid/4badges/10prints públicos200 e anexo no chat; base PR11 aberta na criação, integrada à main durante UI-06. Bootstrap/diff/Gitleaks187,77KB sem achados; docs/ADR/guia/quadro/dados atualizados. Nenhuma implementação restante. Próxima ação humana: revisar PR12 e avaliar menu lateral/arraste/abas. Contexto de estudo compartilhado; alpha externa permanece parcial.
@@ -65,6 +67,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
 | UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 | UI-06 | done | Concluído | UI-05 | — |
+| DOC-01 | doing | Em andamento | UI-06, GAM-04 | C1, C2, C3, C4 |
 
 ## Checkpoints e atenção humana
 

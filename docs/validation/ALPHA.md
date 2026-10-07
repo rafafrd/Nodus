@@ -1,5 +1,14 @@
 # Validação da aplicação alpha
 
+## DOC-01 — README e demonstrações
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | não verificado | Conteúdo preparado; conferência final pendente |
+| C2 | não verificado | Capturas existentes inspecionadas; recursos pendentes |
+| C3 | não verificado | Renderização GitHub/Mermaid pendente |
+| C4 | não verificado | Scripts e entrega Git pendentes |
+
 Execução real do MVP local em 02/10/2026. Resultados atuais e histórico por critério abaixo; provas externas permanecem não verificadas. Validação do pacote documental está em BOOTSTRAP.md e não aprova a aplicação.
 
 Para cada execução, registre data, sistema, versão/build, fixture/conta, comando ou roteiro, resultado observado e evidência. Use aprovado, falhou ou não verificado. Registre limitações Windows, serviços reais e consulta com PC desligado separadamente.
