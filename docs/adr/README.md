@@ -22,4 +22,6 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0015](0015-producao-declarativa.md) | Engine/conteúdo/configuração, números grandes e estudo conectado | Aceita para GAM-04 |
 | [0016](0016-abas-e-grade-de-estudo.md) | Módulos laterais, abas locais e até quatro painéis em grade | Aceita para UI-05 |
 
+| [0017](0017-atividades-ia-externa.md) | Intercâmbio manual versionado, snapshots e prática real por IA externa | Aceita para IA-01 |
+
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.

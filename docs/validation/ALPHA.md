@@ -399,3 +399,23 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C1 | aprovado | Linha invisível em repouso, hover/foco com16px antes do ícone; arraste/clique/teclado preservados |
 | C2 | aprovado | Menu inteiro oculto,188px liberados, botão acessível/Enter/clique, persistência/restart/perfil antigo/rollback; abas/divisores/fontes/PDF2 conservados |
 | C3 | aprovado |10testes/typecheck/build/pacote201assets; smoke-sidebar e estudo/player oficial real; quatro temas/reduced motion/1040×760;5capturas inspecionadas, docs/ADR/guia atualizados |
+
+
+## IA-01 — Atividades por IA externa
+
+Entrega Git posterior por pedido explícito: implementação6396e32 enviada, [PR #13](https://github.com/rafafrd/Nodus/pull/13) aberto para main com3Mermaid/6badges/11prints públicos conferidos. Gitleaks272,64KB/diff/bootstrap aprovados; fontes do pacote conservadas, sem release/serviço/merge. Checkpoint e prova em [atividades-ia-externa](atividades-ia-externa.md).
+
+07/10/2026, codex/external-study-activities local, de f6d1a67. [Prova completa](atividades-ia-externa.md); C1–C10 entregues, sem push/publicação.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Duas notas/PDF3páginas/anotação42s da mesma matéria, hashes/blocos/locais e conteúdo integral; fonte de outra matéria excluída |
+| C2 | aprovado | Clipboard Windows confirmado depois do await, falha sem confirmação falsa/alternativa manual; três reaberturas preservam pedido/snapshot/original |
+| C3 | aprovado | Tamanho completo/default100.000/configuração;2.000bloqueia e lista maiores fontes sem corte |
+| C4 | aprovado | Quiz e flashcards por colagem/arquivo, mesmo contrato/serviço, importação/prática real Windows |
+| C5 | aprovado |15testes específicos cobrem rejeições exigidas e limites, sem coerção/heurística; caminhos precisos |
+| C6 | aprovado | Syntax linha/coluna real, relatório/contrato/metadados/original no pedido de correção; orçamento curto explícito e revalidação integral |
+| C7 | aprovado | Complemento identificado, contexto congelado/PDF2 abre leitor; fonte alterada/ausente conserva trecho; tema insuficiente rejeitado |
+| C8 | aprovado | Hash/replay sem duplicata, revisão conserva resultado; triggers reais de falha/optimistic version/rollback sem atividade parcial |
+| C9 | aprovado | Quiz retomado2/10, final10/10/100%/10explicações;10cartões/revelação/autoavaliação/restart, biblioteca existente recarregada; importação sem prêmio |
+| C10 | aprovado | Zero pageerror/HTTP(S) no renderer, HTML inerte/nove canais negados a sender externo; typecheck/67+19testes/build/pacote204assets/11capturas/docs/O-022 aprovados |

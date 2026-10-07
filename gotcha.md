@@ -209,3 +209,8 @@ Captura Windows de8h mostrava limite offline embora abaixo de7dias: delta>elapse
 ## O-021 — Grafo conservava largura intrínseca ao voltar de aba ampliada (UI-05,07/10/2026)
 
 Corrigido e verificado no executável Windows. A primeira captura study-tabs-tabs.png mostrou cabeçalho/canvas do Grafo além do painel após abrir Grafo sozinho, fechar a aba e reconstruir quatro janelas. A coluna implícita da grade do Grafo assumia a largura intrínseca do canvas anterior. workspace.css agora define minmax(0,1fr) e min-width:0 no layout. O roteiro final mede controles/canvas dentro do painel nesse retorno, e a captura final foi inspecionada com ambos visíveis e grafo centralizado. [Evidência](docs/validation/STUDY_TABS.md).
+
+
+## O-022 — Texto externo longo sem espaços transbordava a área de prática (IA-01,07/10/2026)
+
+Observado na captura Windows ao exercitar explicação válida de4.000caracteres sem espaços: o parágrafo excedia a largura da área e deslocava horizontalmente o conteúdo. Corrigido com overflow-wrap:anywhere e min-width:0 na prática/opções, conservando todos os caracteres. A jornada final mede scrollWidth/clientWidth durante a revelação, e valida1040×760 dividido com PDF; capturas finais inspecionadas. [Prova](docs/validation/atividades-ia-externa.md). Nenhuma pendência.

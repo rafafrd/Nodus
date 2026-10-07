@@ -3,6 +3,7 @@
 Incremento atual: [DOC-01 — README e demonstrações](done/DOC-01.md), concluído na branch codex/readme-showcase de main/c95aabd. C1–C4 aprovados:10prints/9badges/3Mermaid/divs/12tabelas, recursos e apresentação GitHub real. e6d7e18/ff11163 enviados, [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main. Apenas documentação/apresentação; IA externa conserva status em revisão do PR13. Próxima ação humana: revisar/integrar PR14.
 
 Incremento anterior: [UI-06 — Menu lateral recolhível e indicador discreto](done/UI-06.md), concluído na branch codex/study-tabs/PR12. UI-05/GAM-04 preservados. [Prova Windows](../validation/SIDEBAR.md).
+Incremento atual: [IA-01 — Atividades por IA externa](done/IA-01.md), concluído na branch codex/external-study-activities. Fluxo completo de fontes/prompt/correção/importação/prática com snapshots/revisões persistentes; C1–C10 aprovados em [prova Windows](../validation/atividades-ia-externa.md). Após pedido posterior, implementação6396e32 enviada e [PR #13](https://github.com/rafafrd/Nodus/pull/13) aberto para main com11prints/3Mermaid/6badges. Próxima ação: revisão humana do PR; nenhuma release/serviço publicado. UI-06/UI-05/GAM-04 preservados.
 
 Execução local da alpha iniciada em 02/10/2026; consulte os tickets e as evidências. Os diretórios são todo, doing e done; use os nomes exatos. Cada ID tem um único arquivo no quadro.
 

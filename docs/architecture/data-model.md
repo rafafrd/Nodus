@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 07/10/2026: schema v6 real em src/main/store.ts; contratos em src/shared/contracts.ts, game/projects/videos/study/backup. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist, revisão e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 07/10/2026: schema v7 real em src/main/store.ts; contratos em src/shared/contracts.ts, game/projects/videos/study/study-activity/backup. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist, revisão e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -61,3 +61,16 @@ UI-05 acrescenta workspaceTabs: UUID ativo,1–32abas com UUIDs únicos;1–4mó
 GAM-04 migra v5→v6 transacionalmente: game_player.coins e game_ledger.coins passam a TEXT, conservando IDs/saldo/XP/JSON/origens/at/rule_version. economic_receipts guarda elegibilidade, consumo e créditos por fonte única. Novos créditos usam rule_version4; fontes anteriores conservam versão. Histórico acadêmico vira baseline, sem repetir recompensas antigas. Validação de backup aceita schema5/6 antes de migrar a cópia restaurada. [Economia e fórmulas](economy.md).
 
 UI-06 acrescenta `settings.preferences.sidebarCollapsed`, booleano com default false para perfis anteriores. Update/audit usam a mesma transação e fila do provider; leitura não regrava JSON legado, abas/divisores permanecem e falha conserva o estado. O menu oculto sai da navegação por teclado/leitor de tela; botão de reabertura permanece na barra de abas. [Prova Windows](../validation/SIDEBAR.md).
+
+
+## IA-01 — Snapshot e atividade local (schema7)
+
+| Tabela | Conteúdo e vínculo |
+| --- | --- |
+| activity_snapshots | ID/matéria/pacote JSON imutável/criação; apenas fontes selecionadas/hash/blocos |
+| activity_requests | ID/matéria/snapshot/tipo/dificuldade/prompt/limite/data; resposta em rascunho separado |
+| study_activities | Pedido/hash canônico/payload/tipo/título/revisão/data; unicidade pedido+hash |
+| activity_cards | Atividade/item/cartão Study; remoção de cartão conserva payload/proveniência |
+| quiz_sessions | Atividade/escolhas/versão/início/fim; guarda tentativas anteriores |
+
+Migração7 adiciona tabelas sem reset. Importação inclui atividade,10cartões e audit na mesma transação. Resposta inválida pode permanecer como rascunho do pedido, nunca como atividade pronta. Conteúdo diferente cria revisão distinta; replay encontra a mesma atividade. Sessões exigem vínculo da matéria/versão e só expõem gabarito após finalizar. O limite do trecho/explicação no contrato existente de cartões passa de2.000para4.000caracteres para preservar atividades válidas; o agendamento/economia permanecem iguais. Backup manifest usa user_version real e aceita5/6/7. [Contrato](../contracts/study-activity-v1.md).

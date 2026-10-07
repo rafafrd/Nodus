@@ -1,6 +1,6 @@
 # SDD — especificação de implementação da alpha
 
-Versão: 0.4, 04/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v5 em src/main/store.ts. Snapshot na nuvem/ALP-09 permanece futuro; cópia/restauração local NXT-01 é descrita abaixo. Base: PRD, arquitetura e backlog original.
+Versão: 0.5, 07/10/2026. Núcleo local implementado: contratos reais em src/shared/contracts.ts, operações em main/preload e schema v7 em src/main/store.ts. Snapshot na nuvem/ALP-09 permanece futuro; cópia/restauração local NXT-01 é descrita abaixo. Base: PRD, arquitetura e backlog original.
 
 ## Escopo verificável
 
@@ -91,3 +91,8 @@ Provider lê antes da mesa, confirma após IPC e aplica CSS datasets; tema não 
 GAM-03 amplia o incremento local com faixa própria/IPC de janela, efeito Editorial de baixo movimento com preferência independente e sistema de skins geográficas. Economia incremental permanece no Game/main: produtores/tecnologias/conquistas/prestígio com reset parcial confirmado, liquidação por taxa anterior e histórico preservado. Oficina nova tem36 etapas/três fases/pausa e usa tempo recebido no main; partidas legadas não são resetadas. [ADR-0013](adr/0013-cidade-progressiva-e-janela.md), [regras](decisions/city-progression.md).
 
 UI-04 usa shared/workspace e preferences existentes para layout global (áreas únicas/pesos), sem migration. AreaStage pode manter até três áreas visíveis; cada modelo/editor/player permanece único. WorkspaceFrame controla foco/divisores, SuspendedTools revela foco/checklist. Atalhos de nota/projeto/QTE seguem a área focada. GameView enfileira cliques e registra flush no fechamento; Game não aplica cooldown do motor e prepara somente etapa0 da Oficina. GraphScene separa cena/forças/câmera dos dados de GraphWorkspace. [ADR-0014](adr/0014-areas-isoladas.md).
+
+
+## IA-01 — Atividades de intercâmbio manual
+
+activity:sources/prepare/requests/request/validate/correction/copy/import/list/cards/rate/reference e quiz:start/answer/finish usam contratos específicos, sender/mainFrame/origem autorizados e Zod estrito. Não há canal de filesystem genérico nem provedor automático. Pacote completo da seleção/PDF.js local → clipboard confirmado → validação compartilhada colagem/arquivo → transação SQLite7 → prática real. Snapshots/pedidos/revisões e tentativas persistem; cartões usam Study.review. [Contrato1.0](contracts/study-activity-v1.md), [ADR-0017](adr/0017-atividades-ia-externa.md), [uso](features/atividades-ia-externa.md), [provas](validation/atividades-ia-externa.md).
