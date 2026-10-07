@@ -263,3 +263,15 @@ Grafo abre o cenário inteiro, com lista/relações recolhidas. Arraste para exp
 A Cidade usa espaços próprios para Motor, Produção, Mercado, Memória, Oficina e Personagem; detalhes de fazenda/mina/bosque/moinho/praça aparecem ao escolher um local e podem ser recolhidos. Movimento reduzido mantém feedback textual dos cliques e o timing essencial dos desafios; **Pausar partida** continua necessário antes de ocultar a Oficina.
 
 [Decisão de áreas](adr/0014-areas-isoladas.md), [provas e limites](validation/CLEAN_WORKSPACE.md). Alterações locais sem commit/push/publicação.
+
+## 13. Produção conectada ao estudo
+
+As quantidades e preços econômicos da seção11 são históricos de GAM-03. Agora, em **Cidade → Produção**, use **Instalações** para comprar×1/×10/×100/MAX entre16famílias. A próxima descoberta fica visível; **Produção e conexões** abre taxa/participação/marcos/parceiros, e **Por que produzo…** explica os multiplicadores. **Como meu estudo…** mostra sua recompensa atual. Na Vila, o botão da casa abre o distrito produtivo, cuja forma cresce nos marcos1/10/50/100/250/500 e acompanha cada skin.
+
+**Melhorias** revela tiers/sinergias conforme progresso. **Descobertas** mostra próximos marcos, conquistadas ou notas secretas já encontradas; índice de conquistas elegíveis fortalece a rede. **Sinais** guarda oportunidades sem expirar; durante Foco ficam protegidas. Depois, ative até dois tipos temporários para combinar; cache é instantâneo. A produção offline continua até7dias, ampliável a14. O resumo de retorno pode ser dispensado.
+
+Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; pausa e tempo fechado não contam. Uma revisão/cartão/dia pode render, até100revisões econômicas diárias. Consistência dá bônus, sem tirar progresso. Memória/Oficina/colheitas/expedições crescem junto com a rede; XP permanece com suas regras anteriores. Motor aceita todos os cliques com animação, até64Produção/pulso e1.200/dia; após isso cliques/XP continuam.
+
+**Legado** aparece mais tarde. Confira a prévia, cancele para continuar ou confirme o novo ciclo. Reinicia saldo/unidades/melhorias temporárias/sinais ativos/motor e encerra Oficina ativa; conserva estudo, notas, materiais, projetos, XP, inventário, cultivos, mercado, Memória, skins, conquistas, sinais guardados e permanentes. Não exige prestígio para continuar usando o app.
+
+[Regras atuais](architecture/economy.md), [simulação e limites](decisions/deep-production-balance.md), [capturas e provas Windows](validation/DEEP_PRODUCTION.md). Missões semanais, coleções e platinums permanecem futuros.

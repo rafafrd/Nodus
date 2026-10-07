@@ -14,7 +14,7 @@ test('motor real: potência/upgrade, cliques consecutivos, replay, insuficiênci
     const pulse = { operationId: randomUUID(), action: { kind: 'engine-click' as const } }; assert.equal(game.act(pulse).state.coins, 61); assert.equal(game.act(pulse).state.coins, 61);
     assert.equal(act({ kind: 'engine-click' }).state.coins, 62); assert.equal(game.get().engine.clicks, 2);
     assert.equal(act({ kind: 'engine-upgrade' }).state.coins, 37); const next = act({ kind: 'engine-click' }).state; assert.equal(next.coins, 40); assert.equal(next.engine.power, 3);
-    assert.throws(() => act({ kind: 'engine-upgrade' }), /suficientes/); assert.equal(game.get().engine.level, 1);
+    assert.throws(() => act({ kind: 'engine-upgrade' }), /suficiente/); assert.equal(game.get().engine.level, 1);
     for (let i = 0; i < 7; i++) { act({ kind: 'engine-click' }); } assert.equal(game.get().xp, 1);
     db.close(); db = new Store(dir); game = new Game(db, () => now); assert.equal(game.get().engine.clicks, 10); assert.equal(game.get().coins, 61);
     // Explicit artificial legacy-row fixture, not an integration earning proof.
@@ -41,7 +41,7 @@ test('Oficina contínua: 36 etapas, três fases, clock autoritativo, pausa, repl
     assert.ok(now-start-60000>=3500&&now-start-60000<60000);
     assert.equal(db.db.prepare('SELECT count(*) n FROM game_ledger WHERE source=?').get(`challenge:${c.id}`)!.n,1);
     c=act({kind:'start-challenge',game:'skillcheck',pace:'relaxed'}).state.challenge!;const skillStart=now,initialZone=c.zone;
-    for(let i=0;i<36;i++){c=game.get().challenge!;now=c.readyAt!+c.targets[c.stage]/200*c.stepMs;act({kind:'skill-input',challengeId:c.id});}
+    for(let i=0;i<36;i++){c=game.get().challenge!;now=Math.round(c.readyAt!+c.targets[c.stage]/200*c.stepMs);act({kind:'skill-input',challengeId:c.id});}
     const skill=game.get();assert.equal(skill.challenge!.hits,36);assert.equal(skill.challenge!.coins,300);assert.ok(skill.challenge!.zone<initialZone);assert.ok(now-skillStart>=4500&&now-skillStart<90000);
     c=act({kind:'start-challenge',game:'qte',pace:'normal'}).state.challenge!;now=c.readyAt!+c.stepMs+1;assert.equal(game.get().challenge!.stage,1);assert.equal(game.get().challenge!.status,'active');
     for(let i=0;i<6;i++){c=game.get().challenge!;now=c.readyAt!;act({kind:'qte-input',challengeId:c.id,key:c.sequence[c.stage]==='A'?'D':'A'});}assert.equal(game.get().challenge!.status,'failed');

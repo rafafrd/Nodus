@@ -145,7 +145,7 @@ export class Backups {
             write(path.join(root, ...item.path.split('/')), content);
             files.push({ path: item.path, bytes: content.length, hash: digest(content) });
         }
-        const manifest = snapshotManifest.parse({ format: 'nodus-local-v1', id, at: Date.now(), schema: 5, files, projects: s.projects, materials: s.materials, vault: s.vault, omissions: s.omissions });
+        const manifest = snapshotManifest.parse({ format: 'nodus-local-v1', id, at: Date.now(), schema: 6, files, projects: s.projects, materials: s.materials, vault: s.vault, omissions: s.omissions });
         write(path.join(root, 'snapshot.json'), Buffer.from(JSON.stringify(manifest, null, 2)));
         this.store.audit('backup:create', id, 'ok');
         this.selected.set(id, { root, hash: digest(Buffer.from(JSON.stringify(manifest, null, 2))) });
@@ -172,9 +172,9 @@ export class Backups {
         throw new AppError('BACKUP_MANIFEST', 'Banco ausente no snapshot.'); return manifest; }
     select(root: string): BackupReceipt { const canonical = regular(root, true), m = this.validate(canonical), id = randomUUID(); this.selected.set(id, { root: canonical, hash: digest(read(path.join(canonical, 'snapshot.json'), 2 * 1024 * 1024)) }); if (this.selected.size > 20)
         this.selected.delete(this.selected.keys().next().value!); return { id, path: canonical, at: m.at, files: m.files.length, bytes: m.files.reduce((n, f) => n + f.bytes, 0), omissions: m.omissions }; }
-    private verifyDatabase(file: string, parent: string) { const scratch = path.join(parent, randomUUID()); fs.mkdirSync(scratch); const baseline = new Store(scratch); const expected = baseline.db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY type,name").all(); baseline.close(); this.cleanup(parent, scratch); const db = new DatabaseSync(file, { readOnly: true, allowExtension: false }); try {
+    private verifyDatabase(file: string, parent: string) { const probe = new DatabaseSync(file, {readOnly:true,allowExtension:false}); let version:number; try { version=Number(probe.prepare('PRAGMA user_version').get()!.user_version); } finally { probe.close(); } if(![5,6].includes(version))throw new AppError('BACKUP_SCHEMA','Formato de banco incompatível.'); const scratch = path.join(parent, randomUUID()); fs.mkdirSync(scratch); const baseline = new Store(scratch,version); const expected = baseline.db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY type,name").all(); baseline.close(); this.cleanup(parent, scratch); const db = new DatabaseSync(file, { readOnly: true, allowExtension: false }); try {
         db.exec('PRAGMA trusted_schema=OFF;');
-        if (Number(db.prepare('PRAGMA user_version').get()!.user_version) !== 5)
+        if (Number(db.prepare('PRAGMA user_version').get()!.user_version) !== version)
             throw new AppError('BACKUP_SCHEMA', 'Este snapshot exige outro formato de banco.');
         const actual = db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY type,name").all();
         if (JSON.stringify(actual) !== JSON.stringify(expected) || String(db.prepare('PRAGMA quick_check').get()!.quick_check) !== 'ok' || db.prepare('PRAGMA foreign_key_check').all().length)

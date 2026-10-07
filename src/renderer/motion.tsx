@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { gsap } from 'gsap';
+import { formatAmount } from '../shared/amount';
 import { motionPreference } from './preferences';
 
 export const motion = { enter: .46, exit: .24, panel: .32, ease: 'power3.out' };
@@ -97,20 +98,21 @@ export function usePanelLayout(ref: RefObject<HTMLElement | null>, identity: str
   return capture;
 }
 
-export function AnimatedNumber({ value, testId }: { value: number | undefined; testId: string }) {
-  const element = useRef<HTMLElement>(null), amount = useRef({ value: value ?? 0 });
+export function AnimatedNumber({ value, testId }: { value: import('../shared/amount').Amount | undefined; testId: string }) {
+  const element = useRef<HTMLElement>(null), amount = useRef({ value: typeof value==='number'?value:0 });
   const reduced = useReducedMotion();
   useLayoutEffect(() => {
     gsap.killTweensOf(amount.current);
     if (value === undefined) return;
-    const update = () => { if (element.current) element.current.textContent = Math.round(amount.current.value).toLocaleString('pt-BR'); };
+    if(typeof value==='string'){if(element.current)element.current.textContent=formatAmount(value);return;}
+    const update = () => { if (element.current) element.current.textContent = formatAmount(Math.round(amount.current.value)); };
     if (reduced) { amount.current.value = value; update(); return; }
     // React has written the destination text; restore the sampled value before paint.
     update();
     const tween = gsap.to(amount.current, { value, duration: .42, ease: motion.ease, onUpdate: update, onComplete: update });
     return () => { tween.kill(); };
   }, [value, reduced]);
-  return <strong ref={element} data-testid={testId} data-value={value}>{value === undefined ? '—' : value.toLocaleString('pt-BR')}</strong>;
+  return <strong ref={element} data-testid={testId} data-value={value}>{value === undefined ? '—' : formatAmount(value)}</strong>;
 }
 
 export function MotorGain({ id, coins }: { id: number; coins: number }) {
@@ -121,5 +123,5 @@ export function MotorGain({ id, coins }: { id: number; coins: number }) {
     const context = gsap.context(() => gsap.fromTo(el, { autoAlpha: 1, y: reduced ? 0 : 8 }, { autoAlpha: 0, y: reduced ? 0 : -22, duration: reduced ? .8 : .95, ease: 'power2.out', delay: reduced ? .3 : .08 }));
     return () => context.revert();
   }, [id, reduced]);
-  return <span ref={ref} className="engine-gain" data-testid="engine-gain" aria-hidden="true">{id ? `+${coins}` : ''}</span>;
+  return <span ref={ref} className="engine-gain" data-testid="engine-gain" aria-hidden="true">{id ? coins?`+${coins}`:'Pulso' : ''}</span>;
 }

@@ -352,3 +352,18 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C6 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): 43 testes/typecheck/pacote/201 assets, clean-workspace/YouTube real/Journey R1–R7 no mesmo pacote final |
 | C7 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): capturas únicas/divididas/compactas/grafo/motor/Oficina inspecionadas e retornadas, limites/fixtures registrados |
 | C8 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): docs/ADR/guia/quadro/retomada/gotcha atualizados, bootstrap/diff/inventário final conferidos; alterações anteriores preservadas |
+
+## GAM-04 — Produção profunda do observatório
+
+07/10/2026, branch codex/deep-production/main integrado. [Provas Windows/modelos/capturas](DEEP_PRODUCTION.md); C1–C8 concluídos; entrega Git no PR #11.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Engine/conteúdo/curvas separados, BigInt/Decimal80, schema6 e migração preservadora |
+| C2 | aprovado | Fatia quatro famílias validada primeiro;17ª genérica;16famílias/305melhorias;1/10/100/MAX real |
+| C3 | aprovado |264normais/20secretas, índice derivado, descoberta progressiva/IDs antigos; sem anunciar sistemas futuros |
+| C4 | aprovado | Recibos reais de Foco/revisão,1min Windows, rollback/replay/consistência/builds, motor livre secundário, XP conservado |
+| C5 | aprovado | Sinais guardados/combo/cache único, expiração offline/cap/carry, prestígio/legado/restart e fontes conservadas |
+| C6 | aprovado | Objetivo/detalhes e distrito103meshes em três skins, movimento reduzido, compacto sem overflow |
+| C7 | aprovado |52testes/typecheck/pacote201assets, deep-economy/skins/clean-workspace/Journey no mesmo pacote,3modelos/capturas inspecionadas |
+| C8 | aprovado | Bootstrap/diff/Gitleaks326,60KB sem achados; commit6d20ce7/push/upstream e [PR11](https://github.com/rafafrd/Nodus/pull/11) com3Mermaid/6badges/12prints/API verificados; docs/ADR/guia/quadro/retomada atualizados |

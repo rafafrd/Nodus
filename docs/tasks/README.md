@@ -22,6 +22,8 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 
 ## Tickets
 
+Último incremento: [GAM-04 — Produção profunda do observatório](done/GAM-04.md), concluído na branch codex/deep-production. Motor declarativo/estudo conectado/catálogo/legado;52testes/provas Windows/modelos/capturas aprovados. Commit6d20ce7 enviado e [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto para main com prints/Mermaid/badges; próxima ação é revisão.
+
 | Ticket | Entrega | Dependências | Arquivo |
 | --- | --- | --- | --- |
 | ALP-01 | Fundação executável no Windows | — | [Abrir](done/ALP-01.md) |

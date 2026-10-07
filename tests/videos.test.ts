@@ -37,16 +37,16 @@ test('vídeos por matéria: dedup/retomada/referências e rollback real do audit
     videos.remove({ subjectId: a.id, id: video.id }); assert.equal(desks.get(a.id).videoId, null); assert.equal(videos.list(a.id).length, 0);
   } finally { store.close(); }
 });
-test('migração v3 para v5 conserva bytes, rascunho, mesa e economia existentes', () => {
-  const dir = fs.mkdtempSync(path.resolve('.local/videos-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let store = new Store(path.join(dir, 'data'));
+test('migração v3 para v6 conserva bytes, rascunho, mesa e economia existentes', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/videos-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let store = new Store(path.join(dir, 'data'),5);
   try {
     const a = store.createSubject({ name: 'Preservar', color: 'sage' }), vault = new Vault(store); vault.selectRoot(root);
     const note = vault.create({ subjectId: a.id, title: 'Nota' }); vault.draft({ id: note.ref.id, hash: note.hash, text: note.text + '\nRascunho' });
     new Desks(store).save({ subjectId: a.id, noteId: note.ref.id, page: 7, split: 62 }); const original = fs.readFileSync(path.join(root, note.ref.path));
-    const game = new Game(store).get(); const desk = new Desks(store).get(a.id);
+    new Game(store); const game={coins:60}; const desk = new Desks(store).get(a.id);
     // Produce a real v3 schema in the isolated fixture, never touch a user's DB.
     store.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; PRAGMA user_version=3;'); store.close(); store = new Store(path.join(dir, 'data'));
-    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 5);
+    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 6);
     assert.deepEqual(new Desks(store).get(a.id), desk); assert.deepEqual(fs.readFileSync(path.join(root, note.ref.path)), original);
     assert.equal(new Vault(store).open(note.ref.id).draft!.text, note.text + '\nRascunho'); assert.equal(new Game(store).get().coins, game.coins);
   } finally { store.close(); }

@@ -5,12 +5,12 @@ import { randomUUID } from 'node:crypto';
 import { AppError, type Subject, type Bootstrap } from '../shared/contracts';
 export class Store {
   readonly db: DatabaseSync;
-  constructor(readonly directory: string) {
+  constructor(readonly directory: string, readonly targetVersion = 6) {
     fs.mkdirSync(directory, { recursive: true });
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version);
-    if (version > 5) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
+    if (version > targetVersion) throw new AppError('SCHEMA_NEWER', 'Este banco precisa de uma versão mais nova do aplicativo.');
     if (version === 0) this.transaction(() => this.db.exec(`
       CREATE TABLE settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE subjects(id TEXT PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL);
@@ -53,6 +53,18 @@ export class Store {
       CREATE TABLE note_links(id TEXT PRIMARY KEY,subject_id TEXT NOT NULL REFERENCES subjects(id),source_id TEXT NOT NULL REFERENCES notes(id),target_id TEXT NOT NULL REFERENCES notes(id),label TEXT NOT NULL,UNIQUE(source_id,target_id));
       CREATE INDEX flashcards_due ON flashcards(due_at);
       PRAGMA user_version=5;
+    `));
+    if (version < 6 && targetVersion >= 6) this.transaction(() => this.db.exec(`
+      ALTER TABLE game_player RENAME TO game_player_v5;
+      CREATE TABLE game_player(id INTEGER PRIMARY KEY CHECK(id=1), coins TEXT NOT NULL CHECK(length(coins)<=1100 AND substr(coins,1,1)<>'-'), xp INTEGER NOT NULL CHECK(xp>=0), state TEXT NOT NULL);
+      INSERT INTO game_player SELECT id,CAST(coins AS TEXT),xp,state FROM game_player_v5;
+      DROP TABLE game_player_v5;
+      ALTER TABLE game_ledger RENAME TO game_ledger_v5;
+      CREATE TABLE game_ledger(id INTEGER PRIMARY KEY, source TEXT NOT NULL UNIQUE, action TEXT NOT NULL, coins TEXT NOT NULL CHECK(length(coins)<=1101), xp INTEGER NOT NULL, resources TEXT NOT NULL, at INTEGER NOT NULL, rule_version INTEGER NOT NULL);
+      INSERT INTO game_ledger SELECT id,source,action,CAST(coins AS TEXT),xp,resources,at,rule_version FROM game_ledger_v5;
+      DROP TABLE game_ledger_v5;
+      CREATE TABLE economic_receipts(source TEXT PRIMARY KEY,kind TEXT NOT NULL,amount TEXT NOT NULL,at INTEGER NOT NULL,version INTEGER NOT NULL);
+      PRAGMA user_version=6;
     `));
   }
   transaction<T>(action: () => T): T {

@@ -1,0 +1,51 @@
+{
+  "economy": {
+    "at": "2026-10-07T11:07:40.143Z",
+    "platform": "win32",
+    "packaged": true,
+    "checks": [
+      "Distrito nas três skins e movimento reduzido, 103 objetos independente das unidades",
+      "Compras ×10/×100/MAX pela UI, breakdown, melhorias progressivas e segredos ocultos",
+      "Um minuto real monotônico de Foco no Electron gera Produção sem XP; sinais guardados",
+      "Combo, prévia/cancelamento/reset de prestígio e compra permanente pela UI",
+      "Motor sem intervalo, janela compacta, reinicialização e fonte Markdown intacta"
+    ],
+    "errors": []
+  },
+  "skins": {
+    "at": "2026-10-07T11:08:55.902Z",
+    "platform": "win32",
+    "packaged": true,
+    "checks": [
+      "Distrito nas três skins e movimento reduzido, 103 objetos independente das unidades"
+    ],
+    "errors": []
+  },
+  "workspace": {
+    "date": "2026-10-07T11:04:12.112Z",
+    "checks": [
+      "Uma área inicial; acervo e ferramentas recolhidos; hover, checklist real e draft entre matérias conservados.",
+      "Até três áreas; arraste e teclado ajustam/persistem larguras; compacto sem corte; grafo com zoom intermediário, foco, pan, relação real e redução/ocultação sem movimento.",
+      "Motor: 61 cliques rápidos exatos e animação imediata/reduzida. Oficina real: QTE 6816ms e calibração 31545ms, 36 acertos cada, sem preparo intermediário.",
+      "Fechar drena 40 cliques pendentes; restart conserva larguras ajustadas, foco pausado, jogo, PDF2 e draft; fontes intactas. Memória/mercado/personagem continuam acessíveis."
+    ],
+    "durations": {
+      "qte": 6816,
+      "skill": 31545
+    },
+    "errors": []
+  },
+  "package": {
+    "platform": "win32",
+    "files": 201,
+    "exeSha256": "f3747cfc06cad5486461cfe718673d0a1a736ff393e00247828177c63638f18e",
+    "asarSha256": "a6a622d886df70acc38e5f89d64049ce1bb654564a8a847e5cda12458d2eb415"
+  },
+  "unitTests": {
+    "passed": 52,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 7043.7575
+  },
+  "journey": "R1–R7 approved on same package; R8 cloud not verified"
+}

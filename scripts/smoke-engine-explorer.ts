@@ -47,9 +47,9 @@ for (let pass = 0; pass < 2; pass++) {
       editor = p.getByRole('textbox', { name: 'Conteúdo do arquivo', exact: true }); await editor.press('Control+End'); await editor.press('Enter'); await p.keyboard.insertText('// Novo rascunho após decisões'); retained += '\r\n// Novo rascunho após decisões';
       reports.push('Save/Usar arquivo em eventos rápidos nos dois sentidos: operação inicial conservada, sem gravação após descarte; rascunho descartado arquivado em recovery e novo buffer preservado. Sem mock/atraso de IPC.');
       await p.getByRole('button', { name: 'Entrar na cidade', exact: true }).click(); await p.locator('canvas[data-ready=true]').waitFor(); await ready(p);
-      assert.equal((await game(p)).coins, 60); await p.getByRole('button', { name: 'Gerar moedas', exact: true }).click(); await ready(p); assert.equal((await game(p)).coins, 61);
+      assert.equal((await game(p)).coins, 60); await p.getByRole('button', { name: 'Gerar Produção', exact: true }).click(); await ready(p); assert.equal((await game(p)).coins, 61);
       await p.getByRole('button', { name: 'Melhorar motor', exact: true }).click(); await ready(p); assert.equal((await game(p)).engine.level, 1); assert.equal((await game(p)).coins, 36);
-      await p.waitForTimeout(310); await p.getByRole('button', { name: 'Gerar moedas', exact: true }).click(); await ready(p); assert.equal((await game(p)).coins, 39); await shot(p, 'engine');
+      await p.waitForTimeout(310); await p.getByRole('button', { name: 'Gerar Produção', exact: true }).click(); await ready(p); assert.equal((await game(p)).coins, 39); await shot(p, 'engine');
       await p.getByRole('button', { name: 'Oficina', exact: true }).click(); await p.getByRole('button', { name: /Sincronizar o motor/ }).click();
       for (let i = 0; i < 36; i++) { await ready(p); await p.getByTestId('qte-key').waitFor(); const key = await p.getByTestId('qte-key').textContent(); await p.keyboard.press(key!); await p.waitForFunction(async stage=>{const r=await window.desktop.getGame();return r.ok&&r.value.challenge?.stage===stage;},i+1); }
       await ready(p); assert.equal((await game(p)).challenge?.coins, 240); await shot(p, 'qte');

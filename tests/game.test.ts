@@ -17,7 +17,7 @@ test('economia real: replay, saldo, maturação, cooldown, venda e reinício con
     assert.equal(game.act(plant).state.coins, 58); assert.equal(game.act(plant).replayed, true); assert.equal(game.get().coins, 58);
     assert.throws(() => game.act({ ...plant, action: { kind: 'gather', resource: 'stone' } }), /outra ação/);
     const before = JSON.stringify(game.get());
-    assert.throws(() => act({ kind: 'buy', item: 'cottage' }), /suficientes/);
+    assert.throws(() => act({ kind: 'buy', item: 'cottage' }), /suficiente/);
     assert.throws(() => act({ kind: 'harvest', plot: 1 }), /pronto/);
     assert.throws(() => act({ kind: 'plant', plot: 6, crop: 'wheat' }), /Desbloqueie/);
     assert.throws(() => act({ kind: 'sell', resource: 'stone', quantity: 1 }), /quantidade/);
@@ -41,7 +41,7 @@ test('moinho preserva produção fracionária na redistribuição e não credita
   const act = (action: GameAction) => game.act({ operationId: randomUUID(), action });
   try {
     for (let i = 0; i < 4; i++) { now += 1500; act({ kind: 'gather', resource: 'stone' }); }
-    act({ kind: 'buy', item: 'windmill' }); const initial = game.get().coins;
+    act({ kind: 'buy', item: 'windmill' }); const initial = Number(game.get().coins);
     now += 15000; act({ kind: 'respec', build: { focus: 1, review: 0, planning: 0, practice: 0 } }); assert.equal(game.get().coins, initial + 1);
     now += 60000; assert.equal(game.get().coins, initial + 6); assert.equal(game.get().coins, initial + 6);
     const old = game.get(); assert.throws(() => act({ kind: 'respec', build: { focus: 2, review: 0, planning: 0, practice: 0 } }), /pontos/); assert.deepEqual(game.get(), old);
@@ -69,13 +69,13 @@ test('memória é calculada no main: pares, tentativas, combos, retomada e recom
   } finally { db.close(); }
 });
 
-test('migração v1 para v5 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
-  const dir = fs.mkdtempSync(path.resolve('.local/game-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let db = new Store(path.join(dir, 'data'));
+test('migração v1 para v6 conserva matéria, nota, mesa, rascunho e bytes do vault', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/game-migration-')), root = path.join(dir, 'vault'); fs.mkdirSync(root); let db = new Store(path.join(dir, 'data'),5);
   try {
     const subject = db.createSubject({ name: 'Preservar', color: 'sage' }), vault = new Vault(db); vault.selectRoot(root); const note = vault.create({ subjectId: subject.id, title: 'Original' });
     vault.draft({ id: note.ref.id, hash: note.hash, text: note.text + '\nRascunho preservado.' }); const original = fs.readFileSync(path.join(root, note.ref.path), 'utf8');
     db.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; ALTER TABLE desks DROP COLUMN video_id; ALTER TABLE desks DROP COLUMN material_view; DROP TABLE videos; DROP TABLE project_drafts; DROP TABLE project_folders; DROP TABLE game_challenges; DROP TABLE game_player; DROP TABLE game_ledger; DROP TABLE game_operations; DROP TABLE game_rounds; PRAGMA user_version=1;'); db.close(); db = new Store(path.join(dir, 'data'));
-    assert.equal(db.db.prepare('PRAGMA user_version').get()?.user_version, 5); assert.equal(db.requireSubject(subject.id).name, 'Preservar'); assert.equal(new Vault(db).open(note.ref.id).draft!.text, note.text + '\nRascunho preservado.'); assert.equal(fs.readFileSync(path.join(root, note.ref.path), 'utf8'), original); assert.ok(db.db.prepare('SELECT subject_id FROM desks WHERE subject_id=?').get(subject.id));
+    assert.equal(db.db.prepare('PRAGMA user_version').get()?.user_version, 6); assert.equal(db.requireSubject(subject.id).name, 'Preservar'); assert.equal(new Vault(db).open(note.ref.id).draft!.text, note.text + '\nRascunho preservado.'); assert.equal(fs.readFileSync(path.join(root, note.ref.path), 'utf8'), original); assert.ok(db.db.prepare('SELECT subject_id FROM desks WHERE subject_id=?').get(subject.id));
     assert.equal(new Game(db).get().coins, 60);
   } finally { db.close(); }
 });

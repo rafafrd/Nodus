@@ -1,0 +1,191 @@
+{
+  "balanceVersion": 2,
+  "model": "deterministic greedy ROI, one study session/day, no motor/events/reviews/prestige reset; formula model, not human playtime",
+  "studyMinutes": 60,
+  "days": 7,
+  "marks": {
+    "first-installation": 0,
+    "ten-first-family": 16,
+    "first-tier": 24,
+    "second-family": 48,
+    "hundred-first-family": 2923,
+    "first-prestige": 5908
+  },
+  "checkpoints": [
+    {
+      "minute": 1,
+      "studyMinutesPerDay": 60,
+      "balance": 1,
+      "lifetime": 27,
+      "ratePerMinute": 6.024,
+      "units": 2,
+      "families": 1,
+      "upgrades": 0,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 5,
+      "studyMinutesPerDay": 60,
+      "balance": 13,
+      "lifetime": 153,
+      "ratePerMinute": 12.072,
+      "units": 4,
+      "families": 1,
+      "upgrades": 0,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 30,
+      "studyMinutesPerDay": 60,
+      "balance": 19,
+      "lifetime": 3313,
+      "ratePerMinute": 110.376,
+      "units": 18,
+      "families": 1,
+      "upgrades": 1,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 60,
+      "studyMinutesPerDay": 60,
+      "balance": 1364,
+      "lifetime": 33281,
+      "ratePerMinute": 777,
+      "units": 34,
+      "families": 2,
+      "upgrades": 3,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 480,
+      "studyMinutesPerDay": 60,
+      "balance": 328802,
+      "lifetime": 360719,
+      "ratePerMinute": 780,
+      "units": 34,
+      "families": 2,
+      "upgrades": 3,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 1440,
+      "studyMinutesPerDay": 60,
+      "balance": 1078985,
+      "lifetime": 1110902,
+      "ratePerMinute": 783,
+      "units": 34,
+      "families": 2,
+      "upgrades": 3,
+      "prestigeGain": 0
+    },
+    {
+      "minute": 10080,
+      "studyMinutesPerDay": 60,
+      "balance": 45045196680750,
+      "lifetime": 70430684284919,
+      "ratePerMinute": "32464081218.432549",
+      "units": 588,
+      "families": 7,
+      "upgrades": 42,
+      "prestigeGain": 8
+    }
+  ],
+  "marginalROI": [
+    {
+      "id": "collectors",
+      "cost": 258722222861,
+      "gainPerMinute": 816153.3901395,
+      "paybackMinutes": "317001.95819413091800294885369353012784735544278667263237276900581641733263965219"
+    },
+    {
+      "id": "workshops",
+      "cost": 258383161801,
+      "gainPerMinute": 3630174.6180735,
+      "paybackMinutes": "71176.510494726985741554090318416681288579373215508889900089124746434841975730281"
+    },
+    {
+      "id": "warehouses",
+      "cost": 259509875230,
+      "gainPerMinute": 38344583.308059,
+      "paybackMinutes": "6767.8366236270457697264801973157521857808884608427031698651594201587445659616981"
+    },
+    {
+      "id": "powerplants",
+      "cost": 288633293987,
+      "gainPerMinute": 34616733.9428274,
+      "paybackMinutes": "8337.9701407909663479918585799341825212957711035661135159586106997412079976124896"
+    },
+    {
+      "id": "observatories",
+      "cost": 381217282231,
+      "gainPerMinute": 188847386.640381,
+      "paybackMinutes": "2018.6526751198620311009633602317057351879895737321990190735319998904962570047123"
+    },
+    {
+      "id": "spectral-labs",
+      "cost": 761435377503,
+      "gainPerMinute": 558242876.1,
+      "paybackMinutes": "1363.9858386058497881116086489724217010926223264347358502726802643026150746073085"
+    },
+    {
+      "id": "automata",
+      "cost": 2313060765625,
+      "gainPerMinute": 1456875000,
+      "paybackMinutes": "1587.6864972114972114972114972114972114972114972114972114972114972114972114972115"
+    },
+    {
+      "id": "compute-cores",
+      "cost": 1000000000000000,
+      "gainPerMinute": 48562500000,
+      "paybackMinutes": "20592.020592020592020592020592020592020592020592020592020592020592020592020592021"
+    },
+    {
+      "id": "orbital-beacons",
+      "cost": "1000000000000000000",
+      "gainPerMinute": 2428125000000,
+      "paybackMinutes": "411840.41184041184041184041184041184041184041184041184041184041184041184041184041"
+    },
+    {
+      "id": "horizon-mesh",
+      "cost": "1000000000000000000000",
+      "gainPerMinute": 242812500000000,
+      "paybackMinutes": "4118404.1184041184041184041184041184041184041184041184041184041184041184041184041"
+    },
+    {
+      "id": "planetary-archives",
+      "cost": "10000000000000000000000000",
+      "gainPerMinute": "97125000000000000",
+      "paybackMinutes": "102960102.9601029601029601029601029601029601029601029601029601029601029601029601"
+    },
+    {
+      "id": "stellar-choirs",
+      "cost": "1000000000000000000000000000000",
+      "gainPerMinute": "48562500000000000000",
+      "paybackMinutes": "20592020592.020592020592020592020592020592020592020592020592020592020592020592021"
+    },
+    {
+      "id": "instant-atelier",
+      "cost": "1000000000000000000000000000000000000",
+      "gainPerMinute": "485625000000000000000000",
+      "paybackMinutes": "2059202059202.0592020592020592020592020592020592020592020592020592020592020592021"
+    },
+    {
+      "id": "cartographic-folds",
+      "cost": "10000000000000000000000000000000000000000000",
+      "gainPerMinute": "48562500000000000000000000000",
+      "paybackMinutes": "205920205920205.92020592020592020592020592020592020592020592020592020592020592021"
+    },
+    {
+      "id": "reality-anchors",
+      "cost": "1000000000000000000000000000000000000000000000000000",
+      "gainPerMinute": "48562500000000000000000000000000000",
+      "paybackMinutes": "20592020592020592.020592020592020592020592020592020592020592020592020592020592021"
+    },
+    {
+      "id": "impossible-council",
+      "cost": "1000000000000000000000000000000000000000000000000000000000000",
+      "gainPerMinute": "485625000000000000000000000000000000000000",
+      "paybackMinutes": "2059202059202059202.0592020592020592020592020592020592020592020592020592020592021"
+    }
+  ]
+}

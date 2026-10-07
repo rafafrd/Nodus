@@ -1,6 +1,6 @@
 # Dados da alpha
 
-Estado em 04/10/2026: schema v5 real em src/main/store.ts; contratos em src/shared/contracts.ts, game/projects/videos/study/backup. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist, revisão e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
+Estado em 07/10/2026: schema v6 real em src/main/store.ts; contratos em src/shared/contracts.ts, game/projects/videos/study/backup. Matérias, referências, rascunhos, PDFs, mesas, foco, checklist, revisão e jogo local operantes. sync_operations existe vazia para evolução; não há sincronização implementada.
 
 | Entidade | Campos mínimos | Regra |
 | --- | --- | --- |
@@ -55,3 +55,5 @@ EXP-01 lê settings.vault e project_folders/subjects para resolver origens/rótu
 GAM-03 preserva schema v5: `skin` e `economy` entram em game_player.state com defaults/contadores derivados do ledger; challenges v2 registram readyAt/misses/startedAt/pausedAt e conservam partidas legadas. Produção, compras, conquistas, prestígio, operação e audit mantêm transação do Game. Prestígio reinicia somente os campos econômicos informados na prévia. Novos registros rule_version3; passivo agrega por minuto/ciclo. `preferences.editorialBackground` recebe true quando ausente, sem regravar raw; janela tem IPC limitado e eventos transitórios. [ADR-0013](../adr/0013-cidade-progressiva-e-janela.md).
 
 UI-04 amplia settings.preferences com workspaceLayout validado (1–3 áreas únicas, pesos finitos ≥20%, soma100). Ausência recebe Caderno100 na leitura, sem regravar raw ou resetar desks. Layout global convive com notas/PDF/página/vídeo/nextStep por matéria; campos legados split/tool ficam preservados. Provider serializa alterações, fechamento espera fila e drafts. Motor mantém operações únicas/fila no renderer; regra temporal e créditos permanecem no main. [ADR-0014](../adr/0014-areas-isoladas.md).
+
+GAM-04 migra v5→v6 transacionalmente: game_player.coins e game_ledger.coins passam a TEXT, conservando IDs/saldo/XP/JSON/origens/at/rule_version. economic_receipts guarda elegibilidade, consumo e créditos por fonte única. Novos créditos usam rule_version4; fontes anteriores conservam versão. Histórico acadêmico vira baseline, sem repetir recompensas antigas. Validação de backup aceita schema5/6 antes de migrar a cópia restaurada. [Economia e fórmulas](economy.md).

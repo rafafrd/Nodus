@@ -29,7 +29,9 @@
     "test:knowledge-backup": "tsx scripts/smoke-knowledge-backup.ts",
     "test:editorial": "tsx scripts/smoke-editorial.ts --packaged",
     "test:city-progression": "tsx scripts/smoke-city-progression.ts --packaged",
-    "test:clean-workspace": "tsx scripts/smoke-clean-workspace.ts"
+    "test:clean-workspace": "tsx scripts/smoke-clean-workspace.ts",
+    "test:deep-economy": "tsx scripts/smoke-deep-economy.ts --packaged",
+    "simulate:economy": "tsx scripts/simulate-economy.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",
@@ -58,6 +60,7 @@
     "@codemirror/state": "6.7.6",
     "@codemirror/view": "6.43.13",
     "@lezer/highlight": "1.2.5",
+    "decimal.js": "10.6.0",
     "gsap": "3.15.0",
     "pdfjs-dist": "6.3.289",
     "react": "19.3.0",
