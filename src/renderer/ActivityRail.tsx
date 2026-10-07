@@ -12,7 +12,7 @@ export function ActivityRail({ active, panes, navigate, add, drag, pending, sear
 }) {
   const { value } = usePreferences();
   function preload(area: WorkspaceArea) { if (area === 'explorer') void import('./ProjectWorkspace'); if (area === 'city') void import('./GameView'); }
-  return <nav className="activity-rail module-sidebar" aria-label="Áreas do Nodus" aria-busy={pending}>
+  return <nav id="nodus-sidebar" className="activity-rail module-sidebar" hidden={value.sidebarCollapsed} aria-label="Áreas do Nodus" aria-busy={pending}>
     <div className="rail-identity"><span className="rail-brand" title="Nodus"><Icon/></span><span>Nodus<small>ESPAÇO DE TRABALHO</small></span></div>
     <button className="rail-search" aria-label="Abrir busca global" title="Busca global · Ctrl+K" onClick={search}><Icon kind="search"/><span>Buscar</span><kbd>Ctrl K</kbd></button>
     <div className="rail-modules">

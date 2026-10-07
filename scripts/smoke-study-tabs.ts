@@ -97,6 +97,14 @@ try {
     await page.getByRole('button', { name: 'Abrir player', exact: true }).click(); await page.locator('.video-loading').waitFor({ state: 'hidden', timeout: 45000 });
     const guest = await app.evaluate(({ webContents }) => webContents.getAllWebContents().find(w => w.getURL().startsWith('https://www.youtube-nocookie.com/embed/'))?.id); assert.ok(guest);
     await page.waitForFunction(() => document.querySelector('.video-surface')?.getAttribute('data-mode') === 'inline');
+    const playerLeft=await page.locator('.video-surface').evaluate(el=>el.getBoundingClientRect().left);
+    await page.getByRole('button',{name:'Recolher menu lateral',exact:true}).click();
+    await page.locator('.nodus-shell[data-sidebar-collapsed=true]').waitFor();
+    await page.waitForFunction(left=>document.querySelector('.video-surface')!.getBoundingClientRect().left<left-70,playerLeft);
+    assert.equal(await app.evaluate(({webContents},id)=>webContents.fromId(id)?.id,guest),guest);
+    await page.getByRole('button',{name:'Expandir menu lateral',exact:true}).click();
+    await page.locator('.nodus-shell[data-sidebar-collapsed=false]').waitFor();
+    await page.waitForFunction(left=>Math.abs(document.querySelector('.video-surface')!.getBoundingClientRect().left-left)<2,playerLeft);
     await add('PDF');
     const divider = await page.getByRole('separator', { name: 'Largura das colunas', exact: true }).boundingBox(); assert.ok(divider);
     await page.mouse.move(divider.x + 4, divider.y + divider.height * .7); await page.mouse.down(); await page.locator('.workspace-frame[data-resizing=true]').waitFor();

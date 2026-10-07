@@ -19,3 +19,7 @@ As abas isolam composição, foco e tamanhos, mantendo uma instância de cada m�
 ## Consequências
 
 Mesas de estudo configuráveis sem seletores suspensos no topo; foco/checklist suspensos. Restart conserva abas/geometria sem copiar fontes para preferências. Não inclui contextos independentes por aba ou monitores físicos, migration/biblioteca nova. [Provas e limites](../validation/STUDY_TABS.md).
+
+## Complemento UI-06 — menu recolhível
+
+Escolha confirmada em 07/10/2026: recolher esconde o menu inteiro, conservando um botão na barra de abas para expandir. A preferência `sidebarCollapsed` é global ao espaço, não altera composição/divisores/contexto de cada aba e persiste pela transação existente. Default false em perfis antigos, sem regravar na leitura. A linha decorativa fica somente no hover/foco do teclado, com margem antes do ícone. O crescimento da grade é imediato; conteúdo conserva suas instâncias e o player acompanha o painel. [Provas](../validation/SIDEBAR.md).

@@ -1,14 +1,16 @@
 import { useRef, useState, type ReactNode, type PointerEvent, type KeyboardEvent } from 'react';
 import { MAX_WORKSPACE_TABS, MODULE_DRAG_TYPE, tabName, moduleName, type WorkspaceArea, type WorkspaceTab, type WorkspaceTabs } from '../shared/workspace';
+import { Icon } from './Icon';
 
 type Props = {
   session: WorkspaceTabs; layout: WorkspaceTab; pending: boolean; cinema: boolean;
+  sidebarCollapsed: boolean; sidebarPending: boolean; toggleSidebar(): void;
   dragged: WorkspaceArea | null; endDrag(): void; add(area: WorkspaceArea): void;
   selectTab(id: string): void; newTab(): void; closeTab(id: string): void;
   resize(axis: 'columnSplit' | 'rowSplit', value: number): void; saveSizes(): void;
   focus(area: string): void; children: ReactNode; tools: ReactNode;
 };
-export function WorkspaceFrame({ session, layout, pending, cinema, dragged, endDrag, add, selectTab, newTab, closeTab, resize, saveSizes, focus, children, tools }: Props) {
+export function WorkspaceFrame({ session, layout, pending, cinema, sidebarCollapsed, sidebarPending, toggleSidebar, dragged, endDrag, add, selectTab, newTab, closeTab, resize, saveSizes, focus, children, tools }: Props) {
   const body = useRef<HTMLDivElement>(null);
   const [resizing, setResizing] = useState(false);
   const drag = useRef<{ origin: number; value: number; axis: 'columnSplit' | 'rowSplit'; length: number } | null>(null);
@@ -58,6 +60,7 @@ export function WorkspaceFrame({ session, layout, pending, cinema, dragged, endD
     onPointerDown={event => start(event, axis)} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onKeyDown={event => key(event, axis)}/>;
   return <div className="workspace-frame" data-resizing={resizing}>
     <header className="workspace-controls" inert={cinema}>
+      <button className="workspace-sidebar-toggle" aria-label={sidebarCollapsed ? 'Expandir menu lateral' : 'Recolher menu lateral'} title={sidebarCollapsed ? 'Expandir menu lateral' : 'Recolher menu lateral'} aria-controls="nodus-sidebar" aria-expanded={!sidebarCollapsed} disabled={sidebarPending || pending} onClick={toggleSidebar}><Icon kind="sidebar"/></button>
       <div className="workspace-tabs" role="tablist" aria-label="Abas de trabalho">
         {session.tabs.map((tab, index) => <div key={tab.id} className={`workspace-tab ${tab.id === session.activeTabId ? 'selected' : ''}`}>
           <button role="tab" id={`workspace-tab-${tab.id}`} aria-controls="workspace-active-panel" aria-selected={tab.id === session.activeTabId}

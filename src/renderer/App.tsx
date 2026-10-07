@@ -29,7 +29,7 @@ const GameView = lazy(() => import('./GameView'));
 const ProjectWorkspace = lazy(() => import('./ProjectWorkspace'));
 const GraphWorkspace = lazy(() => import('./GraphWorkspace'));
 export function App() {
-  const {value:preferences,update:updatePreferences}=usePreferences();
+  const {value:preferences,update:updatePreferences,busy:preferencesBusy}=usePreferences();
   const [session,setSession]=useState<WorkspaceTabs>(preferences.workspaceTabs),sessionRef=useRef(session);sessionRef.current=session;
   const layout=activeWorkspace(session);
   const [browseOpen,setBrowseOpen]=useState(false),[toolOpen,setToolOpen]=useState<'focus'|'checklist'|null>(null),[dragged,setDragged]=useState<WorkspaceArea|null>(null);
@@ -54,6 +54,7 @@ export function App() {
   const [color, setColor] = useState('sage');
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
+  function toggleSidebar(){void updatePreferences({sidebarCollapsed:!preferences.sidebarCollapsed}).then(ok=>{if(!ok)setError('Não foi possível salvar a posição do menu lateral. Tente novamente.');});}
   const [loading, setLoading] = useState(false);
   const [currentArea, setCurrentArea] = useState<WorkspaceArea>(layout.focused), [visited, setVisited] = useState<WorkspaceArea[]>([...new Set(['study' as const,...layout.panes])]);
   const gameOpen = shown('city'), explorerOpen = shown('explorer'), settingsOpen = shown('settings');
@@ -220,7 +221,7 @@ export function App() {
   const pane=(area:WorkspaceArea,content:ReactNode)=><div key={area} className={`area-layer ${layout.focused===area?'pane-focused':''}`} data-area={area} role="region" aria-label={`Janela ${moduleName(area)}`}>
     <header className="workspace-pane-bar"><span>{moduleName(area)}</span><div>{layout.panes.length>1&&<><button aria-label={`Ampliar ${moduleName(area)}`} title="Ocupar esta aba" disabled={navigationPending} onClick={()=>void navigate(area)}><Mark kind="expand"/></button><button aria-label={`Fechar janela ${moduleName(area)}`} disabled={navigationPending} onClick={()=>void closePane(area)}>×</button></>}</div></header><div className="workspace-pane-content">{content}</div>
   </div>;
-  return <div className="nodus-shell"><EditorialBackdrop/><ActivityRail active={currentArea} panes={layout.panes} navigate={area=>void navigate(area)} add={area=>void addPane(area)} drag={setDragged} pending={navigationPending} search={()=>setPalette(true)}/><WorkspaceFrame session={session} layout={layout} pending={navigationPending} cinema={videos.mode==='cinema'} dragged={dragged} endDrag={()=>setDragged(null)} add={area=>void addPane(area)} selectTab={id=>void selectTab(id)} newTab={()=>void newTab()} closeTab={id=>void closeTab(id)} resize={resize} saveSizes={()=>void saveSession(sessionRef.current)} focus={focusPane} tools={<SuspendedTools subjectId={active?.id??null} nextStepId={desk?.nextStepId??null} onNext={nextStepId=>void checkpoint({nextStepId})} onError={setError} version={version} cinema={videos.mode==='cinema'} opened={toolOpen} open={setToolOpen}/>}><AreaStage active={currentArea} layout={layout}>
+  return <div className="nodus-shell" data-sidebar-collapsed={preferences.sidebarCollapsed}><EditorialBackdrop/><ActivityRail active={currentArea} panes={layout.panes} navigate={area=>void navigate(area)} add={area=>void addPane(area)} drag={setDragged} pending={navigationPending} search={()=>setPalette(true)}/><WorkspaceFrame sidebarCollapsed={preferences.sidebarCollapsed} sidebarPending={preferencesBusy} toggleSidebar={toggleSidebar} session={session} layout={layout} pending={navigationPending} cinema={videos.mode==='cinema'} dragged={dragged} endDrag={()=>setDragged(null)} add={area=>void addPane(area)} selectTab={id=>void selectTab(id)} newTab={()=>void newTab()} closeTab={id=>void closeTab(id)} resize={resize} saveSizes={()=>void saveSession(sessionRef.current)} focus={focusPane} tools={<SuspendedTools subjectId={active?.id??null} nextStepId={desk?.nextStepId??null} onNext={nextStepId=>void checkpoint({nextStepId})} onError={setError} version={version} cinema={videos.mode==='cinema'} opened={toolOpen} open={setToolOpen}/>}><AreaStage active={currentArea} layout={layout}>
     {pane('study',study)}
     {visited.includes('pdf')&&pane('pdf',pdfModule)}
     {visited.includes('video')&&pane('video',videoModule)}
