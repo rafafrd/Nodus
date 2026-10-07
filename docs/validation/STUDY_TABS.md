@@ -38,6 +38,10 @@ Fixtures identificadas, capturadas do executável Windows e inspecionadas visual
 
 ![Abas após reinício](evidence/study-tabs/restart.png)
 
+## Entrega Git
+
+Implementação `8352932bce414f9a2ed969e5c5403e681ac9f23c`, push para origin/codex/study-tabs com upstream. [PR #12](https://github.com/rafafrd/Nodus/pull/12) aberto para main, pronto para revisão, com dois Mermaid/quatro badges Shields.io/dez prints fixados no commit; corpo/head/base/estado conferidos pela API e dez imagens públicas retornaram200/imagePNG. Anexado ao chat. Gitleaks do stage187,77KB sem achados, diff/bootstrap aprovados. A branch conserva GAM-04/8f6cbcb; [PR11](https://github.com/rafafrd/Nodus/pull/11) ainda aberto e não integrado no momento da conferência. Essa dependência está explicitada no PR12 para revisar corretamente o diff para main. Nenhuma release/serviço externo publicado.
+
 ## Limites
 
 Abas guardam composição, foco e divisores; matéria/nota/documento/player compartilhados. Até32abas, quatro módulos distintos/aba; nenhuma janela nativa extra. Player usa PiP quando a janela não comporta a superfície mínima. Capturas são fixtures identificadas; nenhum vault/material pessoal. Alpha externa conserva pendências.
