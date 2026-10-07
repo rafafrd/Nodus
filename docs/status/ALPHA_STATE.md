@@ -8,6 +8,8 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+07/10/2026: [UI-05](../tasks/done/UI-05.md) concluído na nova branch codex/study-tabs de 8f6cbcb, GAM-04 preservado. Módulos laterais/clique único/arraste, abas locais e até quatro painéis em grade; três com esquerda inteira. C1–C6 aprovados:56testes/typecheck/build/pacote Windows201assets idênticos, study-tabs/YouTube real/clean-workspace/JourneyR1–R7;10capturas inspecionadas. Divisores/abas/foco/drafts/fontes/PDF2 e filas do jogo conservados, O-021 corrigido/verificado. [Provas e limites](../validation/STUDY_TABS.md). Docs/ADR/guia/quadro/dados atualizados; nenhuma implementação restante. Próxima ação: revisar diff/registrar entrega Git e avaliar menu lateral/arraste/abas. Contexto de estudo compartilhado; alpha externa permanece parcial.
+
 07/10/2026: [GAM-04](../tasks/done/GAM-04.md) concluído na branch codex/deep-production, criada de main/b112df6 após merge do PR10.16famílias/305melhorias/284conquistas, schema6/saldo grande, estudo real e sinais/prestígio. C1–C8 aprovados:52testes/typecheck, pacote Windows/201assets idênticos, deep-economy/skins/clean-workspace/JourneyR1–R7;12capturas de fixture/3modelos sanitizados. Simulação final30/45/60min/dia:5,15/4,30/4,10dias até prestígio. [Provas](../validation/DEEP_PRODUCTION.md). Commit6d20ce7 enviado com upstream; [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto para main,3Mermaid/6badges/12prints, corpo/head e imagem pública200 conferidos; anexo no chat. Nenhuma implementação restante; próxima ação humana: revisar o PR e avaliar a progressão. Alpha externa permanece parcial.
 
 UI-04 concluído na branch local codex/clean-workspace, preservando UI-03/GAM-03. Um módulo padrão, até três áreas/PDF/Vídeo ajustáveis, foco/checklist suspensos; Oficina36 contínua/preparo inicial, motor sem cooldown/fila e grafo fluido. C1–C8 aprovados: 43 testes/typecheck/pacote Windows/201 assets idênticos ao ASAR, clean-workspace/YouTube real/Journey R1–R7 no mesmo pacote final. Larguras ajustadas/restart/drafts/fontes/foco pausado/40 cliques ao fechar conservados; O-017/O-018 corrigidos/verificados. [Ticket](../tasks/done/UI-04.md), [provas](../validation/CLEAN_WORKSPACE.md). Capturas/guia/ADR/docs/quadro/bootstrap/diff atualizados, sem migration/dependência/alteração global ou stage/commit/push/publicação. Nenhuma implementação restante; próxima ação humana: + Módulo/divisores e Cidade/Motor/Oficina. Contexto de matéria compartilhado; alpha externa permanece parcial.
@@ -59,6 +61,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-03 | done | Concluído | GAM-02, NXT-01, UI-03 | — |
 | UI-04 | done | Concluído | UI-02, UI-03, GAM-03, NXT-01 | — |
 | GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
+| UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 
 ## Checkpoints e atenção humana
 

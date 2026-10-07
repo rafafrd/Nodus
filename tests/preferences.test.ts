@@ -16,11 +16,11 @@ test('tema original anterior é conservado; principais persistem com rollback e 
     const legacy = { name:'Perfil anterior', theme:'olive', animations:false, photo:null };
     const raw = JSON.stringify(legacy); store.setSetting('preferences', raw);
     let prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout });
+    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
     assert.equal(store.setting('preferences'),raw, 'Leitura compatível não regrava o perfil');
     const ids = [randomUUID(),randomUUID()]; prefs.update({ theme:'editorial', featuredProjectIds:ids,editorialBackground:false });
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout });
+    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
     const before=store.setting('preferences');
     for(const featuredProjectIds of [['invalid'],[ids[0],ids[0]],Array.from({length:41},()=>randomUUID())]) {
       assert.throws(()=>prefs.update({featuredProjectIds})); assert.equal(store.setting('preferences'),before);

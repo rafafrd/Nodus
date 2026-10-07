@@ -1,5 +1,7 @@
 # Quadro de tarefas
 
+Incremento atual: [UI-05 — Abas e grade de estudo](done/UI-05.md), concluído na branch codex/study-tabs com GAM-04 preservado. [Validação Windows](../validation/STUDY_TABS.md).
+
 Execução local da alpha iniciada em 02/10/2026; consulte os tickets e as evidências. Os diretórios são todo, doing e done; use os nomes exatos. Cada ID tem um único arquivo no quadro.
 
 ## Regra de movimentação

@@ -1,12 +1,86 @@
-import { useRef,type ReactNode,type PointerEvent,type KeyboardEvent } from 'react';
-import { WORKSPACE_AREAS,type WorkspaceArea,type WorkspaceLayout } from '../shared/workspace';
-export function WorkspaceFrame({layout,focused,pending,cinema,choose,close,single,resize,saveSizes,focus,children,tools}:{layout:WorkspaceLayout;focused:number;pending:boolean;cinema:boolean;choose(area:WorkspaceArea,index:number):void;close(index:number):void;single():void;resize(sizes:number[]):void;saveSizes():void;focus(area:string):void;children:ReactNode;tools:ReactNode}){
- const body=useRef<HTMLDivElement>(null),drag=useRef<{x:number;sizes:number[];index:number;width:number}|null>(null);
- function change(index:number,delta:number,sizes=layout.sizes){const next=[...sizes],sum=sizes[index]+sizes[index+1];next[index]=Math.min(sum-20,Math.max(20,sizes[index]+delta));next[index+1]=sum-next[index];resize(next);}
- function start(e:PointerEvent<HTMLDivElement>,index:number){if(e.button!==0)return;e.currentTarget.setPointerCapture(e.pointerId);drag.current={x:e.clientX,sizes:[...layout.sizes],index,width:body.current!.clientWidth};}
- function move(e:PointerEvent<HTMLDivElement>){const d=drag.current;if(d)change(d.index,(e.clientX-d.x)/d.width*100,d.sizes);}
- function end(e:PointerEvent<HTMLDivElement>){if(!drag.current)return;drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);saveSizes();}
- function focusTarget(target:EventTarget|null){const area=(target as HTMLElement|null)?.closest<HTMLElement>('[data-area]')?.dataset.area;if(area)focus(area);}
- function key(e:KeyboardEvent<HTMLDivElement>,index:number){if(!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();const delta=e.key==='Home'?(layout.sizes[index]+layout.sizes[index+1])/2-layout.sizes[index]:(e.key==='ArrowLeft'?-1:1)*(e.shiftKey?5:2);change(index,delta);saveSizes();}
- return <div className="workspace-frame"><header className="workspace-controls" inert={cinema}><div className="workspace-pane-choices">{layout.panes.map((area,i)=><div key={i} className={i===focused?'selected':''}><label><span>{String(i+1).padStart(2,'0')}</span><select aria-label={`Módulo ${i+1}`} disabled={pending} value={area} onFocus={()=>focus(area)} onChange={e=>choose(e.target.value as WorkspaceArea,i)}>{WORKSPACE_AREAS.map(a=><option key={a.id} value={a.id} disabled={layout.panes.includes(a.id)&&a.id!==area}>{a.name}</option>)}</select></label>{layout.panes.length>1&&<button aria-label={`Fechar módulo ${i+1}`} title="Fechar módulo" disabled={pending} onClick={()=>close(i)}>×</button>}</div>)}</div><div className="workspace-layout-actions">{layout.panes.length>1&&<button onClick={single} disabled={pending}>Tela única</button>}<details className="workspace-add"><summary aria-disabled={layout.panes.length>=3||pending}>+ Módulo</summary><div role="menu" aria-label="Adicionar módulo">{WORKSPACE_AREAS.map(a=><button role="menuitem" key={a.id} disabled={pending||layout.panes.length>=3||layout.panes.includes(a.id)} onClick={e=>{choose(a.id,layout.panes.length);e.currentTarget.closest('details')!.open=false;}}>{a.name}</button>)}</div></details></div></header><div className="workspace-body" ref={body} onPointerDownCapture={e=>focusTarget(e.target)} onFocusCapture={e=>focusTarget(e.target)}>{children}{layout.sizes.slice(0,-1).map((size,i)=><div key={i} className="workspace-divider" style={{left:`${layout.sizes.slice(0,i+1).reduce((a,b)=>a+b,0)}%`}} role="separator" tabIndex={cinema?-1:0} aria-label={`Largura do módulo ${i+1}`} aria-orientation="vertical" aria-valuemin={20} aria-valuemax={Math.round(size+layout.sizes[i+1]-20)} aria-valuenow={Math.round(size)} onPointerDown={e=>start(e,i)} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onKeyDown={e=>key(e,i)}/>)}</div>{tools}</div>;
+import { useRef, useState, type ReactNode, type PointerEvent, type KeyboardEvent } from 'react';
+import { MAX_WORKSPACE_TABS, MODULE_DRAG_TYPE, tabName, moduleName, type WorkspaceArea, type WorkspaceTab, type WorkspaceTabs } from '../shared/workspace';
+
+type Props = {
+  session: WorkspaceTabs; layout: WorkspaceTab; pending: boolean; cinema: boolean;
+  dragged: WorkspaceArea | null; endDrag(): void; add(area: WorkspaceArea): void;
+  selectTab(id: string): void; newTab(): void; closeTab(id: string): void;
+  resize(axis: 'columnSplit' | 'rowSplit', value: number): void; saveSizes(): void;
+  focus(area: string): void; children: ReactNode; tools: ReactNode;
+};
+export function WorkspaceFrame({ session, layout, pending, cinema, dragged, endDrag, add, selectTab, newTab, closeTab, resize, saveSizes, focus, children, tools }: Props) {
+  const body = useRef<HTMLDivElement>(null);
+  const [resizing, setResizing] = useState(false);
+  const drag = useRef<{ origin: number; value: number; axis: 'columnSplit' | 'rowSplit'; length: number } | null>(null);
+  function start(event: PointerEvent<HTMLDivElement>, axis: 'columnSplit' | 'rowSplit') {
+    if (event.button !== 0 || pending || cinema) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setResizing(true);
+    const horizontal = axis === 'columnSplit';
+    drag.current = { origin: horizontal ? event.clientX : event.clientY, value: layout[axis], axis, length: horizontal ? body.current!.clientWidth : body.current!.clientHeight };
+  }
+  function move(event: PointerEvent<HTMLDivElement>) {
+    const current = drag.current; if (!current) return;
+    const position = current.axis === 'columnSplit' ? event.clientX : event.clientY;
+    resize(current.axis, Math.min(80, Math.max(20, current.value + (position - current.origin) / current.length * 100)));
+  }
+  function end(event: PointerEvent<HTMLDivElement>) {
+    if (!drag.current) return;
+    drag.current = null;
+    setResizing(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    saveSizes();
+  }
+  function key(event: KeyboardEvent<HTMLDivElement>, axis: 'columnSplit' | 'rowSplit') {
+    const decrease = axis === 'columnSplit' ? 'ArrowLeft' : 'ArrowUp', increase = axis === 'columnSplit' ? 'ArrowRight' : 'ArrowDown';
+    if (![decrease, increase, 'Home'].includes(event.key) || pending || cinema) return;
+    event.preventDefault();
+    resize(axis, event.key === 'Home' ? 50 : Math.min(80, Math.max(20, layout[axis] + (event.key === decrease ? -1 : 1) * (event.shiftKey ? 5 : 2))));
+    saveSizes();
+  }
+  function focusTarget(target: EventTarget | null) {
+    const area = (target as HTMLElement | null)?.closest<HTMLElement>('[data-area]')?.dataset.area;
+    if (area) focus(area);
+  }
+  function tabKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key) || pending) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? session.tabs.length - 1 : (index + (event.key === 'ArrowLeft' ? -1 : 1) + session.tabs.length) % session.tabs.length;
+    selectTab(session.tabs[next].id);
+    document.getElementById(`workspace-tab-${session.tabs[next].id}`)?.focus();
+  }
+  const canDrop = !!dragged && (layout.panes.length < 4 || layout.panes.includes(dragged));
+  const separator = (axis: 'columnSplit' | 'rowSplit') => <div
+    className={`workspace-divider ${axis === 'columnSplit' ? 'divider-column' : 'divider-row'}`}
+    style={axis === 'columnSplit' ? { left: `${layout.columnSplit}%` } : { top: `${layout.rowSplit}%`, left: layout.panes.length === 3 ? `${layout.columnSplit}%` : 0 }}
+    role="separator" tabIndex={cinema || pending ? -1 : 0} aria-label={axis === 'columnSplit' ? 'Largura das colunas' : 'Altura das linhas'}
+    aria-orientation={axis === 'columnSplit' ? 'vertical' : 'horizontal'} aria-valuemin={20} aria-valuemax={80} aria-valuenow={Math.round(layout[axis])}
+    onPointerDown={event => start(event, axis)} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onKeyDown={event => key(event, axis)}/>;
+  return <div className="workspace-frame" data-resizing={resizing}>
+    <header className="workspace-controls" inert={cinema}>
+      <div className="workspace-tabs" role="tablist" aria-label="Abas de trabalho">
+        {session.tabs.map((tab, index) => <div key={tab.id} className={`workspace-tab ${tab.id === session.activeTabId ? 'selected' : ''}`}>
+          <button role="tab" id={`workspace-tab-${tab.id}`} aria-controls="workspace-active-panel" aria-selected={tab.id === session.activeTabId}
+            tabIndex={tab.id === session.activeTabId ? 0 : -1} disabled={pending} title={tabName(tab)} onClick={() => selectTab(tab.id)} onKeyDown={event => tabKey(event, index)}>
+            <span className="tab-grid" aria-hidden="true">{tab.panes.length === 1 ? '□' : '⊞'}</span><span>{moduleName(tab.panes[0])}</span>{tab.panes.length > 1 && <small>+{tab.panes.length - 1}</small>}
+          </button>
+          <button className="workspace-tab-close" aria-label={`Fechar aba ${index + 1}`} disabled={pending || session.tabs.length === 1} title="Fechar aba · Ctrl+W" onClick={() => closeTab(tab.id)}>×</button>
+        </div>)}
+      </div>
+      <button className="workspace-new-tab" aria-label="Nova aba" title="Nova aba · Ctrl+T" disabled={pending || session.tabs.length >= MAX_WORKSPACE_TABS} onClick={newTab}>+</button>
+      <span className="workspace-tab-count" aria-live="polite">{layout.panes.length}/4 janelas</span>
+    </header>
+    <div className="workspace-body" ref={body} id="workspace-active-panel" role="tabpanel" aria-labelledby={`workspace-tab-${session.activeTabId}`} data-pane-count={layout.panes.length}
+      onPointerDownCapture={event => focusTarget(event.target)} onFocusCapture={event => focusTarget(event.target)}
+      onDragOver={event => { if (pending || cinema || !event.dataTransfer.types.includes(MODULE_DRAG_TYPE)) return; event.preventDefault(); event.dataTransfer.dropEffect = canDrop ? 'copy' : 'none'; }}
+      onDrop={event => { if (!event.dataTransfer.types.includes(MODULE_DRAG_TYPE)) return; event.preventDefault(); const area = event.dataTransfer.getData(MODULE_DRAG_TYPE); if (!pending && !cinema && canDrop && area === dragged) add(dragged!); endDrag(); }}>
+      {children}
+      {layout.panes.length > 1 && separator('columnSplit')}{layout.panes.length > 2 && separator('rowSplit')}
+      {dragged && !cinema && <div className={`workspace-drop-preview ${canDrop ? '' : 'full'}`} aria-live="polite">
+        <div><span className="drop-grid" data-count={Math.min(4, layout.panes.length + (layout.panes.includes(dragged) ? 0 : 1))}>{Array.from({ length: Math.min(4, layout.panes.length + (layout.panes.includes(dragged) ? 0 : 1)) }, (_, index) => <i key={index}/>)}</span>
+          <strong>{!canDrop ? 'Esta aba já tem quatro janelas' : layout.panes.includes(dragged) ? `Focar ${moduleName(dragged)}` : `Dividir com ${moduleName(dragged)}`}</strong><small>{canDrop ? 'Solte no espaço de trabalho' : 'Abra outra aba ou feche uma janela'}</small></div>
+      </div>}
+    </div>
+    {tools}
+  </div>;
 }

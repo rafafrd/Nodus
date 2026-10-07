@@ -205,3 +205,7 @@ Observado no executável Windows: ao acrescentar o distrito Three.js antes de ag
 ## O-020 — Resumo offline confundia resto temporal com limite (GAM-04,07/10/2026)
 
 Captura Windows de8h mostrava limite offline embora abaixo de7dias: delta>elapsed incluía o resto do quantum. A leitura também condicionava contagem de sinais/descobertas à igualdade exata entre chamadas de Date.now. Corrigido comparando com cap real e usando a referência do relatório criado na transação; ausência real e tempo creditado ficam separados. Teste com relógio que avança1ms entre chamadas e reconferência Windows aprovados; não duplica contagem em consulta seguinte. [Evidência](docs/validation/DEEP_PRODUCTION.md). Nenhuma pendência.
+
+## O-021 — Grafo conservava largura intrínseca ao voltar de aba ampliada (UI-05,07/10/2026)
+
+Corrigido e verificado no executável Windows. A primeira captura study-tabs-tabs.png mostrou cabeçalho/canvas do Grafo além do painel após abrir Grafo sozinho, fechar a aba e reconstruir quatro janelas. A coluna implícita da grade do Grafo assumia a largura intrínseca do canvas anterior. workspace.css agora define minmax(0,1fr) e min-width:0 no layout. O roteiro final mede controles/canvas dentro do painel nesse retorno, e a captura final foi inspecionada com ambos visíveis e grafo centralizado. [Evidência](docs/validation/STUDY_TABS.md).

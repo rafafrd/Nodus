@@ -112,7 +112,8 @@ export function VideoSurface({ controller: v }: { controller: Controller }) {
   }, []);
   useEffect(() => {
     function resize() { setViewport({ width: innerWidth, height: innerHeight }); setRevision(r => r + 1); }
-    const observer = new MutationObserver(() => setDialogOpen(!!document.querySelector('dialog[open],.suspended-popover'))); observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['open'] });
+    // Native views do not inherit renderer clipping or drag overlays.
+    const observer = new MutationObserver(() => setDialogOpen(!!document.querySelector('dialog[open],.suspended-popover,.workspace-drop-preview,.workspace-frame[data-resizing=true]'))); observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['open','data-resizing'] });
     const resizeObserver = new ResizeObserver(() => setRevision(r => r + 1)); if (v.slot) resizeObserver.observe(v.slot);
     window.addEventListener('resize', resize);
     document.addEventListener('scroll', resize, true);
