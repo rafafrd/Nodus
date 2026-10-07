@@ -10,7 +10,7 @@ import { Game } from '../src/main/game';
 import { Checklist } from '../src/main/checklist';
 import { Focus } from '../src/main/focus';
 import { cardCreateInput, cardReviewInput, linkCreateInput } from '../src/shared/study';
-const fixture = () => { const dir = fs.mkdtempSync(path.resolve('.local/study-unit-')), store = new Store(path.join(dir, 'data')), root = path.join(dir, 'vault'); fs.mkdirSync(root); const vault = new Vault(store); vault.selectRoot(root); const a = store.createSubject({ name: 'Álgebra', color: 'sage' }), b = store.createSubject({ name: 'Biologia', color: 'blue' }), n = vault.create({ subjectId: a.id, title: 'Equações' }), m = vault.create({ subjectId: a.id, title: 'Vetores' }), other = vault.create({ subjectId: b.id, title: 'Células' }); return { dir, store, root, vault, a, b, n, m, other }; };
+const fixture = (version=6) => { const dir = fs.mkdtempSync(path.resolve('.local/study-unit-')), store = new Store(path.join(dir, 'data'),version), root = path.join(dir, 'vault'); fs.mkdirSync(root); const vault = new Vault(store); vault.selectRoot(root); const a = store.createSubject({ name: 'Álgebra', color: 'sage' }), b = store.createSubject({ name: 'Biologia', color: 'blue' }), n = vault.create({ subjectId: a.id, title: 'Equações' }), m = vault.create({ subjectId: a.id, title: 'Vetores' }), other = vault.create({ subjectId: b.id, title: 'Células' }); return { dir, store, root, vault, a, b, n, m, other }; };
 test('revisão é persistente/idempotente, usa relógio do main e conserva fonte/draft/economia em falha real do audit', () => {
     const f = fixture();
     let now = 1800000000000;
@@ -34,7 +34,7 @@ test('revisão é persistente/idempotente, usa relógio do main e conserva fonte
         assert.equal(study.today().due, 1);
         assert.deepEqual(fs.readFileSync(path.join(f.root, f.n.ref.path)), source);
         assert.equal(f.vault.open(f.n.ref.id).draft!.text, f.n.text + 'rascunho');
-        assert.equal(new Game(f.store).get().coins, game.coins);
+        assert.equal(new Game(f.store).get().coins, Number(game.coins)+40);
     }
     finally {
         f.store.close();
@@ -71,14 +71,14 @@ test('busca/Hoje/relações consultam entidades reais; foco pausado não acresce
         f.store.close();
     }
 });
-test('migração real v4 para v5 é aditiva e restart conserva cartões/vínculos sem reset', () => {
-    const f = fixture(), original = fs.readFileSync(path.join(f.root, f.n.ref.path)), game = new Game(f.store).get();
+test('migração real v4 para v6 é aditiva e restart conserva cartões/vínculos sem reset', () => {
+    const f = fixture(5), original = fs.readFileSync(path.join(f.root, f.n.ref.path)); new Game(f.store); const game={coins:60};
     f.store.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; PRAGMA user_version=4;');
     f.store.close();
     const migrated = new Store(path.join(f.dir, 'data'));
     let id = '';
     try {
-        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 5);
+        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 6);
         assert.equal(new Game(migrated).get().coins, game.coins);
         assert.deepEqual(fs.readFileSync(path.join(f.root, f.n.ref.path)), original);
         id = new Study(migrated).create({ subjectId: f.a.id, noteId: f.n.ref.id, question: 'Persistir?', answer: 'Sim.', excerpt: '' }).id;

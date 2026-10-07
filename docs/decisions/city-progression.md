@@ -43,3 +43,7 @@ Vale Sereno conserva o cenário original. New York acrescenta brownstones/escada
 ## Atualização UI-04
 
 O usuário substituiu as metas temporais anteriores: deseja36 etapas curtas/intensas, sem espera entre sinais, somente preparo inicial. Motor não tem cooldown e usa fila idempotente; módulos/detalhes são isolados/recolhidos. As regras anteriores acima são históricas nos pontos substituídos; produtores, conquistas, prestígio, skins e valores de recompensa permanecem. [Regras atuais](game-rules.md), [ADR-0014](../adr/0014-areas-isoladas.md).
+
+## Evolução GAM-04 —07/10/2026
+
+Catálogo/custos/índice/recompensas/prestígio deste documento registram GAM-03. GAM-04 substitui essa curva pela [economia declarativa](../architecture/economy.md) e [balanceamento simulado](deep-production-balance.md), conservando IDs, skins, fontes e ganhos de prestígio antigos. Os controles próprios/skins/Oficina36 continuam; novas recompensas de atividades usam versão3.

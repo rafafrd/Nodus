@@ -4,6 +4,7 @@ import type { GameState } from '../shared/game';
 import { gsap } from 'gsap';
 import { Icon } from './Icon';
 import { createUrbanScene } from './UrbanScene';
+import { createProductionDistrict } from './ProductionDistrict';
 
 export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
@@ -16,7 +17,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
   const host = useRef<HTMLDivElement>(null), labels = useRef<(HTMLButtonElement | null)[]>([]);
   const live = useRef({ state, selected, onSelect, active, onReady }); live.current = { state, selected, onSelect, active, onReady };
   const focus = useRef((_place: Place) => {});
-  const controls = useRef({ zoom: (_amount: number) => {}, reset: () => {} });
+  const controls = useRef({ zoom: (_amount: number) => {}, reset: () => {}, production:()=>{} });
   const redraw = useRef(() => {});
   const [error, setError] = useState('');
   useEffect(() => { redraw.current(); }, [state, active]);
@@ -33,6 +34,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
       renderer.domElement.setAttribute('aria-label', 'Cidade isométrica, selecione um local pelos botões'); renderer.domElement.dataset.testid = 'city-canvas'; element.prepend(renderer.domElement);
       const scene = new T.Scene(); scene.background = new T.Color('#bacbc7');
+      const district=createProductionDistrict();scene.add(district.root);
       const camera = new T.OrthographicCamera(-24, 24, 15, -15, .1, 200); camera.position.set(28, 28, 34);
       const orbit = new OrbitControls(camera, renderer.domElement); orbit.target.set(0, .3, 0); orbit.enableRotate = false; orbit.enableDamping = false; orbit.minZoom = .75; orbit.maxZoom = 2.2; orbit.screenSpacePanning = true;
       orbit.mouseButtons = { LEFT: T.MOUSE.PAN, MIDDLE: T.MOUSE.DOLLY, RIGHT: T.MOUSE.PAN }; orbit.update();
@@ -136,7 +138,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       for (let i = 0; i < 7; i++) { const g = group(-10 + i * 2.4, .5); box(g, ['#8b657a', '#486d74', '#ba8660'][i % 3], 0, .35, 0, .23, .45, .18); mesh(g, sphere, '#dfbd91', 0, .67, 0, .14, .15, .14); box(g, '#57675c', 0, .81, 0, .3, .07, .27); citizens.push(g); }
       for (let i = 0; i < 48; i++) { const x = -13 + (i * 7.37) % 25, z = -8 + (i * 3.71) % 18; if (x > 7 || Math.abs(z) < 1.7 || Math.abs(x + 3) < 1.5 || x > 1 && x < 6 && z < 1) continue; mesh(scene, sphere, i % 3 ? '#aeb87a' : '#cfb27a', x, .35, z, .11, .15, .11); }
       const village=new T.Group();
-      for(const object of [...scene.children]) if(object!==sea && (object instanceof T.Mesh || object instanceof T.Group)) village.add(object);
+      for(const object of [...scene.children]) if(object!==sea && object!==district.root && (object instanceof T.Mesh || object instanceof T.Group)) village.add(object);
       scene.add(village);
       // Live plants and citizens are shared, so changing a skin cannot reset growth or identity.
       for(const object of [...cropGroups,...citizens])scene.add(object);
@@ -162,7 +164,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
         else gsap.to(cameraPose, { x, z, zoom, duration: .85, ease: 'power3.inOut', overwrite: true, onUpdate: applyCamera, onComplete: () => { renderer.domElement.dataset.camera = 'idle'; restart(); } });
       }
       focus.current = id => { const p = PLACES.find(v => v.id === id)!; moveCamera(p.x * .58, p.z * .58, 1.12); };
-      controls.current = { zoom: amount => moveCamera(orbit.target.x, orbit.target.z, Math.max(.75, Math.min(2.2, camera.zoom + amount))), reset: () => moveCamera(0, 0, 1) };
+      controls.current = { zoom: amount => moveCamera(orbit.target.x, orbit.target.z, Math.max(.75, Math.min(2.2, camera.zoom + amount))), reset: () => moveCamera(0, 0, 1),production:()=>moveCamera(18,0,1.1) };
       function draw(now: number) {
         frame = 0;
         if (live.current.active && !document.hidden && (reduced.matches || gsap.isTweening(cameraPose) || now - last >= 33)) {
@@ -179,7 +181,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
             ambient.intensity=cyber?.95:night?.75:1.7;sun.intensity=cyber?1.25:night?.75:2.8;sun.color.set(cyber?'#99b7ef':night?'#9fb7d6':dawn?'#e6b99d':'#f2dcc3');
             (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(cyber?'#111e30':night?'#263e53':'#678b9d');
           }
-          urban.update(s,delta,!reduced.matches);
+          urban.update(s,delta,!reduced.matches);district.update(s);renderer.domElement.dataset.installationObjects=String(district.objects);renderer.domElement.dataset.installationLevels=district.root.children.filter(v=>v.name.startsWith('installation-')).map(v=>v.userData.level??0).join(',');
           if (!reduced.matches) { animationTime += delta; wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
@@ -200,9 +202,9 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const stopForGesture = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; };
       orbit.addEventListener('start', stopForGesture);
       document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', stopForPreference); restart();
-      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
+      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); district.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
     }).catch(() => { if (!stopped) { setError('Não foi possível carregar o cenário.'); live.current.onReady(); } });
     return () => { stopped = true; cleanup(); };
   }, []);
-  return <div className="city-map" ref={host}>{PLACES.map((p, i) => <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''}`} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`} title={p.name}><span/><b className="place-name">{p.name}</b></button>)}<div className="city-camera"><button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}><Icon kind="plus"/></button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}><Icon kind="minus"/></button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}><Icon kind="target"/></button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
+  return <div className="city-map" ref={host}>{PLACES.map((p, i) => <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''}`} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`} title={p.name}><span/><b className="place-name">{p.name}</b></button>)}<div className="city-camera">{Object.values(state.economy.producers).some(Boolean)&&<button aria-label="Explorar distrito produtivo" onClick={()=>controls.current.production()}><Icon kind="city"/></button>}<button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}><Icon kind="plus"/></button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}><Icon kind="minus"/></button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}><Icon kind="target"/></button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
 }

@@ -197,3 +197,11 @@ Corrigido e verificado no Electron/Windows. Capturas iniciais mostraram navegaç
 ## O-018 — Player promovido a PiP ao abrir ou retornar ao módulo (UI-04, 06/10/2026)
 
 Corrigido e verificado no pacote Windows. Vídeo em tela única tinha slot 16:9 mais alto que a biblioteca; a proteção do WebContentsView contra clipping corretamente promovia PiP, inclusive ao sair do cinema. Slot limitado pela altura disponível em workspace.css. A prova com três momentos reais também encontrou retorno ao módulo com scroll antigo, promovendo PiP novamente; returnToDesk agora reposiciona a biblioteca antes do modo inline. test:videos final aprovou abertura/cinema/Escape, scroll real/PiP/retorno entre matérias, ferramentas suspensas com view escondida, continuidade de reprodução/guest, movimento reduzido/compacto e restart/crash/retry. [Evidência e pacote](docs/validation/CLEAN_WORKSPACE.md).
+
+## O-019 — Distrito capturado pelo grupo da skin original (GAM-04,07/10/2026)
+
+Observado no executável Windows: ao acrescentar o distrito Three.js antes de agrupar a vila original, o filtro capturou seu root; Cyberpunk/New York o ocultavam junto da vila. Corrigido excluindo district.root do agrupamento. Prova final do canvas nas três skins,103meshes e movimento reduzido passou. Capturas aguardam a skin efetivamente renderizada, evitando frame anterior. [Evidência](docs/validation/DEEP_PRODUCTION.md). Nenhuma pendência.
+
+## O-020 — Resumo offline confundia resto temporal com limite (GAM-04,07/10/2026)
+
+Captura Windows de8h mostrava limite offline embora abaixo de7dias: delta>elapsed incluía o resto do quantum. A leitura também condicionava contagem de sinais/descobertas à igualdade exata entre chamadas de Date.now. Corrigido comparando com cap real e usando a referência do relatório criado na transação; ausência real e tempo creditado ficam separados. Teste com relógio que avança1ms entre chamadas e reconferência Windows aprovados; não duplica contagem em consulta seguinte. [Evidência](docs/validation/DEEP_PRODUCTION.md). Nenhuma pendência.

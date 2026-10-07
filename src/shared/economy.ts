@@ -1,45 +1,91 @@
-export const PRODUCERS = [
-  { id:'collectors', name:'Coletores', base:40, rate:3, unlock:0, description:'Pequenas rotas de recursos sustentam o primeiro ciclo.' },
-  { id:'workshops', name:'Oficinas', base:240, rate:18, unlock:200, description:'Transforme matéria-prima em produção contínua.' },
-  { id:'warehouses', name:'Armazéns', base:1400, rate:105, unlock:1500, description:'Uma rede de logística para toda a cidade.' },
-  { id:'powerplants', name:'Centrais', base:9000, rate:700, unlock:12000, description:'Energia para a próxima escala de crescimento.' },
-  { id:'observatories', name:'Observatórios', base:60000, rate:4800, unlock:90000, description:'Conhecimento aplicado à produção da cidade.' },
-] as const;
-export type ProducerId = typeof PRODUCERS[number]['id'];
-export type Economy = { producers:Record<ProducerId,number>; upgrades:string[]; achievements:string[]; lifetime:number; cycleEarned:number; harvested:number; gathered:number; challenges:number; perfect:number; rounds:number; prestige:number; tokens:number; cycles:number; permanent:string[] };
-export const freshEconomy = ():Economy => ({ producers:{collectors:0,workshops:0,warehouses:0,powerplants:0,observatories:0},upgrades:[],achievements:[],lifetime:0,cycleEarned:0,harvested:0,gathered:0,challenges:0,perfect:0,rounds:0,prestige:0,tokens:0,cycles:0,permanent:[] });
-export const PERMANENT = [
-  { id:'legacy-tools', name:'Ferramentas herdadas', cost:1, description:'Dobra a potência de cada pulso, em todos os ciclos.' },
-  { id:'city-charter', name:'Carta da cidade', cost:3, description:'Produtores custam 10% menos, permanentemente.' },
-  { id:'long-horizon', name:'Horizonte longo', cost:5, description:'Produção offline passa de 7 para 14 dias por visita.' },
-  { id:'shared-knowledge', name:'Conhecimento compartilhado', cost:8, description:'Mais 25% de produção automática, em todos os ciclos.' },
-] as const;
-export type Upgrade = {id:string;name:string;cost:number;producer?:ProducerId;quantity?:number;prior?:string;clicks?:number;engine?:number;total?:number;effect:'double'|'global'|'click';description:string};
-export const UPGRADES:Upgrade[] = [
-  ...PRODUCERS.flatMap(p=>[5,15,30].map((quantity,i)=>({ id:`${p.id}-${i+1}`, name:`${p.name} · ${['Especialização','Automação','Rede integrada'][i]}`,cost:p.base*[8,40,180][i],producer:p.id,quantity,prior:i?`${p.id}-${i}`:undefined,effect:'double' as const,description:`×2 na produção de ${p.name.toLowerCase()}. Requer ${quantity} unidades${i?' e a melhoria anterior':''}.` }))),
-  ...[1,2,3].map((tier,i)=>({id:`pulse-${tier}`,name:`Pulso amplificado ${tier}`,cost:[500,6000,70000][i],clicks:[100,500,2000][i],engine:[2,5,8][i],prior:i?`pulse-${i}`:undefined,effect:'click' as const,description:`×2 no pulso. Requer ${[100,500,2000][i]} pulsos e motor nível ${[2,5,8][i]}.`})),
-  ...[1,2,3].map((tier,i)=>({id:`network-${tier}`,name:`Sinergia urbana ${tier}`,cost:[3000,30000,300000][i],total:[20,60,150][i],prior:i?`network-${i}`:undefined,effect:'global' as const,description:`+25% de produção automática. Requer ${[20,60,150][i]} produtores no total.`})),
-];
-export type Achievement = {id:string;name:string;description:string;metric:'lifetime'|'clicks'|'producers'|'upgrades'|'harvested'|'gathered'|'challenges'|'perfect'|'rounds'|'prestige';target:number};
-const milestones=(metric:Achievement['metric'],targets:number[],names:string[],unit:string):Achievement[]=>targets.map((target,i)=>({id:`${metric}-${target}`,name:names[i],description:`${target.toLocaleString('pt-BR')} ${unit}.`,metric,target}));
-export const ACHIEVEMENTS:Achievement[] = [
-  ...milestones('lifetime',[1000,10000,100000,1000000],['Primeiro capital','Cidade em movimento','Economia conectada','Metrópole'],'moedas produzidas ao longo da jornada'),
-  ...milestones('clicks',[100,500,2000],['Mãos à obra','Motor incansável','Ritmo de máquina'],'pulsos no motor'),
-  ...milestones('producers',[10,50,150],['Equipe formada','Distrito produtivo','Rede metropolitana'],'produtores no ciclo'),
-  ...milestones('upgrades',[3,10,21],['Engenharia aplicada','Especialização urbana','Tecnologia completa'],'melhorias no ciclo'),
-  ...milestones('harvested',[10,50],['Primeira safra','Jardim abundante'],'colheitas'),
-  ...milestones('gathered',[25,100],['Explorador de rotas','Expedição veterana'],'coletas'),
-  ...milestones('challenges',[1,5,20],['Aprendiz da Oficina','Oficina experiente','Mestre da Oficina'],'partidas completas na Oficina'),
-  ...milestones('perfect',[1,5],['Precisão absoluta','Controle impecável'],'partidas perfeitas na Oficina'),
-  ...milestones('rounds',[5,25],['Encontro de ideias','Memória em rede'],'rodadas de memória completas'),
-  ...milestones('prestige',[1,5,20],['Novo horizonte','Legado construído','História da cidade'],'pontos de prestígio acumulados'),
-];
+import { D, dec, amount, integer, sub, type Amount } from './amount';
+import { BALANCE } from './economy-balance';
+import { PRODUCERS, UPGRADES, PERMANENT, ACHIEVEMENTS, SIGNALS } from './economy-content';
+import type { Economy, EconomicContext, Effect, Producer, Upgrade, Achievement, Metric, Breakdown, FamilyBreakdown } from './economy-types';
+export { PRODUCERS, UPGRADES, PERMANENT, ACHIEVEMENTS, SIGNALS, BALANCE };
+export type { Economy, Upgrade, Achievement };
+export type ProducerId = string;
+const definitions=new Map([...UPGRADES,...PERMANENT].map(u=>[u.id,u]));
+const eligibleAchievements=new Set(ACHIEVEMENTS.filter(a=>a.eligible).map(a=>a.id));
+export const emptyContext = (millRate=0):EconomicContext => ({clicks:0,level:0,millRate,build:{focus:0,review:0,planning:0,practice:0},now:0});
+export const freshEconomy = (now=0):Economy => ({version:BALANCE.version,producers:Object.fromEntries(PRODUCERS.map(p=>[p.id,0])),upgrades:[],achievements:[],lifetime:0,cycleEarned:0,harvested:0,gathered:0,challenges:0,perfect:0,rounds:0,prestige:0,tokens:0,cycles:0,permanent:[],focusMinutes:0,reviews:0,studyDays:0,events:0,combos:0,memoryPerfect:0,study:{focus:{},reviewCursor:0,baselineAt:now,lastDay:'',streak:0,dayMinutes:0,dayReviews:0,builds:[]},signals:[],activeEvents:[],nextSignalAt:now+BALANCE.signalEveryMs,eventSerial:0,unlocks:[]});
+export function normalizeEconomy(raw:Partial<Economy>,now:number):Economy {const defaults=freshEconomy(now);return {...defaults,...raw,version:BALANCE.version,producers:{...defaults.producers,...raw.producers},study:{...defaults.study,...raw.study}};}
 export const producerTotal=(e:Economy)=>Object.values(e.producers).reduce((a,b)=>a+b,0);
-export function upgradeReady(u:Upgrade,e:Economy,clicks:number,level:number) { return (!u.prior||e.upgrades.includes(u.prior))&&(!u.producer||e.producers[u.producer]>=(u.quantity??0))&&clicks>=(u.clicks??0)&&level>=(u.engine??0)&&producerTotal(e)>=(u.total??0); }
-export function producerCost(p:typeof PRODUCERS[number],e:Economy,quantity=1) { let cost=0;for(let i=0;i<quantity;i++)cost+=Math.ceil(p.base*1.17**(e.producers[p.id]+i)*(e.permanent.includes('city-charter')?.9:1));return cost; }
-export function production(e:Economy,millRate:number) { const base=PRODUCERS.reduce((sum,p)=>sum+p.rate*e.producers[p.id]*2**UPGRADES.filter(u=>u.producer===p.id&&e.upgrades.includes(u.id)).length,0)+millRate; return Math.round(base*(1+e.prestige*.05)*(1+e.achievements.length*.01)*(1+e.upgrades.filter(id=>id.startsWith('network-')).length*.25)*(e.permanent.includes('shared-knowledge')?1.25:1)*100)/100; }
-export function pulseMultiplier(e:Economy) { return 2**e.upgrades.filter(id=>id.startsWith('pulse-')).length*(e.permanent.includes('legacy-tools')?2:1); }
-export const prestigeGain=(e:Economy)=>Math.max(0,Math.floor(Math.sqrt(e.lifetime/20000))-e.prestige);
-export const nextPrestigeAt=(e:Economy)=>20000*(e.prestige+prestigeGain(e)+1)**2;
-export function achievementProgress(a:Achievement,e:Economy,clicks:number) { return a.metric==='clicks'?clicks:a.metric==='producers'?producerTotal(e):a.metric==='upgrades'?e.upgrades.length:e[a.metric]; }
-export type EconomyView = Economy & { rate:number; multiplier:number; prestigeGain:number; nextPrestigeAt:number; offlineDays:number; producersView:{id:ProducerId;count:number;cost:number;cost10:number;unlocked:boolean;rate:number}[]; upgradesView:{id:string;owned:boolean;unlocked:boolean}[]; achievementsView:{id:string;unlocked:boolean;progress:number}[] };
+export function metricValue(metric:Metric,e:Economy,c:EconomicContext,producer?:string):Amount {
+  if(metric==='clicks')return c.clicks;
+  if(metric==='engine')return c.level;
+  if(metric==='index')return efficiencyIndex(e);
+  if(metric==='producers')return producer?(e.producers[producer]??0):producerTotal(e);
+  if(metric==='upgrades')return e.upgrades.length;
+  if(metric==='families')return Object.values(e.producers).filter(Boolean).length;
+  if(metric==='synergies')return UPGRADES.filter(u=>u.category==='synergy'&&e.upgrades.includes(u.id)).length;
+  if(metric==='builds')return e.study.builds.length;
+  return e[metric];
+}
+export function upgradeReady(u:Upgrade,e:Economy,clicks=0,level=0) {const c={...emptyContext(),clicks,level};return u.conditions.every(condition=>'owned' in condition?e.upgrades.includes(condition.owned)||e.permanent.includes(condition.owned):dec(metricValue(condition.metric,e,c,condition.producer)).gte(condition.target));}
+export function effects(e:Economy,c:EconomicContext):{effect:Effect;meta:boolean;event:boolean}[] {
+  const result:{effect:Effect;meta:boolean;event:boolean}[]=[];
+  for(const id of [...e.upgrades,...e.permanent]){const u=definitions.get(id);if(u)for(const effect of u.effects)result.push({effect,meta:Boolean(u.permanent),event:false});}
+  for(const instance of e.activeEvents)if((instance.endsAt??0)>c.now){const signal=SIGNALS.find(s=>s.id===instance.type);if(signal)for(const effect of signal.effects)result.push({effect:signal.family&&instance.producer?{...effect,producer:instance.producer} as Effect:effect,meta:false,event:true});}
+  return result;
+}
+export function effectFactor(kind:Effect['kind'],e:Economy,c=emptyContext(),producer?:string) {return effects(e,c).reduce((factor,{effect})=>effect.kind===kind&&'factor' in effect&&(!effect.producer||effect.producer===producer)?factor.mul(effect.factor):factor,new D(1));}
+export function efficiencyIndex(e:Economy) {return e.achievements.filter(id=>eligibleAchievements.has(id)).length;}
+export function breakdown(e:Economy,c=emptyContext(),catalog=PRODUCERS):Breakdown {
+  const applied=effects(e,c),synergyBoost=applied.reduce((value,{effect})=>effect.kind==='synergyBoost'?value.mul(effect.factor):value,new D(1));let base=new D(c.millRate),specialized=new D(c.millRate),linked=new D(c.millRate);
+  const families:FamilyBreakdown[]=catalog.map(p=>{
+    const count=e.producers[p.id]??0,b=dec(p.rate).mul(count);let tier=new D(1),synergy=new D(1);const partners:string[]=[];
+    for(const {effect} of applied){
+      if(effect.kind==='production'&&effect.producer===p.id)tier=tier.mul(effect.factor);
+      if(effect.kind==='perUnit'&&effect.producer===p.id)tier=tier.mul(new D(1).plus(new D(effect.perUnit).mul(count)));
+      if(effect.kind==='synergy'&&effect.producer===p.id){synergy=synergy.mul(new D(1).plus(new D(effect.perUnit).mul(e.producers[effect.other]??0).mul(synergyBoost)));partners.push(effect.other);}
+    }
+    const value=b.mul(tier).mul(synergy);base=base.plus(b);specialized=specialized.plus(b.mul(tier));linked=linked.plus(value);
+    return{id:p.id,base:amount(b),tiers:amount(tier),synergy:amount(synergy),total:amount(value),individual:count?amount(value.div(count)):0,share:0,level:BALANCE.visualMilestones.filter(n=>count>=n).length,activeUpgrades:e.upgrades.filter(id=>definitions.get(id)?.producer===p.id),partners};
+  });
+  const achievement=new D(1).plus(new D(efficiencyIndex(e)).mul(BALANCE.achievementPerIndex).mul(effectFactor('achievement',e,c)));
+  const build=new D(1).plus(Math.min(BALANCE.maxBuildBonus,c.build.focus*BALANCE.buildPerPoint));
+  let global=new D(1),event=new D(1),meta=new D(1).plus(dec(e.prestige).mul(BALANCE.prestigeBonus));
+  for(const {effect,meta:isMeta,event:isEvent} of applied)if(effect.kind==='production'&&!effect.producer){if(isMeta)meta=meta.mul(effect.factor);else if(isEvent)event=event.mul(effect.factor);else global=global.mul(effect.factor);}
+  const multiplier=achievement.mul(build).mul(global).mul(event).mul(meta),final=linked.mul(multiplier);
+  for(const family of families){family.total=amount(dec(family.total).mul(multiplier));family.individual=amount(dec(family.individual).mul(multiplier));family.share=final.isZero()?0:dec(family.total).div(final).mul(100).toNumber();}
+  const tierFactor=base.isZero()?new D(1):specialized.div(base),synergyFactor=specialized.isZero()?new D(1):linked.div(specialized);
+  return{families,base:amount(base),specialized:amount(specialized),synergy:amount(synergyFactor),achievement:amount(achievement),build:amount(build),global:amount(global),event:amount(event),meta:amount(meta),final:amount(final),layers:[{name:'Especializações',factor:amount(tierFactor)},{name:'Sinergias',factor:amount(synergyFactor)},{name:'Índice de descoberta',factor:amount(achievement)},{name:'Build de Foco',factor:amount(build)},{name:'Rede global',factor:amount(global)},{name:'Sinais ativos',factor:amount(event)},{name:'Legado',factor:amount(meta)}]};
+}
+export function production(e:Economy,millRate:number,c=emptyContext(millRate)):Amount { return breakdown(e,c).final; }
+export function costFactor(e:Economy,c=emptyContext(),producer?:string) {return effectFactor('cost',e,c,producer).mul(1-Math.min(.2,c.build.planning*.01));}
+export function producerCost(p:Producer,e:Economy,quantity=1,c=emptyContext()):Amount {
+  if(!Number.isSafeInteger(quantity)||quantity<0||(e.producers[p.id]??0)+quantity>BALANCE.maxUnits)throw new Error('Quantidade econômica inválida.');
+  const owned=e.producers[p.id]??0,g=dec(p.growth),base=dec(p.base).mul(costFactor(e,c,p.id));
+  // Cumulative rounded costs telescope exactly across split lots.
+  const cumulative=(n:number)=>integer(base.mul(g.pow(n).minus(1)).div(g.minus(1)).ceil());
+  return sub(cumulative(owned+quantity),cumulative(owned));
+}
+export function maxAffordable(p:Producer,e:Economy,balance:Amount,c=emptyContext()):number {
+  let low=0,high=BALANCE.maxUnits-(e.producers[p.id]??0);
+  while(low<high){const mid=Math.ceil((low+high)/2);if(dec(producerCost(p,e,mid,c)).lte(balance))low=mid;else high=mid-1;}
+  return low;
+}
+export function pulseMultiplier(e:Economy) {return Math.min(BALANCE.pulseMaximum,effectFactor('pulse',e).toNumber());}
+export const prestigeGain=(e:Economy):Amount=>integer(D.max(0,dec(e.lifetime).div(BALANCE.prestigeBase).pow(BALANCE.prestigeExponent).floor().minus(dec(e.prestige).minus(e.legacyPrestige??0))).plus(e.legacyCredit??0));
+export const nextPrestigeAt=(e:Economy):Amount=>amount(dec(e.prestige).minus(e.legacyPrestige??0).plus(prestigeGain(e)).minus(e.legacyCredit??0).plus(1).pow(2).mul(BALANCE.prestigeBase));
+export function achievementProgress(a:Achievement,e:Economy,clicks=0):Amount {return metricValue(a.metric,e,{...emptyContext(),clicks},a.producer);}
+export function achievementReady(a:Achievement,e:Economy,c:EconomicContext) {
+  if(dec(metricValue(a.metric,e,c,a.producer)).lt(a.target))return false;
+  switch(a.condition){
+    case 'all-builds':return e.study.builds.length>=4;
+    case 'full-network':return PRODUCERS.every(p=>(e.producers[p.id]??0)>0);
+    case 'no-pulse':return c.clicks===0;
+    case 'comeback':return (e.returnReport?.elapsedMs??0)>=24*3600000;
+    case 'symmetric':return new Set(Object.values(e.producers).filter(Boolean)).size===1&&Object.values(e.producers).filter(Boolean).length>=4;
+    case 'late-night':return new Date(c.now).getHours()<5;
+    case 'two-events':return e.activeEvents.length>=2;
+    case 'many-discounts':return effectFactor('cost',e,c).lte(.65);
+    case 'clean-run':return e.perfect>=5&&e.challenges===e.perfect;
+    case 'old-and-new':return (e.producers[PRODUCERS[0].id]??0)>=100&&(e.producers[PRODUCERS.at(-1)!.id]??0)>=1;
+    default:return true;
+  }
+}
+export type EconomyView = Economy & {rate:Amount;multiplier:Amount;prestigeGain:Amount;nextPrestigeAt:Amount;offlineDays:number;index:number;breakdown:Breakdown;focusActive:boolean;activityQuotes:{gather:Amount;focusMinute:Amount;review:Amount};
+  producersView:{id:string;count:number;cost:Amount;cost10:Amount;cost100:Amount;max:number;costMax:Amount;unlocked:boolean;rate:Amount;share:number;level:number;individual:Amount;activeUpgrades:string[];partners:string[]}[];
+  upgradesView:{id:string;owned:boolean;unlocked:boolean}[];achievementsView:{id:string;unlocked:boolean;progress:Amount}[]};

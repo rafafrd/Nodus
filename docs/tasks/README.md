@@ -22,6 +22,8 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 
 ## Tickets
 
+Incremento ativo: [GAM-04 — Produção profunda do observatório](doing/GAM-04.md), branch codex/deep-production criada de main após merge do PR10. Motor declarativo, estudo conectado, catálogo e simulações implementados; provas finais Windows e entrega Git em andamento.
+
 | Ticket | Entrega | Dependências | Arquivo |
 | --- | --- | --- | --- |
 | ALP-01 | Fundação executável no Windows | — | [Abrir](done/ALP-01.md) |

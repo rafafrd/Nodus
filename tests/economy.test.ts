@@ -6,7 +6,7 @@ import { randomUUID } from 'node:crypto';
 import { Store } from '../src/main/store';
 import { Game } from '../src/main/game';
 import { Vault } from '../src/main/vault';
-import { PRODUCERS, producerCost } from '../src/shared/economy';
+import { PRODUCERS, producerCost, BALANCE } from '../src/shared/economy';
 import { gameInput, type GameAction } from '../src/shared/game';
 
 test('produção real: custo crescente, taxa antiga, limite offline, replay, cadeia e rollback',()=>{
@@ -14,20 +14,20 @@ test('produção real: custo crescente, taxa antiga, limite offline, replay, cad
  const act=(action:GameAction)=>game.act({operationId:randomUUID(),action});
  try{
   const buy={operationId:randomUUID(),action:{kind:'producer-buy' as const,producer:'collectors' as const,quantity:1 as const}};
-  assert.equal(game.act(buy).state.coins,20);assert.equal(game.act(buy).state.economy.producers.collectors,1);assert.equal(game.get().economy.rate,3);
+  assert.equal(game.act(buy).state.coins,20);assert.equal(game.act(buy).state.economy.producers.collectors,1);assert.equal(game.get().economy.rate,3.006);
   assert.equal(game.act(buy).replayed,true);assert.equal(game.get().economy.producers.collectors,1);
   assert.throws(()=>act({kind:'producer-buy',producer:'workshops',quantity:1}),/desbloquear/);
   assert.throws(()=>act({kind:'economy-upgrade',id:'collectors-2'}),/requisitos/);
   now+=30000;assert.equal(game.get().coins,21);assert.equal(game.get().coins,21);
-  for(let i=0;i<30;i++){now+=300;act({kind:'engine-click'});}const before=game.get();assert.ok(before.coins>=47);
+  for(let i=0;i<30;i++){now+=300;act({kind:'engine-click'});}const before=game.get();assert.ok(Number(before.coins)>=47);
   now+=10000;const next=act({kind:'producer-buy',producer:'collectors',quantity:1}).state;
   const earned=Number(db.db.prepare("SELECT sum(coins) n FROM game_ledger WHERE action='Produção automática da cidade'").get()?.n);
-  assert.equal(earned,2,'tempo anterior à compra continua a 3 moedas/min');assert.equal(next.economy.rate,6);
-  now+=10*24*3600000;const settled=game.get();assert.ok(settled.coins-next.coins<=7*24*60*6+1);assert.equal(game.get().coins,settled.coins);
-  const rate=game.get().economy.rate;const cost=producerCost(PRODUCERS[0],game.get().economy,10);const oldCoins=game.get().coins,carry=JSON.parse(String(db.db.prepare('SELECT state FROM game_player').get()!.state)).passiveCarry;
+  assert.equal(earned,2,'tempo anterior à compra continua a 3 moedas/min');assert.equal(next.economy.rate,6.012);
+  now+=10*24*3600000;const settled=game.get();assert.ok(Number(settled.coins)-Number(next.coins)<=7*24*60*Number(next.economy.rate)+1);assert.equal(game.get().coins,settled.coins);
+  const rate=Number(game.get().economy.rate);const cost=producerCost(PRODUCERS[0],game.get().economy,10);const oldCoins=game.get().coins,carry=JSON.parse(String(db.db.prepare('SELECT state FROM game_player').get()!.state)).passiveCarry;
   now+=500;const many=act({kind:'producer-buy',producer:'collectors',quantity:10}).state;
-  assert.equal(many.economy.producers.collectors,12);assert.equal(many.coins,oldCoins-cost+Math.floor((500*rate+carry)/60000));
-  act({kind:'economy-upgrade',id:'collectors-1'});assert.ok(game.get().economy.rate>rate*2);
+  assert.equal(many.economy.producers.collectors,12);assert.equal(many.coins,Number(oldCoins)-Number(cost)+Math.floor((500*rate+carry)/60000));
+  act({kind:'economy-upgrade',id:'collectors-1'});assert.ok(Number(game.get().economy.rate)>rate*2);
   assert.throws(()=>act({kind:'economy-upgrade',id:'collectors-1'}),/adquirida/);
   assert.throws(()=>act({kind:'economy-upgrade',id:'bogus'}),/desconhecida/);
   const passiveRows=Number(db.db.prepare("SELECT count(*) n FROM game_ledger WHERE source LIKE 'production:%'").get()!.n);for(let i=0;i<20;i++){now+=1000;game.get();}
@@ -46,6 +46,7 @@ test('prestígio opcional e permanente: prévia, replay, rollback, restart e fon
  try{
   const subject=db.createSubject({name:'Fonte preservada',color:'sage'}),vault=new Vault(db);vault.selectRoot(vaultRoot);const note=vault.create({subjectId:subject.id,title:'Nota original'});vault.draft({id:note.ref.id,hash:note.hash,text:note.text+'\nRascunho intacto.'});const original=fs.readFileSync(path.join(vaultRoot,note.ref.path));
   act({kind:'producer-buy',producer:'collectors',quantity:1});now+=7*24*3600000;game.get();
+  const fixtureState=JSON.parse(String(db.db.prepare('SELECT state FROM game_player').get()!.state));fixtureState.economy.lifetime=BALANCE.prestigeBase;db.db.prepare('UPDATE game_player SET state=?').run(JSON.stringify(fixtureState));
   act({kind:'buy',item:'windmill'});act({kind:'buy',item:'cottage'});act({kind:'plant',plot:1,crop:'wheat'});act({kind:'gather',resource:'stone'});act({kind:'skin',value:'cyberpunk'});
   const old=game.get();assert.equal(old.economy.prestigeGain,1);assert.ok(old.economy.achievements.length>=2);
   assert.throws(()=>act({kind:'prestige',expectedCycles:0,expectedGain:99}),/ganho mudou/);assert.deepEqual(game.get(),old);
