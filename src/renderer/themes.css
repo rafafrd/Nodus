@@ -12,4 +12,9 @@
   --theme-bg:#0e1724; --theme-rail:#0b121d; --theme-sidebar:#121e2e; --theme-panel:#17253a; --theme-raised:#1d3045; --theme-editor:#111d2d; --theme-input:#0b1420;
   --theme-border:#2e4662; --theme-text:#dfe9f4; --theme-muted:#a2b7cb; --theme-accent:#99c5ea; --theme-accent-rgb:153 197 234; --theme-active:#233952;
 }
+:root[data-theme=editorial] {
+  --theme-bg:#090a0b; --theme-rail:#0b0c0d; --theme-sidebar:#0e0f10; --theme-panel:#101112; --theme-raised:#161718; --theme-editor:#0d0e0f; --theme-input:#090a0b;
+  --theme-border:#303234; --theme-text:#e4e3df; --theme-muted:#a0a19e; --theme-accent:#dedbd1; --theme-accent-rgb:222 219 209; --theme-active:#1c1e1f;
+  --editorial-grid:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+}
 html[data-animations=off] *, html[data-animations=off] *::before, html[data-animations=off] *::after { transition:none !important; animation:none !important; scroll-behavior:auto !important; }

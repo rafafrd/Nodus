@@ -12,14 +12,17 @@ type PreferencesContextValue = { value: Preferences; busy: boolean; error: strin
 const PreferencesContext = createContext<PreferencesContextValue | null>(null);
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<Preferences | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(false), [retry, setRetry] = useState(0);
-  const mutating = useRef(false);
+  const pending = useRef(Promise.resolve()), count=useRef(0);
+  useEffect(()=>{if(value)return;return window.desktop.onBeforeClose(()=>{void window.desktop.finishClose().then(r=>{if(!r.ok)setError(r.message);});});},[Boolean(value)]);
   useEffect(() => { let stopped = false; setError(''); void window.desktop.getPreferences().then(r => { if (stopped) return; if (r.ok) { appearance(r.value); setValue(r.value); } else setError(r.message); }).catch(() => { if (!stopped) setError('Não foi possível carregar as configurações. Tente novamente.'); }); return () => { stopped = true; }; }, [retry]);
-  useLayoutEffect(() => { if (value) appearance(value); }, [value?.theme, value?.animations]);
-  async function mutate(action: () => Promise<Result<Preferences>>) {
-    if (mutating.current) return false; mutating.current = true; setBusy(true); setError('');
-    try { const r = await action(); if (!r.ok) { setError(r.message); return false; } setValue(r.value); return true; }
-    catch (e) { setError(e instanceof Error ? e.message : 'Não foi possível salvar. As configurações anteriores foram conservadas.'); return false; }
-    finally { mutating.current = false; setBusy(false); }
+  useLayoutEffect(() => { if (value) appearance(value); }, [value?.theme, value?.animations, value?.editorialBackground]);
+  function mutate(action: () => Promise<Result<Preferences>>) {
+    count.current++;setBusy(true);
+    const task=pending.current.then(async()=>{setError('');
+      try { const r = await action(); if (!r.ok) { setError(r.message); return false; } setValue(r.value); return true; }
+      catch (e) { setError(e instanceof Error ? e.message : 'Não foi possível salvar. As configurações anteriores foram conservadas.'); return false; }
+      finally { count.current--;if(!count.current)setBusy(false); }
+    });pending.current=task.then(()=>{});return task;
   }
   if (!value) return <div className="preferences-loading" role="status">{error || 'Preparando seu espaço…'}{error && <button onClick={() => setRetry(n => n + 1)}>Tentar novamente</button>}</div>;
   return <PreferencesContext.Provider value={{ value, error, busy, update: input => mutate(() => window.desktop.updatePreferences(input)), photo: file => mutate(async () => { if (!file.size || file.size > PHOTO_LIMIT) throw Error('Escolha PNG ou JPEG de até 5 MB.'); return window.desktop.setProfilePhoto({ bytes: new Uint8Array(await file.arrayBuffer()) }); }), removePhoto: () => mutate(() => window.desktop.removeProfilePhoto()) }}>{children}</PreferencesContext.Provider>;

@@ -26,7 +26,10 @@
     "test:pdf-export": "tsx scripts/smoke-pdf-export.ts",
     "test:expansion": "tsx scripts/smoke-expansion.ts",
     "test:annotations": "tsx scripts/smoke-annotations.ts",
-    "test:knowledge-backup": "tsx scripts/smoke-knowledge-backup.ts"
+    "test:knowledge-backup": "tsx scripts/smoke-knowledge-backup.ts",
+    "test:editorial": "tsx scripts/smoke-editorial.ts --packaged",
+    "test:city-progression": "tsx scripts/smoke-city-progression.ts --packaged",
+    "test:clean-workspace": "tsx scripts/smoke-clean-workspace.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",

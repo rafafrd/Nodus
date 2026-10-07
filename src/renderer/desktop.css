@@ -1,0 +1,20 @@
+.desktop-frame { display:grid; grid-template-rows:34px minmax(0,1fr); height:100vh; overflow:hidden; background:var(--theme-bg); }
+.desktop-content { min-height:0; min-width:0; overflow:hidden; }
+.desktop-titlebar { position:relative; z-index:60; display:flex; align-items:stretch; background:var(--theme-rail); color:var(--theme-text); border-bottom:1px solid var(--theme-border); user-select:none; }
+.desktop-drag { flex:1; display:flex; align-items:center; gap:10px; padding:0 14px; app-region:drag; -webkit-app-region:drag; }
+.desktop-drag strong { font:14px Georgia,serif; font-weight:normal; }
+.desktop-emblem { border:1px solid var(--theme-border); width:18px; height:18px; display:grid; place-items:center; font:11px Georgia,serif; }
+.desktop-caption { padding-left:16px; color:var(--theme-muted); font:9px Consolas,monospace; letter-spacing:1px; }
+.window-buttons { display:flex; -webkit-app-region:no-drag; app-region:no-drag; }
+.window-buttons button { display:grid; place-items:center; width:46px; border:0; border-left:1px solid var(--theme-border); border-radius:0; padding:0; background:transparent; color:var(--theme-muted); }
+.window-buttons button:hover { background:var(--theme-raised); color:var(--theme-text); }
+.window-buttons .window-close:hover { background:#a03238; color:white; }
+.window-buttons svg { width:13px; height:13px; stroke:currentColor; stroke-width:1.2; fill:none; }
+.window-error { position:fixed; top:40px; right:12px; z-index:200; background:var(--theme-panel); padding:12px; border:1px solid var(--theme-border); }
+.desktop-content .nodus-shell, .desktop-content .app-shell, .desktop-content .main-column, .desktop-content .game-shell, .desktop-content .project-shell { height:100%; }
+.desktop-content .video-cinema-shade { top:34px; }
+.editorial-backdrop { position:fixed; inset:34px 0 0; pointer-events:none; overflow:hidden; z-index:4; }
+.editorial-backdrop::before { content:''; position:absolute; inset:-15%; opacity:.035; background:radial-gradient(ellipse at 30% 40%,#e1ded0 0%,transparent 55%),repeating-linear-gradient(110deg,transparent 0 150px,#ffffff30 151px,transparent 152px 260px); animation:editorial-drift 90s ease-in-out infinite alternate; will-change:transform; }
+.editorial-backdrop[data-running=false]::before { animation:none; will-change:auto; opacity:0; }
+@keyframes editorial-drift { from { transform:translate(-4%,-3%) rotate(-2deg); } to { transform:translate(4%,3%) rotate(2deg); } }
+@media(prefers-reduced-motion:reduce) { .editorial-backdrop::before { animation:none; will-change:auto; opacity:0; } }

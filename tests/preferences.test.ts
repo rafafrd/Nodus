@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { randomUUID } from 'node:crypto';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,6 +9,28 @@ import { AppManagementService } from '../src/main/app-management';
 import { photoDimensions } from '../src/main/photo-input';
 import { defaultPreferences, PHOTO_LIMIT, preferenceInput, photoInput } from '../src/shared/preferences';
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a4qQAAAAASUVORK5CYII=', 'base64');
+
+test('tema original anterior é conservado; principais persistem com rollback e argumentos limitados', () => {
+  const dir = fs.mkdtempSync(path.resolve('.local/editorial-preferences-')); let store = new Store(dir);
+  try {
+    const legacy = { name:'Perfil anterior', theme:'olive', animations:false, photo:null };
+    const raw = JSON.stringify(legacy); store.setSetting('preferences', raw);
+    let prefs = new UserPreferences(store);
+    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout });
+    assert.equal(store.setting('preferences'),raw, 'Leitura compatível não regrava o perfil');
+    const ids = [randomUUID(),randomUUID()]; prefs.update({ theme:'editorial', featuredProjectIds:ids,editorialBackground:false });
+    store.close(); store = new Store(dir); prefs = new UserPreferences(store);
+    assert.deepEqual(prefs.get(), { ...legacy, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout });
+    const before=store.setting('preferences');
+    for(const featuredProjectIds of [['invalid'],[ids[0],ids[0]],Array.from({length:41},()=>randomUUID())]) {
+      assert.throws(()=>prefs.update({featuredProjectIds})); assert.equal(store.setting('preferences'),before);
+    }
+    store.db.exec("CREATE TRIGGER editorial_audit_fail BEFORE INSERT ON audit_events WHEN NEW.action='preferences.update' BEGIN SELECT RAISE(FAIL,'fixture'); END;");
+    assert.throws(()=>prefs.update({featuredProjectIds:[]})); assert.equal(store.setting('preferences'),before);
+    store.db.exec('DROP TRIGGER editorial_audit_fail'); prefs.update({theme:'olive',featuredProjectIds:[]});
+    assert.equal(prefs.get().name,legacy.name); assert.equal(prefs.get().animations,false); assert.equal(prefs.get().theme,'olive');
+  } finally { store.close(); }
+});
 test('perfil/preferências persistem sem schema novo; updates e foto/audit fazem rollback sem tocar outros settings', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/preferences-data-')); let store = new Store(dir);
   try {
@@ -15,7 +38,7 @@ test('perfil/preferências persistem sem schema novo; updates e foto/audit fazem
     let prefs = new UserPreferences(store); assert.deepEqual(prefs.get(), defaultPreferences);
     prefs.update({ name: 'Perfil de teste', theme: 'midnight', animations: false }); const photo = `data:image/png;base64,${png.toString('base64')}`; prefs.setPhoto(photo);
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { name: 'Perfil de teste', theme: 'midnight', animations: false, photo });
+    assert.deepEqual(prefs.get(), { ...defaultPreferences, name: 'Perfil de teste', theme: 'midnight', animations: false, photo });
     assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 5); assert.equal(store.requireSubject(subject.id).name, 'Matéria preservada');
     const before = store.setting('preferences');
     store.db.exec("CREATE TRIGGER fail_pref BEFORE INSERT ON audit_events WHEN NEW.action LIKE 'preferences.%' OR NEW.action LIKE 'profile.%' BEGIN SELECT RAISE(FAIL,'fixture audit fail'); END;");
@@ -43,4 +66,14 @@ test('gestão conta banco real e só resolve diretórios registrados, negando en
     for(const invalid of [{folder:'C:/outside'}, {folder:'data',path:'C:/outside'}, {}, undefined]) assert.throws(()=>management.folder(invalid));
     store.setSetting('vault',path.join(dir,'study.sqlite')); assert.throws(()=>management.folder({folder:'vault'})); store.setSetting('vault',path.join(dir,'missing')); assert.throws(()=>management.folder({folder:'vault'}));
   } finally { store.close(); }
+});
+
+test('layout de áreas persistido: compatibilidade, limites, rollback e preservação de outros dados',()=>{
+ const dir=fs.mkdtempSync(path.resolve('.local/workspace-preferences-'));let store=new Store(dir);
+ try{store.setSetting('vault','fixture-vault');let prefs=new UserPreferences(store);assert.deepEqual(prefs.get().workspaceLayout,{panes:['study'],sizes:[100]});
+ const layout={panes:['study','pdf','graph'],sizes:[46,26,28]} as const;
+ prefs.update({workspaceLayout:{panes:[...layout.panes],sizes:[...layout.sizes]}});store.close();store=new Store(dir);prefs=new UserPreferences(store);assert.deepEqual(prefs.get().workspaceLayout,layout);
+ const before=store.setting('preferences');for(const workspaceLayout of [{panes:[],sizes:[]},{panes:['study','study'],sizes:[50,50]},{panes:['study','pdf','video','city'],sizes:[25,25,25,25]},{panes:['study','pdf'],sizes:[100]},{panes:['study','pdf'],sizes:[15,85]},{panes:['study','pdf'],sizes:[40,50]},{panes:['unknown'],sizes:[100]},{panes:['study'],sizes:[NaN]}]){assert.throws(()=>prefs.update({workspaceLayout} as never));assert.equal(store.setting('preferences'),before);}
+ store.db.exec("CREATE TRIGGER layout_fail BEFORE INSERT ON audit_events WHEN NEW.action='preferences.update' BEGIN SELECT RAISE(FAIL,'fixture'); END;");assert.throws(()=>prefs.update({workspaceLayout:{panes:['city'],sizes:[100]}}));assert.equal(store.setting('preferences'),before);assert.equal(store.setting('vault'),'fixture-vault');
+ }finally{store.close();}
 });

@@ -1,12 +1,18 @@
 # Retomada da alpha
 
-Bootstrap criado em 01/10/2026. Última execução: 04/10/2026, Windows 11 10.0.26200, America/Sao_Paulo, Node 24.21.0, app 0.1.0.
+Bootstrap criado em 01/10/2026. Última execução: 06/10/2026, Windows 11 10.0.26200, America/Sao_Paulo, Node 24.19.0 local, app 0.1.0.
 
 ## Estado real
 
 MVP local implementado e executado no Windows nativo, branch MVP e commits por fase. Alpha integral parcial. Resultados por critério em docs/validation/ALPHA.md; jornada local em docs/validation/MVP_JOURNEY.md.
 
 ## Próxima ação
+
+UI-04 concluído na branch local codex/clean-workspace, preservando UI-03/GAM-03. Um módulo padrão, até três áreas/PDF/Vídeo ajustáveis, foco/checklist suspensos; Oficina36 contínua/preparo inicial, motor sem cooldown/fila e grafo fluido. C1–C8 aprovados: 43 testes/typecheck/pacote Windows/201 assets idênticos ao ASAR, clean-workspace/YouTube real/Journey R1–R7 no mesmo pacote final. Larguras ajustadas/restart/drafts/fontes/foco pausado/40 cliques ao fechar conservados; O-017/O-018 corrigidos/verificados. [Ticket](../tasks/done/UI-04.md), [provas](../validation/CLEAN_WORKSPACE.md). Capturas/guia/ADR/docs/quadro/bootstrap/diff atualizados, sem migration/dependência/alteração global ou stage/commit/push/publicação. Nenhuma implementação restante; próxima ação humana: + Módulo/divisores e Cidade/Motor/Oficina. Contexto de matéria compartilhado; alpha externa permanece parcial.
+
+GAM-03 concluído na branch local codex/city-progression, com UI-03 preservado. Controles próprios de janela/fundo Editorial independente, skins completas Cyberpunk/New York, cinco produtores/21 tecnologias/27 conquistas/quatro permanentes e prestígio opcional; Oficina36 etapas/três fases. [Ticket](../tasks/done/GAM-03.md), [provas](../validation/CITY_PROGRESSION.md). C1–C8 aprovados: typecheck/42 testes/reconferência econômica, pacote Windows/201 assets conferidos, QTE140s/calibração159s reais, roteiro final curto, Journey R1–R7 e vídeos reais. Foco ativo pausado por Fechar, fundo desligado/restart/draft/fontes/cultivos/legado preservados; O-016 corrigido/verificado. Último ajuste somente CSS da Oficina, com main/preload idênticos aos da prova completa. Capturas/guia/ADR/docs/quadro/bootstrap/diff atualizados. Sem migration/dependência nova ou commit/push/publicação. Nenhuma implementação restante; próxima ação humana: Cidade → Vila → Cenário/Produção, Ajustes → Aparência → Fundo animado do Editorial. Alpha externa permanece parcial; limites na evidência.
+
+UI-03 concluído na branch local codex/editorial-dashboard, criada de 80e0805: tema Editorial quase preto/grid/serif, visual anterior em Oliva, Hoje denso e catálogo de projetos principais/secundários com escolha salva. [Ticket](../tasks/done/UI-03.md), [provas](../validation/EDITORIAL_DESIGN.md). C1–C6 aprovados: typecheck, 39 testes, pacote Windows/roteiros/capturas amplas e compactas, classificação/restart/rascunhos/fontes conservados, 200 assets conferidos no ASAR, docs/bootstrap. O-015 do canvas cobrindo grid corrigido/verificado. Sem dependência/migration nova. Alterações salvas sem commit/push/publicação; escopo do pedido atual. Nenhuma implementação restante; próxima ação humana: Ajustes → Aparência → Editorial no perfil existente. Alpha externa permanece parcial.
 
 NXT-01 concluído na branch codex/study-expansion a partir de 6597e28: nove sugestões entregues (busca/Hoje/flashcards/marcações/momentos/backup-restauração/grafo/cidade/exportação). [Ticket](../tasks/done/NXT-01.md), [provas](../validation/STUDY_EXPANSION.md). Checkpoints 58937e6/1f69692/61ef01b/7cbdd8a enviados ao origin em 04/10/2026, push exit 0/upstream configurado. C1–C12 aprovados: typecheck, 38 testes, pacote/200 assets conferidos/dez jornadas Windows/PDF renderizado, audit independente com mitigações, docs/memória/scans/bootstrap/inventário. O-013/O-014 corrigidos/verificados; tooling High permanece. Nenhuma implementação restante; próxima ação humana: usar os novos fluxos conforme o [guia](../GUIA_DE_USO.md). Restore cria perfil/arquivos separados; diálogos nativos de pasta não foram automatizados. Alpha externa continua parcial.
 
@@ -45,6 +51,9 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | CFG-01 | done | Concluído | ALP-03, UI-02, MED-01 | — |
 | EXP-01 | done | Concluído | ALP-04, CFG-01 | — |
 | NXT-01 | done | Concluído | ALP-04, CFG-01, EXP-01, GAM-02, MED-01 | — |
+| UI-03 | done | Concluído | CFG-01, NXT-01 | — |
+| GAM-03 | done | Concluído | GAM-02, NXT-01, UI-03 | — |
+| UI-04 | done | Concluído | UI-02, UI-03, GAM-03, NXT-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -56,4 +65,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [NXT-01](../tasks/done/NXT-01.md).
+Último ticket concluído: [UI-04](../tasks/done/UI-04.md).

@@ -309,3 +309,46 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C10 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): PDF preto real 4 páginas/imagem/capa/nota individual/destino registrado; picker não automatizado |
 | C11 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md): 38 testes/typecheck/pacote/200 assets conferidos/dez jornadas Windows e PDF renderizado aprovados |
 | C12 | aprovado | [STUDY_EXPANSION](STUDY_EXPANSION.md)/[AppSec](../security/STUDY_EXPANSION_AUDIT.md), docs/memória/scans staged/bootstrap/inventário aprovados; 58937e6/1f69692/61ef01b/7cbdd8a enviados ao origin/codex/study-expansion, push exit 0 |
+
+## UI-03 — Dashboard Editorial e tema original
+
+06/10/2026, Windows nativo, branch codex/editorial-dashboard. Evidência e limites em [EDITORIAL_DESIGN](EDITORIAL_DESIGN.md). Fixtures fictícias isoladas; alpha externa permanece parcial.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Preferências anteriores sem regravação/rollback/restart; Oliva e dashboard histórico conferidos; Editorial padrão de perfil novo |
+| C2 | aprovado | Capturas e serviço Hoje real, quatro indicadores, tarefas/retomada/acervo compactos |
+| C3 | aprovado | Mesa, revisão, grafo, ajustes e moldura da cidade inspecionados; grafo corrigido para revelar grid no tema Editorial |
+| C4 | aprovado | Catálogo real 2 principais/3 secundários, reclassificação pela UI, IDs salvos/restart e rascunho recuperado/salvo |
+| C5 | aprovado | [EDITORIAL_DESIGN](EDITORIAL_DESIGN.md): typecheck/39 testes/pacote/roteiros Windows; grafo/cidade e catálogo repetidos após ajuste final; 200 assets conferidos |
+| C6 | aprovado | [EDITORIAL_DESIGN](EDITORIAL_DESIGN.md): capturas reais compartilhadas, guia/ADR/sdd/quadro/retomada/validação atualizados, verificador documental aprovado |
+
+## GAM-03 — Janela própria, ambientes e progressão
+
+06/10/2026, Windows nativo, branch local codex/city-progression, UI-03 preservado. [CITY_PROGRESSION](CITY_PROGRESSION.md) contém comandos, hashes, capturas, distinção dos dois pacotes e limites. Fixtures fictícias isoladas; sem commit/push/publicação, alpha externa permanece parcial.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Controle nativo maximizar/restaurar/minimizar, CSS draggable/IPC estrito/remetente negado, Fechar preserva draft e pausa foco ativo sem recuperação de crash |
+| C2 | aprovado | Transform de 90s efetivo, preferência independente/restart, animações gerais/movimento reduzido/minimização interrompem efeito |
+| C3 | aprovado | Original/Cyberpunk/New York, geometrias/luz/materiais/atmosfera, mesmo canvas/câmera/locais, cultivo/skin conservados após reinício |
+| C4 | aprovado | Cinco produtores/preço crescente/×10/21 tecnologias/requisitos, taxa antiga/fração/cap offline/ledger agregado/replay e rollback reais |
+| C5 | aprovado | 27 conquistas, quatro permanentes, prévia/cancelar/confirmar prestígio, rejeição obsoleta/audit rollback, estudo e progresso retido intactos |
+| C6 | aprovado | QTE140s/calibração159s reais, 36/36 etapas/três fases, tolerância/recompensas/pausa/retomada/legado, timing main e entrada oculta bloqueada |
+| C7 | aprovado | Typecheck/42 testes/2 econômicos reconferidos, pacote Windows/201 assets idênticos, roteiros final curto/Journey R1–R7/YouTube real e capturas inspecionadas |
+| C8 | aprovado | Guia/análise oficial/ADR/estado/quadro/validação/retomada/gotcha atualizados; bootstrap/diff de fechamento em CITY_PROGRESSION; alterações locais salvas |
+
+## UI-04 — Ritmo contínuo e espaço de trabalho limpo
+
+06/10/2026, Windows nativo, branch codex/clean-workspace, alterações anteriores preservadas. [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md) registra pacote/capturas/limites e fechamento. Sem commit/push/publicação.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | Domínio e QTE/calibração reais de36 etapas; preparo inicial/pausa/clock/replay/legado |
+| C2 | aprovado | Sem cooldown,61 cliques consecutivos e40 pendentes drenados ao fechar; animação imediata/reduzida |
+| C3 | aprovado | Zoom intermediário/pan/foco/forças e relação real; cena oculta/reduzida sem movimento |
+| C4 | aprovado | Uma área padrão, acervo/detalhes/formatação/inventário recolhidos; drafts/fontes conservados |
+| C5 | aprovado | Até três áreas/PDF/Vídeo, divisores mouse/teclado, validação/preferências/restart/contexto |
+| C6 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): 43 testes/typecheck/pacote/201 assets, clean-workspace/YouTube real/Journey R1–R7 no mesmo pacote final |
+| C7 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): capturas únicas/divididas/compactas/grafo/motor/Oficina inspecionadas e retornadas, limites/fixtures registrados |
+| C8 | aprovado | [CLEAN_WORKSPACE](CLEAN_WORKSPACE.md): docs/ADR/guia/quadro/retomada/gotcha atualizados, bootstrap/diff/inventário final conferidos; alterações anteriores preservadas |

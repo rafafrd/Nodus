@@ -19,9 +19,9 @@ for (let pass = 0; pass < 2; pass++) {
     await page.getByTestId('version').filter({ hasText: '0.1.0' }).waitFor();
     if (!pass) {
       for (const name of ['Matéria A', 'Matéria B']) { await page.getByRole('button', { name: 'Nova matéria', exact: true }).click(); await page.getByRole('textbox', { name: 'Nome da matéria' }).fill(name); await page.getByRole('button', { name: 'Criar matéria', exact: true }).click(); await page.getByRole('heading', { name, exact: true }).waitFor(); }
-      const boot = await page.evaluate(() => window.desktop.bootstrap()); assert.ok(boot.ok); if (boot.ok) ids = boot.value.subjects.map(s => s.id); reports.push('R1 aprovado: duas matérias criadas pela UI.');
+      const boot = await page.evaluate(() => window.desktop.bootstrap()); assert.ok(boot.ok); if (boot.ok) ids = boot.value.subjects.map(s => s.id); reports.push('R1 aprovado: duas matérias criadas pela UI.');await page.locator('.workspace-add summary').click();await page.getByRole('menuitem',{name:'PDF',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
       for (let i = 0; i < 2; i++) {
-        await page.getByRole('button', { name: `Matéria ${i ? 'B' : 'A'}`, exact: true }).click(); await page.getByRole('button', { name: 'Nova nota', exact: true }).click(); await page.getByRole('textbox', { name: 'Título da nota' }).fill(`Resumo ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar nota', exact: true }).click();
+        await page.getByRole('button',{name:'Abrir acervo',exact:true}).click();await page.getByRole('button', { name: `Matéria ${i ? 'B' : 'A'}`, exact: true }).click(); await page.getByRole('button', { name: '+ Nova nota', exact: true }).click(); await page.getByRole('textbox', { name: 'Título da nota' }).fill(`Resumo ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar nota', exact: true }).click();
         await page.getByRole('heading', { name: `Resumo ${i ? 'B' : 'A'}`, exact: true, level: 2 }).waitFor();
         const refs = await page.evaluate(subjectId => window.desktop.listNotes({ subjectId }), ids[i]); assert.ok(refs.ok); if (!refs.ok) throw Error('Nota não criada'); noteIds[i] = refs.value[0].id;
         const opened = await page.evaluate(id => window.desktop.openNote({ id }), noteIds[i]); if (!opened.ok) throw Error('Nota não aberta');
@@ -29,11 +29,11 @@ for (let pass = 0; pass < 2; pass++) {
         await page.getByRole('button', { name: 'Salvar nota', exact: true }).click(); await page.getByRole('status').filter({ hasText: 'Salvo no arquivo' }).waitFor();
         const fixtureFile = path.join(dir, `journey-${i}.pdf`); generatePdf(fixtureFile, `journey-${i}`);
         const db = new Store(dataDir); const desks = new Desks(db); const material = desks.choose(ids[i], fixtureFile); materialIds[i] = material.id; desks.save({ subjectId: ids[i], materialId: material.id, page: i ? 3 : 2, split: i ? 40 : 60 }); db.close();
-        await page.getByRole('textbox', { name: 'Nova tarefa' }).fill(`Revisão ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar tarefa', exact: true }).click();
+        await page.keyboard.press('Alt+2');await page.getByRole('textbox', { name: 'Nova tarefa' }).fill(`Revisão ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar tarefa', exact: true }).click();
         for (const step of ['Ler conteúdo', 'Resolver exercícios']) { await page.getByRole('textbox', { name: `Nova etapa em Revisão ${i ? 'B' : 'A'}` }).fill(step); await page.getByRole('button', { name: `Adicionar etapa em Revisão ${i ? 'B' : 'A'}` }).click(); }
-        if (!i) { await page.getByRole('checkbox', { name: 'Concluir Ler conteúdo' }).check(); await page.getByRole('button', { name: 'Retomar Resolver exercícios' }).click(); }
+        if (!i) { await page.getByRole('checkbox', { name: 'Concluir Ler conteúdo' }).check(); await page.getByRole('button', { name: 'Retomar Resolver exercícios' }).click(); }await page.getByRole('button',{name:'Fechar painel suspenso',exact:true}).click();await page.mouse.move(80,90);
       }
-      await page.getByRole('button', { name: 'Matéria A', exact: true }).click(); await page.locator('canvas[data-rendered-page="2"]').waitFor();
+      await page.getByRole('button',{name:'Abrir acervo',exact:true}).click();await page.getByRole('button', { name: 'Matéria A', exact: true }).click(); await page.locator('canvas[data-rendered-page="2"]').waitFor();
       const tasks = await page.evaluate(subjectId => window.desktop.listTasks({ subjectId }), ids[0]); if (tasks.ok) stepId = tasks.value[0].steps[1].id;
       await page.getByRole('button', { name: 'Abrir foco', exact: true }).click(); await page.getByRole('spinbutton', { name: 'Minutos de foco' }).fill('1'); await page.getByRole('button', { name: 'Iniciar foco', exact: true }).click(); await page.waitForTimeout(1000); await page.getByRole('button', { name: 'Pausar foco', exact: true }).click();
       const focus = await page.evaluate(subjectId => window.desktop.getFocus({ subjectId }), ids[0]); if (!focus.ok || !focus.value.session) throw Error('Foco não persistido'); focusId = focus.value.session.id; pausedElapsed = focus.value.session.elapsedMs;
@@ -57,9 +57,9 @@ for (let pass = 0; pass < 2; pass++) {
       await page.getByText('Arquivo alterado fora do app', { exact: true }).waitFor();
       const conflict = await page.evaluate(id => window.desktop.openNote({ id }), noteIds[0]); assert.ok(conflict.ok && conflict.value.draft?.text.includes('Minha edição pendente.') && conflict.value.text.includes('Nova versão externa.'));
       reports.push('R7 aprovado: atualização externa limpa e conflito conservaram duas versões na build empacotada.');
-      await page.getByRole('button', { name: 'Matéria B', exact: true }).click(); await page.locator('canvas[data-rendered-page="3"]').waitFor();
+      await page.getByRole('button',{name:'Abrir acervo',exact:true}).click();await page.getByRole('button', { name: 'Matéria B', exact: true }).click(); await page.locator('canvas[data-rendered-page="3"]').waitFor();
       await page.setViewportSize({ width: 1040, height: 760 }); await page.screenshot({ path: '.local/evidence/mvp-compact.png' });
-      const footer = await page.locator('.statusbar').boundingBox(); const height = await page.evaluate(() => innerHeight); assert.ok(footer && footer.y + footer.height <= height);
+      const footer = await page.locator('.suspended-tools').boundingBox(); const height = await page.evaluate(() => innerHeight); assert.ok(footer && footer.y + footer.height <= height);
     }
     assert.deepEqual(errors, []);
   } finally { await app.close(); }

@@ -15,5 +15,9 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0009](0009-preferencias-locais.md) | Preferências/perfil locais, foto normalizada e controle comum de movimento | Aceita para CFG-01 |
 | [0010](0010-exportacao-pdf.md) | Pasta Markdown em caderno PDF preto, superfície isolada e saída local | Aceita para EXP-01 |
 | [0011](0011-expansao-estudo-local.md) | Revisão, relações, anotações e snapshots locais restaurados separadamente | Aceita para NXT-01 |
+| [0013](0013-cidade-progressiva-e-janela.md) | Janela própria, animação acessível e progressão incremental local | Aceita para GAM-03 |
+| [0012](0012-tema-editorial.md) | Tema Editorial, apresentação anterior conservada e projetos principais/secundários | Aceita para UI-03 |
+
+| [0014](0014-areas-isoladas.md) | Um módulo padrão, divisão opcional e ritmo contínuo | Aceita para UI-04 |
 
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.
