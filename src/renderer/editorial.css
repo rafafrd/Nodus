@@ -1,0 +1,295 @@
+/* UI-03 / GAM-03. Scoped presentation preserves the original palettes. */
+:root[data-theme=editorial] .arcade-stage { background-color:var(--theme-bg); background-image:var(--editorial-grid); background-size:40px 40px; color:var(--theme-text); }
+:root[data-theme=editorial] .arcade-stage .game-kicker,
+:root[data-theme=editorial] .arcade-stage>p,
+:root[data-theme=editorial] .arcade-choices span,
+:root[data-theme=editorial] .arcade-choices p,
+:root[data-theme=editorial] .arcade-choices b,
+:root[data-theme=editorial] .challenge-progress,
+:root[data-theme=editorial] .challenge-panel p,
+:root[data-theme=editorial] .challenge-cancel { color:var(--theme-muted); }
+:root[data-theme=editorial] .arcade-choices h2,
+:root[data-theme=editorial] .challenge-panel h2,
+:root[data-theme=editorial] .qte-key,
+:root[data-theme=editorial] .qte-buttons button { color:var(--theme-text); }
+:root[data-theme=editorial] .arcade-choices button,
+:root[data-theme=editorial] .challenge-panel,
+:root[data-theme=editorial] .qte-buttons button,
+:root[data-theme=editorial] .skill-track { border-color:var(--theme-border); }
+:root[data-theme=editorial] .skill-track,:root[data-theme=editorial] .qte-time { background:var(--theme-input); }
+:root[data-theme=editorial] .qte-time>div { background:var(--theme-accent); }
+.project-overview { flex:1; min-height:0; overflow:auto; padding:28px 32px; scrollbar-gutter:stable; }
+.project-overview>header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding-bottom:24px; border-bottom:1px solid var(--theme-border); margin-bottom:24px; }
+.project-overview h1 { font:32px Georgia,serif; margin:10px 0; }
+.project-overview header p { color:var(--theme-muted); font-size:12px; line-height:1.7; }
+.project-overview header>button { display:flex; align-items:center; gap:8px; border:1px solid var(--theme-border); white-space:nowrap; font-size:12px; }
+.project-overview section { margin-bottom:26px; }
+.project-overview .study-section-heading { border-bottom:1px solid var(--theme-border); padding-bottom:10px; margin-bottom:12px; }
+.project-overview h2 { font:23px Georgia,serif; }
+.project-card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.project-card-grid.secondary { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.project-card { min-width:0; border:1px solid var(--theme-border); background:var(--theme-panel); aspect-ratio:1.3; display:flex; flex-direction:column; }
+.project-card-open { width:100%; flex:1; display:flex; flex-direction:column; padding:10px; text-align:left; }
+.project-card-drawing { width:100%; flex:1; min-height:110px; position:relative; display:grid; place-items:center; border:1px solid var(--theme-border); background:linear-gradient(135deg,#ffffff05,transparent),var(--theme-editor); margin-bottom:13px; }
+.project-card-drawing>svg { width:44px; height:44px; color:var(--theme-muted); stroke-width:.8; }
+.project-card-drawing>span { position:absolute; left:10px; top:9px; font:10px Consolas,monospace; color:var(--theme-muted); }
+.project-card-drawing>small { position:absolute; right:10px; bottom:9px; font:9px Consolas,monospace; letter-spacing:1px; color:var(--theme-muted); }
+.secondary .project-card-drawing { min-height:76px; }
+.secondary .project-card-drawing>svg { width:32px; height:32px; }
+.project-card-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.project-card h3 { font:20px Georgia,serif; overflow-wrap:anywhere; }
+.secondary .project-card h3 { font-size:18px; }
+.project-card-heading>svg { width:14px; height:14px; }
+.project-card p { color:var(--theme-muted); font-size:11px; line-height:1.7; margin:8px 0 2px; }
+.project-card>footer { border-top:1px solid var(--theme-border); display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; }
+.project-card>footer>span { font:9px Consolas,monospace; color:var(--theme-muted); letter-spacing:.6px; }
+.project-card>footer button { font-size:10px; display:flex; align-items:center; gap:5px; padding:3px 0; }
+.project-card>footer svg { width:12px; height:12px; }
+.project-top-actions { display:flex; align-items:center; gap:10px; }
+.project-tabs:empty { display:none; }
+.project-group-caption { display:block; font:9px Consolas,monospace; color:var(--theme-muted); letter-spacing:1px; padding:12px 16px 5px; }
+.project-roots { max-height:36%; overflow:auto; flex-shrink:0; }
+.project-roots button>span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dashboard-empty { padding:18px 14px; border:1px solid var(--theme-border); color:var(--theme-muted); font-size:12px; line-height:1.8; }
+.dashboard-foot { display:flex; align-items:center; justify-content:space-between; gap:20px; border-top:1px solid var(--theme-border); padding:14px 0; font:10px Consolas,monospace; color:var(--theme-muted); }
+.dashboard-foot button { display:flex; align-items:center; gap:8px; font-size:11px; }
+.settings-themes { grid-template-columns:repeat(4,minmax(0,1fr)); }
+[data-preview=editorial] .theme-preview { background:#090a0b; border-color:#303234; border-radius:0; background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px); background-size:18px 18px; }
+[data-preview=editorial] .theme-preview i { background:#161718; border:1px solid #303234; }
+[data-preview=editorial] .theme-preview i:nth-child(2) { background:#dedbd1; }
+[data-preview=editorial] .theme-preview i:nth-child(3) { background:#101112; }
+
+/* The shared frame follows the same rules in every area, including lazy surfaces. */
+:root[data-theme=editorial] .nodus-shell { font-family:'Segoe UI Variable','Segoe UI',sans-serif; font-size:12px; }
+:root[data-theme=editorial] .nodus-shell *, :root[data-theme=editorial] dialog { box-shadow:none; }
+:root[data-theme=editorial] .nodus-shell :is(button,input,select,textarea), :root[data-theme=editorial] dialog { border-radius:2px; }
+:root[data-theme=editorial] :is(h1,h2,h3) { font-family:Georgia,'Times New Roman',serif; font-weight:400; }
+:root[data-theme=editorial] .nodus-shell :is(input,select,textarea) { background:var(--theme-input); border-color:var(--theme-border); color:var(--theme-text); font-size:12px; }
+:root[data-theme=editorial] .nodus-shell :is(button.primary,.save-button) { background:var(--theme-active); color:var(--theme-text); border:1px solid #676965; font-weight:400; }
+:root[data-theme=editorial] .nodus-shell button.primary:hover { background:#292b2c; }
+:root[data-theme=editorial] .nodus-shell button:disabled { background:#121314; color:#737672; border-color:#27292a; }
+:root[data-theme=editorial] :is(kbd,.eyebrow,.section-label,.panel-caption,.local-label,.panel-index,.note-meta,.note-foot,.statusbar,.dock-caption,.focus-state,.next-caption) { font-family:Consolas,'Cascadia Mono',monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] kbd { border-color:var(--theme-border); font-size:9px; }
+:root[data-theme=editorial] .nodus-shell :is(.area-stage,.desk,.study-workspace,.graph-workspace,.settings-main,.project-overview,.welcome) { background-color:var(--theme-bg); background-image:var(--editorial-grid); background-size:40px 40px; }
+:root[data-theme=editorial] .nodus-shell :is(.activity-rail,.sidebar,.settings-sidebar,.project-sidebar) { background:var(--theme-sidebar); border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .activity-rail { padding:12px 0 8px; background:var(--theme-rail); }
+:root[data-theme=editorial] .nodus-shell .rail-brand { margin:8px 0 20px; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .rail-brand svg { width:23px; height:23px; }
+:root[data-theme=editorial] .nodus-shell .activity-rail>button { min-height:58px; padding:12px 3px; gap:6px; font-size:9px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .activity-rail>button svg { width:18px; height:18px; }
+:root[data-theme=editorial] .nodus-shell .activity-rail>button.selected { color:var(--theme-text); background:#ffffff05; border-left-color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .activity-rail .rail-search { min-height:48px; font-family:Consolas,monospace; }
+:root[data-theme=editorial] .nodus-shell .activity-rail .rail-settings { margin-top:auto; }
+:root[data-theme=editorial] .nodus-shell .rail-profile .profile-avatar { border-radius:50%; }
+:root[data-theme=editorial] .nodus-shell .app-shell { grid-template-columns:218px minmax(0,1fr); }
+:root[data-theme=editorial] .nodus-shell .app-shell.reading-only { grid-template-columns:minmax(0,1fr); }
+:root[data-theme=editorial] .nodus-shell .sidebar { padding:20px 12px 14px; }
+:root[data-theme=editorial] .nodus-shell .brand { margin-bottom:24px; font-size:12px; gap:8px; }
+:root[data-theme=editorial] .nodus-shell .brand small { font:9px Consolas,monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .brand-mark { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .section-label { font-size:10px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .section-label :is(button,small) { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .subject { min-height:34px; padding:9px 10px; font-size:12px; color:var(--theme-muted); gap:9px; }
+:root[data-theme=editorial] .nodus-shell .subject.active { color:var(--theme-text); border-color:var(--theme-border); background:var(--theme-active); }
+:root[data-theme=editorial] .nodus-shell .subject:not(.active) .subject-dot { background:#696d69; }
+:root[data-theme=editorial] .nodus-shell .subject.active .subject-dot { background:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .subject-list { gap:2px; margin-bottom:18px; }
+:root[data-theme=editorial] .nodus-shell .notes-list button { min-height:32px; padding:8px 9px; font-size:11px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .notes-list button.active { color:var(--theme-text); background:var(--theme-active); }
+:root[data-theme=editorial] .nodus-shell :is(.notes-list svg,.search-wrap>svg,.sidebar-caption,.vault-button small,.subject small,.import) { color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .search { font-size:11px; padding:8px 8px 8px 32px; }
+:root[data-theme=editorial] .nodus-shell .vault-button { font-size:11px; padding:11px 9px; border-color:var(--theme-border); background:transparent; }
+:root[data-theme=editorial] .nodus-shell :is(.sidebar-caption,.vault-button small) { font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .workspace-header { background:var(--theme-bg); padding:14px 20px 16px; }
+:root[data-theme=editorial] .nodus-shell .ambient { display:none; }
+:root[data-theme=editorial] .nodus-shell :is(.eyebrow,.local-label) { font-size:9px; letter-spacing:1.2px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell :is(.local-label,.reading-toggle) { background:transparent; border-color:var(--theme-border); color:var(--theme-muted); font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .reading-toggle.selected { background:var(--theme-active); color:var(--theme-text); border-color:#686b67; }
+:root[data-theme=editorial] .nodus-shell .heading-row h1 { font-size:28px; letter-spacing:-.5px; }
+:root[data-theme=editorial] .nodus-shell :is(.workspace-header p,.header-context,.header-description,.rename) { color:var(--theme-muted); font-size:11px; }
+:root[data-theme=editorial] .nodus-shell .desk { padding:10px 12px; gap:0; }
+:root[data-theme=editorial] .nodus-shell :is(.panel,.note-panel,.focus-module,.tool-panel) { background:var(--theme-panel); border-color:var(--theme-border); border-radius:2px; }
+:root[data-theme=editorial] .nodus-shell .panel-header { background:var(--theme-editor); padding:5px 12px; min-height:34px; }
+:root[data-theme=editorial] .nodus-shell :is(.panel-caption,.panel-index,.panel-header button) { font-size:10px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .panel-caption svg { color:var(--theme-muted); width:14px; height:14px; }
+:root[data-theme=editorial] .nodus-shell .panel-index { border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .note-title { padding:17px 23px 13px; border-bottom:1px solid #252729; }
+:root[data-theme=editorial] .nodus-shell .note-title h2 { font-size:24px; }
+:root[data-theme=editorial] .nodus-shell .note-meta { margin-top:10px; font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .segmented { background:var(--theme-bg); border-color:var(--theme-border); padding:2px; }
+:root[data-theme=editorial] .nodus-shell .segmented button { font-size:10px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .segmented .selected { background:var(--theme-active); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .format-toolbar { background:var(--theme-editor); padding:6px 12px; }
+:root[data-theme=editorial] .nodus-shell .format-toolbar button { color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview { padding:20px 26px 36px; font:13px/1.85 'Segoe UI',sans-serif; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview :is(h1,h2,h3,strong) { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview h1 { font-size:26px; }
+:root[data-theme=editorial] .nodus-shell .markdown-preview h2 { font-size:22px; margin-top:21px; }
+:root[data-theme=editorial] .nodus-shell .markdown-preview h3 { font-size:18px; }
+:root[data-theme=editorial] .nodus-shell .markdown-preview :is(p,ul,ol) { margin-bottom:12px; }
+:root[data-theme=editorial] .nodus-shell .markdown-preview :is(code,.note-link) { color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview li::marker { color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview :is(pre,th) { background:var(--theme-editor); border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .markdown-preview :is(td,th) { border-color:var(--theme-border); padding:8px; }
+:root[data-theme=editorial] .nodus-shell .markdown-preview blockquote { border-color:#7e827b; background:#ffffff03; color:#b8bbb4; margin-top:16px; margin-bottom:16px; }
+:root[data-theme=editorial] .nodus-shell .note-foot { background:var(--theme-editor); font-size:9px; }
+:root[data-theme=editorial] .nodus-shell .cm-content { font:12px/1.8 Consolas,monospace !important; padding-top:18px !important; }
+:root[data-theme=editorial] .nodus-shell :is(.cm-gutters,.cm-lineNumbers) { color:#858982; }
+:root[data-theme=editorial] .nodus-shell .cm-cursor { border-left-color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .project-editor .cm-content span { color:inherit; }
+:root[data-theme=editorial] .nodus-shell .divider::before { background:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .tool-dock { background:var(--theme-editor); padding:4px 12px; }
+:root[data-theme=editorial] .nodus-shell .tool-dock button { font-size:11px; padding:7px 12px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .tool-dock button.selected { color:var(--theme-text); background:var(--theme-active); }
+:root[data-theme=editorial] .nodus-shell .dock-caption { font-size:9px; }
+:root[data-theme=editorial] .nodus-shell .dock-separator { background:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .statusbar { background:var(--theme-bg); font-size:9px; }
+:root[data-theme=editorial] .nodus-shell .statusbar>span:last-child { color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell :is(.focus-state,.focus-detail,.focus-presets button,.focus-actions label,.checklist-summary,.task-heading h3,.task-heading small,.step-row,.step-row button,.next-caption) { color:var(--theme-muted); font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .focus-clock { font:42px/1.1 Consolas,monospace; letter-spacing:-2px; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .focus-clock>span { color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell :is(.focus-state,.focus-presets button,.step-form button,.task-form button) { border-color:var(--theme-border); background:transparent; }
+:root[data-theme=editorial] .nodus-shell .focus-track { stroke:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .focus-orbit>svg:last-child { color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell :is(.focus-actions button,.checklist-body input,.task-name) { font-size:11px; }
+:root[data-theme=editorial] .nodus-shell :is(.next-action,.step-row.next>span) { color:var(--theme-text); border-color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .next-action { background:#ffffff04; font-size:11px; }
+:root[data-theme=editorial] .nodus-shell :is(.progress-track,.study-task+.study-task) { background-color:var(--theme-border); border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .study-task+.study-task { background-color:transparent; }
+:root[data-theme=editorial] .nodus-shell .step-row .done { color:#858982; }
+:root[data-theme=editorial] .nodus-shell .pdf-scroll { background-color:#0b0c0d; background-image:var(--editorial-grid); background-size:40px 40px; }
+:root[data-theme=editorial] .nodus-shell .pdf-scroll canvas { outline:1px solid #3e4141; }
+:root[data-theme=editorial] .nodus-shell .pdf-controls { font:10px Consolas,monospace; }
+:root[data-theme=editorial] .nodus-shell .pdf-controls button { font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .pdf-controls button.selected { background:var(--theme-active); border-color:#74786e; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .material-tabs { background:var(--theme-editor); border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .material-tabs button { color:var(--theme-muted); font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .material-tabs button.selected { color:var(--theme-text); background:var(--theme-active); border-color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .connection.connected { background:var(--theme-accent); }
+:root[data-theme=editorial] dialog { background:var(--theme-panel); border-color:#636760; color:var(--theme-text); }
+:root[data-theme=editorial] dialog :is(input,select) { background:var(--theme-input); border-color:var(--theme-border); color:var(--theme-text); }
+:root[data-theme=editorial] dialog label { color:var(--theme-muted); }
+:root[data-theme=editorial] dialog::backdrop { background:#000b; backdrop-filter:none; }
+
+/* Document/dashboard rhythm: small metadata, shared rules, no oversized hero. */
+:root[data-theme=editorial] .nodus-shell .study-workspace { padding:26px max(28px,calc((100% - 1080px)/2)); }
+:root[data-theme=editorial] .nodus-shell .study-workspace h1 { font-size:30px; letter-spacing:-.5px; }
+:root[data-theme=editorial] .nodus-shell .study-workspace h2 { font:23px Georgia,serif; margin:0; }
+:root[data-theme=editorial] .nodus-shell .study-workspace>header { margin-bottom:0; }
+:root[data-theme=editorial] .nodus-shell .dashboard-header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:6px 0 24px; border-bottom:1px solid var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .dashboard-identity { display:flex; align-items:center; gap:18px; }
+:root[data-theme=editorial] .nodus-shell .dashboard-identity .profile-avatar { width:54px; height:54px; border-radius:50%; font:20px Georgia,serif; }
+:root[data-theme=editorial] .nodus-shell .dashboard-header h1 { margin:8px 0 6px; font-size:34px; }
+:root[data-theme=editorial] .nodus-shell .dashboard-header p { font-size:11px; margin:0; }
+:root[data-theme=editorial] .nodus-shell .dashboard-date { display:grid; gap:12px; justify-items:end; }
+:root[data-theme=editorial] .nodus-shell .dashboard-date time { font:10px Consolas,monospace; color:var(--theme-muted); text-transform:uppercase; }
+:root[data-theme=editorial] .nodus-shell .dashboard-date button { display:flex; align-items:center; gap:8px; font-size:10px; border:1px solid var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .today-stats { grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:0 0 26px; border:1px solid var(--theme-border); border-top:0; }
+:root[data-theme=editorial] .nodus-shell .today-stats>div { border:0; border-right:1px solid var(--theme-border); padding:18px 16px; background:#0d0e0fe6; }
+:root[data-theme=editorial] .nodus-shell .today-stats>div:last-child { border-right:0; }
+:root[data-theme=editorial] .nodus-shell .today-stats small { font:9px Consolas,monospace; letter-spacing:.5px; }
+:root[data-theme=editorial] .nodus-shell .today-stats strong { font:32px Georgia,serif; margin:14px 0 10px; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .today-stats strong span { font:10px Consolas,monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .today-stats :is(p,button) { font-size:10px; margin:0; }
+:root[data-theme=editorial] .nodus-shell .today-stats button { padding:0; }
+:root[data-theme=editorial] .nodus-shell .today-stats svg { width:13px; height:13px; }
+:root[data-theme=editorial] .nodus-shell .dashboard-columns { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:20px; }
+:root[data-theme=editorial] .nodus-shell .today-workspace section { margin-bottom:24px; }
+:root[data-theme=editorial] .nodus-shell .study-section-heading { padding:0 0 12px; border-bottom:1px solid var(--theme-border); margin-bottom:12px; }
+:root[data-theme=editorial] .nodus-shell .study-section-heading :is(span,small) { font:9px Consolas,monospace; letter-spacing:.7px; text-transform:uppercase; }
+:root[data-theme=editorial] .nodus-shell .today-tasks { background:transparent; border:0; gap:0; }
+:root[data-theme=editorial] .nodus-shell .today-tasks>button { border:0; border-bottom:1px solid var(--theme-border); background:#0e0f10cc; padding:13px 12px; gap:14px; }
+:root[data-theme=editorial] .nodus-shell .today-tasks>button>span { display:grid; gap:5px; }
+:root[data-theme=editorial] .nodus-shell .today-tasks>button>.row-index { flex:0 0 20px; font:10px Consolas,monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .today-tasks strong { font-weight:400; font-size:12px; }
+:root[data-theme=editorial] .nodus-shell .today-tasks small { font:10px Consolas,monospace; }
+:root[data-theme=editorial] .nodus-shell .today-tasks svg { width:14px; height:14px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .resume-sheet { position:relative; border:1px solid var(--theme-border); background:var(--theme-panel); padding:18px; }
+:root[data-theme=editorial] .nodus-shell .resume-sheet>svg { width:30px; height:30px; color:#858981; margin-top:22px; stroke-width:1; }
+:root[data-theme=editorial] .nodus-shell .resume-sheet h3 { font:23px Georgia,serif; margin:14px 0 8px; overflow-wrap:anywhere; }
+:root[data-theme=editorial] .nodus-shell .resume-sheet p { font-size:11px; line-height:1.8; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .resume-sheet button { display:flex; align-items:center; justify-content:space-between; width:100%; font-size:11px; border-top:1px solid var(--theme-border); margin-top:18px; padding:12px 0 0; }
+:root[data-theme=editorial] .nodus-shell .today-subjects { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+:root[data-theme=editorial] .nodus-shell .today-subjects>button { display:flex; flex-direction:column; align-items:stretch; gap:0; text-align:left; border:1px solid var(--theme-border); background:var(--theme-panel); min-height:148px; padding:16px; }
+:root[data-theme=editorial] .nodus-shell :is(.subject-card-meta,.subject-card-action) { display:flex; align-items:center; justify-content:space-between; font:9px Consolas,monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .subject-card-meta svg { width:17px; height:17px; }
+:root[data-theme=editorial] .nodus-shell .today-subjects strong { font:23px Georgia,serif; margin:24px 0 18px; overflow-wrap:anywhere; }
+:root[data-theme=editorial] .nodus-shell .subject-card-action { margin-top:auto; font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .subject-card-action svg { width:14px; height:14px; }
+:root[data-theme=editorial] .nodus-shell .welcome { justify-content:flex-start; align-items:flex-start; padding:36px 32px; gap:32px; }
+:root[data-theme=editorial] .nodus-shell .welcome h2 { font-size:34px; letter-spacing:-.5px; margin:18px 0; }
+:root[data-theme=editorial] .nodus-shell .welcome :is(p,small) { font-size:12px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .welcome-modules { width:320px; }
+:root[data-theme=editorial] .nodus-shell .welcome-modules>div { background:var(--theme-panel); }
+:root[data-theme=editorial] .nodus-shell .welcome-modules :is(strong,svg) { color:var(--theme-text); }
+
+/* Explorer/auxiliary surfaces share the frame without changing document data. */
+:root[data-theme=editorial] .nodus-shell .project-shell { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .project-sidebar header { min-height:64px; font:10px Consolas,monospace; }
+:root[data-theme=editorial] .nodus-shell .project-roots { border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .project-roots button { font-size:11px; padding:9px 16px; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .project-roots button.selected { color:var(--theme-text); background:var(--theme-active); }
+:root[data-theme=editorial] .nodus-shell .tree-entry { font:11px Consolas,monospace; color:var(--theme-muted); padding-top:7px; padding-bottom:7px; }
+:root[data-theme=editorial] .nodus-shell .tree-entry>svg { color:var(--theme-muted); width:15px; height:15px; }
+:root[data-theme=editorial] .nodus-shell .tree-entry.selected { color:var(--theme-text); background:var(--theme-active); }
+:root[data-theme=editorial] .nodus-shell .project-sidebar-tip { font:10px/1.8 Consolas,monospace; color:var(--theme-muted); border-color:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .project-resizer { background:#17191a; }
+:root[data-theme=editorial] .nodus-shell .project-resizer:hover { background:#676b65; }
+:root[data-theme=editorial] .nodus-shell .project-top { height:64px; font:10px Consolas,monospace; background:var(--theme-bg); border-color:var(--theme-border); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .project-top :is(b,button) { color:var(--theme-muted); font-size:10px; }
+:root[data-theme=editorial] .nodus-shell .project-tabs { background:var(--theme-bg); border-color:var(--theme-border); min-height:34px; }
+:root[data-theme=editorial] .nodus-shell .project-tabs>div { border-right-color:var(--theme-border); color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .project-tabs>div.selected { background:var(--theme-active); border-top-color:var(--theme-accent); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .project-tabs button { font-size:11px; padding:9px 10px; }
+:root[data-theme=editorial] .nodus-shell .project-breadcrumb { min-height:40px; font:10px Consolas,monospace; color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell .project-breadcrumb :is(button,b,svg) { font-size:10px; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .project-status { background:var(--theme-panel); border-color:var(--theme-border); color:var(--theme-muted); font:9px Consolas,monospace; }
+:root[data-theme=editorial] .nodus-shell .project-overview { padding:26px max(24px,calc((100% - 920px)/2)); }
+:root[data-theme=editorial] .nodus-shell .settings-workspace { background:var(--theme-bg); grid-template-columns:210px minmax(0,1fr); }
+:root[data-theme=editorial] .nodus-shell .settings-sidebar { padding:26px 20px; }
+:root[data-theme=editorial] .nodus-shell .settings-main { padding:28px 36px; }
+:root[data-theme=editorial] .nodus-shell .settings-main h1 { font-size:28px; }
+:root[data-theme=editorial] .nodus-shell .settings-main>header { padding-bottom:22px; }
+:root[data-theme=editorial] .nodus-shell .settings-section { padding-top:24px; }
+:root[data-theme=editorial] .nodus-shell .settings-section-heading { margin-bottom:24px; }
+:root[data-theme=editorial] .nodus-shell .settings-section-heading h2 { font:23px Georgia,serif; }
+:root[data-theme=editorial] .nodus-shell .settings-section-heading p { font-size:12px; }
+:root[data-theme=editorial] .nodus-shell .settings-themes button>strong { font:19px Georgia,serif; }
+:root[data-theme=editorial] .nodus-shell .settings-themes button>small { font-size:11px; }
+:root[data-theme=editorial] .nodus-shell .review-card { min-height:290px; padding:24px; }
+:root[data-theme=editorial] .nodus-shell .review-answer>p { font-size:14px; }
+:root[data-theme=editorial] .nodus-shell .graph-canvas-host { background:var(--theme-bg); background-image:var(--editorial-grid); background-size:40px 40px; }
+:root[data-theme=editorial] .nodus-shell .graph-workspace { padding:26px 32px; }
+:root[data-theme=editorial] .nodus-shell .graph-workspace h1 { font-size:30px; }
+:root[data-theme=editorial] .nodus-shell .graph-node-label { background:var(--theme-panel); border-color:var(--theme-border); color:var(--theme-muted); font-size:11px; }
+:root[data-theme=editorial] .nodus-shell .graph-node-label[aria-pressed=true] { border-color:var(--theme-accent); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell :is(.game-shell,.game-header,.game-nav,.game-inspector,.game-footer) { background:var(--theme-panel); border-color:var(--theme-border); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell :is(.game-nav-caption,.game-nav-bottom,.game-brand small,.game-wallet small,.game-kicker,.inspector-title,.game-subtitle,.game-tip,.game-journal p,.game-journal small,.game-select) { color:var(--theme-muted); font-size:10px; }
+:root[data-theme=editorial] .nodus-shell :is(.game-brand,.game-brand-mark,.game-wallet strong,.wallet-coin,.game-panel h2,.player-strip span,.player-strip>b,.game-nav>button) { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .game-nav>button { font-size:12px; }
+:root[data-theme=editorial] .nodus-shell .game-header { height:64px; }
+:root[data-theme=editorial] .nodus-shell .game-shell button.primary { background:var(--theme-active); border-color:#676965; color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell :is(.engine-pulse,.player-avatar) { background:var(--theme-active); border-color:var(--theme-border); color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell .engine-pulse:hover { background:#292b2c; }
+:root[data-theme=editorial] .nodus-shell .engine-readout { border-color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .engine-readout strong { color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell :is(.engine-readout>span,.engine-readout small,.engine-pulse small,.engine-guide,.player-strip small,.place-links button,.game-footer>span,.game-footer>div,.game-footer>small) { color:var(--theme-muted); }
+:root[data-theme=editorial] .nodus-shell :is(.game-xp-track,.wallet-rule) { background:var(--theme-border); }
+:root[data-theme=editorial] .nodus-shell .game-xp-track>div { background:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .game-footer strong { color:var(--theme-text); }
+:root[data-theme=editorial] ::-webkit-scrollbar-thumb { background:#464a45; border-color:var(--theme-panel); }
+
+@media(max-width:1150px) {
+  .settings-themes { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .project-card-grid.secondary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .project-overview { padding:24px; }
+  :root[data-theme=editorial] .nodus-shell .app-shell { grid-template-columns:190px minmax(0,1fr); }
+  :root[data-theme=editorial] .nodus-shell .app-shell.reading-only { grid-template-columns:minmax(0,1fr); }
+  :root[data-theme=editorial] .nodus-shell .study-workspace { padding:22px 24px; }
+  :root[data-theme=editorial] .nodus-shell .dashboard-identity { gap:12px; }
+  :root[data-theme=editorial] .nodus-shell .today-stats>div { padding:16px 12px; }
+  :root[data-theme=editorial] .nodus-shell .settings-workspace { grid-template-columns:185px minmax(0,1fr); }
+  :root[data-theme=editorial] .nodus-shell .settings-main { padding:24px; }
+  :root[data-theme=editorial] .nodus-shell .heading-row h1 { font-size:26px; }
+  :root[data-theme=editorial] .nodus-shell .welcome { flex-wrap:wrap; }
+}

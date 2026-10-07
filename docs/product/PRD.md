@@ -1,5 +1,7 @@
 # PRD — decisões do produto
 
+UI-03, 06/10/2026: novo tema **Editorial**, quase preto, com grid/bordas/serif e interface densa, adaptado ao dashboard de estudos. O visual anterior permanece em **Oliva**; perfis existentes mantêm a preferência salva. O Explorer organiza projetos em principais/secundários com classificação persistida, sem mover arquivos. [Decisão](../adr/0012-tema-editorial.md) e [validação](../validation/EDITORIAL_DESIGN.md). A menção histórica a três temas abaixo corresponde a CFG-01; UI-03 passa a oferecer quatro.
+
 Estado em 04/10/2026: MVP local implementado, alpha integral parcial. Cidade/farm/loja/memória/build (GAM-01) e motor/QTE/skillcheck/Explorer com edição (GAM-02) foram antecipados por pedidos explícitos. MED-01 acrescenta links YouTube por matéria, cinema e PiP interno, com reprodução oficial que precisa de internet. CFG-01 oferece configurações de perfil local (nome/foto), três temas, animações e consulta/abertura das pastas do app. As jornadas abaixo são requisitos do produto completo; confira [estado real](../status/ALPHA_STATE.md) e evidências antes de considerá-las entregues.
 
 EXP-01 oferece exportação explícita de uma pasta/subpastas de notas Markdown salvas, do vault ou Explorer, em PDF A4 formatado com fundo preto. Saída local em Downloads com capa/sumário/paginação, sem modificar fontes. O guia distingue caderno de leitura de backup completo; arquivos de código/PDFs anexados/imagens não entram. [Provas](../validation/PDF_EXPORT.md).
@@ -36,3 +38,7 @@ Estudo e minigames podem gerar moedas/XP; farm híbrido com coleta automática e
 Alpha: matérias, nota preservadora, mesa, PDF, foco, checklist e snapshot web. Primeira pública: núcleo ampliado, grafo, farm/loja/builds e programação JS/TS. Python/SQL e laboratórios vêm nos incrementos seguintes. A ordem histórica foi ajustada pelos pedidos GAM-01/GAM-02: jogo local e navegação/edição de projetos existem; execução, terminal, Git de projetos, nuvem e IA continuam futuros. Consulte tickets e estado atual para a ordem efetiva.
 
 Capacidade humana: até 3 horas por semana. Meta inicial de 2–3 meses é condicional; preserve funcionalidades e ajuste o prazo se os checkpoints exigirem. Nome/marca, licença e valores de orçamento não foram fechados.
+
+Incremento GAM-03 solicitado pelo usuário: janela própria; fundo Editorial acessível; skins Vale Sereno/Cyberpunk/New York; cinco produtores,21 tecnologias,27 conquistas,prestígio opcional/quatro permanentes; Oficina36 etapas/pausa/três fases. Regras em [city-progression](../decisions/city-progression.md); não amplia este incremento para nuvem/roadmap seguinte.
+
+UI-04 confirma nova direção: um módulo principal padrão; usuário pode combinar até três áreas inteiras e PDF/Vídeo, ajustar larguras e recolher ferramentas. Foco/checklist suspensos, grafo fluido e jogo com cliques/etapas consecutivos. A meta anterior de partidas2–4min foi substituída por partidas mais curtas/intensas com36 etapas. [ADR-0014](../adr/0014-areas-isoladas.md).

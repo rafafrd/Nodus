@@ -26,6 +26,9 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  getWindowState(): Promise<Result<import('./window').WindowState>>;
+  controlWindow(input: z.infer<typeof import('./window').windowCommand>): Promise<Result<import('./window').WindowState>>;
+  onWindowState(callback: (state: import('./window').WindowState) => void): () => void;
   backupPreview():Promise<Result<import('./backup').BackupPreview>>;
   createBackup():Promise<Result<import('./backup').BackupReceipt>>;
   chooseBackup():Promise<Result<import('./backup').BackupReceipt|null>>;

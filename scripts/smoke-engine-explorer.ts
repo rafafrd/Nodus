@@ -51,15 +51,15 @@ for (let pass = 0; pass < 2; pass++) {
       await p.getByRole('button', { name: 'Melhorar motor', exact: true }).click(); await ready(p); assert.equal((await game(p)).engine.level, 1); assert.equal((await game(p)).coins, 36);
       await p.waitForTimeout(310); await p.getByRole('button', { name: 'Gerar moedas', exact: true }).click(); await ready(p); assert.equal((await game(p)).coins, 39); await shot(p, 'engine');
       await p.getByRole('button', { name: 'Oficina', exact: true }).click(); await p.getByRole('button', { name: /Sincronizar o motor/ }).click();
-      for (let i = 0; i < 3; i++) { await ready(p); const key = await p.getByTestId('qte-key').textContent(); await p.keyboard.press(key!); }
-      await ready(p); assert.equal((await game(p)).challenge?.coins, 24); await shot(p, 'qte');
+      for (let i = 0; i < 36; i++) { await ready(p); await p.getByTestId('qte-key').waitFor(); const key = await p.getByTestId('qte-key').textContent(); await p.keyboard.press(key!); await p.waitForFunction(async stage=>{const r=await window.desktop.getGame();return r.ok&&r.value.challenge?.stage===stage;},i+1); }
+      await ready(p); assert.equal((await game(p)).challenge?.coins, 240); await shot(p, 'qte');
       await p.getByRole('button', { name: /Calibrar a válvula/ }).click();
-      for (let i = 0; i < 3; i++) { await ready(p); await p.waitForFunction(() => { const e = document.querySelector<HTMLElement>('[data-testid=skill-track]'); return e && Math.abs(Number(e.dataset.position) - Number(e.dataset.target)) < 5; }); await p.getByRole('button', { name: 'Calibrar válvula', exact: true }).click(); }
-      await ready(p); const s = await game(p); assert.equal(s.challenge?.hits, 3); assert.equal(s.challenge?.coins, 36); await shot(p, 'skillcheck');
+      for (let i = 0; i < 36; i++) { await ready(p); await p.getByTestId('skill-track').waitFor(); await p.waitForFunction(() => { const e = document.querySelector<HTMLElement>('[data-testid=skill-track]'); return e && Math.abs(Number(e.dataset.position) - Number(e.dataset.target)) < 3; }); await p.getByRole('button', { name: 'Calibrar válvula', exact: true }).click(); await p.waitForFunction(async stage=>{const r=await window.desktop.getGame();return r.ok&&r.value.challenge?.stage===stage;},i+1); }
+      await ready(p); const s = await game(p); assert.equal(s.challenge?.hits, 36); assert.equal(s.challenge?.coins, 300); await shot(p, 'skillcheck');
       await p.setViewportSize({ width: 1040, height: 760 }); await p.emulateMedia({ reducedMotion: 'reduce' }); await shot(p, 'compact'); assert.ok(await p.locator('.game-footer').isVisible());
       await p.getByRole('button', { name: 'Abrir Explorer', exact: true }).click(); await p.getByRole('button', { name: 'Aba src/main.ts', exact: true }).waitFor(); const restored = await p.evaluate(r => window.desktop.openProjectFile(r), ref); assert.ok(restored.ok && restored.value.draft?.text === retained);
       await p.getByRole('button', { name: 'Voltar aos estudos', exact: true }).click(); await p.getByRole('heading', { name: 'Nota A', exact: true, level: 2 }).waitFor(); await p.locator('canvas[data-rendered-page="2"]').waitFor(); await shot(p, 'study-return');
-      reports.push('Reabertura/rascunho e troca de vistas aprovadas. Motor 1→3 moedas por pulso/upgrade25; QTE real teclado3/3 +24/12; skillcheck real timing3/3 +36/15; viewport1040×760 e reduced-motion; mesa/PDF retornam.');
+      reports.push('Reabertura/rascunho e troca de vistas aprovadas. Motor 1→3 moedas por pulso/upgrade25; QTE real teclado36/36 +240/60; skillcheck real timing36/36 +300/60; viewport1040×760 e reduced-motion; mesa/PDF retornam.');
     }
     assert.deepEqual(errors, []);
   } catch (e) { if (!p.isClosed()) await shot(p, 'failure').catch(() => {}); throw e; } finally { await app.close().catch(() => {}); }

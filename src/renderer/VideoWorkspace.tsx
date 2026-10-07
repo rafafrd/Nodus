@@ -62,7 +62,7 @@ export function useVideos(options: Options) {
     try { const r = await window.desktop.removeVideo({ subjectId: item.subjectId, id: item.id }); if (!r.ok) current.current.onError(r.message); else { setItems(v => v.filter(i => i.id !== item.id)); if (current.current.selectedId === item.id) await current.current.select(null); } }
     finally { mutating.current = false; setBusy(false); }
   }
-  async function returnToDesk() { if (!video) return; await current.current.returnToVideo(video); setMode('inline'); }
+  async function returnToDesk() { if (!video) return; await current.current.returnToVideo(video); slot?.parentElement?.scrollTo({top:0,behavior:'instant'}); setMode('inline'); }
   return { items, video, owner, mode, state, slot, busy, error, selectedId: options.selectedId, setSlot, open, openMoment, retry:()=>openedMoment.current?openMoment(openedMoment.current):video?open(video):Promise.resolve(), add, remove, cinema, escape, close, returnToDesk, pip: () => setMode('pip') };
 }
 type Controller = ReturnType<typeof useVideos>;
@@ -89,7 +89,7 @@ function VideoMoments({video,open}:{video:StudyVideo;open(moment:VideoMoment):Pr
 }
 const HEADER = 44, FOOTER = 28;
 function clampPip(position: { x: number; y: number }, size: { width: number; height: number }) {
-  return { x: Math.round(Math.min(Math.max(12, position.x), Math.max(12, innerWidth - size.width - 12))), y: Math.round(Math.min(Math.max(12, position.y), Math.max(12, innerHeight - size.height - 12))) };
+  return { x: Math.round(Math.min(Math.max(12, position.x), Math.max(12, innerWidth - size.width - 12))), y: Math.round(Math.min(Math.max(46, position.y), Math.max(46, innerHeight - size.height - 12))) };
 }
 export function VideoSurface({ controller: v }: { controller: Controller }) {
   const surface = useRef<HTMLDivElement>(null), frame = useRef<HTMLDivElement>(null);
@@ -112,7 +112,7 @@ export function VideoSurface({ controller: v }: { controller: Controller }) {
   }, []);
   useEffect(() => {
     function resize() { setViewport({ width: innerWidth, height: innerHeight }); setRevision(r => r + 1); }
-    const observer = new MutationObserver(() => setDialogOpen(!!document.querySelector('dialog[open]'))); observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['open'] });
+    const observer = new MutationObserver(() => setDialogOpen(!!document.querySelector('dialog[open],.suspended-popover'))); observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['open'] });
     const resizeObserver = new ResizeObserver(() => setRevision(r => r + 1)); if (v.slot) resizeObserver.observe(v.slot);
     window.addEventListener('resize', resize);
     document.addEventListener('scroll', resize, true);
@@ -128,8 +128,8 @@ export function VideoSurface({ controller: v }: { controller: Controller }) {
       rect = { x: r.x, y: r.y, width: r.width, height: r.height };
     }
     else if (v.mode === 'cinema') {
-      const width = Math.min(viewport.width - 96, (viewport.height - 120 - HEADER - FOOTER) * 16 / 9), height = width * 9 / 16 + HEADER + FOOTER;
-      rect = { x: (viewport.width - width) / 2, y: (viewport.height - height) / 2, width, height };
+      const width = Math.min(viewport.width - 96, (viewport.height - 154 - HEADER - FOOTER) * 16 / 9), height = width * 9 / 16 + HEADER + FOOTER;
+      rect = { x: (viewport.width - width) / 2, y: 34 + (viewport.height - 34 - height) / 2, width, height };
     } else { const width = Math.min(432, viewport.width - 24), height = width * 9 / 16 + HEADER + FOOTER; const position = clampPip(pipPosition, { width, height }); rect = { ...position, width, height }; }
     tween.current?.kill();
     const fresh = previousVideo.current !== v.video.id; previousVideo.current = v.video.id;

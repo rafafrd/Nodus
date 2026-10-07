@@ -1,0 +1,57 @@
+.economy-workspace { height:100%; overflow:auto; padding:28px; scrollbar-gutter:stable; background:var(--theme-bg); background-image:var(--editorial-grid,none); background-size:40px 40px; }
+.economy-workspace h1 { font:32px Georgia,serif; margin:9px 0; }
+.economy-workspace p { color:var(--theme-muted); font-size:12px; line-height:1.7; }
+.economy-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--theme-border); margin:22px 0 16px; }
+.economy-metrics>div { padding:14px 12px; border-right:1px solid var(--theme-border); min-width:0; }
+.economy-metrics>div:last-child { border:0; }
+.economy-metrics small { display:block; font:9px Consolas,monospace; letter-spacing:.5px; color:var(--theme-muted); }
+.economy-metrics strong { display:block; font:24px Georgia,serif; margin-top:10px; overflow-wrap:anywhere; }
+.economy-metrics strong span { font:11px Consolas,monospace; color:var(--theme-muted); }
+.economy-tabs { display:flex; border-bottom:1px solid var(--theme-border); margin-bottom:20px; gap:0; }
+.economy-tabs button { border-radius:0; padding:12px 14px; font-size:12px; border-bottom:2px solid transparent; }
+.economy-tabs button[aria-pressed=true] { border-bottom-color:var(--theme-accent); color:var(--theme-text); }
+.economy-section-label { display:flex; align-items:center; justify-content:space-between; gap:12px; font:10px Consolas,monospace; color:var(--theme-muted); margin:18px 0 12px; }
+.economy-section-label select { margin-left:8px; padding:4px 8px; font:11px Consolas,monospace; background:var(--theme-input); border:1px solid var(--theme-border); border-radius:2px; color:var(--theme-text); }
+.producer-grid,.technology-grid,.achievement-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.producer-grid article,.technology-grid article,.achievement-grid article { border:1px solid var(--theme-border); border-radius:2px; background:var(--theme-panel); padding:16px; min-width:0; display:flex; flex-direction:column; }
+.producer-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.producer-top>span,.technology-status,.achievement-grid article>span { font:9px Consolas,monospace; color:var(--theme-muted); }
+.producer-top strong { font:25px Georgia,serif; }
+.producer-top strong small { font:10px Consolas,monospace; color:var(--theme-muted); }
+.economy-workspace h2 { font:21px Georgia,serif; margin:12px 0 6px; }
+.producer-details { display:flex; flex-direction:column; gap:6px; margin:8px 0 16px; font:10px Consolas,monospace; color:var(--theme-muted); }
+.economy-workspace article button { margin-top:auto; padding:9px; font-size:11px; border:1px solid var(--theme-border); border-radius:2px; background:var(--theme-raised); color:var(--theme-text); text-align:left; }
+.economy-workspace article p { margin:4px 0 16px; }
+.economy-workspace article.locked { background:var(--theme-input); }
+.economy-workspace article.earned { border-color:#777e75; }
+.achievement-grid progress { width:100%; height:3px; margin:8px 0; accent-color:var(--theme-accent); }
+.achievement-grid article>small { font:10px Consolas,monospace; color:var(--theme-muted); }
+.economy-footnote { padding:10px 0; }
+.prestige-summary { border:1px solid var(--theme-border); padding:18px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.prestige-summary strong { display:block; font:32px Georgia,serif; margin:22px 0; }
+.prestige-summary strong small { display:block; font:11px 'Segoe UI',sans-serif; color:var(--theme-muted); margin-top:8px; }
+.prestige-summary dl { margin:0; border-left:1px solid var(--theme-border); padding-left:18px; font-size:12px; line-height:1.7; }
+.prestige-summary dt { font:11px Consolas,monospace; margin:12px 0 8px; }
+.prestige-summary dd { margin:0 0 18px; color:var(--theme-muted); }
+.prestige-confirm { max-width:500px; line-height:1.7; font-size:13px; }
+.prestige-confirm label { display:flex; align-items:flex-start; gap:10px; margin:20px 0; }
+.prestige-confirm input { margin-top:5px; }
+.city-skin-select { display:flex; align-items:center; gap:10px; margin-top:12px; pointer-events:auto; font:10px Consolas,monospace; }
+.city-skin-select select { background:#101718e8; color:#edf0e9; border:1px solid #596566; border-radius:2px; padding:7px 10px; max-width:190px; }
+.game-shell .city-heading { color:#e4e5e1; background:#0c1017ed; border:1px solid #475159; padding:14px 16px; max-width:300px; border-radius:2px; }
+.game-shell .city-heading h1 { color:#e4e5e1; margin-top:8px; }
+.game-shell .city-heading p,.game-shell .city-heading .game-kicker,.game-shell .city-heading label { color:#b1bac0; }
+.game-shell .city-heading .city-atmospheres button { background:#171c24; color:#d4dade; border-color:#475159; }
+.game-shell .city-heading .city-atmospheres button[aria-pressed=true] { border-color:#d4d4c9; color:#ecece4; }
+.workshop-phases { display:flex; border:1px solid var(--theme-border); margin:16px 0; }
+.workshop-phases span { flex:1; padding:10px 6px; font:9px Consolas,monospace; color:var(--theme-muted); }
+.workshop-phases .selected { color:var(--theme-text); background:var(--theme-raised); }
+.challenge-score { font:11px Consolas,monospace; }
+.workshop-preparing { min-height:185px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.workshop-preparing>span { font:10px Consolas,monospace; letter-spacing:2px; color:var(--theme-muted); }
+.workshop-preparing>strong { font:60px Georgia,serif; margin:10px; }
+.challenge-actions { display:flex; justify-content:center; gap:16px; padding-top:12px; font-size:12px; }
+.economy-side { padding:18px 0; border-bottom:1px solid var(--theme-border); }
+.economy-side strong { font:32px Georgia,serif; display:block; margin:12px 0; }
+.economy-side p { font-size:12px; color:var(--theme-muted); line-height:1.7; }
+@media(max-width:1150px) { .economy-workspace { padding:20px; } .economy-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .economy-metrics>div { border-bottom:1px solid var(--theme-border); } .producer-grid,.technology-grid,.achievement-grid { grid-template-columns:1fr; } .prestige-summary { grid-template-columns:1fr; } .prestige-summary dl { border-left:0; border-top:1px solid var(--theme-border); padding:0; } }

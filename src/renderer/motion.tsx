@@ -10,19 +10,21 @@ export function useReducedMotion() {
 }
 
 /** Only presentation layers overlap. The leaving layer is inert immediately. */
-export function AreaStage({ active, children }: { active: string; children: ReactNode }) {
+export function AreaStage({ active, visible, sizes, children }: { active: string; visible?:readonly string[];sizes?:readonly number[];children: ReactNode }) {
   const host = useRef<HTMLDivElement>(null), previous = useRef(active);
   const reduced = useReducedMotion();
+  useLayoutEffect(()=>{const panes=visible??[active],weights=sizes??[100];Array.from(host.current!.children).forEach(element=>{const el=element as HTMLElement,index=panes.indexOf(el.dataset.area??'');if(index<0)return;el.style.left=`${weights.slice(0,index).reduce((a,b)=>a+b,0)}%`;el.style.right='auto';el.style.width=panes.length===1?'100%':`calc(${weights[index]}% - ${index===panes.length-1?0:6}px)`;});},[active,visible?.join(','),sizes?.join(',')]);
   useLayoutEffect(() => {
     const stage = host.current!;
     const layers = Array.from(stage.children) as HTMLElement[];
     const incoming = layers.find(el => el.dataset.area === active)!;
+    const shown=visible??[active];
     let observer: MutationObserver | null = null, timeline: gsap.core.Timeline | null = null;
     const direction = ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(active) >= ['home', 'study', 'review', 'graph', 'explorer', 'city', 'settings'].indexOf(previous.current) ? 1 : -1;
     layers.forEach(el => { gsap.killTweensOf(el); el.inert = true; el.setAttribute('aria-hidden', 'true'); });
     function complete() {
       layers.forEach(el => {
-        const selected = el === incoming;
+        const selected = shown.includes(el.dataset.area!);
         gsap.set(el, { autoAlpha: selected ? 1 : 0, x: 0, scale: 1, clearProps: 'willChange' });
         el.inert = !selected; el.setAttribute('aria-hidden', String(!selected));
       });
@@ -30,19 +32,20 @@ export function AreaStage({ active, children }: { active: string; children: Reac
     }
     function start() {
       observer?.disconnect();
-      if (reduced || layers.length === 1 || layers.every(el => el === incoming ? Number(gsap.getProperty(el, 'opacity')) === 1 : Number(gsap.getProperty(el, 'opacity')) === 0)) { complete(); return; }
+      if (reduced || layers.length === 1 || layers.every(el => shown.includes(el.dataset.area!) ? Number(gsap.getProperty(el, 'opacity')) === 1 : Number(gsap.getProperty(el, 'opacity')) === 0)) { complete(); return; }
       stage.dataset.motion = 'transitioning';
       if (Number(gsap.getProperty(incoming, 'opacity')) === 0) gsap.set(incoming, { x: 18 * direction, scale: .995 });
       gsap.set(incoming, { visibility: 'visible', willChange: 'transform,opacity' });
       timeline = gsap.timeline({ onComplete: complete });
-      layers.filter(el => el !== incoming).forEach(el => timeline!.to(el, { autoAlpha: 0, x: -12 * direction, duration: motion.exit, ease: 'power2.inOut', overwrite: 'auto' }, 0));
+      layers.filter(el => !shown.includes(el.dataset.area!)).forEach(el => timeline!.to(el, { autoAlpha: 0, x: -12 * direction, duration: motion.exit, ease: 'power2.inOut', overwrite: 'auto' }, 0));
+      layers.filter(el=>el!==incoming&&shown.includes(el.dataset.area!)).forEach(el=>gsap.set(el,{autoAlpha:1,x:0,scale:1}));
       timeline.to(incoming, { autoAlpha: 1, x: 0, scale: 1, duration: motion.enter, ease: motion.ease, overwrite: 'auto' }, .045);
     }
     const ready = () => incoming.querySelector('[data-area-ready="true"]');
-    if (ready() || active === 'study') start();
+    if (ready() || ['study','pdf','video'].includes(active)) start();
     else { stage.dataset.motion = 'loading'; observer = new MutationObserver(() => { if (ready()) start(); }); observer.observe(incoming, { subtree: true, attributes: true, childList: true }); }
     return () => { observer?.disconnect(); timeline?.kill(); layers.forEach(el => gsap.killTweensOf(el)); };
-  }, [active, reduced]);
+  }, [active, reduced,visible?.join(',')]);
   return <div className="area-stage" ref={host} data-testid="area-stage">{children}</div>;
 }
 

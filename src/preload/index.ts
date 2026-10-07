@@ -1,6 +1,9 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  getWindowState: () => ipcRenderer.invoke('window:get'),
+  controlWindow: input => ipcRenderer.invoke('window:command', input),
+  onWindowState: callback => { const listener = (_event: Electron.IpcRendererEvent, state: import('../shared/window').WindowState) => callback(state); ipcRenderer.on('window:state', listener); return () => ipcRenderer.removeListener('window:state', listener); },
   backupPreview:()=>ipcRenderer.invoke('backup:preview'),
   createBackup:()=>ipcRenderer.invoke('backup:create'),
   chooseBackup:()=>ipcRenderer.invoke('backup:choose'),

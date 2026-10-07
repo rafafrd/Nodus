@@ -181,3 +181,19 @@ Probe SQLite independente repetiu avaliações Fácil antecipadas na biblioteca 
 ## O-014 — Área vazia de controles interceptava marcador da cidade (NXT-01, 04/10/2026)
 
 Regressão Windows empacotada test:smooth-ui falhou ao clicar Visitar mina após mover a câmera para Fazenda: o container largo de Ambiente da vila interceptava o ponto do marcador. Correção em game.css deixa o container com pointer-events:none e somente os botões com pointer-events:auto. Novo pacote e mesma jornada aprovaram clique/câmera/retarget/movimento reduzido e viewport 1040×760, sem force ou mudança do roteiro. Fonte e identificação do pacote em STUDY_EXPANSION.
+
+## O-015 — Canvas do grafo cobria o grid do tema Editorial (UI-03, 06/10/2026)
+
+Observado na captura real editorial-graph.png inicial, Electron/Windows: CSS do host recebia o grid, mas scene.background opaco (#0c1210) cobria a grade e conservava a paleta verde. Correção: renderer com alpha, fundo transparente e nós/linhas neutros somente em Editorial; preferências anteriores conservam as cores da cena. A troca de tema usa o mesmo renderer e redesenha. Captura final inspecionada confirma grid; smoke-knowledge-backup no pacote final aprovou nó/seleção/câmera/relação/abrir fonte e restart/restauração com fontes intactas. [Evidência](docs/validation/EDITORIAL_DESIGN.md).
+
+## O-016 — Contraste sobre skins e fundo herdado da Oficina (GAM-03, 06/10/2026)
+
+Corrigido e verificado no Electron/Windows. Capturas reais mostraram texto verde pouco legível do painel da cidade sobre o cenário Cyberpunk e fundo gradiente verde herdado na Oficina Editorial. Correção: moldura neutra com fundo escuro no painel das skins e CSS do tema Editorial aplicado à Oficina, cards, texto e faixas; outros temas conservam a apresentação. Pacote final e roteiro curto capturaram progression-cyberpunk.png, progression-newyork.png e progression-office.png, inspecionadas com contraste/grid/bordas aprovados. Nenhuma mudança nas regras dos desafios após a execução completa de 140s/159s. [Evidência e hashes](docs/validation/CITY_PROGRESSION.md).
+
+## O-017 — Controles herdados cortados nos módulos estreitos (UI-04, 06/10/2026)
+
+Corrigido e verificado no Electron/Windows. Capturas iniciais mostraram navegação horizontal da cidade truncada na nova coluna e controles do grafo além do painel de 1040×760. Causa: regras anteriores mais específicas e cabeçalho sem quebra. workspace.css aplica ícone/nome em coluna, limita larguras e permite quebra dos seletores/ações do grafo. Roteiro clean-workspace e inspeção das capturas compactas/motor conferiram bounds, acesso às ações e ausência do corte. Nenhuma alteração de dados para corrigir o layout. [Evidência](docs/validation/CLEAN_WORKSPACE.md).
+
+## O-018 — Player promovido a PiP ao abrir ou retornar ao módulo (UI-04, 06/10/2026)
+
+Corrigido e verificado no pacote Windows. Vídeo em tela única tinha slot 16:9 mais alto que a biblioteca; a proteção do WebContentsView contra clipping corretamente promovia PiP, inclusive ao sair do cinema. Slot limitado pela altura disponível em workspace.css. A prova com três momentos reais também encontrou retorno ao módulo com scroll antigo, promovendo PiP novamente; returnToDesk agora reposiciona a biblioteca antes do modo inline. test:videos final aprovou abertura/cinema/Escape, scroll real/PiP/retorno entre matérias, ferramentas suspensas com view escondida, continuidade de reprodução/guest, movimento reduzido/compacto e restart/crash/retry. [Evidência e pacote](docs/validation/CLEAN_WORKSPACE.md).

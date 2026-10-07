@@ -25,6 +25,7 @@ import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
 import { Study } from './study';
 import { Annotations } from './annotations';
 import { Backups } from './backups';
+import { windowCommand } from '../shared/window';
 import { backupRefInput } from '../shared/backup';
 import { markListInput,markCreateInput,markRefInput,momentListInput,momentCreateInput,momentRefInput } from '../shared/study';
 import { searchInput,cardListInput,cardCreateInput,cardRefInput,cardReviewInput,linkCreateInput,linkRefInput } from '../shared/study';
@@ -64,6 +65,13 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('window:get', z.undefined(), () => windowState());
+  handle('window:command', windowCommand, ({ action }) => {
+    if (action === 'minimize') window.minimize();
+    else if (action === 'toggle-maximize') { if (window.isMaximized()) window.unmaximize(); else window.maximize(); }
+    else window.close(); // Existing draft + focus checkpoint handshake.
+    return windowState();
+  });
   handle('backup:preview',z.undefined(),()=>backups.preview());
   handle('backup:create',z.undefined(),()=>{focus.tick();return backups.create();});
   handle('backup:choose',z.undefined(),async()=>{const picked=await dialog.showOpenDialog(window,{title:'Selecionar pasta do snapshot Nodus (snapshot.json)',defaultPath:path.join(app.getPath('documents'),'NodusBackups'),properties:['openDirectory']});return picked.canceled?null:backups.select(picked.filePaths[0]);});
@@ -158,8 +166,12 @@ function register() {
     return result.canceled ? null : desks.choose(input.subjectId, result.filePaths[0], input.replaceId);
   });
 }
+function windowState() { return { maximized: window.isMaximized(), minimized: window.isMinimized(), fullscreen: window.isFullScreen() }; }
 function createWindow() {
-  window = new BrowserWindow({ width: 1440, height: 940, minWidth: 1000, minHeight: 700, backgroundColor: '#0c1014', title: 'App Estudos', autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, webSecurity: true } });
+  window = new BrowserWindow({ width: 1440, height: 940, minWidth: 1000, minHeight: 700, frame: false, backgroundColor: '#090a0b', title: 'Nodus', autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, webSecurity: true } });
+  window.removeMenu();
+  const publishWindow = () => window.webContents.send('window:state', windowState());
+  window.on('maximize', publishWindow); window.on('unmaximize', publishWindow); window.on('minimize', publishWindow); window.on('restore', publishWindow); window.on('enter-full-screen', publishWindow); window.on('leave-full-screen', publishWindow);
   player = new VideoPlayer(window);
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event, url) => { if (url !== startUrl) event.preventDefault(); });

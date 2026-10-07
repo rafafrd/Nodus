@@ -1,6 +1,8 @@
 # Direção visual
 
-Confirmado: observatório espacial, com mesa sóbria para estudar e vistas mais ricas para grafo/base. Materiais grandes no centro, indicadores compactos nas bordas, barra lateral, dock e ferramentas flutuantes sobre painéis encaixados.
+Direção atual de UI-03, 06/10/2026: **Editorial** é o padrão de novos perfis, inspirado na referência de portfólio do usuário e adaptado ao dashboard/documento de estudos. Quase preto (#090a0b), grid permanente de 40 px, bordas finas, sombras removidas, cantos de 2 px. Títulos em Georgia; interface Segoe UI e metadados Consolas, com maior densidade. Hoje usa indicadores compactos, tarefas/retomada/acervo; Explorer usa cards próximos do quadrado e separa principais/secundários. **Oliva** conserva o design anterior e Hoje histórico; temas salvos não são substituídos automaticamente. [Decisão](../adr/0012-tema-editorial.md) e [provas](../validation/EDITORIAL_DESIGN.md).
+
+Direção anterior, conservada em Oliva: observatório espacial, com mesa sóbria para estudar e vistas mais ricas para grafo/base. Materiais grandes no centro, indicadores compactos nas bordas, barra lateral, dock e ferramentas flutuantes sobre painéis encaixados. Os registros seguintes descrevem os incrementos históricos.
 
 A mesa usa pouco brilho/cenário e dá prioridade a leitura, foco, contraste e estado de salvamento. As transições podem ser expressivas sem tirar o documento de vista. Controles têm rótulos, foco visível e operação por teclado. Evite reproduzir a aparência padrão de Radix/shadcn.
 
@@ -21,3 +23,7 @@ CFG-01 acrescenta **Ajustes** e avatar quadrado no rodapé do rail; área persis
 EXP-01 fica em Dados e app, com seleção de origem/subpasta, estado de geração e caminho de sucesso. PDF sempre preto, texto claro e títulos sóbrios em dourado; capa/títulos principais Georgia e corpo Segoe UI, margens A4, tabelas e código com cantos retos, página no rodapé. Tema do app não muda o caderno. [Provas/renderização](../validation/PDF_EXPORT.md).
 
 NXT-01 mantém cantos retos e controles próprios. Hoje/Revisão/Grafo usam o mesmo rail persistente; Ctrl+K abre uma superfície de busca com teclado e ações. Grafo retargeta câmera em 850 ms e mantém prévia/texto legíveis. Marcações PDF usam áreas e cores discretas sobre o canvas; momentos de vídeo usam lista com tempo explícito. Prévia/recibos de backup e destino do PDF mostram ações e caminhos efetivos. Dourado/Amanhecer/Noite são ambientes da cidade, separados do tema da mesa. A área vazia dos controles de ambiente permite cliques nos marcadores do cenário; somente os botões capturam ponteiro. [Provas](../validation/STUDY_EXPANSION.md).
+
+GAM-03: faixa de janela própria com34px e três controles, efeito monocromático Editorial de90s independente/desligável, HUD de cidade com contraste estável e painel de economia denso. Cyberpunk/New York usam geometrias próprias com os mesmos locais e estados. Oficina mostra preparação/fase/erros/pausa; prestígio exige revisão de perdas e preservações. [Decisão](../adr/0013-cidade-progressiva-e-janela.md).
+
+UI-04 limpa a apresentação em todos os temas: uma área padrão, até três áreas inteiras/PDF/Vídeo por escolha do usuário, divisores ajustáveis e contexto comum. Acervo/formatação/relações/detalhes/inventário recolhidos; foco/checklist suspensos por hover/clique/teclado. Cidade tem Motor isolado e Oficina contínua; grafo com forças estabilizadas e câmera amortecida, imediato em movimento reduzido. [Decisão](../adr/0014-areas-isoladas.md), [provas](../validation/CLEAN_WORKSPACE.md).

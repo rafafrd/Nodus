@@ -1,4 +1,4 @@
-# Regras locais do primeiro jogo — GAM-01
+# Regras locais do jogo — histórico e regras atuais
 
 02/10/2026. Pedido explícito de cidade, farm, grind e loja, após UI-01. Vila medieval isométrica como escolha reversível. Valores de balanceamento provisórios em src/shared/game.ts; não são metas acadêmicas. Este incremento não entrega todo o roadmap público, integração de notas/IA, sincronização, missões semanais ou multiplayer.
 
@@ -46,3 +46,11 @@ Motor da vila é a fonte principal ativa. Nível inicial0, potência 1+2×nível
 Oficina oferece dois desafios de3 etapas. QTE escolhe A/S/D/W e exige tecla correta antes do limite por etapa: tranquilo3500ms/normal2000ms. Concluído rende24moedas/12XP; tecla errada/timeout/cancelar sem multa. Skillcheck: marcador triangular 0→100→0, período tranquilo3200ms/normal2000ms, faixa32/18 pontos centrada em alvos30/45/60/75. Main usa instante de recepção, não o frame/UI ou score do cliente. Após3 calibrações, moedas por0/1/2/3 acertos=0/8/20/36, XP5 por acerto. Não há penalidade por cancelar. A rodada ativa pode ser retomada; QTE continua sujeito ao prazo após sair/fechar.
 
 Desafios novos legítimos podem render novamente. Replay de operação/origem challenge:UUID não repete crédito. Migração aditiva v3 guarda game_challenges e projetos; defaults do perfil antigo preservam carteira/XP e motor0. Novos ledgers usam rule_version2, anteriores permanecem v1. Estudo/foco não recebem XP automaticamente neste recorte; memória mantém seu funcionamento sem limite de tempo.
+
+## Revisão 3 — GAM-03, 06/10/2026
+
+As revisões 1/2 acima documentam as versões anteriores. Regras atuais de produção, tecnologias/conquistas/prestígio, Oficina36 etapas e skins estão em [city-progression](city-progression.md). Carteira/XP/ledger e dados de estudo são preservados ao atualizar; as regras de três etapas permanecem apenas em partidas já abertas na versão anterior.
+
+## UI-04 — ritmo contínuo, 06/10/2026
+
+Substitui o cooldown300ms histórico e a preparação repetida de GAM-03: motor aceita todos os cliques únicos consecutivos, sem descartar por IPC pendente; XP/preço/potência/replay continuam calculados pelo main. Oficina nova mantém36 etapas/três fases/faixas/erros/recompensas, preparação somente antes da etapa0 (3,5s normal/4,5s tranquilo), readyAt=stepAt nas etapas seguintes. Usuário substituiu duração2–4min por partidas mais curtas/intensas. Desafios v2 em andamento recebem o ritmo ao avançar; v1 conserva três passos/recompensa. Ledger continua rule_version3 e registra créditos efetivos, sem reescrever histórico. [Decisão](../adr/0014-areas-isoladas.md), [prova](../validation/CLEAN_WORKSPACE.md).

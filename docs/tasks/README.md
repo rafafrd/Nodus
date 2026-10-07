@@ -50,6 +50,8 @@ Incremento anterior: [CFG-01 — configurações, aparência e perfil](done/CFG-
 
 ## Conteúdo de um ticket
 
+Último incremento: [UI-03 — dashboard editorial e tema original](done/UI-03.md), concluído na branch local codex/editorial-dashboard, conforme referência e pedido de 06/10/2026. Tema anterior preservado em Oliva, classificação de projetos persistida, provas/capturas Windows em [EDITORIAL_DESIGN](../validation/EDITORIAL_DESIGN.md). Alterações locais salvas, sem commit/push/publicação.
+
 Último incremento: [NXT-01 — estudo, revisão e conhecimento](done/NXT-01.md), concluído na branch codex/study-expansion. Nove sugestões entregues com provas Windows, auditoria, commits e push; fases/limites no ticket.
 
 Incremento solicitado após o MVP: [UI-01 — refinamento do frontend](done/UI-01.md), concluído na branch feat/frontend. Ele preserva a situação dos critérios da alpha.
@@ -61,3 +63,7 @@ Frontmatter, objetivo, dependências, prompt completo com critérios e verifica�
 ## Fonte e evolução
 
 Os tickets foram extraídos do pacote original em docs/planning. Use o arquivo do quadro para executar e atualizar. O pacote original é histórico e não precisa acompanhar cada movimentação. Alteração material de escopo deve ser registrada, respeitando requisitos escolhidos pelo usuário.
+
+Último incremento: [GAM-03 — janela própria, skins e progressão](done/GAM-03.md), concluído após escolhas explícitas do usuário, com UI-03 preservado. Produção/prestígio, duas skins completas e partidas reais de 140s/159s, pacote/regressões/capturas Windows em [CITY_PROGRESSION](../validation/CITY_PROGRESSION.md). Alterações locais, sem commit/push/publicação.
+
+Último incremento: [UI-04 — ritmo contínuo e espaço de trabalho limpo](done/UI-04.md), concluído conforme escolhas do usuário: um módulo padrão, até três áreas/PDF/Vídeo ajustáveis e foco/checklist suspensos. Branch codex/clean-workspace; UI-03/GAM-03 preservados. [Provas e capturas Windows](../validation/CLEAN_WORKSPACE.md), C1–C8 aprovados, sem commit/push/publicação.

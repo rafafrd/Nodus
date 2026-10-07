@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { GameState } from '../shared/game';
 import { gsap } from 'gsap';
 import { Icon } from './Icon';
+import { createUrbanScene } from './UrbanScene';
 
 export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
@@ -134,6 +135,12 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const citizens: InstanceType<typeof T.Group>[] = [];
       for (let i = 0; i < 7; i++) { const g = group(-10 + i * 2.4, .5); box(g, ['#8b657a', '#486d74', '#ba8660'][i % 3], 0, .35, 0, .23, .45, .18); mesh(g, sphere, '#dfbd91', 0, .67, 0, .14, .15, .14); box(g, '#57675c', 0, .81, 0, .3, .07, .27); citizens.push(g); }
       for (let i = 0; i < 48; i++) { const x = -13 + (i * 7.37) % 25, z = -8 + (i * 3.71) % 18; if (x > 7 || Math.abs(z) < 1.7 || Math.abs(x + 3) < 1.5 || x > 1 && x < 6 && z < 1) continue; mesh(scene, sphere, i % 3 ? '#aeb87a' : '#cfb27a', x, .35, z, .11, .15, .11); }
+      const village=new T.Group();
+      for(const object of [...scene.children]) if(object!==sea && (object instanceof T.Mesh || object instanceof T.Group)) village.add(object);
+      scene.add(village);
+      // Live plants and citizens are shared, so changing a skin cannot reset growth or identity.
+      for(const object of [...cropGroups,...citizens])scene.add(object);
+      const urban=createUrbanScene();scene.add(urban.newyork,urban.cyberpunk);
       const ringGeo = new T.RingGeometry(1.65, 1.73, 40); geometries.add(ringGeo); const ringMaterial = new T.MeshBasicMaterial({ color: '#fff3a2', transparent: true, opacity: .8, side: T.DoubleSide });
       const selection = new T.Mesh(ringGeo, ringMaterial); selection.rotation.x = -Math.PI / 2; selection.position.y = .5; scene.add(selection);
       const hitTargets: InstanceType<typeof T.Mesh>[] = []; const hitMaterial = new T.MeshBasicMaterial({ visible: false });
@@ -165,6 +172,14 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
           (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(s.atmosphere==='night'?'#203d48':s.atmosphere==='dawn'?'#a4b6b8':'#98b9b3');
           upgradeParts.forEach((part, i) => { part.visible = i < s.engine.level; });
           const delta = lastAnimation ? Math.min(.05, (now - lastAnimation) / 1000) : 0; lastAnimation = now;
+          village.visible=s.skin==='original';urban.newyork.visible=s.skin==='newyork';urban.cyberpunk.visible=s.skin==='cyberpunk';
+          if(s.skin!=='original'){
+            const cyber=s.skin==='cyberpunk',night=s.atmosphere==='night',dawn=s.atmosphere==='dawn';
+            (scene.background as InstanceType<typeof T.Color>).set(cyber?(night?'#0c1120':dawn?'#293047':'#18233b'):(night?'#1f2c40':dawn?'#c3b6ac':'#b4c3cd'));
+            ambient.intensity=cyber?.95:night?.75:1.7;sun.intensity=cyber?1.25:night?.75:2.8;sun.color.set(cyber?'#99b7ef':night?'#9fb7d6':dawn?'#e6b99d':'#f2dcc3');
+            (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(cyber?'#111e30':night?'#263e53':'#678b9d');
+          }
+          urban.update(s,delta,!reduced.matches);
           if (!reduced.matches) { animationTime += delta; wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
@@ -172,6 +187,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
           PLACES.forEach((p, i) => { const projected = new T.Vector3(p.x, p.id === 'mine' ? 3.7 : 3, p.z).project(camera); const label = labels.current[i]; if (label) { label.style.left = `${(projected.x * .5 + .5) * element.clientWidth}px`; label.style.top = `${(-projected.y * .5 + .5) * element.clientHeight}px`; label.style.visibility = projected.x < -1 || projected.x > 1 || projected.y < -1 || projected.y > 1 ? 'hidden' : 'visible'; } });
           renderer.domElement.dataset.ready = 'true';
           renderer.domElement.dataset.engineLevel = String(s.engine.level);
+          renderer.domElement.dataset.skin=s.skin;
           renderer.domElement.dataset.targetX = String(orbit.target.x); renderer.domElement.dataset.targetZ = String(orbit.target.z); renderer.domElement.dataset.zoom = String(camera.zoom);
           if (!ready) { ready = true; live.current.onReady(); }
         }
@@ -184,7 +200,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const stopForGesture = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; };
       orbit.addEventListener('start', stopForGesture);
       document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', stopForPreference); restart();
-      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
+      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
     }).catch(() => { if (!stopped) { setError('Não foi possível carregar o cenário.'); live.current.onReady(); } });
     return () => { stopped = true; cleanup(); };
   }, []);
