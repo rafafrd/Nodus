@@ -394,6 +394,8 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 
 ## IA-01 — Atividades por IA externa
 
+Entrega Git posterior por pedido explícito: implementação6396e32 enviada, [PR #13](https://github.com/rafafrd/Nodus/pull/13) aberto para main com3Mermaid/6badges/11prints públicos conferidos. Gitleaks272,64KB/diff/bootstrap aprovados; fontes do pacote conservadas, sem release/serviço/merge. Checkpoint e prova em [atividades-ia-externa](atividades-ia-externa.md).
+
 07/10/2026, codex/external-study-activities local, de f6d1a67. [Prova completa](atividades-ia-externa.md); C1–C10 entregues, sem push/publicação.
 
 | Critério | Resultado | Evidência |
