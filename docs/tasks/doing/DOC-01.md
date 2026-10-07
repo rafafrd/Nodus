@@ -21,4 +21,4 @@ C4. Guia inicial/scripts/stack consistentes com package.json; bootstrap/diff/ver
 
 ## Execução e retomada
 
-07/10/2026, Windows nativo. README reorganizado, capturas existentes inspecionadas e APIs/regras oficiais de GitHub/Shields conferidas. O GitHub remove CSS inline/class/id; a composição usa atributos permitidos, HTML e Markdown com respiro entre blocos. Próxima ação: validar recursos/renderização real e corrigir eventuais falhas antes de commit/push/PR.
+07/10/2026, Windows nativo. README reorganizado, capturas existentes inspecionadas e APIs/regras oficiais de GitHub/Shields conferidas. O GitHub remove CSS inline/class/id; a composição usa atributos permitidos, HTML e Markdown com respiro entre blocos. C1–C3 aprovados:10prints/9badges/12tabelas/3Mermaid, recursos200/alt,5âncoras reais/1440×1000/430×932/claro-escuro. Código confirma16/305/284 e scripts/stack; [provas](../../validation/README_SHOWCASE.md). Primeiro commit e6d7e18 enviado,6arquivos de docs/40.705bytes sem segredos. Próxima ação: PR para main e fechamento de C4, sem código do PR13.

@@ -4,9 +4,9 @@
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | Conteúdo preparado; conferência final pendente |
-| C2 | não verificado | Capturas existentes inspecionadas; recursos pendentes |
-| C3 | não verificado | Renderização GitHub/Mermaid pendente |
+| C1 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): main/PR13/código/package/evidências conferidos |
+| C2 | aprovado | [README_SHOWCASE](README_SHOWCASE.md):10prints de fixtures/9badges/alt/recursos válidos |
+| C3 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): GitHub real/3SVGs/12tabelas/5âncoras/430px/claro-escuro |
 | C4 | não verificado | Scripts e entrega Git pendentes |
 
 Execução real do MVP local em 02/10/2026. Resultados atuais e histórico por critério abaixo; provas externas permanecem não verificadas. Validação do pacote documental está em BOOTSTRAP.md e não aprova a aplicação.

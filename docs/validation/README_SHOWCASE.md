@@ -8,10 +8,11 @@
 | --- | --- |
 | Conteúdo vs código/package.json/evidências/main | Aprovado:16famílias/305melhorias incluindo permanentes/284conquistas, quatro temas/até quatro painéis/36etapas, scripts e versões atuais |
 | Recursos e GFM público | Aprovado:9badges Shields.io e2prints externos retornam200/image;8prints locais e14destinos HTML existem;19imagens com alt,12tabelas e3blocos Mermaid; API Markdown GitHub200 |
-| Âncoras | Cinco links correspondem aos títulos; navegação real no GitHub ainda pendente |
-| Renderização no navegador | Edge154.0.4258.62 headless abre repositório público; README atualizado/Mermaid/viewport ainda pendentes |
+| Âncoras | Aprovado: cinco cliques nos links do cabeçalho na página GitHub chegam aos fragmentos corretos, inclusive título acentuado |
+| Renderização no navegador | Aprovado na página GitHub real: Edge154.0.4258.62,19imagens carregadas/3SVGs Mermaid visíveis/12tabelas,1440×1000 e430×932; largura430sem overflow global, temas claro/escuro e galeria de cenários aberta |
 | Bootstrap | Aprovado:26tickets/170critérios/119Markdown/504links antes deste relatório; não testa o app |
 | Diff | git diff --check aprovado |
+| Gitleaks e primeiro checkpoint Git | Aprovado:6arquivos exclusivamente documentais,40.705bytes de patch sem achados; e6d7e18 enviado com upstream |
 
 Comandos locais realmente executados com Node24/Python do runtime, sem mudança global:
 
@@ -19,11 +20,14 @@ Comandos locais realmente executados com Node24/Python do runtime, sem mudança 
 python -X utf8 .local/check-readme-resources.py
 node24 node_modules/tsx/dist/cli.mjs .local/check-readme-content.ts
 node24 .local/check-readme-browser.mjs
+node24 .local/inspect-readme-github.mjs
 node24 scripts/check-bootstrap.mjs
 git diff --check
+git diff --cached --check
+gitleaks dir .local/readme-pr-scan --redact --no-banner
 ```
 
-Os verificadores temporários e HTML/resultados ficam em .local, ignorados. A checagem de recursos usa HTMLParser/HEAD/API GFM, sem baixar imagens para contornar restrições. Capturas do app reutilizam provas reais já versionadas; não são imagens geradas ou um novo teste do aplicativo. API GFM não substitui prova do Mermaid no navegador.
+Os verificadores temporários e HTML ficam em .local, ignorados. A checagem de recursos usa HTMLParser/HEAD/API GFM, sem baixar imagens para contornar restrições. Capturas do app reutilizam provas reais já versionadas; não são imagens geradas ou um novo teste do aplicativo. A renderização real complementa a API GFM. [Recursos](evidence/readme/resources.json) e [navegador](evidence/readme/result.json) registram os resultados, sem perfil pessoal/credenciais.
 
 ## Compatibilidade e fontes
 
@@ -31,6 +35,17 @@ GitHub remove estilos CSS inline e atributos class/id da entrada: [pipeline ofic
 
 Falhas dos verificadores foram corrigidas: regex inicial confundia query style= do badge com atributo HTML; API GFM não fornece as âncoras enriquecidas da página e muda table para table role. Nenhuma alteração no produto para contornar essas diferenças. O primeiro bootstrap com ticket recém-criado apontou retomada/validação ainda não cadastradas; cadastro completo passou.
 
+O roteiro inicial abriu todos os details da página e acionou também os diálogos de ampliação do Mermaid, deixando as primeiras capturas escurecidas. Correção limita a ação ao summary dos cenários e aguarda iframe/SVG com largura real, em vez de contar ícones como diagramas. Espera networkidle não terminava devido às conexões da página; DOM/recursos/iframe são aguardados explicitamente. Seletores de navegação foram restringidos ao cabeçalho para evitar o permalink adicionado pelo GitHub. Execução completa posterior passou; somente capturas finais limpas, inspecionadas, são versionadas.
+
+## Capturas da página GitHub real
+
+![Cabeçalho e badges](evidence/readme/header.png)
+![Galeria e composição](evidence/readme/gallery.png)
+![Mermaid visível](evidence/readme/diagram.png)
+![Largura estreita](evidence/readme/mobile.png)
+![Galeria estreita](evidence/readme/mobile-gallery.png)
+![Tema claro](evidence/readme/light.png)
+
 ## Retomada
 
-C1/C2 aprovados parcialmente pelos checks descritos; C3/C4 aguardam apresentação real, checkpoint Git e conferência final. Nenhum build/teste funcional repetido: não há fonte/dependência/lockfile alterado. Próxima ação: push da proposta documental, conferir a página real e corrigir apresentação antes de encerrar o ticket.
+C1–C3 aprovados pelos checks e apresentação real. C4 aguarda PR/checkpoint de fechamento. Nenhum build/teste funcional repetido: não há fonte/dependência/lockfile alterado. PR13 continua aberto/não integrado na reconferência; main permanece c95aabd. Próxima ação: abrir proposta documental para main e registrar a entrega.

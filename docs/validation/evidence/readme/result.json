@@ -1,0 +1,134 @@
+{
+  "browser": "154.0.4258.62",
+  "url": "https://github.com/rafafrd/Nodus/blob/codex/readme-showcase/README.md#arquitetura",
+  "images": [
+    {
+      "alt": "Estágio: MVP local",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/est%C3%A1gio-MVP_local-74716a?style=for-the-badge"
+    },
+    {
+      "alt": "Execução nativa validada no Windows",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Windows-validado-536255?style=for-the-badge"
+    },
+    {
+      "alt": "Dados locais",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/dados-locais-536255?style=for-the-badge"
+    },
+    {
+      "alt": "Electron 44.5.1",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Electron-44.5.1-47848f?style=flat-square&logo=electron&logoColor=white"
+    },
+    {
+      "alt": "React 19.3",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/React-19.3-497f8b?style=flat-square&logo=react&logoColor=white"
+    },
+    {
+      "alt": "TypeScript 5.9.3",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/TypeScript-5.9.3-46688c?style=flat-square&logo=typescript&logoColor=white"
+    },
+    {
+      "alt": "Node.js 24",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Node.js-24-536255?style=flat-square&logo=nodedotjs&logoColor=white"
+    },
+    {
+      "alt": "Persistência SQLite local",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/SQLite-local-74716a?style=flat-square&logo=sqlite&logoColor=white"
+    },
+    {
+      "alt": "Nodus no tema Editorial: caderno à esquerda, PDF e grafo à direita, duas abas e menu recolhido",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/validation/evidence/sidebar/collapsed-three.png"
+    },
+    {
+      "alt": "Quatro módulos do Nodus em uma grade 2 por 2",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/validation/evidence/study-tabs/four.png"
+    },
+    {
+      "alt": "Grade de quatro painéis adaptada a uma janela de 1040 por 760 pixels com menu recolhido",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/validation/evidence/sidebar/compact-four.png"
+    },
+    {
+      "alt": "Melhorias de produção com requisitos e custos no Observatório",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/evidence/gam-04/upgrades.png"
+    },
+    {
+      "alt": "Descobertas e conquistas progressivas do Observatório",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/evidence/gam-04/achievements.png"
+    },
+    {
+      "alt": "Vila Vale Sereno e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/evidence/gam-04/district-original.png"
+    },
+    {
+      "alt": "Cidade Cyberpunk com torres, iluminação neon e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/evidence/gam-04/district-cyberpunk.png"
+    },
+    {
+      "alt": "Cidade New York com prédios urbanos e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/readme-showcase/docs/evidence/gam-04/district-newyork.png"
+    },
+    {
+      "alt": "IA externa: PR 13 em revisão",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/IA_externa-PR_13_em_revis%C3%A3o-9a7951?style=for-the-badge"
+    },
+    {
+      "alt": "Prévia do PR 13: seleção de fontes e prompt completo para IA externa",
+      "loaded": true,
+      "source": "https://raw.githubusercontent.com/rafafrd/Nodus/6396e3246ac342027df86437d1458b190693c53a/docs/validation/evidence/external-activities/prompt.png"
+    },
+    {
+      "alt": "Prévia do PR 13: questionário concluído com resultado, gabarito e explicações",
+      "loaded": true,
+      "source": "https://raw.githubusercontent.com/rafafrd/Nodus/6396e3246ac342027df86437d1458b190693c53a/docs/validation/evidence/external-activities/results.png"
+    }
+  ],
+  "diagramFrames": [
+    {
+      "url": "https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com&color_mode=dark#b0d2d9cb-510d-4004-b7a8-2f14df67b016",
+      "svg": 1,
+      "body": "Clique\n\nArraste ou +\n\nSubitens do menu lateral\n\nUm módulo na aba atual\n\nAcrescentar painel\n\n2: duas colunas\n\n3: esquerda inteira + direita dividida\n\n4: grade 2 "
+    },
+    {
+      "url": "https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com&color_mode=dark#dd54390a-1658-4475-b3a3-0899689b044f",
+      "svg": 1,
+      "body": "Minutos efetivos de Foco\n\nRegistro de estudo elegível\n\nRevisões devidas\n\nProdução do Observatório\n\nInstalações e sinergias\n\nMelhorias e descobertas\n\nLegado opci"
+    },
+    {
+      "url": "https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com&color_mode=dark#29431658-14c7-4730-b0c0-0f8a26b0f976",
+      "svg": 1,
+      "body": "Válido\n\nInválido\n\nSelecionar materiais da matéria\n\nCopiar prompt completo\n\nColar em qualquer IA\n\nTrazer o JSON\n\nValidar no app\n\nImportar e estudar\n\nCopiar pedid"
+    }
+  ],
+  "width": {
+    "document": 430,
+    "viewport": 430
+  },
+  "tables": 12,
+  "navigation": [
+    "funcionalidades",
+    "galeria",
+    "ia-externa",
+    "começar-no-windows",
+    "arquitetura"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ]
+}

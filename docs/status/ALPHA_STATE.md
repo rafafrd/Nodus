@@ -67,7 +67,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
 | UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 | UI-06 | done | Concluído | UI-05 | — |
-| DOC-01 | doing | Em andamento | UI-06, GAM-04 | C1, C2, C3, C4 |
+| DOC-01 | doing | Em andamento | UI-06, GAM-04 | C4 |
 
 ## Checkpoints e atenção humana
 
