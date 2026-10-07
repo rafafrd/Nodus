@@ -8,7 +8,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
-07/10/2026: [GAM-04](../tasks/doing/GAM-04.md) em finalização na branch codex/deep-production, criada de main/b112df6 após merge do PR10.16famílias/305melhorias/284conquistas, schema6/saldo grande, estudo real e sinais/prestígio. C1–C7 aprovados:52testes/typecheck, pacote Windows/201assets idênticos, deep-economy/skins/clean-workspace/JourneyR1–R7; capturas/modelos publicados como fixtures. Simulação final30/45/60min/dia:5,15/4,30/4,10dias até prestígio. [Provas](../validation/DEEP_PRODUCTION.md). Próxima ação concreta: bootstrap/diff/scan, commit/push e novo PR com prints/Mermaid/badges, depois registro documental de entrega. Alpha externa permanece parcial.
+07/10/2026: [GAM-04](../tasks/done/GAM-04.md) concluído na branch codex/deep-production, criada de main/b112df6 após merge do PR10.16famílias/305melhorias/284conquistas, schema6/saldo grande, estudo real e sinais/prestígio. C1–C8 aprovados:52testes/typecheck, pacote Windows/201assets idênticos, deep-economy/skins/clean-workspace/JourneyR1–R7;12capturas de fixture/3modelos sanitizados. Simulação final30/45/60min/dia:5,15/4,30/4,10dias até prestígio. [Provas](../validation/DEEP_PRODUCTION.md). Commit6d20ce7 enviado com upstream; [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto para main,3Mermaid/6badges/12prints, corpo/head e imagem pública200 conferidos; anexo no chat. Nenhuma implementação restante; próxima ação humana: revisar o PR e avaliar a progressão. Alpha externa permanece parcial.
 
 UI-04 concluído na branch local codex/clean-workspace, preservando UI-03/GAM-03. Um módulo padrão, até três áreas/PDF/Vídeo ajustáveis, foco/checklist suspensos; Oficina36 contínua/preparo inicial, motor sem cooldown/fila e grafo fluido. C1–C8 aprovados: 43 testes/typecheck/pacote Windows/201 assets idênticos ao ASAR, clean-workspace/YouTube real/Journey R1–R7 no mesmo pacote final. Larguras ajustadas/restart/drafts/fontes/foco pausado/40 cliques ao fechar conservados; O-017/O-018 corrigidos/verificados. [Ticket](../tasks/done/UI-04.md), [provas](../validation/CLEAN_WORKSPACE.md). Capturas/guia/ADR/docs/quadro/bootstrap/diff atualizados, sem migration/dependência/alteração global ou stage/commit/push/publicação. Nenhuma implementação restante; próxima ação humana: + Módulo/divisores e Cidade/Motor/Oficina. Contexto de matéria compartilhado; alpha externa permanece parcial.
 
@@ -58,7 +58,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UI-03 | done | Concluído | CFG-01, NXT-01 | — |
 | GAM-03 | done | Concluído | GAM-02, NXT-01, UI-03 | — |
 | UI-04 | done | Concluído | UI-02, UI-03, GAM-03, NXT-01 | — |
-| GAM-04 | doing | Em andamento | GAM-03, UI-04, NXT-01 | C8 |
+| GAM-04 | done | Concluído | GAM-03, UI-04, NXT-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -70,4 +70,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [UI-04](../tasks/done/UI-04.md).
+Último ticket concluído: [GAM-04](../tasks/done/GAM-04.md).

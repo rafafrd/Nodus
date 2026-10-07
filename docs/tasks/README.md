@@ -22,7 +22,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 
 ## Tickets
 
-Incremento ativo: [GAM-04 — Produção profunda do observatório](doing/GAM-04.md), branch codex/deep-production criada de main após merge do PR10. Motor declarativo, estudo conectado, catálogo e simulações implementados; provas finais Windows e entrega Git em andamento.
+Último incremento: [GAM-04 — Produção profunda do observatório](done/GAM-04.md), concluído na branch codex/deep-production. Motor declarativo/estudo conectado/catálogo/legado;52testes/provas Windows/modelos/capturas aprovados. Commit6d20ce7 enviado e [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto para main com prints/Mermaid/badges; próxima ação é revisão.
 
 | Ticket | Entrega | Dependências | Arquivo |
 | --- | --- | --- | --- |

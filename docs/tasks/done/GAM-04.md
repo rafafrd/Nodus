@@ -1,7 +1,7 @@
 ---
 id: GAM-04
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["GAM-03","UI-04","NXT-01"]
 criteria_count: 8
 ---
@@ -29,4 +29,6 @@ Branch codex/deep-production criada de origin/main/b112df6 (PR10 integrado); ár
 
 Motor/configuração/conteúdo separados; fatia quatro famílias validada antes da expansão16/305/284. Schema6 migra saldo/ledger para TEXT, BigInt conserva unidades/decimal.js calcula taxas. Integrações reais de Foco/revisões/minigames, sinais guardados e prestígio implementados. C1–C7 aprovados em [DEEP_PRODUCTION](../../validation/DEEP_PRODUCTION.md):52testes/typecheck, pacote Windows/201assets idênticos, quatro roteiros incluindo três skins,1min real de Foco, compras100/MAX/combos/reset/permanente/restart e regressões Oficina/áreas/JourneyR1–R7. Capturas reais inspecionadas/retornadas,12imagens de fixture e3modelos sanitizados versionados. Simulação30/45/60min/dia:5,15/4,30/4,10dias até prestígio, sem motor/eventos/revisões/reset e sem duração humana medida. O-019/O-020 corrigidos/verificados.
 
-Próxima ação: bootstrap/diff/stage seletivo/scan, commit/push e PR para main com prints/Mermaid/badges; concluir C8 e mover para done após verificar publicação. Nenhuma fonte de produto pendente; fontes validadas do pacote ficam preservadas. Perfis/bancos/vaults/EXE e logs locais não entram no stage.
+C8 aprovado: bootstrap23tickets/157critérios/113Markdown/483links, diff/stage seletivo e Gitleaks326,60KB sem achados. Commit6d20ce7 enviado a origin/codex/deep-production, push/upstream aprovados. [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto para main/draft=false, três Mermaid/seis badges Shields.io/12prints. API confirmou corpo exato/base/head; imagem pública retorna200 image/png. PR anexado ao chat. Checkpoint documental de fechamento conserva fontes do pacote Windows.
+
+Nenhuma implementação restante. Próxima ação humana: revisar o PR, usar Cidade → Produção e avaliar a progressão com dados próprios. Simulações/fixtures têm limites declarados; alpha externa continua parcial. Nenhum merge/release/serviço publicado.

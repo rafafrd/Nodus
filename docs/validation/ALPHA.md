@@ -355,7 +355,7 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 
 ## GAM-04 — Produção profunda do observatório
 
-07/10/2026, branch codex/deep-production/main integrado. [Provas Windows/modelos/capturas](DEEP_PRODUCTION.md); entrega Git em fechamento.
+07/10/2026, branch codex/deep-production/main integrado. [Provas Windows/modelos/capturas](DEEP_PRODUCTION.md); C1–C8 concluídos; entrega Git no PR #11.
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
@@ -366,4 +366,4 @@ Prova específica em [ENGINE_EXPLORER](ENGINE_EXPLORER.md), inventário em [PROD
 | C5 | aprovado | Sinais guardados/combo/cache único, expiração offline/cap/carry, prestígio/legado/restart e fontes conservadas |
 | C6 | aprovado | Objetivo/detalhes e distrito103meshes em três skins, movimento reduzido, compacto sem overflow |
 | C7 | aprovado |52testes/typecheck/pacote201assets, deep-economy/skins/clean-workspace/Journey no mesmo pacote,3modelos/capturas inspecionadas |
-| C8 | não verificado | Docs/ADR/guia/modelos atualizados; falta fechar commit/push/PR e registrar entrega |
+| C8 | aprovado | Bootstrap/diff/Gitleaks326,60KB sem achados; commit6d20ce7/push/upstream e [PR11](https://github.com/rafafrd/Nodus/pull/11) com3Mermaid/6badges/12prints/API verificados; docs/ADR/guia/quadro/retomada atualizados |

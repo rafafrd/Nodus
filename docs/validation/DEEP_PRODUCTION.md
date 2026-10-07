@@ -45,4 +45,4 @@ Primeiro prestígio no modelo:30min/dia=5,15dias;45=4,30;60=4,10. [Relatório](.
 
 Não foram repetidos todos os roteiros históricos com seletores antigos. Nesta versão, o roteiro canônico econômico é test:deep-economy; suite de integração, clean-workspace e Journey foram executados. YouTube/rede não foi alterado nem revalidado nesta tarefa. Nuvem/celular continuam pendentes na alpha; nenhum serviço, release, merge ou assinatura foi publicado.
 
-C1–C7 aprovados; C8 conclui após bootstrap/diff/stage seletivo/scan, commit/push e PR. A entrega Git será registrada no ticket/estado em checkpoint documental, preservando estas fontes do pacote.
+C1–C8 aprovados. Bootstrap23tickets/157critérios/113Markdown/483links, diff/stage seletivo/Gitleaks326,60KB sem achados. Commit6d20ce7 enviado com upstream para origin/codex/deep-production; [PR #11](https://github.com/rafafrd/Nodus/pull/11) aberto/draft=false/base main/head conferido, corpo exato com3Mermaid/6badges/12prints. Imagem publicada retorna200/image/png; PR anexado ao chat. Checkpoint documental de fechamento preserva as fontes do pacote; próxima ação é revisão pelo mantenedor.
