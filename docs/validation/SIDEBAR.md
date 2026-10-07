@@ -50,3 +50,7 @@ Quatro janelas em1040×760:
 Escolha restaurada após reinício:
 
 ![Reinício](evidence/sidebar/restart.png)
+
+## Entrega Git
+
+Implementação/evidências em527ee7f, push para origin/codex/study-tabs aprovado. [PR12](https://github.com/rafafrd/Nodus/pull/12) atualizado para main com3diagramas Mermaid/4badges e15prints (5novos); corpo/head conferidos por API,15imagens públicas retornaram200/image/png. PR11 integrado durante este incremento; base409006c,50arquivos no diff e nenhum arquivo src de jogo/economia, mergeable=true no momento da consulta. Bootstrap25tickets/166critérios, diff sem erros e Gitleaks do stage91,71KB sem achados. Próxima ação: revisar PR12.
