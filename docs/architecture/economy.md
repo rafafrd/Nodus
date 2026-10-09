@@ -39,6 +39,8 @@ Catálogo:16×12tiers=192;16×2sinergias=32;16especiais;25globais;40permanentes:
 
 ## Custos e números
 
+GAM-05 amplia Game/JSON/IPC sem nova tabela: [ADR-0019](../adr/0019-projetos-e-postos-da-farm.md). `farm.ts` contém custos/objetivo/integração de estoque; `motor.ts` fornece a cotação decimal usada pelo main e simulador. `FarmProjects.tsx`/`FarmScene.ts` apresentam um objetivo e construções nas skins. Taxas/custos das famílias GAM-04 permanecem iguais. O cap anterior de64/pulso e orçamento1.200/dia agora são pisos da escala proporcional; UI em descanso não oferece ganho fictício.
+
 `g=1,15`, `n=quantidade`, `b=base×descontos`. `C(n)=ceil(b×(g^n−1)/(g−1))`; compra `q` custa `C(n+q)−C(n)`. Arredondar o custo acumulado faz compras repartidas telescoparem:×100 tem o mesmo custo de100×1 sob os mesmos modificadores. MAX usa busca binária limitada a10.000unidades/família; não itera cada unidade. Planejamento reduz custo em1%/ponto, teto20%; efeitos de tecnologia/evento se multiplicam. Cada ação recalcula no main, antes de gastar.
 
 Inteiros de carteira/ledger são exatos até o limite representável configurado. Cálculos de taxas/potências têm80algarismos significativos: isso é precisão finita declarada, não matemática de precisão ilimitada. NaN/Infinity/expoente fora de±1000 são rejeitados; IPC de prestígio limita tamanho e formato. Valores acima de Number seguro viajam como strings; UI usa K/M/B/T/Q e depois engenharia `eN`. Não converter saldo grande com Number, nem somar ledger grande em SQL.

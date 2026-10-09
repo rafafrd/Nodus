@@ -2,7 +2,8 @@ import { app, BrowserWindow, ipcMain, protocol, net, session, dialog, clipboard 
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
-import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput, focusStartInput, focusActionInput, taskInput, stepInput, stepUpdateInput } from '../shared/contracts';
+import { AppError, subjectInput, renameInput, subjectIdInput, createNoteInput, moveNoteInput, noteIdInput, noteWriteInput, deskInput, materialChoiceInput, focusStartInput, focusActionInput, taskInput, stepInput, stepUpdateInput } from '../shared/contracts';
+import fs from 'node:fs';
 import { Store } from './store';
 import { Vault } from './vault';
 import { Desks } from './desk';
@@ -19,7 +20,7 @@ import { preferenceInput, photoInput, folderInput } from '../shared/preferences'
 import { nativeImage, shell } from 'electron';
 import { Videos } from './videos';
 import { VideoPlayer } from './video-player';
-import { videoAddInput, videoRefInput, videoLayoutInput } from '../shared/videos';
+import { videoAddInput, videoRefInput, videoAtInput, videoLayoutInput } from '../shared/videos';
 import { PdfExporter } from './pdf-export';
 import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
 import { Study } from './study';
@@ -136,6 +137,7 @@ function register() {
   handle('video:add', videoAddInput, input => videos.add(input));
   handle('video:remove', videoRefInput, input => { const video = videos.get(input); videos.remove(input); player.remove(video.id); return null; });
   handle('player:open', videoRefInput, input => player.open(videos.get(input)));
+  handle('player:at',videoAtInput,input=>player.open({...videos.get({subjectId:input.subjectId,id:input.id}),startSeconds:input.seconds},true));
   handle('player:layout', videoLayoutInput, input => player.layout(input));
   handle('player:close', z.undefined(), () => player.close());
   handle('project:list', z.undefined(), () => projects.catalog());
@@ -158,6 +160,21 @@ function register() {
   });
   handle('note:list', subjectIdInput, input => vault.list(input.subjectId));
   handle('note:create', createNoteInput, input => vault.create(input));
+  handle('note:move',moveNoteInput,input=>vault.move(input));
+  handle('vault:setup',z.undefined(),()=>{
+    if(store.setting('vault'))return vault.root();
+    const directory=path.join(app.getPath('documents'),'NodusNotes');
+    fs.mkdirSync(directory,{recursive:true});return vault.selectRoot(directory);
+  });
+  handle('notes:import',subjectIdInput,async input=>{
+    vault.root();store.requireSubject(input.subjectId);
+    const result=await dialog.showOpenDialog(window,{title:'Importar notas: os originais serão preservados',properties:['openFile','multiSelections'],filters:[{name:'Notas Markdown',extensions:['md']}]});
+    if(result.canceled)return null;
+    if(result.filePaths.length>100)throw new AppError('IMPORT_LIMIT','Selecione até 100 notas por vez.');
+    const notes:import('../shared/contracts').NoteDocument[]=[],failed:{name:string;message:string}[]=[];
+    for(const file of result.filePaths){try{notes.push(vault.importExternal(input.subjectId,file));}catch(error){failed.push({name:path.basename(file),message:error instanceof AppError?error.message:'Não foi possível ler esta nota. O original foi preservado.'});}}
+    return {notes,failed};
+  });
   handle('note:import', subjectIdInput, async input => {
     vault.root(); store.requireSubject(input.subjectId);
     const result = await dialog.showOpenDialog(window, { title: 'Importar Markdown: o app adicionará identidade ao frontmatter se ausente', defaultPath: vault.root(), properties: ['openFile'], filters: [{ name: 'Markdown', extensions: ['md'] }] });

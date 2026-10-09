@@ -1,0 +1,20 @@
+CAPTURE home-editorial
+CAPTURE home-rolagem
+CAPTURE tema-branco-ajustes
+CAPTURE home-branca
+CAPTURE conteudo-branco
+CAPTURE caderno-branco
+CAPTURE pdf-branco
+CAPTURE aulas-brancas
+CAPTURE revisao-branca
+CAPTURE conexoes-brancas
+CAPTURE projetos-brancos
+CAPTURE cidade-branca
+CAPTURE editor-projeto-branco
+CAPTURE home-branca-compacta
+CAPTURE home-primeiro-uso
+Home/contexto/atalhos reais; fundo WebGL avança, hover transforma cartão e posição do canvas permanece idêntica na rolagem.
+Branco escolhido nos Ajustes e aplicado ao conteúdo/caderno/PDF/revisão/conexões/projetos/cidade; rascunho, reduzido, desligado, minimização e área oculta preservados.
+Restart conserva tema branco, Home ativa e rascunho; Markdown original permanece intacto.
+Perda real de WebGL conserva Home e navegação.
+Perfil novo inicia na Home e Escrever agora prepara pasta/matéria/nota pelo fluxo real.

@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-09T09:12:03.368Z",
+  "baseline": 164,
+  "unchanged": 147,
+  "criticalUnchanged": 89,
+  "changed": [
+    "scripts/smoke-notes-ux.ts",
+    "scripts/smoke-visual-experience.ts",
+    "src/renderer/DayOverview.tsx",
+    "README.md",
+    "docs/GUIA_DE_USO.md",
+    "docs/adr/README.md",
+    "docs/status/ALPHA_STATE.md",
+    "docs/status/RUN_LOG.md",
+    "docs/tasks/README.md",
+    "docs/validation/ALPHA.md",
+    "gotcha.md",
+    "scripts/smoke-journey.ts",
+    "scripts/smoke-study-tabs.ts",
+    "src/renderer/ActivityRail.tsx",
+    "src/renderer/App.tsx",
+    "src/renderer/CommandPalette.tsx",
+    "src/shared/workspace.ts"
+  ]
+}

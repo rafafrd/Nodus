@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-09T05:24:14.117Z",
+  "platform": "win32",
+  "browser": "isolated headless Windows Edge",
+  "report": "docs/reports/BOM_DIA_2026-10-09.html",
+  "images": [
+    {
+      "src": "../validation/evidence/visual-experience/hoje.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "src": "../validation/evidence/visual-experience/adicionar-conteudo.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "src": "../validation/evidence/visual-experience/primeiro-uso.png",
+      "width": 1440,
+      "height": 940
+    },
+    {
+      "src": "../validation/evidence/visual-experience/cidade-valeserene.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "src": "../validation/evidence/visual-experience/cidade-cyberpunk.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "src": "../validation/evidence/visual-experience/cidade-newyork.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "src": "../validation/evidence/visual-experience/hoje-compacto.png",
+      "width": 1040,
+      "height": 760
+    },
+    {
+      "src": "../validation/evidence/visual-experience/tema-olive.png",
+      "width": 1040,
+      "height": 760
+    },
+    {
+      "src": "../validation/evidence/visual-experience/tema-midnight.png",
+      "width": 1040,
+      "height": 760
+    },
+    {
+      "src": "../validation/evidence/visual-experience/tema-graphite.png",
+      "width": 1040,
+      "height": 760
+    }
+  ],
+  "videos": [
+    {
+      "src": "../validation/evidence/visual-experience/ideias-3d.webm",
+      "time": 1.308746,
+      "frames": 23,
+      "error": null
+    },
+    {
+      "src": "../validation/evidence/visual-experience/cidade-viva.webm",
+      "time": 1.299986,
+      "frames": 23,
+      "error": null
+    }
+  ],
+  "sizes": [
+    {
+      "width": 1280,
+      "content": 1280
+    },
+    {
+      "width": 480,
+      "content": 480
+    }
+  ],
+  "errors": [],
+  "cancelledMedia": [
+    "cidade-viva.webm: net::ERR_ABORTED"
+  ],
+  "note": "Chromium cancels metadata range requests when starting media playback; actual video time/decoded frames verified."
+}

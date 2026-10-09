@@ -1,20 +1,28 @@
 import fs from 'node:fs';
 import { D, dec, amount, integer, add, sub, type Amount } from '../src/shared/amount';
-import { PRODUCERS, UPGRADES, ACHIEVEMENTS, freshEconomy, emptyContext, producerCost, breakdown, upgradeReady, achievementReady, prestigeGain, BALANCE } from '../src/shared/economy';
+import { PRODUCERS, UPGRADES, ACHIEVEMENTS, freshEconomy, emptyContext, producerCost, breakdown, upgradeReady, achievementReady, prestigeGain, pulseMultiplier, BALANCE } from '../src/shared/economy';
 import { activityReward } from '../src/shared/economic-activities';
-export function simulate(studyMinutes=45,days=7) {
- const e=freshEconomy(),c=emptyContext();let balance:Amount=60,carry=new D(0);const marks:Record<string,number>={},checkpoints:unknown[]=[];
+import {settleFarm,STATION_RESOURCE} from '../src/shared/farm';
+import {RESOURCES,type GameState} from '../src/shared/game';
+import {motorQuote} from '../src/shared/motor';
+type FarmOptions={initial:GameState;playMinutes:number;automation:boolean;motor:boolean};
+export function simulate(studyMinutes=45,days=7,options?:FarmOptions) {
+ const e=options?structuredClone(options.initial.economy):freshEconomy(),c=emptyContext();let balance:Amount=options?.initial.coins??60,carry=new D(0),automaticRevenue:Amount=0,motorRevenue:Amount=0;const marks:Record<string,number>={},checkpoints:unknown[]=[];
+ const farm=options?structuredClone(options.initial.farm):undefined;
+ if(farm)for(const station of Object.values(farm.stations))station.settledAt-=options!.initial.now;
  const earn=(value:Amount)=>{balance=add(balance,value);e.lifetime=add(e.lifetime,value);e.cycleEarned=add(e.cycleEarned,value);};
  const record=(name:string,minute:number)=>{marks[name]??=minute;};
  for(let minute=0;minute<=days*1440;minute++){
   c.now=minute*60000;const rate=dec(breakdown(e,c).final);if(minute){const earned=rate.plus(carry);earn(integer(earned));carry=earned.mod(1);}
-  const active=minute>0&&(minute-1)%1440<studyMinutes;
-  if(active){
+  const active=minute>0&&(minute-1)%1440<(options?.playMinutes??studyMinutes),studying=minute>0&&(minute-1)%1440<studyMinutes;
+  if(studying){
    const day=String(Math.floor((minute-1)/1440));if(e.study.lastDay!==day){e.study.lastDay=day;e.study.dayMinutes=0;}
    e.focusMinutes++;e.study.dayMinutes++;
    if(e.study.dayMinutes===BALANCE.consistencyThresholdMinutes){e.study.streak++;e.studyDays++;}
    earn(activityReward('focus',BALANCE.focusFloorPerMinute,e,c));
   }
+  if(farm&&options?.automation){settleFarm(farm,c.now,BALANCE.offlineDays*86400000);if(active&&(minute-1)%1440===0)for(const [id,resource] of Object.entries(STATION_RESOURCE)){const station=farm.stations[id as keyof typeof STATION_RESOURCE],revenue=station.stock*RESOURCES[resource].price;station.stock=0;earn(revenue);automaticRevenue=add(automaticRevenue,revenue);}}
+  if(options?.motor&&active&&(minute-1)%1440===0){let spent:Amount=0;for(let click=0;click<2000;click++){const quote=motorQuote(amount(rate),options.initial.engine.level,pulseMultiplier(e),spent);if(!dec(quote.power).gt(0))break;earn(quote.power);spent=add(spent,quote.power);c.clicks++;}motorRevenue=add(motorRevenue,spent);}
   for(const a of ACHIEVEMENTS)if(!e.achievements.includes(a.id)&&achievementReady(a,e,c))e.achievements.push(a.id);
   if(active||minute===0){
    // Greedy positive marginal ROI; no clicking, no perfect future knowledge.
@@ -32,7 +40,7 @@ export function simulate(studyMinutes=45,days=7) {
   if([1,5,30,60,480,1440,10080].includes(minute))checkpoints.push({minute,studyMinutesPerDay:studyMinutes,balance,lifetime:e.lifetime,ratePerMinute:breakdown(e,c).final,units:Object.values(e.producers).reduce((a,b)=>a+b,0),families:Object.values(e.producers).filter(Boolean).length,upgrades:e.upgrades.length,prestigeGain:prestigeGain(e)});
  }
  const marginalROI=PRODUCERS.map(p=>{const old=dec(breakdown(e,c).final);e.producers[p.id]++;const gain=dec(breakdown(e,c).final).minus(old);e.producers[p.id]--;return{id:p.id,cost:producerCost(p,e),gainPerMinute:amount(gain),paybackMinutes:gain.gt(0)?amount(dec(producerCost(p,e)).div(gain)):null};});
- return{balanceVersion:BALANCE.version,model:'deterministic greedy ROI, one study session/day, no motor/events/reviews/prestige reset; formula model, not human playtime',studyMinutes,days,marks,checkpoints,marginalROI};
+ return{balanceVersion:BALANCE.version,model:options?'deterministic greedy ROI; 15 play minutes/day; optional study; level-0 motor budget/day; stocks sold once/day; no events/reviews/prestige reset; formula model, not human playtime':'deterministic greedy ROI, one study session/day, no motor/events/reviews/prestige reset; formula model, not human playtime',studyMinutes,days,marks,checkpoints,marginalROI,...(options?{automation:options.automation,automaticRevenue,motorRevenue,final:{balance,lifetime:e.lifetime,ratePerMinute:breakdown(e,c).final,prestigeGain:prestigeGain(e)}}:{})};
 }
 if(process.argv[1]?.endsWith('simulate-economy.ts')){
  fs.mkdirSync('.local/evidence',{recursive:true});const minutes=Number(process.argv[2]??45),result=simulate(minutes);fs.writeFileSync(`.local/evidence/balance-${minutes}.json`,JSON.stringify(result,null,2));console.log(JSON.stringify({studyMinutes:minutes,marks:result.marks,checkpoints:result.checkpoints},null,2));

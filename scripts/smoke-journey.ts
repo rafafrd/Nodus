@@ -6,6 +6,7 @@ import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 import { Desks } from '../src/main/desk';
 import { generatePdf } from './test-fixture';
+import { editableNote } from '../src/shared/note-content';
 fs.mkdirSync('.local', { recursive: true });
 const dir = fs.mkdtempSync(path.resolve('.local/journey-')); const dataDir = path.join(dir, 'data'), root = path.join(dir, 'vault'); fs.mkdirSync(root);
 const initial = new Store(dataDir); new Vault(initial).selectRoot(root); initial.close();
@@ -18,15 +19,18 @@ for (let pass = 0; pass < 2; pass++) {
     const page = await app.firstWindow(); const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
     await page.getByTestId('version').filter({ hasText: '0.1.0' }).waitFor();
     if (!pass) {
+      await page.getByRole('button', { name: 'Voltar aos estudos', exact: true }).click();
       for (const name of ['Matéria A', 'Matéria B']) { await page.getByRole('button', { name: 'Nova matéria', exact: true }).click(); await page.getByRole('textbox', { name: 'Nome da matéria' }).fill(name); await page.getByRole('button', { name: 'Criar matéria', exact: true }).click(); await page.getByRole('heading', { name, exact: true }).waitFor(); }
-      const boot = await page.evaluate(() => window.desktop.bootstrap()); assert.ok(boot.ok); if (boot.ok) ids = boot.value.subjects.map(s => s.id); reports.push('R1 aprovado: duas matérias criadas pela UI.');await page.getByRole('button',{name:'Dividir com PDF',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
+      const boot = await page.evaluate(() => window.desktop.bootstrap()); assert.ok(boot.ok); if (boot.ok) ids = boot.value.subjects.map(s => s.id); reports.push('R1 aprovado: duas matérias criadas pela UI.');
       for (let i = 0; i < 2; i++) {
-        await page.getByRole('button',{name:'Abrir acervo',exact:true}).click();await page.getByRole('button', { name: `Matéria ${i ? 'B' : 'A'}`, exact: true }).click(); await page.getByRole('button', { name: '+ Nova nota', exact: true }).click(); await page.getByRole('textbox', { name: 'Título da nota' }).fill(`Resumo ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar nota', exact: true }).click();
-        await page.getByRole('heading', { name: `Resumo ${i ? 'B' : 'A'}`, exact: true, level: 2 }).waitFor();
+        await page.getByRole('button',{name:'Abrir acervo',exact:true}).click();await page.getByRole('button', { name: `Matéria ${i ? 'B' : 'A'}`, exact: true }).click(); await page.getByRole('button', { name: '+ Nova nota', exact: true }).click();
+        await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Sem título');
+        await page.getByRole('textbox', { name: 'Título da nota' }).fill(`Resumo ${i ? 'B' : 'A'}`);
         const refs = await page.evaluate(subjectId => window.desktop.listNotes({ subjectId }), ids[i]); assert.ok(refs.ok); if (!refs.ok) throw Error('Nota não criada'); noteIds[i] = refs.value[0].id;
         const opened = await page.evaluate(id => window.desktop.openNote({ id }), noteIds[i]); if (!opened.ok) throw Error('Nota não aberta');
-        await page.getByRole('textbox', { name: 'Conteúdo da nota' }).fill(opened.value.text + `\nNotas de estudo da matéria ${i ? 'B' : 'A'}.\n\n` + fs.readFileSync('tests/fixtures/compatibility.md', 'utf8'));
+        await page.getByRole('textbox', { name: 'Conteúdo da nota' }).fill(editableNote(opened.value.text).body + `\nNotas de estudo da matéria ${i ? 'B' : 'A'}.\n\n` + fs.readFileSync('tests/fixtures/compatibility.md', 'utf8'));
         await page.getByRole('button', { name: 'Salvar nota', exact: true }).click(); await page.getByRole('status').filter({ hasText: 'Salvo no arquivo' }).waitFor();
+        await page.getByRole('button',{name:'Dividir com PDFs',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
         const fixtureFile = path.join(dir, `journey-${i}.pdf`); generatePdf(fixtureFile, `journey-${i}`);
         const db = new Store(dataDir); const desks = new Desks(db); const material = desks.choose(ids[i], fixtureFile); materialIds[i] = material.id; desks.save({ subjectId: ids[i], materialId: material.id, page: i ? 3 : 2, split: i ? 40 : 60 }); db.close();
         await page.keyboard.press('Alt+2');await page.getByRole('textbox', { name: 'Nova tarefa' }).fill(`Revisão ${i ? 'B' : 'A'}`); await page.getByRole('button', { name: 'Criar tarefa', exact: true }).click();
@@ -40,7 +44,7 @@ for (let pass = 0; pass < 2; pass++) {
       reports.push('R2/R3/R4 aprovados: notas salvas, PDFs reais distintos/páginas 2 e 3, layouts 60 e 40, tarefas/etapas distintas e foco de 1 min pausado. PDFs vinculados pelos serviços reais de fixture; diálogo nativo não automatizado.');
       await page.screenshot({ path: '.local/evidence/mvp-journey.png' });
     } else {
-      await page.getByRole('heading', { name: 'Resumo A', exact: true, level: 2 }).waitFor(); await page.locator('canvas[data-rendered-page="2"]').waitFor();
+      await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Resumo A'); await page.locator('canvas[data-rendered-page="2"]').waitFor();
       const states = await page.evaluate(async input => ({ a: await window.desktop.openDesk({ subjectId: input.ids[0] }), b: await window.desktop.openDesk({ subjectId: input.ids[1] }), tasks: await window.desktop.listTasks({ subjectId: input.ids[0] }), focus: await window.desktop.getFocus({ subjectId: input.ids[0] }) }), { ids });
       assert.ok(states.a.ok && states.b.ok && states.tasks.ok && states.focus.ok);
       if (states.a.ok && states.b.ok && states.focus.ok && states.tasks.ok) {
@@ -53,7 +57,7 @@ for (let pass = 0; pass < 2; pass++) {
       const file = path.join(root, ...note.value.ref.path.split('/')); const external = note.value.text + '\nEdição externa limpa.\n'; fs.writeFileSync(file, external);
       await page.getByRole('textbox', { name: 'Conteúdo da nota' }).press('Control+End');
       await page.waitForFunction(() => document.querySelector('.cm-content')?.textContent?.includes('Edição externa limpa.') || document.querySelector('.markdown-preview')?.textContent?.includes('Edição externa limpa.'));
-      await page.getByRole('textbox', { name: 'Conteúdo da nota' }).fill(external + '\nMinha edição pendente.\n'); fs.writeFileSync(file, external + '\nNova versão externa.\n');
+      await page.getByRole('textbox', { name: 'Conteúdo da nota' }).fill(editableNote(external).body + '\nMinha edição pendente.\n'); fs.writeFileSync(file, external + '\nNova versão externa.\n');
       await page.getByText('Arquivo alterado fora do app', { exact: true }).waitFor();
       const conflict = await page.evaluate(id => window.desktop.openNote({ id }), noteIds[0]); assert.ok(conflict.ok && conflict.value.draft?.text.includes('Minha edição pendente.') && conflict.value.text.includes('Nova versão externa.'));
       reports.push('R7 aprovado: atualização externa limpa e conflito conservaram duas versões na build empacotada.');

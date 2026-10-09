@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-09T09:01:38.119Z",
+  "fixture": "<workspace>\\.local\\study-tabs-2Okyfl",
+  "checks": [
+    "Nove subitens laterais, nenhum seletor no topo; arraste real com prévia e teclado adicionam janelas; três painéis com esquerda inteira.",
+    "Grade 2×2, limite de quatro e foco sem duplicação; divisores por mouse/setas; viewport 1040×760; abas por clique/setas/Ctrl+T/W/Tab/1 e isolamento da composição.",
+    "Player oficial real carrega inline, não intercepta drag/resize e conserva o mesmo WebContents ao trocar de aba/PiP.",
+    "Reinício conserva abas/divisores/foco, PDF2, rascunhos de nota/projeto e foco pausado; todas as fontes intactas; movimento reduzido; nenhum pageerror."
+  ],
+  "beforeClose": {
+    "activeTabId": "00000000-0000-4000-8000-000000000001",
+    "tabs": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "panes": [
+          "study",
+          "pdf",
+          "video",
+          "graph"
+        ],
+        "focused": "graph",
+        "columnSplit": 56.277955271565496,
+        "rowSplit": 53.83693045563549
+      },
+      {
+        "id": "fa1c828f-8f92-4ded-b191-f33dc0e8c272",
+        "panes": [
+          "explorer"
+        ],
+        "focused": "explorer",
+        "columnSplit": 50,
+        "rowSplit": 50
+      }
+    ]
+  },
+  "geometry": [
+    {
+      "area": "study",
+      "x": 176,
+      "y": 74,
+      "width": 472.1875,
+      "height": 349.078125,
+      "right": 648.1875,
+      "bottom": 423.078125
+    },
+    {
+      "area": "pdf",
+      "x": 651.1875,
+      "y": 74,
+      "width": 388.796875,
+      "height": 349.078125,
+      "right": 1039.984375,
+      "bottom": 423.078125
+    },
+    {
+      "area": "video",
+      "x": 176,
+      "y": 426.078125,
+      "width": 472.1875,
+      "height": 301.90625,
+      "right": 648.1875,
+      "bottom": 727.984375
+    },
+    {
+      "area": "graph",
+      "x": 651.1875,
+      "y": 426.078125,
+      "width": 388.796875,
+      "height": 301.90625,
+      "right": 1039.984375,
+      "bottom": 727.984375
+    }
+  ],
+  "screenshots": [
+    ".local/evidence/study-tabs-single.png",
+    ".local/evidence/study-tabs-drag-preview.png",
+    ".local/evidence/study-tabs-three.png",
+    ".local/evidence/study-tabs-four.png",
+    ".local/evidence/study-tabs-limit.png",
+    ".local/evidence/study-tabs-resized.png",
+    ".local/evidence/study-tabs-compact.png",
+    ".local/evidence/study-tabs-tabs.png",
+    ".local/evidence/study-tabs-player-drag.png",
+    ".local/evidence/study-tabs-restart.png"
+  ],
+  "errors": []
+}

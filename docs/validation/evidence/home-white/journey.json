@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-09T09:01:56.514Z",
+  "build": "App Estudos 0.1.0 win-unpacked",
+  "reports": [
+    "R1 aprovado: duas matérias criadas pela UI.",
+    "R2/R3/R4 aprovados: notas salvas, PDFs reais distintos/páginas 2 e 3, layouts 60 e 40, tarefas/etapas distintas e foco de 1 min pausado. PDFs vinculados pelos serviços reais de fixture; diálogo nativo não automatizado.",
+    "R5/R6 aprovados: executável fechado/reaberto, IDs/contextos/checklist/retomada e foco pausado sem crédito fechado.",
+    "R7 aprovado: atualização externa limpa e conflito conservaram duas versões na build empacotada.",
+    "R8 não verificado: nuvem/celular fora do MVP local, sem configuração/publicação."
+  ]
+}

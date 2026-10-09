@@ -1,6 +1,6 @@
 # gotcha.md — riscos previstos e ocorrências verificadas
 
-Versão: 1.1. Atualizado em 02/10/2026, America/Sao_Paulo. Projeto: app de estudos. Nome do arquivo no bootstrap: gotcha.md.
+Versão: 1.1. Atualizado em 09/10/2026, America/Sao_Paulo. Projeto: app de estudos. Nome do arquivo no bootstrap: gotcha.md.
 
 ## Como usar
 
@@ -214,3 +214,29 @@ Corrigido e verificado no executável Windows. A primeira captura study-tabs-tab
 ## O-022 — Texto externo longo sem espaços transbordava a área de prática (IA-01,07/10/2026)
 
 Observado na captura Windows ao exercitar explicação válida de4.000caracteres sem espaços: o parágrafo excedia a largura da área e deslocava horizontalmente o conteúdo. Corrigido com overflow-wrap:anywhere e min-width:0 na prática/opções, conservando todos os caracteres. A jornada final mede scrollWidth/clientWidth durante a revelação, e valida1040×760 dividido com PDF; capturas finais inspecionadas. [Prova](docs/validation/atividades-ia-externa.md). Nenhuma pendência.
+
+
+## O-023 — CSS antigo ocupava o espaço de escrita (UX-01,08/10/2026)
+
+Observado nas primeiras capturas do executável Windows: main-column recebia grade antiga, aviso ocupava espaço flexível e input do título herdava fonte12px. Correção: notes-ux.css carregado após workspace.css, coluna/aviso flex e seletor explícito do título. Menu compacto ganhou largura para nomes completos. Pacote final/jornada/capturas amplas e1040×760 inspecionados; escrita, PDF, grafo e ferramentas ficam acessíveis. Nenhuma alteração de dados para o layout. [Provas](docs/validation/NOTES_UX.md).
+
+
+## O-024 — Cartão da farm interceptava câmera e flex comprimia motor (GAM-05,09/10/2026)
+
+Observados nas primeiras provas/capturas Windows: o objetivo no canto inferior esquerdo cobria Centralizar cidade; controles foram movidos para a direita. Em1040×760, expansão dos postos também invadia o seletor de skin; altura do cartão passou a reservar o cabeçalho, com rolagem própria. O conteúdo adicional do motor fez flex comprimir/clipping do botão; filhos agora conservam altura e a área rola. Jornada/capturas finais confirmaram controles acessíveis, cabeçalho separado e botão do motor sem compressão. [Prova](docs/validation/FARM_PROJECTS.md).
+
+## O-025 — Roteiro UX selecionava fonte oculta após entrar em Leitura (GAM-05,09/10/2026)
+
+A regressão de UX-01 interrompeu por timeout: .first() escolheu o widget da fonte do CodeMirror que ficava oculto após a transição, em vez do botão da prévia. O roteiro passou a selecionar dentro de .markdown-preview. A captura após trocar PDF também passou a aguardar canvas/texto do material atual e usar duplo clique estável. Reconferência no executável passou incluindo fonte/página2, seleção/criação sem nota, restart e primeiro uso. Nenhuma alteração do editor por essa ocorrência. [Prova](docs/validation/FARM_PROJECTS.md).
+
+## O-026 — Preferência reduzida podia encerrar o livro antes do quadro estático (UX-02,09/10/2026)
+
+Observado na jornada Windows ao alternar movimento reduzido durante um quadro do livro: o limitador de 30 quadros/s podia adiar o desenho final. O guard passou a não pular o quadro quando a preferência reduzida está ativa; a cena registra estado estático e não mantém loop contínuo. Reconferência final no pacote aprovada, incluindo alternância dinâmica, minimização e retorno. [Prova](docs/validation/VISUAL_EXPERIENCE.md).
+
+## O-027 — Gravação do canvas deixava tiles antigos em capturas posteriores (UX-02,09/10/2026)
+
+Observado neste Chromium/Windows depois de captureStream/MediaRecorder: screenshots posteriores exibiam tiles de uma área anterior, embora o DOM estivesse com display:none/opacity0/aria-hidden corretos. A mesma navegação em processo novo, sem gravador, produziu captura limpa. O harness agora captura as fotos antes dos clipes e grava em outro processo. Evidências finais usam screenshots originais; não foi atribuída perda de dados nem falha de navegação ao app por esse artefato da instrumentação. [Prova](docs/validation/VISUAL_EXPERIENCE.md).
+
+## O-028 — Raiz selecionada do projeto conservava ouro claro no tema Branco (UX-03,09/10/2026)
+
+Observado na captura real do editor: o botão da raiz selecionada herdava a cor dourada do tema escuro e ficava pouco legível na nova paleta clara. white.css aplica texto verde escuro e fundo ativo próprio; a reconferência final mostra pasta/arquivo/código legíveis. O realce de código também usa variáveis claras com fallback original nos temas anteriores. Nenhuma alteração dos arquivos ou remount do editor para trocar cores. [Prova e foto final](docs/validation/HOME_WHITE.md).

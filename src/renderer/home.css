@@ -1,0 +1,28 @@
+.home-workspace{height:100%;position:relative;overflow:hidden;isolation:isolate;background:var(--theme-bg);--home-glass:color-mix(in srgb,var(--theme-panel) 89%,transparent)}
+.home-background{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden;background:radial-gradient(ellipse at 80% 20%,rgb(var(--theme-accent-rgb)/.045),transparent 65%)}
+.home-background canvas{width:100%;height:100%;display:block}
+.home-background[data-fallback=true] canvas{visibility:hidden}
+.home-scroll{position:absolute;inset:0;overflow:auto;scrollbar-gutter:stable;overscroll-behavior:contain}
+:root[data-theme] .nodus-shell .home-workspace .experience-today{height:auto;min-height:100%;overflow:visible;background:transparent;padding:38px clamp(24px,3.5vw,54px) 42px;max-width:1450px;margin:auto}
+:root[data-theme] .nodus-shell .home-workspace .dashboard-header h1{font:clamp(30px,3vw,42px)/1.15 Georgia,serif;letter-spacing:-1px}
+:root[data-theme] .nodus-shell .home-workspace .today-next{background:linear-gradient(120deg,var(--home-glass),color-mix(in srgb,var(--theme-bg) 58%,transparent));border-color:color-mix(in srgb,var(--theme-border) 80%,var(--theme-accent));box-shadow:0 16px 60px #0000000a}
+.home-workspace .today-next-copy{padding:38px}.home-workspace .study-sculpture{background:transparent;min-height:300px}
+.home-workspace .today-next-copy .primary>svg{transition:transform .3s ease}.home-workspace .today-next-copy .primary:hover>svg{transform:translateX(4px)}
+.home-workspace .today-next-copy .primary{transition:transform .3s ease,box-shadow .3s ease}.home-workspace .today-next-copy .primary:hover{transform:translateY(-2px);box-shadow:0 5px 18px #00000012}
+.home-destinations{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0 30px}
+.home-destinations>button{position:relative;display:grid;grid-template-columns:1fr auto;gap:13px;padding:20px;min-height:154px;text-align:left;background:var(--home-glass);border:1px solid var(--theme-border);transition:transform .3s ease,border-color .3s ease,background-color .3s ease,box-shadow .3s ease;overflow:hidden}
+.home-destinations>button::before{content:'';position:absolute;left:20px;right:20px;top:0;height:1px;background:var(--theme-accent);transform:scaleX(.15);transform-origin:left;transition:transform .4s ease;opacity:.7}
+.home-destinations>button:hover,.home-destinations>button:focus-visible{transform:translateY(-4px);border-color:var(--theme-accent);box-shadow:0 8px 25px #0000000c;background:var(--theme-panel)}
+.home-destinations>button:hover::before,.home-destinations>button:focus-visible::before{transform:scaleX(1)}
+.home-destination-icon{display:grid;place-items:center;width:33px;height:33px;background:var(--theme-active);color:var(--theme-accent);border:1px solid var(--theme-border);transition:transform .3s ease}
+.home-destinations>button:hover .home-destination-icon{transform:rotate(-6deg)}.home-destination-icon svg{width:18px;height:18px}
+.home-destination-index{font:9px Consolas,monospace;color:var(--theme-muted);align-self:center}
+.home-destinations strong{font:22px Georgia,serif;grid-column:1/-1;color:var(--theme-text)}.home-destinations small{font:11px/1.6 'Segoe UI',sans-serif;color:var(--theme-muted);grid-column:1/-1;padding-right:18px}
+.home-destinations>button>svg{position:absolute;right:16px;bottom:18px;width:14px;color:var(--theme-muted);transition:transform .3s ease}.home-destinations>button:hover>svg{transform:translateX(3px)}
+:root[data-theme] .nodus-shell .home-workspace .today-stats>div,:root[data-theme] .nodus-shell .home-workspace .today-tasks>button,:root[data-theme] .nodus-shell .home-workspace .today-subjects>button{background:var(--home-glass)}
+.home-workspace .today-subjects>button{transition:transform .3s ease,border-color .3s ease}.home-workspace .today-subjects>button:hover{transform:translateY(-3px);border-color:var(--theme-accent)}
+@container(max-width:900px){.home-destinations{grid-template-columns:repeat(2,minmax(0,1fr))}.home-destinations>button{min-height:135px;padding:17px}.home-workspace .today-next-copy{padding:26px}.home-workspace .study-sculpture{min-height:250px}}
+@container(max-width:540px){.home-destinations{gap:9px}.home-destinations strong{font-size:20px}.home-destinations small{font-size:10px}.home-workspace .study-sculpture{min-height:190px}:root[data-theme] .nodus-shell .home-workspace .experience-today{padding:24px 18px}.home-workspace .today-next-copy{padding:22px}}
+@container(max-width:340px){.home-destinations{grid-template-columns:1fr}.home-destinations>button{min-height:115px}}
+:root[data-animations=off] .home-workspace *{transform:none!important}
+@media(prefers-reduced-motion:reduce){.home-workspace *{transition:none!important}.home-destinations>button:hover,.home-destinations>button:focus-visible,.home-workspace .today-subjects>button:hover,.home-workspace .today-next-copy .primary:hover{transform:none}}

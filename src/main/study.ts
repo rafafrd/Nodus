@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Store } from './store';
+import { Vault } from './vault';
+import { noteParts } from '../shared/note-content';
 import { AppError, type NoteRef, type Subject } from '../shared/contracts';
 import { cardCreateInput, cardReviewInput, linkCreateInput, type Flashcard, type SearchHit, type StudyCatalog, type TodayState, type NoteLink } from '../shared/study';
 import type { StudyVideo } from '../shared/videos';
@@ -16,7 +18,18 @@ export class Study {
         }[] }; }
     search(query: string): SearchHit[] {
         const c = this.catalog(), q = fold(query), names = new Map(c.subjects.map(s => [s.id, s.name]));
-        return [...c.subjects.map(s => ({ kind: 'subject' as const, id: s.id, title: s.name, detail: 'Matéria', subjectId: s.id })), ...c.notes.map(n => ({ kind: 'note' as const, id: n.id, title: n.title, detail: names.get(n.subjectId) || 'Nota', subjectId: n.subjectId })), ...c.projects.map(p => ({ kind: 'project' as const, id: p.id, title: p.name, detail: 'Explorer' })), ...c.videos.map(v => ({ kind: 'video' as const, id: v.id, title: v.title, detail: `Vídeo · ${names.get(v.subjectId) || ''}`, subjectId: v.subjectId }))].filter(h => !q || fold(h.title + ' ' + h.detail).includes(q)).slice(0, 60);
+        const contentHits:SearchHit[]=[];
+        if(q)for(const n of c.notes){
+          if(fold(n.title+' '+(names.get(n.subjectId)||'')).includes(q))continue;
+          try{
+            const draft=this.store.db.prepare('SELECT text FROM drafts WHERE note_id=?').get(n.id);
+            const content=noteParts(draft?String(draft.text):new Vault(this.store).readFile(n.path)).body;
+            const index=fold(content).indexOf(q);
+            if(index>=0)contentHits.push({kind:'note',id:n.id,title:n.title,subjectId:n.subjectId,detail:`${names.get(n.subjectId)} · ${draft?'Rascunho · ':''}${content.slice(Math.max(0,index-40),index+120).replace(/\s+/g,' ')}`});
+          }catch{/* Unavailable files retain title search; do not read outside the vault. */}
+          if(contentHits.length===60)break;
+        }
+        return [...[...c.subjects.map(s => ({ kind: 'subject' as const, id: s.id, title: s.name, detail: 'Matéria', subjectId: s.id })), ...c.notes.map(n => ({ kind: 'note' as const, id: n.id, title: n.title, detail: names.get(n.subjectId) || 'Nota', subjectId: n.subjectId })), ...c.projects.map(p => ({ kind: 'project' as const, id: p.id, title: p.name, detail: 'Explorer' })), ...c.videos.map(v => ({ kind: 'video' as const, id: v.id, title: v.title, detail: `Vídeo · ${names.get(v.subjectId) || ''}`, subjectId: v.subjectId }))].filter(h => !q || fold(h.title + ' ' + h.detail).includes(q)),...contentHits].slice(0, 60);
     }
     today(): TodayState {
         const at = this.now(), start = new Date(at);
@@ -49,7 +62,7 @@ export class Study {
     } if (card.version !== input.version)
         throw new AppError('CARD_CHANGED', 'Este cartão já foi revisado. Atualize a lista.'); const interval = input.rating === 'again' ? 0 : input.rating === 'hard' ? Math.max(1, card.intervalDays * 1.2) : input.rating === 'good' ? Math.max(1, card.intervalDays * 2.5) : Math.max(4, card.intervalDays * 3.5); const days = Math.min(365, interval), at = this.now(), delay = days ? Math.round(days * 86400000) : 600000; if (!Number.isSafeInteger(at) || !Number.isFinite(days) || Math.abs(at + delay) > 8640000000000000)
         throw new AppError('CLOCK_INVALID', 'Confira a data do computador antes de agendar a revisão.'); this.store.db.prepare('UPDATE flashcards SET due_at=?,interval_days=?,reviews=reviews+1,version=version+1 WHERE id=?').run(at + delay, days, input.id); this.store.db.prepare('INSERT INTO card_reviews(id,card_id,request,rating,at) VALUES(?,?,?,?,?)').run(input.operationId, input.id, request, input.rating, at); if(card.dueAt<=at)this.store.db.prepare('INSERT INTO economic_receipts(source,kind,amount,at,version) VALUES(?,?,?,?,?)').run('review-source:'+input.operationId,'eligible-review','0',at,2); this.store.audit('card.review', input.id, 'ok'); return this.card(input.id, input.subjectId); }); }
-    links(subjectId: string): NoteLink[] { this.store.requireSubject(subjectId); return this.store.db.prepare('SELECT id,subject_id AS subjectId,source_id AS sourceId,target_id AS targetId,label FROM note_links WHERE subject_id=? ORDER BY rowid').all(subjectId) as NoteLink[]; }
+    links(subjectId: string): NoteLink[] { this.store.requireSubject(subjectId); return this.store.db.prepare('SELECT l.id,l.subject_id AS subjectId,l.source_id AS sourceId,l.target_id AS targetId,l.label FROM note_links l JOIN notes a ON a.id=l.source_id JOIN notes b ON b.id=l.target_id WHERE l.subject_id=? OR a.subject_id=? OR b.subject_id=? ORDER BY l.rowid').all(subjectId,subjectId,subjectId) as NoteLink[]; }
     link(raw: z.infer<typeof linkCreateInput>) { const input = linkCreateInput.parse(raw); return this.store.transaction(() => { this.requireNote(input.sourceId, input.subjectId); this.requireNote(input.targetId, input.subjectId); if (Number(this.store.db.prepare('SELECT COUNT(*) n FROM note_links WHERE subject_id=?').get(input.subjectId)!.n) >= 1000)
         throw new AppError('LINK_LIMIT', 'Exporte ou organize até 1.000 relações por matéria.'); const existing = this.store.db.prepare('SELECT id FROM note_links WHERE source_id=? AND target_id=?').get(input.sourceId, input.targetId), id = existing ? String(existing.id) : randomUUID(); this.store.db.prepare('INSERT INTO note_links(id,subject_id,source_id,target_id,label) VALUES(?,?,?,?,?) ON CONFLICT(source_id,target_id) DO UPDATE SET label=excluded.label').run(id, input.subjectId, input.sourceId, input.targetId, input.label); this.store.audit('link.save', id, 'ok'); return this.links(input.subjectId); }); }
     unlink(input: {

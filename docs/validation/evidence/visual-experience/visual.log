@@ -1,0 +1,42 @@
+CAPTURE caderno
+CAPTURE hoje
+CAPTURE adicionar-conteudo
+CAPTURE aulas
+CAPTURE pdf
+CAPTURE acervo
+CAPTURE projeto-em-construcao
+CAPTURE construcao-3d
+CAPTURE cidade-valeserene
+CAPTURE cidade-cyberpunk
+CAPTURE cidade-newyork
+CAPTURE hoje-compacto
+CAPTURE tema-olive
+CAPTURE tema-midnight
+CAPTURE tema-graphite
+CAPTURE cidade-compacta
+CAPTURE primeiro-uso
+CAPTURE primeira-nota
+CLIP ideias-3d
+CLIP cidade-viva
+{
+  "checks": [
+    "Hoje usa checklist existente; botão abre matéria e ferramenta. Livro 3D movimenta e fica estático com movimento reduzido.",
+    "Painel reutiliza escrita com título automático, aula salva e PDF real; seleção do diálogo nativo é fixture explícita.",
+    "Três skins, construção com partículas confirmadas, água e postos em movimento, modo reduzido, minimização e área oculta; janela1040×760.",
+    "Perda real de contexto WebGL conserva ferramentas e motor.",
+    "Primeiro uso pelo Hoje prepara pasta isolada, cria matéria e abre nota sem formulário adicional."
+  ],
+  "metrics": {
+    "book": {
+      "drawCalls": "52",
+      "renderedFramesPerSecond": 31
+    },
+    "city": {
+      "drawCalls": "468",
+      "triangles": "7919",
+      "renderedFramesPerSecond": 30.833333333333336
+    }
+  },
+  "errors": [],
+  "graphicsErrors": []
+}

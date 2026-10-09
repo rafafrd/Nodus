@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 07/10/2026. O executável ainda se chama **App Estudos**. A branch **codex/study-tabs** acrescenta navegação lateral, abas e grade de até quatro janelas, preservando o estudo local e a economia profunda do observatório, temas, janela própria, Oficina contínua, grafo, Explorer, YouTube/cinema/PiP, exportação e cópias de segurança.
+Guia da versão local Windows, atualizado em 08/10/2026. O executável ainda se chama **App Estudos**. A branch local **codex/notes-navigation** inclui escrita imediata, captura de material e navegação orientada à matéria, além da implementação de IA-01. Abas/grade, foco, checklist, produção, temas, projetos, YouTube/cinema/PiP, exportação e backups permanecem disponíveis. Este incremento ainda não foi enviado ao remoto.
 
 ## 1. Abrir agora neste PC
 
@@ -38,14 +38,14 @@ O comando abre a janela do app. O terminal acompanha logs; feche a janela ou use
 Em um PC novo, prepare Node 24 conforme [setup Windows](setup/windows.md), clone e instale as dependências:
 
 ```powershell
-git clone --branch codex/pdf-export https://github.com/rafafrd/Nodus.git
+git clone https://github.com/rafafrd/Nodus.git
 Set-Location -LiteralPath '.\Nodus'
 node --version
 npm.cmd ci
 npm.cmd run dev
 ```
 
-Confira que node --version começa com v24. A pasta portátil .local não acompanha o Git; o PC novo usa seu próprio Node 24. npm ci usa o lockfile e precisa baixar dependências. Se já tem o repositório/dependências preparados, basta entrar na pasta e executar npm.cmd run dev. Use npm.cmd quando o PowerShell bloquear npm.ps1.
+Confira que node --version começa com v24. A pasta portátil .local não acompanha o Git; o PC novo usa seu próprio Node 24. npm ci usa o lockfile e precisa baixar dependências. O clone traz a main disponível no remoto; UX-01 está apenas neste checkout local. Se já tem o repositório/dependências preparados, basta entrar na pasta e executar npm.cmd run dev. Use npm.cmd quando o PowerShell bloquear npm.ps1.
 
 ## 3. Gerar e abrir uma nova build Windows
 
@@ -68,11 +68,17 @@ start gera a build e abre Electron. A aplicação atual funciona localmente no W
 
 ## 4. Preparar seu espaço de estudo
 
-O app inicia com um módulo **Caderno**. Use **+ Matéria** para criar a matéria e **Acervo** para escolher matérias/notas, importar Markdown e vincular sua pasta de notas. Escolha um vault dedicado fora do repositório, por exemplo NodusVault em Documentos.
+O app inicia no **Caderno**. No primeiro uso, clique em **Preparar pasta de notas** para usar Documentos/NodusNotes ou **Escolher outra pasta** para uma pasta dedicada fora do repositório. Em seguida, **Criar primeira matéria**. O menu mostra **Matéria atual**; trocar esse seletor abre suas notas, PDFs e aulas daquela matéria.
 
-Crie **+ Nova nota**, escreva em **Editar** e abra **Formatação e ações** quando precisar dos controles de negrito, listas, código, tabela ou flashcard. **Leitura** ocupa o espaço do editor com a prévia. **Salvar** ou **Ctrl+S** grava no arquivo; confira **Salvo no arquivo**. Um rascunho recuperado continua separado da fonte até você salvar. A fonte Markdown conserva campos desconhecidos, fórmulas, referências e código; edição externa concorrente apresenta as versões para revisão.
+Clique em **Nova nota** e escreva imediatamente, sem formulário de título. Ao salvar uma nota ainda chamada Sem título, o primeiro conteúdo sugere um nome; você pode editar o título acima do texto a qualquer momento. **Guardar em** muda a matéria após salvar, mantendo identidade, conteúdo, cartões e conexões. A organização por matéria muda no app; o arquivo continua no caminho original para conservar referências relativas.
 
-Todos os módulos ficam nos subitens do menu lateral: Caderno, PDF, Vídeo, Revisão, Grafo, Hoje, Explorer, Cidade e Ajustes. **Clique** deixa somente aquele módulo na aba atual, preservando outras abas. **Arraste para o espaço central** para acrescentar uma janela; a prévia mostra a divisão. O botão **+** do subitem aparece no hover/foco e oferece a mesma ação pelo teclado. Cada aba aceita até quatro módulos distintos; arrastar um já aberto apenas o foca.
+**Usar modelo** acrescenta Aula, Conceito ou Exercício à nota. É opcional e preserva o texto que já existe. **Minhas notas** abre a lista da matéria, com as últimas abertas primeiro e **Importar notas Markdown**. A seleção aceita vários arquivos UTF-8 de até 2 MiB cada; arquivos externos são copiados para a pasta de notas e os originais permanecem intactos. O aviso informa quantos entraram e eventuais falhas por arquivo. Identidade duplicada ou de outra matéria precisa ser corrigida, sem remapeamento silencioso.
+
+Na escrita comum ficam ocultos os metadados e o título Markdown. Abra **Mais formatação e fonte → Ver fonte completa** quando precisar do arquivo inteiro; os campos de identidade devem ser conservados. Há ações diretas de negrito/lista, **Criar cartão do trecho** e **Relacionar nota**. O cartão por seleção já conhece matéria/nota e usa o trecho como resposta; preencha a pergunta. Relações conectam notas da matéria e podem ser exploradas em **Conexões**.
+
+**Leitura** mostra a prévia. **Salvar** ou **Ctrl+S** grava no arquivo; confira **Salvo no arquivo**. Rascunhos recuperados permanecem separados da fonte até salvar. Fórmulas, campos desconhecidos, referências e código permanecem no Markdown; edição externa concorrente apresenta as versões para revisão. **Buscar/Ctrl+K** encontra títulos, palavras do conteúdo e rascunhos, com um trecho e a matéria no resultado.
+
+Todos os módulos ficam no menu lateral: Caderno, PDFs, Aulas, Revisão, Conexões, Início, Projetos, Cidade e Ajustes. **Como navegar** explica matéria e divisões. **Clique** deixa somente aquele módulo na aba atual, preservando outras abas. **Arraste para o espaço central** para acrescentar uma janela; a prévia mostra a divisão. O botão **+** do subitem aparece no hover/foco e oferece a mesma ação pelo teclado. Cada aba aceita até quatro módulos distintos; arrastar um já aberto apenas o foca.
 
 Use o botão **Recolher menu lateral**, à esquerda das abas, para esconder o menu inteiro e ampliar o espaço de trabalho. O mesmo botão **Expandir menu lateral** o reabre; Enter/Espaço também funcionam. A escolha fica salva ao reiniciar e não altera suas abas, janelas ou divisores. A linha ao lado de cada módulo aparece apenas no hover/foco, com espaço antes do ícone.
 
@@ -80,7 +86,11 @@ No topo ficam as **abas de trabalho**, com **+** para criar e **×** para fechar
 
 Atalhos: **Ctrl+T** cria uma aba; **Ctrl+W** fecha a atual, conservando pelo menos uma; **Ctrl+Tab/Shift+Ctrl+Tab** alternam; **Ctrl+1…8** selecionam pelo número e **Ctrl+9** vai à última. Na barra, setas/Home/End também selecionam. Até32abas locais. Composição/foco/tamanhos são independentes; matéria, nota, documento, player e estado interno dos módulos são compartilhados entre abas. Os rascunhos permanecem ao trocar ou fechar abas. [Decisão](adr/0016-abas-e-grade-de-estudo.md), [provas Windows](validation/STUDY_TABS.md).
 
-PDF e Vídeo são módulos próprios e podem ficar juntos do Caderno ou de qualquer outra área. Em **PDF → Abrir PDF**, escolha o material local; documento e página ficam associados à matéria. Caderno/PDF/Vídeo usam o mesmo contexto de matéria, escolhido em Acervo ou nos seletores dos materiais. Há uma instância de cada área; abrir duas matérias independentes em dois cadernos não faz parte deste incremento.
+**PDFs** e **Aulas** podem ficar junto do Caderno ou de qualquer outra área. Em **PDFs → Adicionar PDF**, escolha o arquivo local; documento e página ficam associados à matéria. Selecione um trecho de texto digital e clique em **Adicionar à nota**; sem nota aberta, **Criar nota do trecho** cria uma. Comentários de marcações também podem ser levados à nota. A captura inclui documento, página e versão, com espaço para sua observação. Em Leitura, clique na fonte para voltar ao PDF; se o arquivo mudou, o app avisa e conserva o trecho capturado. PDF sem texto pode usar comentários; não há OCR.
+
+Em **Aulas**, os momentos anotados oferecem **Adicionar à nota** com a referência do vídeo/segundo. A fonte abre o player oficial naquele tempo. **Praticar este material**, em PDFs/Aulas, abre a prática de IA externa com a fonte selecionada; o envio à IA continua manual, como descrito no [guia da prática](features/atividades-ia-externa.md). Vídeo fornece suas anotações locais, sem transcrição automática.
+
+Caderno/PDFs/Aulas compartilham o contexto de matéria, escolhido em Minhas notas ou nos seletores. Há uma instância de cada área; duas matérias independentes em dois cadernos não fazem parte deste incremento. [Provas de UX-01](validation/NOTES_UX.md).
 
 **Foco** e **Checklist** ficam no rodapé. Passe o mouse ou use Tab para revelar; clique para fixar, feche pelo × ou Escape. O foco continua contando quando seu painel fica recolhido. Checklist conserva tarefas, etapas e próxima ação por matéria. Entrar na Cidade pausa o foco ativo como antes.
 
@@ -93,7 +103,7 @@ PDF e Vídeo são módulos próprios e podem ficar juntos do Caderno ou de qualq
 
 ## 4.1. Guardar vídeos do YouTube
 
-1. Na matéria desejada, abra **Módulo → Vídeo → + Link**.
+1. Na matéria desejada, abra **Aulas → Salvar link do YouTube**.
 2. Cole o link do YouTube e, se quiser, dê um título para encontrar a aula depois. Links watch, youtu.be, Shorts, live e embed são reconhecidos. O tempo inicial do link é conservado; links repetidos na mesma matéria conservam a entrada e o tempo original.
 3. Clique em **Salvar link**. Ele fica nesta matéria, sem conectar ao YouTube. Não precisa escolher vault para salvar vídeos.
 4. Clique em **Abrir player** ou no vídeo da lista; depois use **Play** do YouTube. Esta etapa precisa de internet. Volume, legendas, velocidade e progresso usam os controles oficiais.
@@ -230,7 +240,7 @@ Refinamento atual: [SMOOTH_UI](validation/SMOOTH_UI.md). Novos fluxos/provas: [E
 
 ## 10. Estudo conectado e cópias de segurança
 
-**Ctrl+K** ou a lupa da barra abre a busca global por títulos de notas, matérias, projetos, vídeos e ações. Use setas/Enter ou clique. Abrir uma fonte conserva rascunhos; a busca não lê o conteúdo completo dos arquivos. **Hoje** reúne tarefas abertas do checklist, revisões vencidas, minutos de foco registrados no dia e **Retomar mesa**. Pausas ficam fora do tempo; não há integração com agenda externa.
+**Ctrl+K** ou a lupa da barra abre a busca global por títulos de notas, matérias, projetos, vídeos e ações. Use setas/Enter ou clique. Abrir uma fonte conserva rascunhos; a busca não lê o conteúdo completo dos arquivos. **Início** reúne tarefas abertas do checklist, revisões vencidas, minutos de foco registrados no dia e **Retomar mesa**. Pausas ficam fora do tempo; não há integração com agenda externa.
 
 **Revisão** permite criar flashcards manuais. Na nota, o botão **Criar flashcard do trecho** usa a seleção do editor, ou o início do texto quando não há seleção. Revise pergunta/resposta e salve. **Revelar resposta** libera as avaliações: **Esqueci** agenda em 10 minutos, **Difícil** mantém intervalo curto, **Lembrei** amplia, **Fácil** amplia mais, até 365 dias. O cartão guarda nota/trecho de origem e **Abrir nota** retorna ao caderno. Os filtros de vencidos/biblioteca e matéria ajudam a organizar. A avaliação é sua; XP e moedas continuam sendo apenas progresso do jogo.
 
@@ -276,7 +286,7 @@ As quantidades e preços econômicos da seção11 são históricos de GAM-03. Ag
 
 **Melhorias** revela tiers/sinergias conforme progresso. **Descobertas** mostra próximos marcos, conquistadas ou notas secretas já encontradas; índice de conquistas elegíveis fortalece a rede. **Sinais** guarda oportunidades sem expirar; durante Foco ficam protegidas. Depois, ative até dois tipos temporários para combinar; cache é instantâneo. A produção offline continua até7dias, ampliável a14. O resumo de retorno pode ser dispensado.
 
-Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; pausa e tempo fechado não contam. Uma revisão/cartão/dia pode render, até100revisões econômicas diárias. Consistência dá bônus, sem tirar progresso. Memória/Oficina/colheitas/expedições crescem junto com a rede; XP permanece com suas regras anteriores. Motor aceita todos os cliques com animação, até64Produção/pulso e1.200/dia; após isso cliques/XP continuam.
+Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; pausa e tempo fechado não contam. Uma revisão/cartão/dia pode render, até100revisões econômicas diárias. Consistência dá bônus, sem tirar progresso. Memória/Oficina/colheitas/expedições crescem junto com a rede; XP permanece com suas regras anteriores. Motor mostra o ganho real por pulso e o saldo diário. Seu apoio acompanha a produção instalada, com orçamento de dois minutos de produção ou1.200 (o maior). Eventos temporários não ampliam o orçamento; ao esgotar, o botão descansa e oferece outros caminhos na Vila. Melhorias duradouras podem ampliar o apoio durante o mesmo dia.
 
 **Legado** aparece mais tarde. Confira a prévia, cancele para continuar ou confirme o novo ciclo. Reinicia saldo/unidades/melhorias temporárias/sinais ativos/motor e encerra Oficina ativa; conserva estudo, notas, materiais, projetos, XP, inventário, cultivos, mercado, Memória, skins, conquistas, sinais guardados e permanentes. Não exige prestígio para continuar usando o app.
 
@@ -286,3 +296,44 @@ Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; p
 ## Criar atividades em qualquer IA
 
 Na matéria, Prática → Criar questionário/Criar flashcards. Selecione fontes e dificuldade, prepare e copie o prompt. Cole na IA escolhida, importe o JSON por texto/arquivo e use Importar e começar. Erro oferece relatório e pedido de correção para a mesma conversa. Revisão → Atividades retoma pedidos/tentativas salvos. [Passo a passo e limites](features/atividades-ia-externa.md).
+
+
+## 14. Projetos e postos da Vila
+
+Em **Cidade → Vila**, o cartão **Próximo projeto** explica o benefício da construção e mostra os materiais que faltam. **Buscar** abre bosque, mina ou fazenda; trigo/cenoura já ficam selecionados. Junte os materiais e use **Construir**: o depósito abre os postos. Depois dele, escolha qual posto construir primeiro. A troca de objetivo conserva seus materiais.
+
+| Construção | Materiais | Benefício |
+| --- | --- | --- |
+| Depósito | 10 madeiras +5 pedras | Libera os postos automáticos |
+| Posto do bosque | 20 madeiras +10 pedras +10 trigos | 1 madeira/minuto |
+| Posto da mina | 30 pedras +15 madeiras +5 cenouras | 1 pedra/minuto |
+
+**Postos** abre os estoques no mesmo cartão; o local do bosque/mina também mostra seu posto. Cada um guarda até200 materiais, inclusive enquanto o app está fechado. Cheio, pausa; **Recolher** leva tudo ao inventário e abre espaço para continuar. Você pode usar ou vender materiais no Mercado. Recolher não concede XP nem Produção diretamente. Trigo e cenoura continuam precisando de plantio/colheita manual.
+
+Construções e estoques aparecem nas três skins e continuam após prestígio. Perfil antigo começa sem projetos, preservando o inventário. Após os três projetos, **Ver em Produção** indica uma instalação/melhoria já disponível. Em uma janela pequena, o cartão pode ser rolado para acessar todos os estoques.
+
+[Regras](adr/0019-projetos-e-postos-da-farm.md), [provas e roteiro leigo](validation/FARM_PROJECTS.md). Alterações locais de GAM-05/UX-01 preservadas, sem publicação.
+
+## 15. Próxima ação, conteúdo e animações 3D
+
+**Início** destaca seu próximo passo: criar a primeira matéria, revisar cartões pendentes, continuar uma tarefa ou retomar a mesa. **Continuar esta tarefa** abre a matéria e seu checklist. **Escrever agora** abre uma nota diretamente; no primeiro uso, conduz à preparação da pasta e à criação da matéria.
+
+Use **Adicionar conteúdo** no Início ou no menu lateral. Confira a matéria indicada e escolha **Escrever uma nota**, **Trazer um PDF**, **Guardar uma aula** ou **Importar notas**. PDF usa o seletor de arquivos; aula usa o diálogo de link YouTube; importação aceita Markdown e conserva os arquivos originais. Sem matéria, comece pela escrita/primeira matéria. Os rascunhos e a retomada seguem os fluxos existentes.
+
+**Minhas notas** mostra seu acervo e identifica a nota aberta. A descrição sob a área selecionada no menu explica seu uso. Botões de tarefa e matéria permitem voltar ao estudo com seu contexto. Nomes dos locais ficam visíveis na Cidade ampla; em espaços menores, também aparecem ao focar ou passar o ponteiro.
+
+O livro do Início/primeiro uso responde ao ponteiro e mostra páginas e ideias conectadas. A Cidade tem água, nuvens/luzes, contorno do próximo projeto e partículas ao construir, recolher ou gerar um pulso com ganho. Rodas e cargas dos postos param quando seus estoques enchem; o rotor do Motor pausa quando seu apoio diário acaba. As três skins conservam as mesmas regras.
+
+Em **Ajustes → Aparência**, desligar animações mantém as cenas estáticas; a preferência reduzida do sistema também é respeitada. Minimizar ou mudar para outra área pausa a animação. Se o cenário 3D falhar, os objetivos e ferramentas continuam disponíveis. O relógio visual não concede recursos.
+
+[Relatório com fotos e clipes](reports/BOM_DIA_2026-10-09.md), [galeria com vídeos](reports/BOM_DIA_2026-10-09.html), [provas e limites](validation/VISUAL_EXPERIENCE.md).
+
+## 16. Home e tema Branco
+
+Abra **Início** no menu lateral. A Home apresenta seu próximo passo, tarefas, matérias e quatro atalhos: **Caderno**, **Materiais**, **Revisão** e **Cidade**. Perfis novos começam nessa tela; seu perfil atual conserva a última aba e composição usadas.
+
+Os componentes entram em sequência e os cartões respondem ao ponteiro e ao foco. O fundo tem luz suave animada por WebGL, com posição e câmera fixas: ele permanece no lugar ao rolar o conteúdo. **Ajustes → Aparência → Animações da interface** permite deixar tudo estático; movimento reduzido do sistema também é respeitado. Minimizar ou sair do Início pausa o fundo.
+
+Para a aparência clara, escolha **Ajustes → Aparência → Branco**. O tema cobre menus, caderno, materiais, revisão, conexões, projetos, cidade e diálogos, com realce de código próprio. Imagens, PDFs e o cenário 3D conservam suas cores. A escolha continua após reiniciar, e trocar o tema preserva seus rascunhos.
+
+[Capturas, clipe e validação](validation/HOME_WHITE.md), [decisão](adr/0021-home-e-tema-branco.md).

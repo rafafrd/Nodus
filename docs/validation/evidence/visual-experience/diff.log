@@ -1,0 +1,16 @@
+warning: in the working copy of 'package.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/simulate-economy.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/smoke-journey.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/smoke-videos.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/main/game.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/App.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/CityScene.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/EconomyWorkspace.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/EngineButton.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/GameView.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/GraphWorkspace.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/ProjectWorkspace.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/VideoWorkspace.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/game.css', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'src/renderer/motion.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'tests/study-activities.test.ts', CRLF will be replaced by LF the next time Git touches it

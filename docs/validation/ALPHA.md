@@ -410,3 +410,74 @@ Entrega Git posterior por pedido explícito: implementação6396e32 enviada, [PR
 | C8 | aprovado | Hash/replay sem duplicata, revisão conserva resultado; triggers reais de falha/optimistic version/rollback sem atividade parcial |
 | C9 | aprovado | Quiz retomado2/10, final10/10/100%/10explicações;10cartões/revelação/autoavaliação/restart, biblioteca existente recarregada; importação sem prêmio |
 | C10 | aprovado | Zero pageerror/HTTP(S) no renderer, HTML inerte/nove canais negados a sender externo; typecheck/67+19testes/build/pacote204assets/11capturas/docs/O-022 aprovados |
+
+
+## DOC-01 — Apresentação do README
+
+Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](README_SHOWCASE.md); sem nova execução desses checks por UX-01.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): Conteúdo conferido no código/main/PR13, escopo e limites |
+| C2 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): Capturas reais/alt/proveniência/recursos sem materiais pessoais |
+| C3 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): GitHub real/Mermaid/badges/GFM/âncoras e composição ampla/estreita |
+| C4 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): Scripts/stack/guia/bootstrap/diff/entrega documental anterior registrada |
+
+## UX-01 — Escrita simples e navegação
+
+08/10/2026, codex/notes-navigation local. [Provas Windows e limites](NOTES_UX.md); C1–C8 concluídos, sem commit/push/publicação.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [NOTES_UX](NOTES_UX.md): Nota imediata/foco/corpo, metadados/fonte completa, primeiro uso e restart |
+| C2 | aprovado | [NOTES_UX](NOTES_UX.md): Título/modelo/recente/matéria, preservação BOM/CRLF/campos/IDs, conflito/rollback/histórico |
+| C3 | aprovado | [NOTES_UX](NOTES_UX.md): Busca por palavra do rascunho, importação externa/original/UTF-8/duplicatas/audit transacional |
+| C4 | aprovado | [NOTES_UX](NOTES_UX.md): TextLayer PDF2/comentário/momento75s, fonte/page/hash e nova nota por captura |
+| C5 | aprovado | [NOTES_UX](NOTES_UX.md): Cartão real por seleção/formulário curto e relação/grafo após mudar matéria |
+| C6 | aprovado | [NOTES_UX](NOTES_UX.md): Fonte atual preselecionada, prática IA-01 manual e regressão completa |
+| C7 | aprovado | [NOTES_UX](NOTES_UX.md): Primeiro uso/menu/nome/ajuda/1040×760/abas/divisões/recolher/restart, fonte legível |
+| C8 | aprovado | [NOTES_UX](NOTES_UX.md): Typecheck/76testes/pacote204assets/jornadas/IPC/documentação/bootstrap/diff |
+
+
+## GAM-05 — Projetos e automação da farm
+
+09/10/2026, codex/farm-projects local. [Provas e limites](FARM_PROJECTS.md); C1–C7 entregues e aprovados; avaliação leiga C8 pendente (doing/parcial).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Projetos/custos/ordem/objetivo/atalhos/reinvestimento real |
+| C2 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Estoques1/min/cap200/recolhimento sem XP/produção, cultivos manuais |
+| C3 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): SQLite/recibos/audit/insuficiência/duplicata/replay/rollback |
+| C4 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Frações/cheio/offline/clock/restart/baseline/backup/prestígio |
+| C5 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Motor main/Amount/piso/orçamento/eventos/restante/alternativas |
+| C6 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Três skins/compacta/pacote Windows204assets/jornadas farm/UX-01/MVP/capturas |
+| C7 | aprovado | [FARM_PROJECTS](FARM_PROJECTS.md): Simulação com/sem estudo/estoques, typecheck/81testes/docs/ADR/bootstrap/diff/manifesto |
+| C8 | não verificado | [FARM_PROJECTS](FARM_PROJECTS.md): Avaliação humana leiga ainda não realizada; roteiro pronto |
+
+
+## UX-02 — Clareza do estudo e animação 3D
+
+09/10/2026, codex/visual-experience local. [Provas, capturas e limites](VISUAL_EXPERIENCE.md); [relatório de bom dia](../reports/BOM_DIA_2026-10-09.md). C1–C7 concluídos, sem alterar pendências humanas/externas de outros tickets.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): Hoje/próxima ação/primeiro uso/contexto e referências antigas |
+| C2 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): escrita/Markdown/PDF/aula, fontes/identidade/rascunho/originais e restart |
+| C3 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): acervo/menu/controles, quatro temas, compacto e quatro painéis |
+| C4 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): livro/órbita/água/ambiente/partículas/postos, três skins/distrito e dois clipes reais |
+| C5 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): movimento reduzido dinâmico/minimização/área oculta, cleanup e perda real WebGL com ferramentas |
+| C6 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): typecheck/82 testes/204 arquivos ASAR/sete jornadas Windows no pacote |
+| C7 | aprovado | [VISUAL_EXPERIENCE](VISUAL_EXPERIENCE.md): relatório/21 capturas/clipes/manifesto/docs/ADR/guia/quadro/bootstrap/diff |
+
+## UX-03 — Home animada e tema Branco
+
+09/10/2026, codex/home-white local, checkout anterior preservado. [Provas, fotos e limites](HOME_WHITE.md), [relatório](../reports/HOME_BRANCO_2026-10-09.md). C1–C6 concluídos; pendências humanas/externas anteriores permanecem.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [HOME_WHITE](HOME_WHITE.md): Início/atalhos/próxima ação/primeiro uso real, novos perfis e legado |
+| C2 | aprovado | [HOME_WHITE](HOME_WHITE.md): entrada/hover medidos, fundo WebGL avança e mantém retângulo na rolagem |
+| C3 | aprovado | [HOME_WHITE](HOME_WHITE.md): reduzido/controle geral/área oculta/minimização, perda real WebGL/cleanup |
+| C4 | aprovado | [HOME_WHITE](HOME_WHITE.md): quinto tema/contrato/UI/realce/grafo/módulos/diálogo/restart/SQLite7/rollback |
+| C5 | aprovado | [HOME_WHITE](HOME_WHITE.md): typecheck/83 testes/pacote204assets/jornadas Home/Notas/Abas/MVP/fontes |
+| C6 | aprovado | [HOME_WHITE](HOME_WHITE.md): 15 fotos/clipe/relatório/ADR/guia/quadro/baseline164/manifesto/bootstrap/diff |

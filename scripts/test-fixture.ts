@@ -3,6 +3,8 @@ import path from 'node:path';
 import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 import { Desks } from '../src/main/desk';
+import {UserPreferences} from '../src/main/preferences';
+import {defaultWorkspace,defaultWorkspaceTabs} from '../src/shared/workspace';
 export function generatePdf(file: string, label: string) {
   const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>'];
   for (let i = 0; i < 3; i++) {
@@ -30,5 +32,6 @@ export function prepareFixture(prefix: string) {
   const materialA = desks.choose(a.id, pdfA), materialB = desks.choose(b.id, pdfB);
   desks.save({ subjectId: a.id, noteId: noteA.ref.id, materialId: materialA.id, split: 60, page: 2, preview: false });
   desks.save({ subjectId: b.id, noteId: noteB.ref.id, materialId: materialB.id, split: 42, page: 3, preview: false });
+  new UserPreferences(store).update({workspaceLayout:defaultWorkspace,workspaceTabs:defaultWorkspaceTabs});
   store.close(); return { dir, root, a, b, noteA: savedA.document, noteB, materialA, materialB, pdfA, pdfB };
 }

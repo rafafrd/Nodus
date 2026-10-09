@@ -39,7 +39,7 @@ try{
   checks.push(`Linha oculta em repouso; hover/foco visíveis com ${line.gap}px antes do ícone.`);
   await page.getByRole('button',{name:'Dividir com PDF',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.locator('canvas[data-rendered-page="2"]').waitFor();
   await page.getByRole('button',{name:'Dividir com Grafo',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.getByTestId('graph-canvas').waitFor();
-  await page.getByRole('button',{name:'Nova aba',exact:true}).click();await idle();await page.getByRole('button',{name:'Abrir Hoje',exact:true}).click();await idle();await page.keyboard.press('Control+1');await idle();
+  await page.getByRole('button',{name:'Nova aba',exact:true}).click();await idle();await page.getByRole('button',{name:'Abrir início',exact:true}).click();await idle();await page.keyboard.press('Control+1');await idle();
   await page.getByRole('separator',{name:'Largura das colunas',exact:true}).press('Shift+ArrowRight');
   await page.waitForFunction(async()=>{const r=await window.desktop.getPreferences();return r.ok&&r.value.workspaceTabs.tabs[0].columnSplit===55;});
   const tabs=(await prefs()).workspaceTabs,expanded=await size();await toggle(true,true);const collapsed=await size();

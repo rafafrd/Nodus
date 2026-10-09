@@ -27,7 +27,7 @@ async function shot(name: string) {
 }
 async function idle() { await page.waitForFunction(() => document.querySelector('.video-surface')?.getAttribute('data-motion') === 'idle'); }
 try {
-  await page.getByRole('heading', {name:'Nota A',exact:true,includeHidden:true}).waitFor();
+  await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Nota A');
   await page.getByRole('button',{name:'Abrir Vídeo',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
   await page.getByRole('button', {name:'Salvar link do YouTube',exact:true}).click();
   await page.getByRole('textbox', {name:'Link do YouTube',exact:true}).fill('https://youtube.com.attacker.test/watch?v=M7lc1UVf-VE');
@@ -39,6 +39,8 @@ try {
   assert.equal(await guest(), null, 'salvar não conecta ao YouTube');
   const links = await page.evaluate(subjectId => window.desktop.listVideos({subjectId}), fixture.a.id); assert.ok(links.ok); const video = links.value[0];
   const bad = await page.evaluate(ref => window.desktop.openVideoPlayer(ref), {subjectId:fixture.b.id,id:video.id}); assert.ok(!bad.ok);
+  const badTime = await page.evaluate(ref => window.desktop.openVideoAt(ref), {subjectId:fixture.a.id,id:video.id,seconds:-1});assert.ok(!badTime.ok&&badTime.code==='INVALID_ARGUMENT');
+  const badOwner = await page.evaluate(ref => window.desktop.openVideoAt(ref), {subjectId:fixture.b.id,id:video.id,seconds:75});assert.ok(!badOwner.ok);
   await page.getByRole('button', {name:'Abrir player',exact:true}).click();
   await page.waitForFunction(() => !document.querySelector('.video-loading'), undefined, {timeout:30000});
   await page.waitForTimeout(2200); let info = await guest(); assert.ok(info); const guestId = info.id;
@@ -79,21 +81,22 @@ try {
   await page.emulateMedia({reducedMotion:'reduce'});await page.getByRole('button',{name:'Modo cinema',exact:true}).click(); await idle(); assert.equal((await guest())!.id,guestId);await page.keyboard.press('Escape');await page.locator('.video-surface[data-mode=pip]').waitFor();await idle();
   await page.setViewportSize({width:1040,height:760});await idle(); const compact=await page.locator('.video-surface').boundingBox(); assert.ok(compact && compact.x>=0 && compact.y>=46 && compact.x+compact.width<=1040 && compact.y+compact.height<=760);await shot('compact-pip');
   await page.setViewportSize({width:1424,height:900});await idle();
+  await page.getByRole('button',{name:'Mover vídeo flutuante',exact:true}).press('Home');await idle();
   await page.getByRole('button',{name:'Voltar vídeo à mesa',exact:true}).click();await page.locator('.video-surface[data-mode=inline]').waitFor();await idle();assert.equal((await guest())!.id,guestId);
   await page.getByRole('button',{name:'Salvar link do YouTube',exact:true}).click();await page.getByRole('dialog',{name:'Salvar vídeo do YouTube'}).waitFor();await page.waitForTimeout(100);
   assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].contentView.children.filter(v=>'webContents'in v && (v as any).webContents.getURL().startsWith('https://www.youtube-nocookie.com/embed/')).some(v=>v.getVisible())),false);await page.keyboard.press('Escape');await page.getByRole('dialog',{name:'Salvar vídeo do YouTube'}).waitFor({state:'hidden'});
   // A native child view cannot inherit the library's clipping; real scroll promotes it to PiP.
-  await page.getByRole('button',{name:'Dividir com PDF',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();await page.getByRole('separator',{name:'Largura das colunas',exact:true}).press('ArrowLeft');await idle();for(let i=1;i<=3;i++){await page.getByRole('textbox',{name:'Tempo do momento',exact:true}).fill('0:'+String(i*15).padStart(2,'0'));await page.getByRole('textbox',{name:'Anotação do momento',exact:true}).fill('Momento real de demonstração '+i);await page.getByRole('button',{name:'Guardar momento',exact:true}).click();await page.locator('.moment-row').nth(i-1).waitFor();}const scrolled=await page.locator('.video-library').evaluate(el=>{el.scrollTop=80;return el.scrollTop;});assert.ok(scrolled>0,'biblioteca precisa de conteúdo real para a prova de scroll');await page.locator('.video-surface[data-mode=pip]').waitFor();await idle();assert.equal((await guest())!.id,guestId);
-  await page.getByRole('button',{name:'Fechar janela PDF',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
-  await page.getByRole('combobox',{name:'Matéria do Vídeo',exact:true}).selectOption(fixture.b.id);await page.getByRole('heading',{name:'Nota B',exact:true,includeHidden:true}).waitFor({state:'attached'});assert.ok((await page.locator('.video-surface-footer').textContent())?.includes('Matéria A'));
-  await page.getByRole('button',{name:'Voltar vídeo à mesa',exact:true}).click();await page.getByRole('heading',{name:'Nota A',exact:true,includeHidden:true}).waitFor({state:'attached'});await idle();
+  await page.getByRole('button',{name:'Dividir com PDFs',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();await page.getByRole('separator',{name:'Largura das colunas',exact:true}).press('ArrowLeft');await idle();for(let i=1;i<=3;i++){await page.getByRole('textbox',{name:'Tempo do momento',exact:true}).fill('0:'+String(i*15).padStart(2,'0'));await page.getByRole('textbox',{name:'Anotação do momento',exact:true}).fill('Momento real de demonstração '+i);await page.getByRole('button',{name:'Guardar momento',exact:true}).click();await page.locator('.moment-row').nth(i-1).waitFor();}const scrolled=await page.locator('.video-library').evaluate(el=>{el.scrollTop=80;return el.scrollTop;});assert.ok(scrolled>0,'biblioteca precisa de conteúdo real para a prova de scroll');await page.locator('.video-surface[data-mode=pip]').waitFor();await idle();assert.equal((await guest())!.id,guestId);
+  await page.getByRole('button',{name:'Fechar janela PDFs',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();
+  await page.getByRole('combobox',{name:'Matéria do Vídeo',exact:true}).selectOption(fixture.b.id);await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Nota B');assert.ok((await page.locator('.video-surface-footer').textContent())?.includes('Matéria A'));
+  await page.getByRole('button',{name:'Voltar vídeo à mesa',exact:true}).click();await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Nota A');await idle();
   await page.getByRole('button',{name:'Vídeo em PiP',exact:true}).click();await idle();await page.getByRole('button',{name:'Entrar na cidade',exact:true}).click();await page.locator('canvas[data-ready=true]').waitFor();await page.getByRole('button',{name:'Mover vídeo flutuante',exact:true}).press('Home');await idle();await page.getByRole('button',{name:'Oficina',exact:true}).click();await page.getByRole('button',{name:/Sincronizar o motor/}).click();await page.locator('.game-shell[aria-busy=false]').waitFor();
   const challenge=await page.evaluate(()=>window.desktop.getGame());assert.ok(challenge.ok && challenge.value.challenge);const hidden=challenge.value.challenge;
   await page.getByRole('button',{name:'Modo cinema',exact:true}).click();await idle();assert.ok((await page.locator('.video-surface').boundingBox())!.y>=34);assert.equal(await page.getByRole('button',{name:'Minimizar janela',exact:true}).isEnabled(),true);await page.waitForTimeout(Math.max(0,(hidden.readyAt??hidden.stepAt)-Date.now())+80);await page.keyboard.press(hidden.sequence[0]);const underCinema=await page.evaluate(()=>window.desktop.getGame());assert.ok(underCinema.ok && underCinema.value.challenge?.stage===hidden.stage && underCinema.value.challenge.hits===0);
   await page.getByRole('button',{name:'Fechar player',exact:true}).click();await page.locator('.video-surface').waitFor({state:'hidden'});await page.getByRole('button',{name:/^Encerrar tentativa/}).click();await page.locator('.game-shell[aria-busy=false]').waitFor();
   await page.getByRole('button',{name:'Abrir Vídeo',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor();
   assert.equal(await guest(),null);
-  await app.close(); app=await launch();page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));await page.getByRole('heading',{name:'Nota A',exact:true,includeHidden:true}).waitFor({state:'attached'});await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor();assert.equal(await guest(),null);
+  await app.close(); app=await launch();page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Nota A');await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor();assert.equal(await guest(),null);
   assert.equal((await page.evaluate(subjectId=>window.desktop.listVideos({subjectId}),fixture.a.id) as any).value[0].id,video.id);
   // Crash only the isolated remote renderer in this fixture; the app renderer stays alive.
   await page.evaluate(()=>{(window as unknown as { playerProbe: string[] }).playerProbe=[];window.desktop.onVideoPlayer(value=>(window as unknown as { playerProbe: string[] }).playerProbe.push(value.state));});
@@ -102,8 +105,9 @@ try {
   await app.evaluate(({webContents})=>webContents.getAllWebContents().find(w=>w.getURL().startsWith('https://www.youtube-nocookie.com/embed/'))!.forcefullyCrashRenderer());
   await page.getByRole('button',{name:'Tentar novamente',exact:true}).waitFor();assert.ok((await page.locator('.video-loading').textContent())?.includes('interrompido'));
   await page.getByRole('button',{name:'Tentar novamente',exact:true}).click();await remoteReady();assert.ok(await remote('!!document.querySelector("video")'));
+  const at=await page.evaluate(ref=>window.desktop.openVideoAt(ref),{subjectId:fixture.a.id,id:video.id,seconds:75});assert.ok(at.ok);await remoteReady();assert.equal(new URL((await guest())!.url).searchParams.get('start'),'75');
   await page.getByRole('button',{name:'Fechar player',exact:true}).click();await page.locator('.video-surface').waitFor({state:'hidden'});
-  await page.getByRole('combobox',{name:'Matéria do Vídeo',exact:true}).selectOption(fixture.b.id);await page.getByRole('heading',{name:'Nota B',exact:true,includeHidden:true}).waitFor({state:'attached'});await page.getByRole('button',{name:'Abrir Vídeo',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();assert.equal(await page.getByRole('navigation',{name:'Vídeos salvos',exact:true}).locator('button').count(),0);
+  await page.getByRole('combobox',{name:'Matéria do Vídeo',exact:true}).selectOption(fixture.b.id);await page.waitForFunction(() => document.querySelector<HTMLInputElement>('#note-title-input')?.value === 'Nota B');await page.getByRole('button',{name:'Abrir Vídeo',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();assert.equal(await page.getByRole('navigation',{name:'Vídeos salvos',exact:true}).locator('button').count(),0);
   await page.getByRole('combobox',{name:'Matéria do Vídeo',exact:true}).selectOption(fixture.a.id);await page.getByRole('button',{name:`Remover link ${video.title}`,exact:true}).click();await page.getByRole('button',{name:'Abrir player',exact:true}).waitFor({state:'hidden'});
   await page.getByRole('button',{name:'Abrir PDF',exact:true}).click();await page.locator('.area-stage[data-motion=idle]').waitFor();await page.locator('canvas[data-rendered-page="2"]').waitFor();
   assert.deepEqual(errors,[]);
@@ -112,6 +116,7 @@ try {
   reports.push('Cinema/retorno por Escape nativo, PiP por mouse/teclado, resize compacto e movimento reduzido; fechamento destrói player e conserva link; restart não conecta; PDF2 preservado.');
   reports.push('Sessão efêmera distinta/UDP policy; popup/navegação/microfone negados; seis IPCs negados de janela hostil de prova; diálogos escondem view, scroll promove PiP e cinema não consome QTE oculto.');
   reports.push('Crash real do renderer remoto isolado conserva link e mostra nova tentativa; retry carrega o player real novamente sem derrubar a mesa.');
+  reports.push('Origem de nota abre player oficial no segundo75; tempo inválido e matéria incorreta são rejeitados pelo IPC real.');
   fs.writeFileSync('.local/evidence/videos-results.json',JSON.stringify({date:new Date().toISOString(),packaged,fixture:fixture.dir,reports,capabilities,separation,remoteDenied,foreignDenied,guestId,t0,continued,compact,errors},null,2));
 } catch(error) {await shot('failure').catch(()=>{});throw error;}
 finally {await app.close();}

@@ -45,7 +45,7 @@ async function bounds() {
 }
 async function closeWindow() { const closed = new Promise<void>(resolve => app.once('close', () => resolve())); await page.getByRole('button', { name: 'Fechar janela', exact: true }).click(); await closed; }
 try {
-  await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor(); await idle();
+  await page.getByRole('textbox', { name: 'Título da nota', exact: true }).waitFor(); await idle();
   assert.equal(await page.getByRole('combobox', { name: /^Módulo / }).count(), 0); assert.equal(await page.locator('.workspace-add').count(), 0);
   assert.equal(await page.locator('.rail-module>button[draggable=true]').count(), 9);
   assert.equal(await page.getByRole('tab').count(), 1); assert.equal((await prefs()).tabs[0].panes.length, 1);
@@ -53,7 +53,7 @@ try {
   await page.getByRole('button', { name: 'Editar', exact: true }).click();
   const editor = page.getByRole('textbox', { name: 'Conteúdo da nota', exact: true }); await editor.click(); await editor.press('Control+End'); await page.keyboard.insertText('\nRascunho entre abas preservado.');
   await drag('Abrir PDF', 'drag-preview'); await page.locator('canvas[data-rendered-page="2"]').waitFor();
-  await add('Vídeo');
+  await add('Aulas');
   await page.getByRole('button', { name: 'Salvar link do YouTube', exact: true }).click();
   await page.getByRole('textbox', { name: 'Link do YouTube', exact: true }).fill('https://www.youtube.com/watch?v=M7lc1UVf-VE');
   await page.getByRole('textbox', { name: 'Título do vídeo', exact: true }).fill('Aula de demonstração · YouTube');
@@ -63,8 +63,8 @@ try {
   assert.ok(left.height > top.height * 1.9 && Math.abs(top.x - bottom.x) < 1 && bottom.y > top.y); await shot('three');
   checks.push('Nove subitens laterais, nenhum seletor no topo; arraste real com prévia e teclado adicionam janelas; três painéis com esquerda inteira.');
   await drag('Abrir grafo'); await page.getByTestId('graph-canvas').waitFor(); await shot('four');
-  assert.equal((await prefs()).tabs[0].panes.length, 4); assert.equal(await page.getByRole('button', { name: 'Dividir com Hoje', exact: true }).isDisabled(), true);
-  await drag('Abrir Hoje', 'limit'); assert.equal((await prefs()).tabs[0].panes.length, 4);
+  assert.equal((await prefs()).tabs[0].panes.length, 4); assert.equal(await page.getByRole('button', { name: 'Dividir com Início', exact: true }).isDisabled(), true);
+  await drag('Abrir início', 'limit'); assert.equal((await prefs()).tabs[0].panes.length, 4);
   await drag('Abrir PDF'); assert.equal((await prefs()).tabs[0].focused, 'pdf'); assert.equal((await prefs()).tabs[0].panes.length, 4);
   const column = page.getByRole('separator', { name: 'Largura das colunas', exact: true }); await column.focus(); await column.press('Shift+ArrowRight');
   const row = page.getByRole('separator', { name: 'Altura das linhas', exact: true }), rb = await row.boundingBox(); assert.ok(rb);
@@ -76,26 +76,27 @@ try {
   const graphAction = await page.getByRole('button', { name: 'Mostrar notas e relações', exact: true }).boundingBox(); const graphPane = geometry.find(pane => pane.area === 'graph')!; assert.ok(graphAction && graphAction.x >= graphPane.x && graphAction.x + graphAction.width <= graphPane.right + 1);
   await shot('compact'); await page.setViewportSize({ width: 1440, height: 940 });
   await page.keyboard.press('Control+t'); await idle(); assert.equal(await page.getByRole('tab').count(), 2);
-  await single('Abrir Hoje'); const secondId = (await prefs()).activeTabId;
+  await single('Abrir início'); const secondId = (await prefs()).activeTabId;
   await page.keyboard.press('Control+1'); await idle(); assert.equal((await prefs()).activeTabId, firstId); assert.deepEqual((await prefs()).tabs[0], splitTab);
   await page.keyboard.press('Control+Tab'); await idle(); assert.equal((await prefs()).activeTabId, secondId);
   await page.getByRole('tab', { selected: true }).press('ArrowLeft'); await idle(); assert.equal((await prefs()).activeTabId, firstId);
-  await page.getByRole('button', { name: 'Fechar janela Grafo', exact: true }).click(); await idle(); assert.equal((await prefs()).tabs[0].panes.length, 3);
-  await add('Grafo'); await single('Abrir revisões');
+  await page.getByRole('button', { name: 'Fechar janela Conexões', exact: true }).click(); await idle(); assert.equal((await prefs()).tabs[0].panes.length, 3);
+  await add('Conexões'); await single('Abrir revisões');
   assert.deepEqual((await prefs()).tabs[0].panes, ['review']); assert.deepEqual((await prefs()).tabs[1].panes, ['home']);
-  await page.getByRole('button', { name: 'Voltar aos estudos', exact: true }).click(); await idle(); await add('PDF'); await add('Vídeo');
-  await page.getByRole('button', { name: 'Ampliar PDF', exact: true }).click(); await idle(); assert.deepEqual((await prefs()).tabs[0].panes, ['pdf']);
-  await single('Voltar aos estudos'); await add('PDF'); await add('Vídeo'); await page.keyboard.press('Control+t'); await idle(); await single('Abrir grafo');
+  await page.getByRole('button', { name: 'Voltar aos estudos', exact: true }).click(); await idle(); await add('PDFs'); await add('Aulas');
+  await page.getByRole('button', { name: 'Ampliar PDFs', exact: true }).click(); await idle(); assert.deepEqual((await prefs()).tabs[0].panes, ['pdf']);
+  await single('Voltar aos estudos'); await add('PDFs'); await add('Aulas'); await page.keyboard.press('Control+t'); await idle(); await single('Abrir grafo');
   await page.keyboard.press('Control+w'); await idle(); assert.equal(await page.getByRole('tab').count(), 2);
-  await page.keyboard.press('Control+1'); await idle(); await add('Grafo');
+  await page.keyboard.press('Control+1'); await idle(); await add('Conexões');
   await page.waitForFunction(() => { const pane = document.querySelector('[data-area=graph]')!.getBoundingClientRect(), controls = document.querySelector('.clean-graph>header>div')!.getBoundingClientRect(), canvas = document.querySelector('.graph-canvas-host')!.getBoundingClientRect(); return controls.right <= pane.right && canvas.right <= pane.right; });
   await page.waitForTimeout(150); await shot('tabs');
   checks.push('Grade 2×2, limite de quatro e foco sem duplicação; divisores por mouse/setas; viewport 1040×760; abas por clique/setas/Ctrl+T/W/Tab/1 e isolamento da composição.');
   // The Electron player continues to be a single isolated guest across workspace tabs.
   if (!process.argv.includes('--no-network')) {
-    await page.getByRole('button', { name: 'Ampliar Vídeo', exact: true }).click(); await idle();
+    await page.getByRole('button', { name: 'Ampliar Aulas', exact: true }).click(); await idle();
     await page.getByRole('button', { name: 'Abrir player', exact: true }).click(); await page.locator('.video-loading').waitFor({ state: 'hidden', timeout: 45000 });
-    const guest = await app.evaluate(({ webContents }) => webContents.getAllWebContents().find(w => w.getURL().startsWith('https://www.youtube-nocookie.com/embed/'))?.id); assert.ok(guest);
+    let guest:number|undefined;
+    for(let attempt=0;attempt<60&&!guest;attempt++){guest=await app.evaluate(({webContents})=>webContents.getAllWebContents().find(w=>w.getURL().startsWith('https://www.youtube-nocookie.com/embed/'))?.id);if(!guest)await page.waitForTimeout(300);}assert.ok(guest);
     await page.waitForFunction(() => document.querySelector('.video-surface')?.getAttribute('data-mode') === 'inline');
     const playerLeft=await page.locator('.video-surface').evaluate(el=>el.getBoundingClientRect().left);
     await page.getByRole('button',{name:'Recolher menu lateral',exact:true}).click();
@@ -105,7 +106,7 @@ try {
     await page.getByRole('button',{name:'Expandir menu lateral',exact:true}).click();
     await page.locator('.nodus-shell[data-sidebar-collapsed=false]').waitFor();
     await page.waitForFunction(left=>Math.abs(document.querySelector('.video-surface')!.getBoundingClientRect().left-left)<2,playerLeft);
-    await add('PDF');
+    await add('PDFs');
     const divider = await page.getByRole('separator', { name: 'Largura das colunas', exact: true }).boundingBox(); assert.ok(divider);
     await page.mouse.move(divider.x + 4, divider.y + divider.height * .7); await page.mouse.down(); await page.locator('.workspace-frame[data-resizing=true]').waitFor();
     await page.waitForFunction(() => !!document.querySelector('.workspace-frame[data-resizing=true]'));
@@ -117,7 +118,7 @@ try {
     await page.keyboard.press('Control+2'); await idle(); await page.locator('.video-surface[data-mode=pip]').waitFor();
     const continued = await app.evaluate(({ webContents }, id) => webContents.fromId(id)?.id, guest); assert.equal(continued, guest);
     await page.getByRole('button', { name: 'Fechar player', exact: true }).click();
-    await page.keyboard.press('Control+1'); await idle(); await single('Voltar aos estudos'); await add('PDF'); await add('Vídeo'); await add('Grafo');
+    await page.keyboard.press('Control+1'); await idle(); await single('Voltar aos estudos'); await add('PDFs'); await add('Aulas'); await add('Conexões');
     checks.push('Player oficial real carrega inline, não intercepta drag/resize e conserva o mesmo WebContents ao trocar de aba/PiP.');
   }
   // Drafts in Explorer and notes survive hiding their area and process restart.

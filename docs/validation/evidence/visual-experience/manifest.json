@@ -1,0 +1,243 @@
+{
+  "at": "2026-10-09T05:26:19.903Z",
+  "platform": "win32",
+  "branch": "codex/visual-experience",
+  "provenance": "Real packaged Windows app. Generated isolated study/material fixtures; original captures and real WebGL canvas recordings. No personal vault.",
+  "limits": [
+    "Native file-picker interaction not verified; its result supplied by fixture, real services/files/SQLite/PDF used.",
+    "Human novice comprehension and external alpha proofs remain pending.",
+    "Short performance sample describes this host only."
+  ],
+  "reportSources": [
+    {
+      "file": "docs/reports/BOM_DIA_2026-10-09.md",
+      "sha256": "6c322b74c73f2903dd0c10681f92e670b62de7e68fc3489e56886b9af5358e94"
+    },
+    {
+      "file": "docs/reports/BOM_DIA_2026-10-09.html",
+      "sha256": "71e2c155d9d521536474d5251cc3488b764987cd05ac3ea5e5516edf39ead737"
+    }
+  ],
+  "files": [
+    {
+      "file": "acervo.png",
+      "bytes": 103073,
+      "sha256": "36ebe0062d57ce751ca4d33cb0544d1ca94d5dd966b273ef5d5675d8f9b0ed4f"
+    },
+    {
+      "file": "adicionar-conteudo.png",
+      "bytes": 113278,
+      "sha256": "326199f05a3aaba40ee26b6646ee2fb6a8f8679cd25f779d3212081db91ef3d9"
+    },
+    {
+      "file": "aulas.png",
+      "bytes": 86943,
+      "sha256": "d3aee5e5dcef0205346944ac5c6f5b56c453ab9c0c0c790530fc365feaa41ea6"
+    },
+    {
+      "file": "bootstrap.log",
+      "bytes": 183,
+      "sha256": "b22dd72c5ba3aec52294d9f5517db69914cea44ead5a60e43dc463f1c21ba7d9"
+    },
+    {
+      "file": "caderno.png",
+      "bytes": 107536,
+      "sha256": "d287a97091af4de537a883812792460c327fb0698804ae94b633bc9ff87d204a"
+    },
+    {
+      "file": "cidade-compacta.png",
+      "bytes": 182944,
+      "sha256": "8d699bcc3b18db17e5d5f5d5d322026e10eb13282cb2ae7551660cf4d01f4701"
+    },
+    {
+      "file": "cidade-cyberpunk.png",
+      "bytes": 285008,
+      "sha256": "2c58f5a00cf116e8bb2516e90d25f900293dbf633433ccbefb5942f4522d593f"
+    },
+    {
+      "file": "cidade-newyork.png",
+      "bytes": 296069,
+      "sha256": "4a0c221191bb5b13d8d10b9a359f35d1611473176abfdd524f7afa92d0192d57"
+    },
+    {
+      "file": "cidade-valeserene.png",
+      "bytes": 282732,
+      "sha256": "0472dc025793498f4a068a298cfd26b17fd6f8f92d8ec9806816e9b4d54b7413"
+    },
+    {
+      "file": "cidade-viva.webm",
+      "bytes": 283660,
+      "sha256": "fe85be94b7aff2fafd4d25c4165423a35735dd40f83f93c04a8bb02379ab94e9"
+    },
+    {
+      "file": "construcao-3d.png",
+      "bytes": 279104,
+      "sha256": "3295b45476a719a666a12a484f78b7a5972f12a9e55f2eba0f4c2c4def62b1c1"
+    },
+    {
+      "file": "diff.log",
+      "bytes": 1908,
+      "sha256": "d436945b5cc2c2b89250ae2111040e7b5e6f9165e895ad037ac63e86f9972e69"
+    },
+    {
+      "file": "district-cyberpunk.png",
+      "bytes": 220147,
+      "sha256": "c9c0843029283dec8e41fe8ee0a41a2a1085d389a16ec1a38b89fe36893b76d2"
+    },
+    {
+      "file": "district-newyork.png",
+      "bytes": 245908,
+      "sha256": "17a61ad9ca2fb6ad11d7dff8da9fcf5b2a4f87635e3fe0832ee8ca4da8714808"
+    },
+    {
+      "file": "district-original.png",
+      "bytes": 223009,
+      "sha256": "2f91cade9e12243cc6cef4558129470b24e9946393986ff20b4376048cd0feb6"
+    },
+    {
+      "file": "district.log",
+      "bytes": 86,
+      "sha256": "f5a681dab52b31c58d483376c3deb1e1b4fb06ac5b63d45f4c506be9a11e082c"
+    },
+    {
+      "file": "farm.json",
+      "bytes": 1019,
+      "sha256": "cd62c253286efce02afb77769dc26318cc7604a1fca00f0654d2d679c198e160"
+    },
+    {
+      "file": "farm.log",
+      "bytes": 784,
+      "sha256": "8e0f53f63e3385a5ca1181d8f51b03e8c7fb68c0a691f7fb96d7c09467a7f692"
+    },
+    {
+      "file": "hoje-compacto.png",
+      "bytes": 201804,
+      "sha256": "ba7b1494ddfe62a348e877c19535500fafb59ded8dd914e8754d6365eee65562"
+    },
+    {
+      "file": "hoje.png",
+      "bytes": 275410,
+      "sha256": "20042fe42a4b9cf016838ee7df104166e564bc25600105418ca5eafbd01cde83"
+    },
+    {
+      "file": "ideias-3d.webm",
+      "bytes": 253999,
+      "sha256": "1ff4e5a0f48428cc1a3a12dcd4f5216e73b910d49439a56a2b661744f1fd725b"
+    },
+    {
+      "file": "journey.json",
+      "bytes": 710,
+      "sha256": "f9faea000feb4b3e5412cc92eac7dff90d0750f3a75385e6115e99383db04f21"
+    },
+    {
+      "file": "journey.log",
+      "bytes": 575,
+      "sha256": "254db6a67bb5c01e51f2018d5fbd87320aa85cc035dca86938ca7b7a2834c676"
+    },
+    {
+      "file": "notes-ux.json",
+      "bytes": 1363,
+      "sha256": "0296a90a336ba9da1097860fb191cb06258dfcad23f5039fe462efe5bedf1c0c"
+    },
+    {
+      "file": "notes-ux.log",
+      "bytes": 1093,
+      "sha256": "ab364b1556023d51b699a489d89e9effcd1a32e49f7325dbd3aa3f0e5c2725d7"
+    },
+    {
+      "file": "package.json",
+      "bytes": 33359,
+      "sha256": "3d8f09a70c858c33f20e1f1b07375226be2a99d62fce869bcb2c442faa9113ae"
+    },
+    {
+      "file": "package.log",
+      "bytes": 7632,
+      "sha256": "9ce5f1c7d653af1fa1a25ae3e346f7197b1b411995901c9d29daf837e911f8eb"
+    },
+    {
+      "file": "pdf.png",
+      "bytes": 150120,
+      "sha256": "6c0db1fa3f2d4cc1c773d29595becaf82e92ae6b2d616e0505eb1e1eb8d003f4"
+    },
+    {
+      "file": "preservation.json",
+      "bytes": 10539,
+      "sha256": "604877d08578c0122547de89992bab3e1b06b3262316e231647c908c57778d09"
+    },
+    {
+      "file": "primeira-nota.png",
+      "bytes": 93123,
+      "sha256": "9ad2c848ce5380fa19e0cace0b3b76357cbab3006c4fa3603a40628fb3b53212"
+    },
+    {
+      "file": "primeiro-uso.png",
+      "bytes": 190268,
+      "sha256": "b73da5738d40c30f37625f9a6c05f82c76630ebe714af7ce68fad8e29d7273fc"
+    },
+    {
+      "file": "projeto-em-construcao.png",
+      "bytes": 269690,
+      "sha256": "f13d58fad2c8a76777e5c8c3a393ef98be2500ff0869a22fe79053c3fbcaead7"
+    },
+    {
+      "file": "report.json",
+      "bytes": 2130,
+      "sha256": "19b01cc524826673bfab987543eea6a3315490f04439e408750068c76bfeacb5"
+    },
+    {
+      "file": "study-tabs.json",
+      "bytes": 2540,
+      "sha256": "d8b20271deb3324534ebd104099469f45b7393ee18a6a5633e960e5f0f15f88e"
+    },
+    {
+      "file": "study-tabs.log",
+      "bytes": 748,
+      "sha256": "100b25f6a665a2e00d00249dc72bc6b2b16c35e847ce994f10aba186daa38dff"
+    },
+    {
+      "file": "tema-graphite.png",
+      "bytes": 203053,
+      "sha256": "5cc408a21ebb7a073bca08e2d35d17d0814f44e7164e35b5be2fafabf8c49be5"
+    },
+    {
+      "file": "tema-midnight.png",
+      "bytes": 209506,
+      "sha256": "35406a06c5c24be2e01f93f6c29efd442ed2ff5a832b3fe7773d17465c51c2e3"
+    },
+    {
+      "file": "tema-olive.png",
+      "bytes": 185838,
+      "sha256": "a9e07f15ad301ae9ef041815a390dc8093a7bba6bfe7a6ed9723b3b970c3cd04"
+    },
+    {
+      "file": "tests.log",
+      "bytes": 9545,
+      "sha256": "d458ca9962867db2eea8b529f27521f4a6d121ec5862ef4bb6696f8d8035c5cb"
+    },
+    {
+      "file": "typecheck.log",
+      "bytes": 51,
+      "sha256": "15a4ce6e78d1e700e471003c3833d272edcee7d56418823127b45f7e3d980e6b"
+    },
+    {
+      "file": "videos.json",
+      "bytes": 2571,
+      "sha256": "a7c9182c1537dad775133a71e05007aad6ded6ed71c83cfdcd9ef4c89b5101aa"
+    },
+    {
+      "file": "videos.log",
+      "bytes": 1035,
+      "sha256": "7c5604ed7987796ae220e0cbd9fb24c534fd31cc4720bb3eec7f1e5a8adad165"
+    },
+    {
+      "file": "visual.log",
+      "bytes": 1326,
+      "sha256": "3d3e6be6e2dcb9ecbe7c36de913d507727740d2b32d938f43237555d48b055f3"
+    },
+    {
+      "file": "windows.json",
+      "bytes": 1580,
+      "sha256": "afcb0f42b50b6d33dbcfc449dfdad039ab8c3bc146765eec52c1695ecacd14e1"
+    }
+  ]
+}

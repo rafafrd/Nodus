@@ -10,10 +10,10 @@ import { css } from '@codemirror/lang-css';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
 const colors = HighlightStyle.define([
-  { tag: tags.keyword, color: '#c3add6' }, { tag: [tags.string, tags.special(tags.string)], color: '#c8cf9f' },
-  { tag: [tags.number, tags.bool, tags.null], color: '#dfb88e' }, { tag: tags.comment, color: '#90a196', fontStyle: 'italic' },
-  { tag: [tags.function(tags.variableName), tags.propertyName], color: '#e4d1a0' }, { tag: tags.typeName, color: '#9ebec5' },
-  { tag: tags.heading, color: '#e4d1a0', fontWeight: '600' }, { tag: tags.link, color: '#a7c4c5' },
+  { tag: tags.keyword, color: 'var(--syntax-keyword, #c3add6)' }, { tag: [tags.string, tags.special(tags.string)], color: 'var(--syntax-string, #c8cf9f)' },
+  { tag: [tags.number, tags.bool, tags.null], color: 'var(--syntax-number, #dfb88e)' }, { tag: tags.comment, color: 'var(--syntax-comment, #90a196)', fontStyle: 'italic' },
+  { tag: [tags.function(tags.variableName), tags.propertyName], color: 'var(--syntax-function, #e4d1a0)' }, { tag: tags.typeName, color: 'var(--syntax-type, #9ebec5)' },
+  { tag: tags.heading, color: 'var(--syntax-function, #e4d1a0)', fontWeight: '600' }, { tag: tags.link, color: 'var(--syntax-link, #a7c4c5)' },
 ]);
 function language(path: string) { const ext = path.split('.').at(-1)?.toLowerCase(); return ext === 'ts' || ext === 'tsx' ? javascript({ typescript: true, jsx: ext === 'tsx' }) : ext === 'js' || ext === 'jsx' ? javascript({ jsx: ext === 'jsx' }) : ext === 'json' ? json() : ext === 'css' ? css() : ext === 'html' || ext === 'htm' ? html() : ext === 'md' ? markdown() : []; }
 export function ProjectEditor({ text, onChange, onSave, busy, path }: { path: string; busy: boolean; text: string; onChange(text: string): void; onSave(): void }) {

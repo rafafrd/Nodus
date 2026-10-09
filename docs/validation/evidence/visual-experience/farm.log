@@ -1,0 +1,23 @@
+CAPTURE next-depot
+CAPTURE compact-project
+CAPTURE depot-complete
+CAPTURE choose-mine
+CAPTURE mine-complete
+CAPTURE all-projects
+CAPTURE projects-original
+CAPTURE projects-cyberpunk
+CAPTURE projects-newyork
+CAPTURE compact-stocks
+Estoque: 17s reais Windows
+Estoque: 32s reais Windows
+Estoque: 47s reais Windows
+Estoque: 62s reais Windows
+Estoque: 65s reais Windows
+CAPTURE stocks-ready
+CAPTURE reinvestment
+CAPTURE motor-floor
+CAPTURE offline-full
+CAPTURE motor-last-pulse
+CAPTURE motor-rest
+Projetos completos pela UI, custos reais, escolha de ordem, três skins, compacta e um minuto real de produção/recolhimento sem XP
+Reinvestimento existente, motor/floors/último ganho/descanso/alternativas, offline cheio, reinício, cultivo manual e Markdown intacto

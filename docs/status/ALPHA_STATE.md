@@ -1,12 +1,22 @@
 # Retomada da alpha
 
-Bootstrap criado em 01/10/2026. Última execução: 07/10/2026, Windows 11 10.0.26200, America/Sao_Paulo, Node 24.19.0 local, app 0.1.0.
+Bootstrap criado em 01/10/2026. Última execução: 09/10/2026, Windows 11 10.0.26200, America/Sao_Paulo, Node 24.21.0 portátil, app 0.1.0.
 
 ## Estado real
 
 MVP local implementado e executado no Windows nativo, branch MVP e commits por fase. Alpha integral parcial. Resultados por critério em docs/validation/ALPHA.md; jornada local em docs/validation/MVP_JOURNEY.md.
 
 ## Próxima ação
+
+09/10/2026: [UX-03](../tasks/done/UX-03.md) concluído localmente na branch codex/home-white, partindo do checkout UX-02/UX-01/GAM-05/DOC-01 sem reset. Home em Início com atalhos/próxima ação, entrada GSAP/hover e fundo Three.js de câmera/posição fixas; tema Branco com contraste/código/grafo e persistência. Typecheck/83 testes/pacote Windows/204 arquivos idênticos no ASAR/jornadas Home/Notas/Abas/MVP aprovados. 15 fotos e clipe real no [relatório](../reports/HOME_BRANCO_2026-10-09.md), [provas](../validation/HOME_WHITE.md). Perfis novos começam na Home, layouts anteriores e fontes/rascunhos preservados. ADR21/guia/quadro atualizados; O-028 corrigido. Sem dependência/lockfile/schema novos, stage, commit, push ou publicação. Nenhuma implementação restante deste incremento; próxima ação de uso: Início e Ajustes → Aparência → Branco. GAM-05/C8 humano e alpha externa continuam pendentes nos tickets existentes.
+
+09/10/2026: [UX-02](../tasks/done/UX-02.md) concluído localmente na branch codex/visual-experience, sobre cd3a199 com UX-01/GAM-05/DOC-01 preservados. Hoje/próxima ação/primeiro uso, entrada comum de conteúdo e acervo; livro, água, ambiente, construções/partículas e distrito Three.js nas três skins, quatro temas e compacto. Typecheck/82 testes/pacote Windows/204 arquivos idênticos no ASAR e sete jornadas aprovados, com 21 capturas e dois clipes reais. [Relatório de bom dia](../reports/BOM_DIA_2026-10-09.md), [galeria com vídeos](../reports/BOM_DIA_2026-10-09.html), [provas](../validation/VISUAL_EXPERIENCE.md), ADR20/guia/quadro atualizados. O-026/O-027 corrigidos e registrados. Sem schema/dependência novos, dados pessoais, stage, commit, push ou publicação. Nenhuma implementação restante neste incremento; próxima ação de uso: Hoje → Adicionar conteúdo e Cidade → Vila. GAM-05/C8 segue doing/parcial até avaliação humana; alpha externa e seleção manual de arquivos continuam não verificadas.
+
+09/10/2026: [GAM-05](../tasks/doing/GAM-05.md) entregue tecnicamente na branch local codex/farm-projects de cd3a199, preservando UX-01/DOC-01. Depósito/postos1material/min/estoques200/objetivo com atalhos/skins/motor proporcional e orçamento real no JSON SQLite7.81testes/typecheck/simulação/pacote Windows204assets/jornadas farm com1min real/UX-01/MVP/capturas aprovados; O-024/O-025 corrigidos. Sem migration/dependência/alteração global/stage/commit/push/publicação. Doing/parcial somente por C8: avaliação leiga ainda não realizada. Próxima ação humana: roteiro de compreensão do próximo objetivo/benefício em [FARM_PROJECTS](../validation/FARM_PROJECTS.md); documentação e dados salvos.
+
+08/10/2026: UX-01 concluído na branch local codex/notes-navigation de cd3a199, com apresentação DOC-01 preservada de f35ba7d. Escrita imediata/título/modelos/recente/busca por corpo e rascunho/importação múltipla/matéria, captura PDF/comentário/momento com origem legível, cartão/relação contextual e prática com fonte selecionada. Menu/primeiro uso/nomes consistentes sem módulos novos. Typecheck/76testes/build/pacote Windows204assets idênticos/jornada real UX/primeiro uso/restart/MVP R1–R7/IA/player oficial75s/12capturas aprovados; O-023 corrigido. Sem migration/dependência/reset. Alterações locais salvas sem stage/commit/push/publicação. Próxima ação humana: usar a build e avaliar a compreensão com um usuário leigo; alpha externa permanece parcial. [Ticket](../tasks/done/UX-01.md), [provas](../validation/NOTES_UX.md), [guia](../GUIA_DE_USO.md).
+
+Registro preservado de DOC-01: README/galeria/Mermaid/badges e provas da apresentação entregues na branch codex/readme-showcase, PR14 conforme registro de07/10/2026. [Ticket](../tasks/done/DOC-01.md), [prova](../validation/README_SHOWCASE.md). O conteúdo de apresentação foi conservado neste checkout; nenhuma alteração remota neste pedido.
 
 07/10/2026: [IA-01](../tasks/done/IA-01.md) concluído na branch codex/external-study-activities de f6d1a67. Seleção completa/prompt/correção manual/JSON1.0/importação/prática real; snapshots/pedidos/revisões e tentativas persistentes, SQLite7 aditivo/backup5–7. C1–C10 aprovados: typecheck/suíte inicial67/67/revisão final19/19/build/pacote Windows204assets idênticos/jornada real/três reaberturas/11capturas; O-022 corrigido. [Provas](../validation/atividades-ia-externa.md), [uso](../features/atividades-ia-externa.md), ADR17/docs/quadro atualizados. Pedido posterior autorizou entrega Git: implementação6396e32 enviada/upstream, [PR #13](https://github.com/rafafrd/Nodus/pull/13) aberto para main/draft=false,3Mermaid/6badges/11prints públicos200/image/png e anexo no chat. Base c95aabd atualizada por fast-forward com árvore idêntica após merge do PR12; API/corpo/head/base/mergeable e Gitleaks272,64KB conferidos. Nenhuma implementação restante nesta feature; próxima ação humana: revisar PR13 e usar Prática na matéria com a IA escolhida. Sem release, serviço ou merge por esta entrega; integrações atuais e pendências externas da alpha preservadas.
 
@@ -68,6 +78,11 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UI-05 | done | Concluído | UI-04, GAM-04, MED-01 | — |
 | UI-06 | done | Concluído | UI-05 | — |
 | IA-01 | done | Concluído | NXT-01, UI-06 | — |
+| DOC-01 | done | Concluído | UI-06, GAM-04 | — |
+| UX-01 | done | Concluído | ALP-04, NXT-01, UI-06, IA-01 | — |
+| GAM-05 | doing | Parcial | GAM-04, UX-01 | C8 |
+| UX-02 | done | Concluído | UX-01, GAM-05, UI-06 | — |
+| UX-03 | done | Concluído | UX-02, CFG-01 | — |
 
 ## Checkpoints e atenção humana
 
@@ -79,4 +94,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [IA-01](../tasks/done/IA-01.md).
+Último ticket concluído: [UX-01](../tasks/done/UX-01.md).

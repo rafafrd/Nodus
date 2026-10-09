@@ -23,5 +23,9 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0016](0016-abas-e-grade-de-estudo.md) | Módulos laterais, abas locais e até quatro painéis em grade | Aceita para UI-05 |
 
 | [0017](0017-atividades-ia-externa.md) | Intercâmbio manual versionado, snapshots e prática real por IA externa | Aceita para IA-01 |
+| [0018](0018-notas-e-navegacao.md) | Escrita imediata, matéria e captura com origem preservada | Aceita para UX-01 |
+| [0019](0019-projetos-e-postos-da-farm.md) | Projetos materiais permanentes, postos com estoque e motor proporcional | Aceita para GAM-05 |
+| [0020](0020-clareza-e-animacao-3d.md) | Próxima ação de estudo, entrada de conteúdo e animação 3D por estado confirmado | Aceita para UX-02 |
+| [0021](0021-home-e-tema-branco.md) | Home com posição fixa, luz animada, atalhos e tema Branco persistente | Aceita para UX-03 |
 
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.

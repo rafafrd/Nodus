@@ -1,6 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  setupVault:()=>ipcRenderer.invoke('vault:setup'),
+  openVideoAt:input=>ipcRenderer.invoke('player:at',input),
+  moveNote:input=>ipcRenderer.invoke('note:move',input),
+  importNotes:input=>ipcRenderer.invoke('notes:import',input),
   activitySources: input=>ipcRenderer.invoke('activity:sources',input),
   prepareActivity: input=>ipcRenderer.invoke('activity:prepare',input),
   activityRequests: input=>ipcRenderer.invoke('activity:requests',input),

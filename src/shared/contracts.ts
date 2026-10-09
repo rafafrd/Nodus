@@ -10,7 +10,9 @@ export type NoteDocument = { ref: NoteRef; text: string; hash: string; draft: { 
 export type SaveResult = { state: 'saved'; document: NoteDocument } | { state: 'conflict'; external: NoteDocument };
 export const subjectIdInput = z.strictObject({ subjectId: idSchema });
 export const noteIdInput = z.strictObject({ id: idSchema });
-export const createNoteInput = z.strictObject({ subjectId: idSchema, title: z.string().trim().min(1).max(160) });
+export const createNoteInput = z.strictObject({ subjectId: idSchema, title: z.string().trim().min(1).max(160).default('Sem título'), template: z.enum(['blank','lesson','concept','exercise']).optional() });
+export const moveNoteInput = z.strictObject({id:idSchema,subjectId:idSchema,hash:z.string().regex(/^[a-f0-9]{64}$/)});
+export type NoteImportBatch={notes:NoteDocument[];failed:{name:string;message:string}[]};
 export const noteWriteInput = z.strictObject({ id: idSchema, text: z.string().max(2 * 1024 * 1024), hash: z.string().regex(/^[a-f0-9]{64}$/) });
 export type Material = { id: string; subjectId: string; name: string };
 export type Desk = { subjectId: string; noteId: string | null; materialId: string | null; videoId: string | null; materialView: 'pdf' | 'video'; page: number; split: number; tool: 'focus' | 'checklist' | 'both' | 'none'; preview: boolean; nextStepId: string | null };
@@ -98,8 +100,12 @@ export interface DesktopApi {
   createSubject(input: z.infer<typeof subjectInput>): Promise<Result<Subject>>;
   renameSubject(input: z.infer<typeof renameInput>): Promise<Result<Subject>>;
   chooseVault(): Promise<Result<string | null>>;
+  setupVault(): Promise<Result<string>>;
+  moveNote(input: z.infer<typeof moveNoteInput>): Promise<Result<SaveResult>>;
+  importNotes(input: z.infer<typeof subjectIdInput>): Promise<Result<NoteImportBatch | null>>;
   listNotes(input: z.infer<typeof subjectIdInput>): Promise<Result<NoteRef[]>>;
-  createNote(input: z.infer<typeof createNoteInput>): Promise<Result<NoteDocument>>;
+  createNote(input: z.input<typeof createNoteInput>): Promise<Result<NoteDocument>>;
+  openVideoAt(input: z.infer<typeof import('./videos').videoAtInput>): Promise<Result<import('./videos').VideoPlayerState>>;
   importNote(input: z.infer<typeof subjectIdInput>): Promise<Result<NoteDocument | null>>;
   openNote(input: z.infer<typeof noteIdInput>): Promise<Result<NoteDocument>>;
   saveNote(input: z.infer<typeof noteWriteInput>): Promise<Result<SaveResult>>;

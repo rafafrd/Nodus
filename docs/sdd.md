@@ -82,6 +82,8 @@ Material oferece PDFs/Vídeos. Um guest alterna posição/tamanho entre inline, 
 
 ## CFG-01 — configurações locais
 
+UX-01 simplifica Caderno/primeiro uso/menu sem acrescentar áreas: Nova nota imediata, título editável/sugerido, modelos opcionais, lista recente, busca por corpo/rascunho e importação múltipla. Editor conserva prefixo e corpo Markdown; referências locais aparecem como nome/página/tempo por decoração, sem reescrever a fonte. Fonte completa mostra metadados/URLs. PDF TextLayer/comentários e momentos geram citações com origem; Praticar material preseleciona a fonte no fluxo manual IA-01. vault:setup, note:move, notes:import e player:at usam o mesmo remetente autorizado e schemas estritos. Nomes de menu/abas/áreas são PDFs/Aulas/Conexões/Projetos; IDs persistidos permanecem iguais. [ADR-0018](adr/0018-notas-e-navegacao.md), [provas](validation/NOTES_UX.md).
+
 UI-03 complementa esta área: tema Editorial e featuredProjectIds no contrato existente, com default [] compatível com perfis anteriores, até 40 UUIDs distintos e update/audit transacionais. Nenhum canal ou privilégio novo. Editorial delimita apresentação via data-theme; Oliva conserva o visual anterior. Hoje histórico é uma apresentação separada; mesa/editor/cidade conservam os mecanismos existentes. Catálogo/árvore separam principais/secundários e a vista geral mantém buffers/abas. [ADR-0012](adr/0012-tema-editorial.md), [provas](validation/EDITORIAL_DESIGN.md).
 
 preferences:get/update, profile:photo/photo-remove e app:management/folder em shared/preferences.ts/contracts.ts/preload/main. Payload strict validado e sender/mainFrame/origem verificados pelo handler existente. Foto recebe bytes limitados PNG/JPEG, preflight de dimensões e nativeImage→PNG256×256 no main; audit não registra nome/foto/caminho. Pasta só enum data/vault, resolve diretório registrado e erro do shell é explícito. Schema v4/arquivos canônicos anteriores conservados.
@@ -94,5 +96,7 @@ UI-04 usa shared/workspace e preferences existentes para layout global (áreas �
 
 
 ## IA-01 — Atividades de intercâmbio manual
+
+GAM-05 amplia `gameAction` com construção, escolha do próximo posto e recolhimento. Main continua único responsável por custo/tempo/recompensas/recibo, com estados/cotações no GameState existente. Farm/estoques persistem no JSON SQLite7 e sobrevivem ao prestígio; perfil antigo recebe baseline vazio. [ADR-0019](adr/0019-projetos-e-postos-da-farm.md).
 
 activity:sources/prepare/requests/request/validate/correction/copy/import/list/cards/rate/reference e quiz:start/answer/finish usam contratos específicos, sender/mainFrame/origem autorizados e Zod estrito. Não há canal de filesystem genérico nem provedor automático. Pacote completo da seleção/PDF.js local → clipboard confirmado → validação compartilhada colagem/arquivo → transação SQLite7 → prática real. Snapshots/pedidos/revisões e tentativas persistem; cartões usam Study.review. [Contrato1.0](contracts/study-activity-v1.md), [ADR-0017](adr/0017-atividades-ia-externa.md), [uso](features/atividades-ia-externa.md), [provas](validation/atividades-ia-externa.md).

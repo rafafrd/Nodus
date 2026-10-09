@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-09T05:03:36.130Z",
+  "platform": "win32",
+  "packaged": true,
+  "fixture": "isolated materials/advanced/offline fixtures; not human progression",
+  "checks": [
+    "Projetos completos pela UI, custos reais, escolha de ordem, três skins, compacta e um minuto real de produção/recolhimento sem XP",
+    "Reinvestimento existente, motor/floors/último ganho/descanso/alternativas, offline cheio, reinício, cultivo manual e Markdown intacto"
+  ],
+  "errors": [],
+  "localScreenshotNames": [
+    "next-depot.png",
+    "compact-project.png",
+    "depot-complete.png",
+    "choose-mine.png",
+    "mine-complete.png",
+    "all-projects.png",
+    "projects-original.png",
+    "projects-cyberpunk.png",
+    "projects-newyork.png",
+    "compact-stocks.png",
+    "stocks-ready.png",
+    "reinvestment.png",
+    "motor-floor.png",
+    "offline-full.png",
+    "motor-last-pulse.png",
+    "motor-rest.png"
+  ],
+  "captureNote": "Regression captures retained in ignored .local; new UI gallery persisted here."
+}

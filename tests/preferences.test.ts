@@ -8,6 +8,7 @@ import { UserPreferences } from '../src/main/preferences';
 import { AppManagementService } from '../src/main/app-management';
 import { photoDimensions } from '../src/main/photo-input';
 import { defaultPreferences, PHOTO_LIMIT, preferenceInput, photoInput } from '../src/shared/preferences';
+import {defaultWorkspace,defaultWorkspaceTabs} from '../src/shared/workspace';
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a4qQAAAAASUVORK5CYII=', 'base64');
 
 test('tema original anterior é conservado; principais persistem com rollback e argumentos limitados', () => {
@@ -16,11 +17,11 @@ test('tema original anterior é conservado; principais persistem com rollback e 
     const legacy = { name:'Perfil anterior', theme:'olive', animations:false, photo:null };
     const raw = JSON.stringify(legacy); store.setSetting('preferences', raw);
     let prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
+    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:true, featuredProjectIds:[],workspaceLayout:defaultWorkspace,workspaceTabs:defaultWorkspaceTabs });
     assert.equal(store.setting('preferences'),raw, 'Leitura compatível não regrava o perfil');
     const ids = [randomUUID(),randomUUID()]; prefs.update({ theme:'editorial', featuredProjectIds:ids,editorialBackground:false });
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
-    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultPreferences.workspaceLayout,workspaceTabs:defaultPreferences.workspaceTabs });
+    assert.deepEqual(prefs.get(), { ...legacy, sidebarCollapsed:false, editorialBackground:false, theme:'editorial', featuredProjectIds:ids,workspaceLayout:defaultWorkspace,workspaceTabs:defaultWorkspaceTabs });
     const before=store.setting('preferences');
     for(const featuredProjectIds of [['invalid'],[ids[0],ids[0]],Array.from({length:41},()=>randomUUID())]) {
       assert.throws(()=>prefs.update({featuredProjectIds})); assert.equal(store.setting('preferences'),before);
@@ -58,13 +59,27 @@ test('foto aceita somente bytes limitados e dimensões raster limitadas antes do
   const jpeg = Buffer.from([255,216,255,192,0,11,8,0,20,0,30,1,1,17,0,255,217]); assert.deepEqual(photoDimensions(jpeg),{width:30,height:20});
 });
 
+test('Home inicial e tema branco conservam perfil anterior, abas, dados e rollback', () => {
+  const dir=fs.mkdtempSync(path.resolve('.local/white-preferences-'));let store=new Store(dir);
+  try {
+    let prefs=new UserPreferences(store);assert.equal(prefs.get().workspaceTabs.tabs[0].focused,'home');
+    const legacy={name:'Perfil anterior de prova',theme:'midnight',animations:false,photo:null,workspaceLayout:{panes:['study','pdf'],sizes:[61,39]}};
+    store.setSetting('preferences',JSON.stringify(legacy));store.setSetting('other-setting','keep');
+    const before=prefs.get();prefs.update({theme:'white'});const saved=store.setting('preferences');
+    assert.deepEqual(prefs.get(),{...before,theme:'white'});assert.equal(preferenceInput.safeParse({theme:'white'}).success,true);
+    store.close();store=new Store(dir);prefs=new UserPreferences(store);assert.equal(prefs.get().theme,'white');assert.deepEqual(prefs.get().workspaceTabs,before.workspaceTabs);
+    store.db.exec("CREATE TRIGGER white_audit_fail BEFORE INSERT ON audit_events WHEN NEW.action='preferences.update' BEGIN SELECT RAISE(FAIL,'fixture audit fail'); END;");
+    assert.throws(()=>prefs.update({theme:'olive'}));assert.equal(store.setting('preferences'),saved);assert.equal(store.setting('other-setting'),'keep');assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version,7);
+  } finally {store.close();}
+});
+
 test('menu recolhido persiste junto das abas; argumentos inválidos e falha de audit conservam o estado', () => {
   const dir = fs.mkdtempSync(path.resolve('.local/sidebar-preferences-')); let store = new Store(dir);
   try {
     let prefs = new UserPreferences(store);
     prefs.update({sidebarCollapsed:true});
     const tabs = structuredClone(prefs.get().workspaceTabs);
-    tabs.tabs[0].panes = ['study','pdf','graph']; tabs.tabs[0].columnSplit = 62;
+    tabs.tabs[0].panes = ['study','pdf','graph']; tabs.tabs[0].focused='study'; tabs.tabs[0].columnSplit = 62;
     prefs.update({workspaceTabs:tabs, name:'Perfil de teste'});
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
     assert.equal(prefs.get().sidebarCollapsed,true); assert.deepEqual(prefs.get().workspaceTabs,tabs);
@@ -91,7 +106,7 @@ test('gestão conta banco real e só resolve diretórios registrados, negando en
 
 test('layout de áreas persistido: compatibilidade, limites, rollback e preservação de outros dados',()=>{
  const dir=fs.mkdtempSync(path.resolve('.local/workspace-preferences-'));let store=new Store(dir);
- try{store.setSetting('vault','fixture-vault');let prefs=new UserPreferences(store);assert.deepEqual(prefs.get().workspaceLayout,{panes:['study'],sizes:[100]});
+ try{store.setSetting('vault','fixture-vault');let prefs=new UserPreferences(store);assert.deepEqual(prefs.get().workspaceLayout,defaultPreferences.workspaceLayout);
  const layout={panes:['study','pdf','graph'],sizes:[46,26,28]} as const;
  prefs.update({workspaceLayout:{panes:[...layout.panes],sizes:[...layout.sizes]}});store.close();store=new Store(dir);prefs=new UserPreferences(store);assert.deepEqual(prefs.get().workspaceLayout,layout);
  const before=store.setting('preferences');for(const workspaceLayout of [{panes:[],sizes:[]},{panes:['study','study'],sizes:[50,50]},{panes:['study','pdf','video','city'],sizes:[25,25,25,25]},{panes:['study','pdf'],sizes:[100]},{panes:['study','pdf'],sizes:[15,85]},{panes:['study','pdf'],sizes:[40,50]},{panes:['unknown'],sizes:[100]},{panes:['study'],sizes:[NaN]}]){assert.throws(()=>prefs.update({workspaceLayout} as never));assert.equal(store.setting('preferences'),before);}

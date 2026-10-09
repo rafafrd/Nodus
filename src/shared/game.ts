@@ -2,6 +2,7 @@ import { z } from 'zod';
 import type { EconomyView } from './economy';
 import { PRODUCERS, PERMANENT } from './economy-content';
 import type { Amount } from './amount';
+import type { Farm, ProjectQuote } from './farm';
 const ids = (items: {id:string}[]) => items.map(v=>v.id) as [string,...string[]];
 const economicInteger = z.union([z.number().int().positive().max(Number.MAX_SAFE_INTEGER),z.string().regex(/^[1-9][0-9]{0,1099}$/)]);
 export const CITY_SKINS = [{ id:'original',name:'Vale Sereno',description:'Casas, jardins e luz natural.' },{ id:'cyberpunk',name:'Cyberpunk',description:'Torres, néon e infraestrutura futurista.' },{ id:'newyork',name:'New York',description:'Brownstones, avenidas e skyline urbano.' }] as const;
@@ -42,14 +43,17 @@ export type Round = { id: string; difficulty: 'easy' | 'normal' | 'hard'; cards:
 export const ENGINE_MAX_LEVEL = 10;
 export const enginePower = (level: number) => 1 + level * 2;
 export const engineCost = (level: number) => level >= ENGINE_MAX_LEVEL ? null : Math.ceil(25 * 1.8 ** level);
-export type Engine = { level: number; clicks: number; lastClickAt: number; lastGain?:number };
+export type Engine = { level: number; clicks: number; lastClickAt: number; lastGain?:Amount };
 export type Challenge = { id: string; kind: 'qte' | 'skillcheck'; pace: 'relaxed' | 'normal'; status: 'active' | 'paused' | 'completed' | 'failed'; stage: number; hits: number; sequence: ('A' | 'S' | 'D' | 'W')[]; targets: number[]; stepAt: number; stepMs: number; zone: number; coins: Amount; xp: number; readyAt?:number; startedAt?:number; pausedAt?:number; misses?:number; version?:number };
 export const challengeTotal=(c:Challenge)=>c.sequence.length;
 export const challengeReadyAt=(c:Challenge)=>c.readyAt??c.stepAt;
 export const challengePhase=(c:Challenge)=>Math.min(3,1+Math.floor(c.stage/12));
 export function skillPosition(now: number, stepAt: number, period: number) { const phase = Math.max(0, now - stepAt) % period / period; return phase < .5 ? phase * 200 : (1 - phase) * 200; }
-export type GameState = { skin:typeof CITY_SKINS[number]['id']; economy:EconomyView; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: Amount; round: Round | null; engine: Engine & { power: number; upgradeCost: number | null }; challenge: Challenge | null; recent: { action: string; coins: Amount; xp: number; at: number }[] };
+export type GameState = { skin:typeof CITY_SKINS[number]['id']; economy:EconomyView; farm:Farm & {objective:ProjectQuote|null;reinvestment:{kind:'installation'|'upgrade';id:string;name:string;benefit:string;cost:Amount}|null}; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; level: number; build: Build; className: string; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; gatheredAt: number; now: number; passiveCoins: Amount; round: Round | null; engine: Engine & { power: Amount; budget:Amount; remaining:Amount; referenceRate:Amount; upgradeCost: number | null }; challenge: Challenge | null; recent: { action: string; coins: Amount; xp: number; at: number }[] };
 export const gameAction = z.discriminatedUnion('kind', [
+  z.strictObject({kind:z.literal('farm-build'),project:z.enum(['depot','forest-post','mine-post'])}),
+  z.strictObject({kind:z.literal('farm-target'),project:z.enum(['forest-post','mine-post'])}),
+  z.strictObject({kind:z.literal('farm-collect'),station:z.enum(['forest-post','mine-post'])}),
   z.strictObject({kind:z.literal('skin'),value:z.enum(['original','cyberpunk','newyork'])}),
   z.strictObject({kind:z.literal('producer-buy'),producer:z.enum(ids(PRODUCERS)),quantity:z.union([z.literal(1),z.literal(10),z.literal(100),z.literal('max')])}),
   z.strictObject({kind:z.literal('economy-upgrade'),id:z.string().min(1).max(64)}),
