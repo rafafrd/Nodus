@@ -1,5 +1,14 @@
 # Validação da aplicação alpha
 
+## DOC-01 — README e demonstrações
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): main/PR13/código/package/evidências conferidos |
+| C2 | aprovado | [README_SHOWCASE](README_SHOWCASE.md):10prints de fixtures/9badges/alt/recursos válidos |
+| C3 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): GitHub real/3SVGs/12tabelas/5âncoras/430px/claro-escuro |
+| C4 | aprovado | [README_SHOWCASE](README_SHOWCASE.md): scripts/stack/bootstrap/diff/Gitleaks, commits/push e PR14 para main |
+
 Execução real do MVP local em 02/10/2026. Resultados atuais e histórico por critério abaixo; provas externas permanecem não verificadas. Validação do pacote documental está em BOOTSTRAP.md e não aprova a aplicação.
 
 Para cada execução, registre data, sistema, versão/build, fixture/conta, comando ou roteiro, resultado observado e evidência. Use aprovado, falhou ou não verificado. Registre limitações Windows, serviços reais e consulta com PC desligado separadamente.

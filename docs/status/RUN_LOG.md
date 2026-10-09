@@ -1,5 +1,11 @@
 # Diário de execução da alpha
 
+## 07/10/2026 — DOC-01, README para main
+
+Branch codex/readme-showcase de main/c95aabd, árvore limpa, PR13 mantido separado/aberto. README reformulado como apresentação do produto com catálogo atual,10prints reais de fixtures,9badges Shields.io,3Mermaid,12tabelas/divs compatíveis, início Windows/scripts/stack e pendências explícitas.16/305/284 conferidos no código. Recursos HEAD200/alt/locais e API GFM200 aprovados; Edge154.0.4258.62 em página GitHub real aprovou19imagens,3SVGs visíveis,5âncoras,1440×1000/430×932/claro-escuro/galeria aberta e ausência de overflow global. Seis capturas finais inspecionadas e relatórios públicos em README_SHOWCASE. Falhas dos verificadores corrigidas sem alteração de produto; capturas com details de Mermaid indevidamente abertos foram descartadas.
+
+e6d7e18/ff11163 commitados/enviados/upstream. [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main/draft=false/anexo no chat, descrição/diagramas/badges e prints fixados no commit de prova. Stages documentais40.705/17.922bytes, diff/Gitleaks8.30.1 sem achados/bootstrap26tickets/170critérios/120Markdown/510links aprovados. Auth API via helper Git configurado somente em memória; nenhuma configuração global/credencial escrita. C1–C4 aprovados, DOC-01 done; checkpoint final conserva README/assets renderizados. Nenhuma fonte/dependência/lockfile/build/teste do app alterada/repetida; sem merge/release. Próxima ação humana: revisar/integrar PR14; status da IA externa acompanha PR13.
+
 Estado inicial: nenhum ticket implementado. Este arquivo registra checkpoints reais de execução; não preencha datas, comandos, testes ou resultados que não ocorreram.
 
 ## Formato de entrada
