@@ -1,0 +1,66 @@
+{
+  "badges": 9,
+  "screenshots": 10,
+  "localHtmlTargets": 14,
+  "navigationAnchors": 5,
+  "tables": 12,
+  "mermaidBlocks": 3,
+  "gfmApiStatus": 200,
+  "resources": [
+    {
+      "url": "https://img.shields.io/badge/Electron-44.5.1-47848f?style=flat-square&logo=electron&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/IA_externa-PR_13_em_revis%C3%A3o-9a7951?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/Node.js-24-536255?style=flat-square&logo=nodedotjs&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/React-19.3-497f8b?style=flat-square&logo=react&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/SQLite-local-74716a?style=flat-square&logo=sqlite&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/TypeScript-5.9.3-46688c?style=flat-square&logo=typescript&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/Windows-validado-536255?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/dados-locais-536255?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://img.shields.io/badge/est%C3%A1gio-MVP_local-74716a?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rafafrd/Nodus/6396e3246ac342027df86437d1458b190693c53a/docs/validation/evidence/external-activities/prompt.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rafafrd/Nodus/6396e3246ac342027df86437d1458b190693c53a/docs/validation/evidence/external-activities/results.png",
+      "status": 200,
+      "type": "image/png"
+    }
+  ]
+}
