@@ -43,9 +43,10 @@ export function useNote(setError: (message: string) => void) {
     if (!result.ok) { setError(result.message); setStatus('Erro ao salvar · rascunho preservado'); return; }
     if (result.value.state === 'conflict') { setConflict(result.value.external); setStatus('Conflito · duas versões preservadas'); return; }
     const saved = result.value.document;
-    if (current.current.doc?.ref.id !== doc.ref.id) return;
+    if (current.current.doc?.ref.id !== doc.ref.id) return null;
     if (current.current.text === text) load(saved);
     else { setDoc(saved); current.current.doc = saved; setStatus('Edição pendente'); await stash(); }
+    return saved;
   }
   useEffect(() => {
     if (!doc) return;
@@ -75,5 +76,5 @@ export function useNote(setError: (message: string) => void) {
     setDoc(next); current.current.doc = next; setConflict(null); setStatus('Revisão manual · salve para confirmar'); void stash();
   }
   function clear() { current.current = { doc: null, text: '' }; hasDraft.current = false; setDoc(null); setText(''); setStatus(''); setConflict(null); }
-  return { doc, text, status, conflict, load, stash, change, save, useFile, keepMine, clear };
+  return { doc, text, status, conflict, load, stash, change, save, useFile, keepMine, clear,snapshot:()=>current.current };
 }

@@ -1,0 +1,26 @@
+{
+  "platform": "win32",
+  "fixture": "<workspace>\\.local\\notes-ux-dHpEdC",
+  "checks": [
+    "Nota em um clique/foco imediato; título sugerido/editável; modelo e fonte completa preservam identidade; busca encontra rascunho pelo corpo.",
+    "Conexão e cartão por seleção, formulário curto; seleção real no PDF e inserção com página/versão; prática abre PDF pré-selecionado.",
+    "Momento de aula reutilizado; mudança de matéria conserva nota/cartão/relação; grafo mostra conexões antigas; abas/divisões e menu em1040×760.",
+    "Reinício conserva dados/abas; primeiro uso real prepara pasta isolada, matéria e nota sem formulário de título.",
+    "Captura sem nota cria arquivo real; comentário do PDF reutilizado e fonte volta à página2; edição mostra nome/página enquanto Markdown conserva UUID/hash; quatro novos canais negam outra janela e move rejeita hash inválido."
+  ],
+  "errors": [],
+  "screenshots": [
+    ".local\\evidence\\notes-ux\\writing.png",
+    ".local\\evidence\\notes-ux\\search.png",
+    ".local\\evidence\\notes-ux\\pdf-selection.png",
+    ".local\\evidence\\notes-ux\\captured.png",
+    ".local\\evidence\\notes-ux\\practice.png",
+    ".local\\evidence\\notes-ux\\video-note.png",
+    ".local\\evidence\\notes-ux\\moved.png",
+    ".local\\evidence\\notes-ux\\compact.png",
+    ".local\\evidence\\notes-ux\\restart.png",
+    ".local\\evidence\\notes-ux\\capture-new-note.png",
+    ".local\\evidence\\notes-ux\\first-use.png",
+    ".local\\evidence\\notes-ux\\first-note.png"
+  ]
+}

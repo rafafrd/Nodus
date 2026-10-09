@@ -8,9 +8,9 @@ export const workspaceLayout = z.strictObject({
 export type WorkspaceLayout = z.infer<typeof workspaceLayout>;
 export const defaultWorkspace:WorkspaceLayout={panes:['study'],sizes:[100]};
 export const WORKSPACE_AREAS:{id:WorkspaceArea;name:string}[]=[
-  {id:'study',name:'Caderno'},{id:'pdf',name:'PDF'},{id:'video',name:'Vídeo'},
-  {id:'home',name:'Hoje'},{id:'review',name:'Revisão'},{id:'graph',name:'Grafo'},
-  {id:'explorer',name:'Explorer'},{id:'city',name:'Cidade'},{id:'settings',name:'Ajustes'},
+  {id:'study',name:'Caderno'},{id:'pdf',name:'PDFs'},{id:'video',name:'Aulas'},
+  {id:'home',name:'Início'},{id:'review',name:'Revisão'},{id:'graph',name:'Conexões'},
+  {id:'explorer',name:'Projetos'},{id:'city',name:'Cidade'},{id:'settings',name:'Ajustes'},
 ];
 
 export const MODULE_DRAG_TYPE = 'application/x-nodus-module';

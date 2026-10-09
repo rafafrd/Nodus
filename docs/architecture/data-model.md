@@ -65,6 +65,8 @@ UI-06 acrescenta `settings.preferences.sidebarCollapsed`, booleano com default f
 
 ## IA-01 — Snapshot e atividade local (schema7)
 
+UX-01 conserva schema7. settings.recentNotes guarda até 30 IDs abertos; leitura ordena notas da matéria por esse histórico. Mover nota exige hash atual/rascunho salvo e troca notes.subject_id/frontmatter study_subject, conservando ID/caminho/corpo. Transação remove referências antigas de desks; falha restaura o arquivo. Cartões/marcações/snapshots conservam coleções históricas; abertura resolve matéria atual e relações incluem endpoints movidos. Importação externa copia com criação exclusiva, transação de catálogo e remoção da cópia em falha. Busca lê notas registradas/rascunhos sob demanda, sem varredura de pastas externas. [ADR-0018](../adr/0018-notas-e-navegacao.md).
+
 | Tabela | Conteúdo e vínculo |
 | --- | --- |
 | activity_snapshots | ID/matéria/pacote JSON imutável/criação; apenas fontes selecionadas/hash/blocos |
@@ -74,3 +76,5 @@ UI-06 acrescenta `settings.preferences.sidebarCollapsed`, booleano com default f
 | quiz_sessions | Atividade/escolhas/versão/início/fim; guarda tentativas anteriores |
 
 Migração7 adiciona tabelas sem reset. Importação inclui atividade,10cartões e audit na mesma transação. Resposta inválida pode permanecer como rascunho do pedido, nunca como atividade pronta. Conteúdo diferente cria revisão distinta; replay encontra a mesma atividade. Sessões exigem vínculo da matéria/versão e só expõem gabarito após finalizar. O limite do trecho/explicação no contrato existente de cartões passa de2.000para4.000caracteres para preservar atividades válidas; o agendamento/economia permanecem iguais. Backup manifest usa user_version real e aceita5/6/7. [Contrato](../contracts/study-activity-v1.md).
+
+GAM-05 mantém SQLite7. `game_player.state.farm` armazena IDs permanentes de construção/preferência e postos `{stock,carryMs,settledAt}`. Perfis anteriores recebem campos vazios com baseline do main; prestígio conserva o objeto inteiro. `economy.motorEarned` e `engine.lastGain` passam a Amount (`number|string`) junto das cotações `budget/remaining/referenceRate/power`. Ledger/operações existentes registram custo material/recolhimento atômico e replay; inventário continua inteiro seguro. Backup real conserva postos e frações. [ADR-0019](../adr/0019-projetos-e-postos-da-farm.md).

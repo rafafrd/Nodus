@@ -32,7 +32,9 @@
     "test:clean-workspace": "tsx scripts/smoke-clean-workspace.ts",
     "test:study-tabs": "tsx scripts/smoke-study-tabs.ts",
     "test:deep-economy": "tsx scripts/smoke-deep-economy.ts --packaged",
-    "simulate:economy": "tsx scripts/simulate-economy.ts"
+    "simulate:economy": "tsx scripts/simulate-economy.ts",
+    "simulate:farm": "tsx scripts/simulate-farm.ts",
+    "test:farm": "tsx scripts/smoke-farm.ts"
   },
   "build": {
     "appId": "local.appestudos.desktop",

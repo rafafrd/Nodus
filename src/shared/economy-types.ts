@@ -18,7 +18,7 @@ export type Economy = {
   study:{ focus:Record<string,number>; reviewCursor:number; baselineAt:number; lastDay:string; streak:number; dayMinutes:number; dayReviews:number; builds:string[] };
   signals:EventInstance[]; activeEvents:EventInstance[]; nextSignalAt:number; eventSerial:number;
   unlocks:string[]; returnReport?:{ elapsedMs:number; producedMs?:number; credited:Amount; capped:boolean; signals:number; milestones:number; at:number };
-  motorDay?:string; motorEarned?:number; legacyCredit?:Amount; legacyPrestige?:Amount;
+  motorDay?:string; motorEarned?:Amount; legacyCredit?:Amount; legacyPrestige?:Amount;
 };
 export type EconomicContext = { clicks:number; level:number; millRate:number; build:Record<'focus'|'review'|'planning'|'practice',number>; now:number; focusActive?:boolean };
 export type FamilyBreakdown = { id:string; base:Amount; tiers:Amount; synergy:Amount; total:Amount; individual:Amount; share:number; level:number; activeUpgrades:string[]; partners:string[] };

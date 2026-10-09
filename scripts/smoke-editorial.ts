@@ -47,7 +47,7 @@ try {
   await page.locator('canvas[data-rendered-page="2"]').waitFor();
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'editorial');
   await shot('desk');
-  await page.getByRole('button',{name:'Abrir Hoje',exact:true}).click(); await ready('home');
+  await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
   await page.getByRole('heading',{name:'Hoje',exact:true}).waitFor();
   await page.getByText('Implementar busca binária e comparar custos',{exact:true}).waitFor();
   await shot('today');
@@ -72,7 +72,7 @@ try {
   await page.getByRole('button',{name:'Aparência',exact:true}).click();
   await shot('appearance');
   await page.getByRole('button',{name:/^Oliva/}).click(); await page.waitForFunction(()=>document.documentElement.dataset.theme==='olive');
-  await page.getByRole('button',{name:'Abrir Hoje',exact:true}).click(); await ready('home');
+  await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
   await page.getByRole('heading',{name:'Seu dia, com espaço para estudar.',exact:true}).waitFor(); await shot('original-theme');
   await page.getByRole('button',{name:'Abrir configurações',exact:true}).click(); await ready('settings');
   await page.getByRole('button',{name:/^Editorial/}).click(); await page.waitForFunction(()=>document.documentElement.dataset.theme==='editorial');
@@ -83,13 +83,13 @@ try {
   await page.getByRole('button',{name:'Entrar na cidade',exact:true}).click(); await ready('city');
   await page.locator('canvas[data-ready=true]').waitFor(); await shot('city');
   await dimensions(1040,760);
-  await page.getByRole('button',{name:'Abrir Hoje',exact:true}).click(); await ready('home'); await shot('compact-today');
+  await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home'); await shot('compact-today');
   await page.getByRole('button',{name:'Abrir Explorer',exact:true}).click(); await ready('explorer');
   await page.getByRole('button',{name:'Visão geral dos projetos',exact:true}).click(); await shot('compact-projects');
   await page.getByRole('button',{name:'Abrir configurações',exact:true}).click(); await ready('settings'); await shot('compact-appearance');
   for(const selector of ['.settings-workspace','.settings-themes']) { const bounds=await page.locator(selector).boundingBox(); assert.ok(bounds&&bounds.x+bounds.width<=1040); }
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.getByRole('button',{name:'Abrir Hoje',exact:true}).click(); await ready('home');
+  await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
   await page.getByRole('button',{name:'Retomar mesa',exact:false}).click(); await ready('study');
   await page.locator('canvas[data-rendered-page="2"]').waitFor(); await shot('compact-desk');
   assert.deepEqual(fs.readFileSync(path.join(directory,'vault',note.path)),originalNote);

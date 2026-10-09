@@ -1,0 +1,27 @@
+{
+  "platform": "win32",
+  "fixture": "C:\\Users\\Rafael\\Documents\\Programação\\Projetos\\Nodus\\.local\\notes-ux-7XNJEA",
+  "checks": [
+    "Nota em um clique/foco imediato; título sugerido/editável; modelo e fonte completa preservam identidade; busca encontra rascunho pelo corpo.",
+    "Conexão e cartão por seleção, formulário curto; seleção real no PDF e inserção com página/versão; prática abre PDF pré-selecionado.",
+    "Momento de aula reutilizado; mudança de matéria conserva nota/cartão/relação; grafo mostra conexões antigas; abas/divisões e menu em1040×760.",
+    "Reinício conserva dados/abas; primeiro uso real prepara pasta isolada, matéria e nota sem formulário de título.",
+    "Captura sem nota cria arquivo real; comentário do PDF reutilizado e fonte volta à página2; edição mostra nome/página enquanto Markdown conserva UUID/hash; quatro novos canais negam outra janela e move rejeita hash inválido."
+  ],
+  "errors": [],
+  "localScreenshotNames": [
+    "writing.png",
+    "search.png",
+    "pdf-selection.png",
+    "captured.png",
+    "practice.png",
+    "video-note.png",
+    "moved.png",
+    "compact.png",
+    "restart.png",
+    "capture-new-note.png",
+    "first-use.png",
+    "first-note.png"
+  ],
+  "captureNote": "Regression captures retained in ignored .local; new UI gallery persisted here."
+}

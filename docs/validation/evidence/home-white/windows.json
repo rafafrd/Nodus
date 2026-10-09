@@ -1,0 +1,67 @@
+{
+  "at": "2026-10-09T09:10:42.090Z",
+  "platform": "win32",
+  "packaged": true,
+  "fixture": "isolated generated study content; no personal data",
+  "checks": [
+    "Home/contexto/atalhos reais; fundo WebGL avança, hover transforma cartão e posição do canvas permanece idêntica na rolagem.",
+    "Branco escolhido nos Ajustes e aplicado ao conteúdo/caderno/PDF/revisão/conexões/projetos/cidade; rascunho, reduzido, desligado, minimização e área oculta preservados.",
+    "Restart conserva tema branco, Home ativa e rascunho; Markdown original permanece intacto.",
+    "Perda real de WebGL conserva Home e navegação.",
+    "Perfil novo inicia na Home e Escrever agora prepara pasta/matéria/nota pelo fluxo real."
+  ],
+  "metrics": {
+    "entrance": [
+      {
+        "opacity": 0.9767,
+        "transform": "matrix(1, 0, 0, 1, 0, 0.4197)"
+      },
+      {
+        "opacity": 0.9383,
+        "transform": "matrix(1, 0, 0, 1, 0, 1.1112)"
+      },
+      {
+        "opacity": 0.865,
+        "transform": "matrix(1, 0, 0, 1, 0, 2.43)"
+      },
+      {
+        "opacity": 0.7403,
+        "transform": "matrix(1, 0, 0, 1, 0, 4.674)"
+      },
+      {
+        "opacity": 0.5445,
+        "transform": "matrix(1, 0, 0, 1, 0, 8.1994)"
+      },
+      {
+        "opacity": 0.2544,
+        "transform": "matrix(1, 0, 0, 1, 0, 13.4204)"
+      },
+      {
+        "opacity": 0,
+        "transform": "matrix(1, 0, 0, 1, 0, 18)"
+      }
+    ],
+    "frames": 13,
+    "codeKeyword": "rgb(113, 71, 128)"
+  },
+  "errors": [],
+  "graphicsErrors": [],
+  "screenshots": [
+    "home-editorial.png",
+    "home-rolagem.png",
+    "tema-branco-ajustes.png",
+    "home-branca.png",
+    "conteudo-branco.png",
+    "caderno-branco.png",
+    "pdf-branco.png",
+    "aulas-brancas.png",
+    "revisao-branca.png",
+    "conexoes-brancas.png",
+    "projetos-brancos.png",
+    "cidade-branca.png",
+    "editor-projeto-branco.png",
+    "home-branca-compacta.png",
+    "home-primeiro-uso.png"
+  ],
+  "clip": "fundo-home.webm"
+}

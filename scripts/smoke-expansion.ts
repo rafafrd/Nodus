@@ -47,7 +47,7 @@ try {
         assert.equal(cards.value[0].noteId, fixture.noteA.ref.id);
         assert.ok(cards.value[0].dueAt > Date.now());
     }
-    await page.getByRole('button', { name: 'Abrir Hoje', exact: true }).click();
+    await page.getByRole('button', { name: 'Abrir início', exact: true }).click();
     await ready('home');
     await page.locator('[data-area="home"]').getByText('Revisar equações hoje', { exact: true }).waitFor();
     await page.screenshot({ path: '.local/evidence/expansion-today.png' });

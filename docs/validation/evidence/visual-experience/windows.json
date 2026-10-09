@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-09T05:08:02.677Z",
+  "platform": "win32",
+  "packaged": true,
+  "fixture": "generated study content, isolated material/clock seeds; native picker selection not verified",
+  "checks": [
+    "Hoje usa checklist existente; botão abre matéria e ferramenta. Livro 3D movimenta e fica estático com movimento reduzido.",
+    "Painel reutiliza escrita com título automático, aula salva e PDF real; seleção do diálogo nativo é fixture explícita.",
+    "Três skins, construção com partículas confirmadas, água e postos em movimento, modo reduzido, minimização e área oculta; janela1040×760.",
+    "Perda real de contexto WebGL conserva ferramentas e motor.",
+    "Primeiro uso pelo Hoje prepara pasta isolada, cria matéria e abre nota sem formulário adicional."
+  ],
+  "metrics": {
+    "book": {
+      "drawCalls": "52",
+      "renderedFramesPerSecond": 31
+    },
+    "city": {
+      "drawCalls": "468",
+      "triangles": "7919",
+      "renderedFramesPerSecond": 30.833333333333336
+    }
+  },
+  "errors": [],
+  "graphicsErrors": [],
+  "clips": [
+    "ideias-3d.webm",
+    "cidade-viva.webm"
+  ],
+  "screenshots": [
+    "caderno.png",
+    "hoje.png",
+    "adicionar-conteudo.png",
+    "aulas.png",
+    "pdf.png",
+    "acervo.png",
+    "projeto-em-construcao.png",
+    "construcao-3d.png",
+    "cidade-valeserene.png",
+    "cidade-cyberpunk.png",
+    "cidade-newyork.png",
+    "hoje-compacto.png",
+    "tema-olive.png",
+    "tema-midnight.png",
+    "tema-graphite.png",
+    "cidade-compacta.png",
+    "primeiro-uso.png",
+    "primeira-nota.png"
+  ]
+}

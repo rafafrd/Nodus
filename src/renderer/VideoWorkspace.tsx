@@ -1,3 +1,4 @@
+import type { NoteCapture } from '../shared/note-content';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent, type PointerEvent } from 'react';
 import { gsap } from 'gsap';
 import type { Subject } from '../shared/contracts';
@@ -31,11 +32,11 @@ export function useVideos(options: Options) {
   useEffect(() => { function key(event: globalThis.KeyboardEvent) { if (event.key === 'Escape' && currentMode.current === 'cinema' && !document.querySelector('dialog[open]')) { event.preventDefault(); escape(); } } window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key); }, [escape]);
   function cinema() { if (mode !== 'cinema') { priorMode.current = mode; setMode('cinema'); } else escape(); }
   async function close() { const r = await window.desktop.closeVideoPlayer(); if (!r.ok) current.current.onError(r.message); }
-  async function open(item: StudyVideo) {
+  async function open(item: StudyVideo,seconds?:number) {
     if (mutating.current) return; mutating.current = true; setBusy(true);
     openedMoment.current=null;
     try {
-      const r = await window.desktop.openVideoPlayer({ subjectId: item.subjectId, id: item.id });
+      const r = seconds===undefined?await window.desktop.openVideoPlayer({ subjectId: item.subjectId, id: item.id }):await window.desktop.openVideoAt({subjectId:item.subjectId,id:item.id,seconds});
       if (!r.ok) { current.current.onError(r.message); return; }
       setVideo(item); if (current.current.subject?.id === item.subjectId) setOwner(current.current.subject.name); setState(r.value); setMode('inline');
       if (current.current.subject?.id === item.subjectId) await current.current.select(item.id);
@@ -66,8 +67,9 @@ export function useVideos(options: Options) {
   return { items, video, owner, mode, state, slot, busy, error, selectedId: options.selectedId, setSlot, open, openMoment, retry:()=>openedMoment.current?openMoment(openedMoment.current):video?open(video):Promise.resolve(), add, remove, cinema, escape, close, returnToDesk, pip: () => setMode('pip') };
 }
 type Controller = ReturnType<typeof useVideos>;
-export function VideoLibrary({ controller: v }: { controller: Controller }) {
+export function VideoLibrary({ controller: v,onCapture,onPractice,addRequest }: { controller: Controller;addRequest?:string|null;onCapture?(capture:NoteCapture):void;onPractice?(id:string):void }) {
   const [adding, setAdding] = useState(false), [url, setUrl] = useState(''), [title, setTitle] = useState('');
+  useEffect(()=>{if(addRequest)setAdding(true);},[addRequest]);
   async function submit(event: FormEvent) { event.preventDefault(); if (await v.add(url, title)) { setAdding(false); setUrl(''); setTitle(''); } }
   const selected = v.items.find(item => item.id === v.selectedId);
   return <div className="video-library">
@@ -75,17 +77,17 @@ export function VideoLibrary({ controller: v }: { controller: Controller }) {
     <div className="video-inline-slot" ref={v.setSlot} data-testid="video-inline-slot"><div className="video-placeholder"><Icon kind="video"/><strong>{selected?.title ?? 'Uma aula, perto das suas notas.'}</strong><p>Salve um link e abra o player para assistir.</p>{selected && <button className="primary" disabled={v.busy} onClick={() => v.open(selected)}><Icon kind="play"/> Abrir player</button>}{!selected && <button onClick={() => setAdding(true)}>+ Adicionar vídeo</button>}</div></div>
     <nav className="video-list" aria-label="Vídeos salvos">{v.items.map(item => <div key={item.id} className={v.selectedId === item.id ? 'selected' : ''}><button disabled={v.busy} onClick={() => v.open(item)} aria-label={`Assistir ${item.title}`}><Icon kind="play"/><span><strong>{item.title}</strong><small>YouTube{item.startSeconds ? ` · início em ${Math.floor(item.startSeconds / 60)}:${String(item.startSeconds % 60).padStart(2, '0')}` : ''}</small></span></button><button className="video-remove" disabled={v.busy} onClick={() => v.remove(item)} aria-label={`Remover link ${item.title}`} title="Remover link salvo"><Icon kind="close"/></button></div>)}</nav>
     <p className="video-network-hint">Os links ficam no PC. Abrir o player conecta ao YouTube e requer internet.</p>
-    {selected&&<VideoMoments video={selected} open={v.openMoment}/>}
+    {selected&&<><button onClick={()=>onPractice?.(selected.id)}>Praticar este material</button><VideoMoments video={selected} open={v.openMoment} onCapture={onCapture}/></>}
     {adding && <MotionDialog title="Salvar vídeo do YouTube" close={() => setAdding(false)}>{requestClose => <form onSubmit={submit}><label>Link do YouTube<input autoFocus required maxLength={2048} type="text" aria-label="Link do YouTube" placeholder="https://www.youtube.com/watch?v=…" value={url} onChange={e => setUrl(e.target.value)}/></label><label>Título para seus estudos<input maxLength={160} aria-label="Título do vídeo" placeholder="Ex.: Aula de álgebra" value={title} onChange={e => setTitle(e.target.value)}/></label><p className="video-dialog-hint">Links de vídeos, Shorts e transmissões. O tempo inicial do link é conservado.</p>{v.error && <p role="alert">{v.error}</p>}<div className="dialog-buttons"><button type="button" onClick={requestClose}>Cancelar</button><button type="submit" className="primary" disabled={v.busy}>Salvar link</button></div></form>}</MotionDialog>}
   </div>;
 }
 type Rect = { x: number; y: number; width: number; height: number };
-function VideoMoments({video,open}:{video:StudyVideo;open(moment:VideoMoment):Promise<void>}){
+function VideoMoments({video,open,onCapture}:{video:StudyVideo;open(moment:VideoMoment):Promise<void>;onCapture?(capture:NoteCapture):void}){
   const [items,setItems]=useState<VideoMoment[]>([]),[time,setTime]=useState('0:00'),[text,setText]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false);const guard=useRef(false),current=useRef(video.id);current.current=video.id;
   useEffect(()=>{let stopped=false;setItems([]);setError('');void window.desktop.listVideoMoments({subjectId:video.subjectId,videoId:video.id}).then(r=>{if(!stopped){if(r.ok)setItems(r.value);else setError(r.message);}});return()=>{stopped=true;};},[video.id]);
   async function add(e:FormEvent){e.preventDefault();const seconds=clockSeconds(time);if(seconds===null){setError('Use minutos:segundos ou horas:minutos:segundos, até 24 horas.');return;}if(guard.current)return;guard.current=true;setBusy(true);setError('');try{const r=await window.desktop.addVideoMoment({subjectId:video.subjectId,videoId:video.id,seconds,text});if(current.current!==video.id)return;if(r.ok){setItems(v=>[...v,r.value].sort((a,b)=>a.seconds-b.seconds));setText('');}else setError(r.message);}finally{guard.current=false;setBusy(false);}}
   async function remove(item:VideoMoment){if(guard.current)return;guard.current=true;setBusy(true);try{const r=await window.desktop.removeVideoMoment({subjectId:item.subjectId,videoId:item.videoId,id:item.id});if(current.current!==video.id)return;if(r.ok)setItems(v=>v.filter(i=>i.id!==item.id));else setError(r.message);}finally{guard.current=false;setBusy(false);}}
-  return <section className="video-moments"><h3>Momentos da aula</h3><p>Anote o tempo mostrado no vídeo e uma ideia para retomar depois.</p><form onSubmit={add}><label>Tempo<input aria-label="Tempo do momento" value={time} onChange={e=>setTime(e.target.value)} maxLength={12} placeholder="12:30" required/></label><label>Sua anotação<textarea aria-label="Anotação do momento" value={text} onChange={e=>setText(e.target.value)} maxLength={2000} required/></label><button disabled={busy} className="primary">Guardar momento</button></form>{error&&<p role="alert">{error}</p>}{items.map(item=><div className="moment-row" key={item.id}><button disabled={busy} onClick={()=>open(item)} aria-label={`Abrir momento ${clockLabel(item.seconds)}`}><b>{clockLabel(item.seconds)}</b><span>{item.text}</span></button><button disabled={busy} onClick={()=>remove(item)} aria-label={`Remover momento ${clockLabel(item.seconds)}`}><Icon kind="close"/></button></div>)}</section>;
+  return <section className="video-moments"><h3>Momentos da aula</h3><p>Anote o tempo mostrado no vídeo e uma ideia para retomar depois.</p><form onSubmit={add}><label>Tempo<input aria-label="Tempo do momento" value={time} onChange={e=>setTime(e.target.value)} maxLength={12} placeholder="12:30" required/></label><label>Sua anotação<textarea aria-label="Anotação do momento" value={text} onChange={e=>setText(e.target.value)} maxLength={2000} required/></label><button disabled={busy} className="primary">Guardar momento</button></form>{error&&<p role="alert">{error}</p>}{items.map(item=><div className="moment-row" key={item.id}>{onCapture&&<button onClick={()=>onCapture({subjectId:video.subjectId,text:item.text,source:{kind:'video',id:video.id,title:video.title,seconds:item.seconds}})}>Adicionar à nota</button>}<button disabled={busy} onClick={()=>open(item)} aria-label={`Abrir momento ${clockLabel(item.seconds)}`}><b>{clockLabel(item.seconds)}</b><span>{item.text}</span></button><button disabled={busy} onClick={()=>remove(item)} aria-label={`Remover momento ${clockLabel(item.seconds)}`}><Icon kind="close"/></button></div>)}</section>;
 }
 const HEADER = 44, FOOTER = 28;
 function clampPip(position: { x: number; y: number }, size: { width: number; height: number }) {

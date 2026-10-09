@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { gsap } from 'gsap';
-import { formatAmount } from '../shared/amount';
+import { dec, formatAmount, type Amount } from '../shared/amount';
 import { motionPreference } from './preferences';
 import { workspaceRects, type WorkspaceTab } from '../shared/workspace';
 
@@ -27,6 +27,7 @@ export function AreaStage({ active, layout, children }: { active: string; layout
     function complete() {
       layers.forEach(el => {
         const selected = shown.includes(el.dataset.area!);
+        el.dataset.present = String(selected);
         gsap.set(el, { autoAlpha: selected ? 1 : 0, x: 0, scale: 1, clearProps: 'willChange' });
         el.inert = !selected; el.setAttribute('aria-hidden', String(!selected));
       });
@@ -34,6 +35,7 @@ export function AreaStage({ active, layout, children }: { active: string; layout
     }
     function start() {
       observer?.disconnect();
+      layers.filter(el=>shown.includes(el.dataset.area!)).forEach(el=>{el.dataset.present='true';});
       if (reduced || layers.length === 1 || layers.every(el => shown.includes(el.dataset.area!) ? Number(gsap.getProperty(el, 'opacity')) === 1 : Number(gsap.getProperty(el, 'opacity')) === 0)) { complete(); return; }
       stage.dataset.motion = 'transitioning';
       if (Number(gsap.getProperty(incoming, 'opacity')) === 0) gsap.set(incoming, { x: 18 * direction, scale: .995 });
@@ -116,7 +118,7 @@ export function AnimatedNumber({ value, testId }: { value: import('../shared/amo
   return <strong ref={element} data-testid={testId} data-value={value}>{value === undefined ? '—' : formatAmount(value)}</strong>;
 }
 
-export function MotorGain({ id, coins }: { id: number; coins: number }) {
+export function MotorGain({ id, coins }: { id: number; coins: Amount }) {
   const ref = useRef<HTMLSpanElement>(null), reduced = useReducedMotion();
   useLayoutEffect(() => {
     const el = ref.current; if (!el || !id) return;
@@ -124,5 +126,5 @@ export function MotorGain({ id, coins }: { id: number; coins: number }) {
     const context = gsap.context(() => gsap.fromTo(el, { autoAlpha: 1, y: reduced ? 0 : 8 }, { autoAlpha: 0, y: reduced ? 0 : -22, duration: reduced ? .8 : .95, ease: 'power2.out', delay: reduced ? .3 : .08 }));
     return () => context.revert();
   }, [id, reduced]);
-  return <span ref={ref} className="engine-gain" data-testid="engine-gain" aria-hidden="true">{id ? coins?`+${coins}`:'Pulso' : ''}</span>;
+  return <span ref={ref} className="engine-gain" data-testid="engine-gain" aria-hidden="true">{id && dec(coins).gt(0) ? `+${formatAmount(coins)}` : ''}</span>;
 }

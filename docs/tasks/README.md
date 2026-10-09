@@ -1,5 +1,16 @@
 # Quadro de tarefas
 
+Incremento atual: [UX-03 — Home animada e tema Branco](done/UX-03.md), concluído localmente em codex/home-white. Início com próxima ação/atalhos, componentes animados e fundo WebGL de posição fixa; quinto tema persistente. Typecheck/83 testes/pacote Windows/jornadas Home/Notas/Abas/MVP aprovados. [Relatório com fotos/clipe](../reports/HOME_BRANCO_2026-10-09.md), [provas](../validation/HOME_WHITE.md). UX-02/UX-01/GAM-05/DOC-01 preservados, sem commit/push/publicação. Avaliação humana de GAM-05/C8 continua pendente.
+
+Incremento anterior: [UX-02 — Clareza e animação 3D](done/UX-02.md), concluído localmente em codex/visual-experience. Próxima ação no Hoje, entrada comum de conteúdo e acabamento Three.js; 82 testes, pacote Windows e sete jornadas aprovados. [Relatório de bom dia](../reports/BOM_DIA_2026-10-09.md), [provas](../validation/VISUAL_EXPERIENCE.md). UX-01/GAM-05/DOC-01 preservados, sem commit/push/publicação. Avaliação humana de GAM-05/C8 continua pendente.
+
+Incremento anterior: [GAM-05 — Projetos e automação da farm](doing/GAM-05.md), entregue tecnicamente na branch local codex/farm-projects. C1–C7 aprovados,81testes/pacote Windows/jornadas; UX-01/DOC-01 preservados. Sem commit/push/publicação. Doing/parcial por C8: avaliação leiga pendente; próxima ação é o [roteiro humano](../validation/FARM_PROJECTS.md).
+
+Incremento anterior: [UX-01 — Escrita simples e navegação](done/UX-01.md), concluído localmente em codex/notes-navigation. Nova nota imediata, organização, captura com origem e menu intuitivo dentro dos módulos existentes;76testes/pacote/jornadas Windows aprovados. [Provas e limites](../validation/NOTES_UX.md). Sem commit/push/publicação; próximo passo: usar a build e avaliar compreensão com um usuário leigo.
+
+Apresentação preservada: [DOC-01](done/DOC-01.md), conforme entrega documental anterior da branch codex/readme-showcase. [Prova](../validation/README_SHOWCASE.md).
+
+Incremento anterior: [IA-01 — Atividades por IA externa](done/IA-01.md), concluído na branch codex/external-study-activities. Fluxo completo de fontes/prompt/correção/importação/prática com snapshots/revisões persistentes; C1–C10 aprovados em [prova Windows](../validation/atividades-ia-externa.md). Após pedido posterior, implementação6396e32 enviada e [PR #13](https://github.com/rafafrd/Nodus/pull/13) aberto para main com11prints/3Mermaid/6badges. Próxima ação: revisão humana do PR; nenhuma release/serviço publicado. UI-06/UI-05/GAM-04 preservados.
 Incremento atual: [DOC-01 — README e demonstrações](done/DOC-01.md), concluído na branch codex/readme-showcase de main/c95aabd. C1–C4 aprovados:10prints/9badges/3Mermaid/divs/12tabelas, recursos e apresentação GitHub real. e6d7e18/ff11163 enviados, [PR #14](https://github.com/rafafrd/Nodus/pull/14) aberto para main. Apenas documentação/apresentação; IA externa conserva status em revisão do PR13. Próxima ação humana: revisar/integrar PR14.
 
 Incremento anterior: [UI-06 — Menu lateral recolhível e indicador discreto](done/UI-06.md), concluído na branch codex/study-tabs/PR12. UI-05/GAM-04 preservados. [Prova Windows](../validation/SIDEBAR.md).

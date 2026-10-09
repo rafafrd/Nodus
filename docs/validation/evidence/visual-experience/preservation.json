@@ -1,0 +1,280 @@
+{
+  "at": "2026-10-09T05:25:13.791Z",
+  "baselineAt": "2026-10-09T04:33:07.760Z",
+  "branch": "codex/visual-experience",
+  "baselineFiles": 115,
+  "unchangedBaselineFiles": 100,
+  "changedBaselineFiles": [
+    "docs/tasks/doing/UX-02.md",
+    "src/renderer/FarmScene.ts",
+    "README.md",
+    "docs/GUIA_DE_USO.md",
+    "docs/adr/README.md",
+    "docs/status/ALPHA_STATE.md",
+    "docs/status/RUN_LOG.md",
+    "docs/tasks/README.md",
+    "docs/validation/ALPHA.md",
+    "gotcha.md",
+    "src/renderer/ActivityRail.tsx",
+    "src/renderer/App.tsx",
+    "src/renderer/CityScene.tsx",
+    "src/renderer/VideoWorkspace.tsx",
+    "src/renderer/motion.tsx"
+  ],
+  "movedTaskFiles": {
+    "docs/tasks/doing/UX-02.md": "docs/tasks/done/UX-02.md"
+  },
+  "criticalUnchangedFiles": [
+    "docs/validation/evidence/farm-projects/all-projects.png",
+    "docs/validation/evidence/farm-projects/choose-mine.png",
+    "docs/validation/evidence/farm-projects/compact-project.png",
+    "docs/validation/evidence/farm-projects/compact-stocks.png",
+    "docs/validation/evidence/farm-projects/depot-complete.png",
+    "docs/validation/evidence/farm-projects/journey.json",
+    "docs/validation/evidence/farm-projects/manifest.json",
+    "docs/validation/evidence/farm-projects/mine-complete.png",
+    "docs/validation/evidence/farm-projects/motor-floor.png",
+    "docs/validation/evidence/farm-projects/motor-last-pulse.png",
+    "docs/validation/evidence/farm-projects/motor-rest.png",
+    "docs/validation/evidence/farm-projects/next-depot.png",
+    "docs/validation/evidence/farm-projects/notes-ux.json",
+    "docs/validation/evidence/farm-projects/offline-full.png",
+    "docs/validation/evidence/farm-projects/package.json",
+    "docs/validation/evidence/farm-projects/projects-cyberpunk.png",
+    "docs/validation/evidence/farm-projects/projects-newyork.png",
+    "docs/validation/evidence/farm-projects/projects-original.png",
+    "docs/validation/evidence/farm-projects/reinvestment.png",
+    "docs/validation/evidence/farm-projects/simulation.json",
+    "docs/validation/evidence/farm-projects/stocks-ready.png",
+    "docs/validation/evidence/farm-projects/windows.json",
+    "docs/validation/evidence/notes-ux/capture-new-note.png",
+    "docs/validation/evidence/notes-ux/captured.png",
+    "docs/validation/evidence/notes-ux/compact.png",
+    "docs/validation/evidence/notes-ux/external-activities-results.json",
+    "docs/validation/evidence/notes-ux/first-note.png",
+    "docs/validation/evidence/notes-ux/first-use.png",
+    "docs/validation/evidence/notes-ux/journey-results.json",
+    "docs/validation/evidence/notes-ux/moved.png",
+    "docs/validation/evidence/notes-ux/package.json",
+    "docs/validation/evidence/notes-ux/pdf-selection.png",
+    "docs/validation/evidence/notes-ux/practice.png",
+    "docs/validation/evidence/notes-ux/restart.png",
+    "docs/validation/evidence/notes-ux/results.json",
+    "docs/validation/evidence/notes-ux/search.png",
+    "docs/validation/evidence/notes-ux/unit-final.txt",
+    "docs/validation/evidence/notes-ux/video-note.png",
+    "docs/validation/evidence/notes-ux/videos-results.json",
+    "docs/validation/evidence/notes-ux/writing.png",
+    "docs/validation/evidence/readme/diagram.png",
+    "docs/validation/evidence/readme/gallery.png",
+    "docs/validation/evidence/readme/header.png",
+    "docs/validation/evidence/readme/light.png",
+    "docs/validation/evidence/readme/mobile-gallery.png",
+    "docs/validation/evidence/readme/mobile.png",
+    "docs/validation/evidence/readme/resources.json",
+    "docs/validation/evidence/readme/result.json",
+    "src/shared/farm.ts",
+    "src/shared/motor.ts",
+    "src/shared/note-content.ts",
+    "package.json",
+    "src/main/activity-sources.ts",
+    "src/main/game.ts",
+    "src/main/index.ts",
+    "src/main/study.ts",
+    "src/main/vault.ts",
+    "src/preload/index.ts",
+    "src/renderer/NoteEditor.tsx",
+    "src/renderer/PdfAnnotations.tsx",
+    "src/renderer/PdfPane.tsx",
+    "src/renderer/useNote.ts",
+    "src/shared/contracts.ts",
+    "src/shared/economy-balance.ts",
+    "src/shared/economy-types.ts",
+    "src/shared/game.ts",
+    "src/shared/videos.ts",
+    "src/shared/workspace.ts"
+  ],
+  "stageEmpty": true,
+  "sourceHashes": [
+    {
+      "file": "src/main/activity-sources.ts",
+      "sha256": "25878fc532eda4ed877d41e68960c34352c90b6d9a5c1b7c97a9a09adeb10ad1"
+    },
+    {
+      "file": "src/main/game.ts",
+      "sha256": "253841cabd0a7a0f094170adf08b59742b1f43fe229f16ab0f06f27787071209"
+    },
+    {
+      "file": "src/main/index.ts",
+      "sha256": "6fb7df67ef09c2e6d0addd7742a2f66975a78312d65cd3e06dbf8cc30614cf0a"
+    },
+    {
+      "file": "src/main/study.ts",
+      "sha256": "f4798241a302e78364129c5ad6a552fea390aa928f512dc06358e68f66ba9286"
+    },
+    {
+      "file": "src/main/vault.ts",
+      "sha256": "348015809919a9285972d723f5e5f94db0ab99d21361eef5deb9587a5f0d707d"
+    },
+    {
+      "file": "src/preload/index.ts",
+      "sha256": "c99490a4ed5d285d439730c4268028df9eca914d7943c7b870ac125c404aebcf"
+    },
+    {
+      "file": "src/renderer/ActivitiesWorkspace.tsx",
+      "sha256": "46d6601cc864bd2f35e9bc8a776eafaf570bfd5f99140391480c55476fceeb52"
+    },
+    {
+      "file": "src/renderer/ActivityRail.tsx",
+      "sha256": "5eb90e8f3d642fc44557dbf14bf35af781be49a32dd7c3dde4113c21e0bf6c5e"
+    },
+    {
+      "file": "src/renderer/App.tsx",
+      "sha256": "2fc13de75a87d339a4d95f28d683eae6d7bf34fd013c5e9f15eb88834e43cf4e"
+    },
+    {
+      "file": "src/renderer/CityEffects.ts",
+      "sha256": "ca1d5c6eb6e95017463c69f6092e6fecb531600aad9b4e221e304a3bac7c28a3"
+    },
+    {
+      "file": "src/renderer/CityScene.tsx",
+      "sha256": "6fdf1e5c4a1afc5bf7c3c0f9dd20b3c5104bbb9d822204be2a174a0433b0093e"
+    },
+    {
+      "file": "src/renderer/CommandPalette.tsx",
+      "sha256": "9a55be31db9e5f03441d41c7d945d55ba449963ef7871c484c46ec727139b4dd"
+    },
+    {
+      "file": "src/renderer/ContentShelf.tsx",
+      "sha256": "3e0ce1d88a92f9b7ec76f2a20e82495f68c139b3074b93634a10302a0f62ad25"
+    },
+    {
+      "file": "src/renderer/DayOverview.tsx",
+      "sha256": "66f2b4f41ceaaf2dac850c39fd6b61eda164bd388c4e910ba0e2cddffbdf8785"
+    },
+    {
+      "file": "src/renderer/EconomyWorkspace.tsx",
+      "sha256": "7a1a84f4a9d451b811756f68cccee374512e951c87cb59036c75f1a9063954bc"
+    },
+    {
+      "file": "src/renderer/EngineButton.tsx",
+      "sha256": "0ca354cddf4c02f367211b3711da9d0d8bccf974417822c7cda79be4dd1917f0"
+    },
+    {
+      "file": "src/renderer/FarmProjects.tsx",
+      "sha256": "9c6eb89a5c1a9f9c076aac0104e7db5296337b5849971d6c934ed0f76e5b9744"
+    },
+    {
+      "file": "src/renderer/FarmScene.ts",
+      "sha256": "ea239d50e8ea191480e11e32f9c1e2a22ead6298d6d3d8f59e5e6f5b74ed044c"
+    },
+    {
+      "file": "src/renderer/FlashcardsWorkspace.tsx",
+      "sha256": "2840714c2063a4af507039945062a4f7e4968663a680619c2319c8e356b5098f"
+    },
+    {
+      "file": "src/renderer/GameView.tsx",
+      "sha256": "bce64b29b3735931464221d4f613bbac4c5b52552e34b108750de178d96f80b7"
+    },
+    {
+      "file": "src/renderer/GraphWorkspace.tsx",
+      "sha256": "011842efdff23aea585488746b2cdd04198f8c2401cafd21bd81a4c5d71e733f"
+    },
+    {
+      "file": "src/renderer/NoteEditor.tsx",
+      "sha256": "f213f4fecbb161ec343d17417744e3b6679e1d2ff7560deae07bc01487e9ec32"
+    },
+    {
+      "file": "src/renderer/PdfAnnotations.tsx",
+      "sha256": "65b20eabf8ae5a3ca7b85a33cb42997b98a10e14f930564b7923cc83f565b84c"
+    },
+    {
+      "file": "src/renderer/PdfPane.tsx",
+      "sha256": "0e616b45d510a97e960a90daf9f4a5d187102c17641506177fb30d46957a084e"
+    },
+    {
+      "file": "src/renderer/ProductionDistrict.ts",
+      "sha256": "690bbba17aa9fddccc390abd9e0cef9bcac34c334b2c19263dc2155aa3195bfb"
+    },
+    {
+      "file": "src/renderer/ProjectWorkspace.tsx",
+      "sha256": "7d70e3df73c9516dbc1cde2764545551614ec3c5107ee24874da2d408bdd865c"
+    },
+    {
+      "file": "src/renderer/StudySculpture.tsx",
+      "sha256": "251b597d196fc9e718118ebf557014b7075d933b21878156b074aba225743088"
+    },
+    {
+      "file": "src/renderer/TodayWorkspace.tsx",
+      "sha256": "50e08044140fd78de947c4e61fd84e5091c27e805c81593805638e4e1e74ce8e"
+    },
+    {
+      "file": "src/renderer/UrbanScene.ts",
+      "sha256": "3379dd72f87ee392605927efb7ab1a1596f9ec31b99f20079dc0960298a4f98c"
+    },
+    {
+      "file": "src/renderer/VideoWorkspace.tsx",
+      "sha256": "51b9948f9195cee6afbb919beff1fadefb1bf0c2efd56484321095d01c468655"
+    },
+    {
+      "file": "src/renderer/experience.css",
+      "sha256": "6dca1a4db72ddd187713d43aa060461e725f1515a9fbd31afa33c9d7c8e5eedd"
+    },
+    {
+      "file": "src/renderer/game.css",
+      "sha256": "f966fb1663fc29e90f1d43e1cbc4746aa3f5f17eefe8f94294f97ce764d445e6"
+    },
+    {
+      "file": "src/renderer/motion.tsx",
+      "sha256": "3f5b6fb32d19ff0ce237458ca35733c3178a502742bca085d5b599352c61085c"
+    },
+    {
+      "file": "src/renderer/notes-ux.css",
+      "sha256": "b8dac138381207236b7d4f17ee53b2d99fe3bee393e36bde1afee9e426597b5e"
+    },
+    {
+      "file": "src/renderer/useNote.ts",
+      "sha256": "ccace00350c20d07e1dc5d4d1ef89fa8db37d0bf06e936bc91387e65aecee2e9"
+    },
+    {
+      "file": "src/shared/contracts.ts",
+      "sha256": "f324cf293b81336550ecc109eee85266933f6234fd018b71bcf6956553646ece"
+    },
+    {
+      "file": "src/shared/economy-balance.ts",
+      "sha256": "3a8d3fc9fcc558cbcbf589a1e66c773963f75ca819740c390ee141abe3490886"
+    },
+    {
+      "file": "src/shared/economy-types.ts",
+      "sha256": "0ebd3a4bda6e99ddffaaedecc440720e7ca38ecf0dca118d0a19b6685988ddf4"
+    },
+    {
+      "file": "src/shared/farm.ts",
+      "sha256": "db7f8b9c3bda91dbe5bcea568843c2a952517d4bb36756a3c7207373d2084a73"
+    },
+    {
+      "file": "src/shared/game.ts",
+      "sha256": "f191ba1de2b3a70089dbaa24cefc97dd01fac2eea195a228c2a142fd847b6861"
+    },
+    {
+      "file": "src/shared/motor.ts",
+      "sha256": "db72362ae541d67ade2d57e864a83d6652ce5a366864bc8cd93094b0a0b026ce"
+    },
+    {
+      "file": "src/shared/note-content.ts",
+      "sha256": "593ed3db4a61bae7cb7ae89d26603ce62eb76e8b965bb09393f35224ef84ddeb"
+    },
+    {
+      "file": "src/shared/study-navigation.ts",
+      "sha256": "8c09155fc7f8fac4f1a2a8ca7357c3d5336156d55ebd1994000d0b5a3720e9f4"
+    },
+    {
+      "file": "src/shared/videos.ts",
+      "sha256": "4f1e988687143b5269b7a1f47508f487e925a7a05d37e39f0c5963524828360f"
+    },
+    {
+      "file": "src/shared/workspace.ts",
+      "sha256": "e7cdaaebce26252fc29adae4f16a2f8686a1255f303a88baf8a96fd1f9502431"
+    }
+  ]
+}

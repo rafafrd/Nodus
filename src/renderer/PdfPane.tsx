@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy } from 'pdfjs-dist';
+import { getDocument, GlobalWorkerOptions, TextLayer, type PDFDocumentProxy } from 'pdfjs-dist';
+import type { NoteCapture } from '../shared/note-content';
 import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import type { Material } from '../shared/contracts';
 import { Icon } from './Icon';
 import { PdfAnnotations } from './PdfAnnotations';
 GlobalWorkerOptions.workerSrc = workerUrl;
-export function PdfPane({ material, page, onPage, onLocate,noteId,onNote }: { material: Material; page: number; onPage(page: number): void; onLocate(): void;noteId:string|null;onNote(id:string):void }) {
+export function PdfPane({ material, page, onPage, onLocate,noteId,onNote,onCapture }: { material: Material; page: number; onPage(page: number): void; onLocate(): void;noteId:string|null;onNote(id:string):void;onCapture?(capture:NoteCapture):void }) {
+  const textHost=useRef<HTMLDivElement>(null),[selected,setSelected]=useState('');
   const [fingerprint,setFingerprint]=useState('');
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
   const [error, setError] = useState(''); const [rendered, setRendered] = useState(0); const [pageText, setPageText] = useState('');
@@ -31,7 +33,7 @@ export function PdfPane({ material, page, onPage, onLocate,noteId,onNote }: { ma
   useEffect(() => { setInput(String(page)); }, [page]);
   useEffect(() => {
     if (!pdf || !canvas.current || width < 20 || page < 1 || page > pdf.numPages) return;
-    let stopped = false; let cancel = () => {}; setRendered(0);
+    let stopped = false; let cancel = () => {};let layer:TextLayer|null=null; setRendered(0);setSelected('');setPageText('');
     void (async () => {
       try {
         const sheet = await pdf.getPage(page); if (stopped || !canvas.current) return;
@@ -41,13 +43,17 @@ export function PdfPane({ material, page, onPage, onLocate,noteId,onNote }: { ma
         element.width = Math.ceil(viewport.width * dpr); element.height = Math.ceil(viewport.height * dpr); element.style.width = `${viewport.width}px`; element.style.height = `${viewport.height}px`;
         const task = sheet.render({ canvas: element, canvasContext: element.getContext('2d')!, viewport, transform: [dpr, 0, 0, dpr, 0, 0] }); cancel = () => task.cancel(); await task.promise;
         if (stopped) return; setRendered(page);
-        const text = await sheet.getTextContent(); if (!stopped) setPageText(text.items.map(item => 'str' in item ? item.str : '').join(' ').slice(0, 100000));
+        const text = await sheet.getTextContent(); if (!stopped) {
+          setPageText(text.items.map(item => 'str' in item ? item.str : '').join(' ').slice(0, 100000));
+          if(textHost.current){textHost.current.replaceChildren();textHost.current.style.setProperty('--total-scale-factor',String(viewport.scale));textHost.current.style.setProperty('--scale-factor',String(viewport.scale));textHost.current.style.width=viewport.width+'px';textHost.current.style.height=viewport.height+'px';layer=new TextLayer({textContentSource:text,container:textHost.current,viewport});await layer.render();}
+        }
       } catch { if (!stopped) setError('Não foi possível renderizar esta página do PDF.'); }
     })();
-    return () => { stopped = true; cancel(); };
+    return () => { stopped = true; cancel();layer?.cancel(); };
   }, [pdf, page, width, height, fitPage]);
   function go(value: number) { if (pdf && Number.isInteger(value) && value >= 1 && value <= pdf.numPages) onPage(value); else setInput(String(page)); }
+  function captureText(){if(!selected||!onCapture)return;onCapture({subjectId:material.subjectId,text:selected,source:{kind:'pdf',id:material.id,title:material.name,page,fingerprint}});}
   return <div className="pdf-reader"><div className="pdf-controls"><button className="previous-page" aria-label="Página anterior" title="Página anterior" disabled={!pdf || page <= 1} onClick={() => go(page - 1)}><Icon kind="arrow"/></button><span className="page-number"><input type="number" min="1" max={pdf?.numPages ?? 1} aria-label="Página do PDF" value={input} onChange={e => setInput(e.target.value)} onBlur={() => go(Number(input))} onKeyDown={e => { if (e.key === 'Enter') go(Number(input)); }}/> / <span data-testid="pdf-pages">{pdf?.numPages ?? '—'}</span></span><button aria-label="Próxima página" title="Próxima página" disabled={!pdf || page >= pdf.numPages} onClick={() => go(page + 1)}><Icon kind="arrow"/></button><span className="pdf-control-divider"/><button className={fitPage ? 'selected' : ''} aria-label={fitPage ? 'Ajustar largura' : 'Ajustar página'} aria-pressed={fitPage} title={fitPage ? 'Ajustar à largura' : 'Ver a página inteira'} onClick={() => setFitPage(v => !v)}><Icon kind={fitPage ? 'collapse' : 'expand'}/></button><button aria-label="Localizar PDF" title="Localizar PDF" onClick={onLocate}><Icon kind="folder"/></button></div>
-    <div ref={host} className="pdf-scroll">{error ? <div className="pdf-error" role="alert"><p>{error}</p><button onClick={onLocate}>Localizar arquivo novamente</button></div> : <><PdfAnnotations material={material} fingerprint={fingerprint} page={page} ready={rendered===page} noteId={noteId} onPage={onPage} onNote={onNote}><canvas ref={canvas} aria-label={`Página ${page} do PDF ${material.name}`} data-rendered-page={rendered}/></PdfAnnotations>{rendered === 0 && <p className="pdf-loading">Carregando página…</p>}<p className="sr-only" data-testid="pdf-text">{pageText}</p></>}</div>
+    <div className="pdf-capture-actions"><span>{selected?`${selected.length} caracteres selecionados`:rendered!==page?'Carregando texto da página…':pageText?'Selecione um trecho do PDF para levar à nota.':'PDF sem texto disponível nesta página; use uma marcação com comentário.'}</span><button disabled={!selected||!onCapture} onClick={captureText}>{noteId?'Adicionar à nota':'Criar nota do trecho'}</button></div><div ref={host} className="pdf-scroll">{error ? <div className="pdf-error" role="alert"><p>{error}</p><button onClick={onLocate}>Localizar arquivo novamente</button></div> : <><PdfAnnotations material={material} fingerprint={fingerprint} page={page} ready={rendered===page} noteId={noteId} onPage={onPage} onNote={onNote} onCapture={onCapture}><canvas ref={canvas} aria-label={`Página ${page} do PDF ${material.name}`} data-rendered-page={rendered}/><div ref={textHost} className="textLayer" aria-label="Texto selecionável do PDF" onMouseUp={()=>{const selection=window.getSelection();if(selection?.anchorNode&&textHost.current?.contains(selection.anchorNode))setSelected(selection.toString().slice(0,10000));}}/></PdfAnnotations>{rendered === 0 && <p className="pdf-loading">Carregando página…</p>}<p className="sr-only" data-testid="pdf-text">{pageText}</p></>}</div>
   </div>;
 }

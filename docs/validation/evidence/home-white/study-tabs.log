@@ -1,0 +1,14 @@
+CAPTURE single
+CAPTURE drag-preview
+CAPTURE three
+CAPTURE four
+CAPTURE limit
+CAPTURE resized
+CAPTURE compact
+CAPTURE tabs
+CAPTURE player-drag
+CAPTURE restart
+Nove subitens laterais, nenhum seletor no topo; arraste real com prévia e teclado adicionam janelas; três painéis com esquerda inteira.
+Grade 2×2, limite de quatro e foco sem duplicação; divisores por mouse/setas; viewport 1040×760; abas por clique/setas/Ctrl+T/W/Tab/1 e isolamento da composição.
+Player oficial real carrega inline, não intercepta drag/resize e conserva o mesmo WebContents ao trocar de aba/PiP.
+Reinício conserva abas/divisores/foco, PDF2, rascunhos de nota/projeto e foco pausado; todas as fontes intactas; movimento reduzido; nenhum pageerror.

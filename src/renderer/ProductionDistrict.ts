@@ -15,11 +15,15 @@ export function createProductionDistrict() {
   mesh(building,cube,light,0,1,.87,1.05,.13,.04);mesh(building,cube,stone,-.45,.36,.91,.25,.6,.08);
   if(family.visual==='lab')mesh(building,orb,shell,0,2.05,0,.7,.5,.7);
   if(family.visual==='energy')mesh(building,cube,light,.45,2.05,-.4,.15,.8,.15);
-  if(family.visual==='orbit'||family.visual==='cosmic'){const antenna=mesh(building,ring,light,0,2.4,0,1.4,1.4,1.4);antenna.rotation.x=Math.PI/4;mesh(building,orb,shell,0,2.4,0,.22,.22,.22);}
-  return{group,building};
+  let antenna:T.Mesh|null=null;
+  if(family.visual==='orbit'||family.visual==='cosmic'){antenna=mesh(building,ring,light,0,2.4,0,1.4,1.4,1.4);antenna.rotation.x=Math.PI/4;mesh(building,orb,shell,0,2.4,0,.22,.22,.22);}
+  const beacon=mesh(building,orb,light,-.45,2.04,-.45,.065,.065,.065);
+  return{group,building,antenna,beacon};
  });
- let signature='';
- return{root,objects:root.getObjectsByProperty('type','Mesh').length,update(state:GameState){
+ let signature='',time=0;
+ return{root,objects:root.getObjectsByProperty('type','Mesh').length,update(state:GameState,delta=0,motion=false){
+  if(motion)time+=delta;
+  modules.forEach((module,i)=>{if(module.antenna&&motion&&module.group.visible)module.antenna.rotation.y+=delta*.18;module.beacon.scale.setScalar(motion?1+Math.sin(time*1.6+i)*.18:1);});
   const levels=PRODUCERS.map(p=>BALANCE.visualMilestones.filter(n=>(state.economy.producers[p.id]??0)>=n).length),key=state.skin+levels.join(':');if(key===signature)return;signature=key;
   root.visible=levels.some(Boolean);shell.color.set(state.skin==='cyberpunk'?'#36425c':state.skin==='newyork'?'#9b7560':'#9caaa6');light.color.set(state.skin==='cyberpunk'?'#83d9e0':'#d2d9c7');light.emissive.copy(light.color);stone.color.set(state.skin==='cyberpunk'?'#283146':'#6e7978');
   modules.forEach((module,i)=>{module.group.visible=levels[i]>0;module.building.scale.y=1+Math.max(0,levels[i]-1)*.26;module.group.userData.level=levels[i];});

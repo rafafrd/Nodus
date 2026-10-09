@@ -5,6 +5,7 @@ export type StudyVideo = { id: string; subjectId: string; title: string; youtube
 export type VideoPlayerState = { id: string | null; state: 'closed' | 'loading' | 'ready' | 'error'; message: string };
 export const videoAddInput = z.strictObject({ subjectId: idSchema, url: z.string().trim().min(1).max(2048), title: z.string().trim().max(160) });
 export const videoRefInput = z.strictObject({ subjectId: idSchema, id: idSchema });
+export const videoAtInput=videoRefInput.extend({seconds:z.number().int().min(0).max(86400)});
 export const videoLayoutInput = z.strictObject({ visible: z.boolean(), x: z.number().int().min(0).max(20000), y: z.number().int().min(0).max(20000), width: z.number().int().min(0).max(20000), height: z.number().int().min(0).max(20000) });
 export const youtubeIdInput = z.string().regex(/^[A-Za-z0-9_-]{11}$/);
 

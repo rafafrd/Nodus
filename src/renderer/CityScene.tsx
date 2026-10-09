@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 import { Icon } from './Icon';
 import { createUrbanScene } from './UrbanScene';
 import { createProductionDistrict } from './ProductionDistrict';
+import { createFarmScene } from './FarmScene';
+import {createCityEffects} from './CityEffects';
 
 export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
@@ -30,7 +32,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       let renderer: InstanceType<typeof T.WebGLRenderer>;
       try { renderer = new T.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'low-power' }); }
       catch { setError('O cenário 3D não pôde ser aberto. As ferramentas ao lado continuam disponíveis.'); live.current.onReady(); return; }
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
       renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
       renderer.domElement.setAttribute('aria-label', 'Cidade isométrica, selecione um local pelos botões'); renderer.domElement.dataset.testid = 'city-canvas'; element.prepend(renderer.domElement);
       const scene = new T.Scene(); scene.background = new T.Color('#bacbc7');
@@ -111,8 +113,9 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       }
       for (const z of [-5.6, .4]) { for (let i = 0; i < 7; i++) box(scene, '#dfd2ae', 1.2 + i * .7, .69, z, .08, .82, .08); box(scene, '#c7b994', 3.3, .89, z, 4.7, .08, .08); }
       // Trees, orchard, rock face and mine entrance.
+      const trees:InstanceType<typeof T.Group>[]=[];
       function tree(x: number, z: number, size: number, evergreen = false) {
-        const g = group(x, z); box(g, '#867151', 0, .65 * size, 0, .17 * size, 1.3 * size, .17 * size);
+        const g = group(x, z);trees.push(g); box(g, '#867151', 0, .65 * size, 0, .17 * size, 1.3 * size, .17 * size);
         if (evergreen) { mesh(g, cone, '#4e7962', 0, 1.5 * size, 0, .8 * size, 1.65 * size, .8 * size); mesh(g, cone, '#678a67', 0, 2.1 * size, 0, .62 * size, 1.3 * size, .62 * size); }
         else { mesh(g, sphere, '#8b9e65', 0, 1.6 * size, 0, .91 * size, 1 * size, .87 * size); mesh(g, sphere, '#a0ac75', -.3 * size, 1.8 * size, .12 * size, .68 * size, .8 * size, .7 * size); }
       }
@@ -143,6 +146,8 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       // Live plants and citizens are shared, so changing a skin cannot reset growth or identity.
       for(const object of [...cropGroups,...citizens])scene.add(object);
       const urban=createUrbanScene();scene.add(urban.newyork,urban.cyberpunk);
+      const farmProjects=createFarmScene();scene.add(farmProjects.root);
+      const effects=createCityEffects();scene.add(effects.root);
       const ringGeo = new T.RingGeometry(1.65, 1.73, 40); geometries.add(ringGeo); const ringMaterial = new T.MeshBasicMaterial({ color: '#fff3a2', transparent: true, opacity: .8, side: T.DoubleSide });
       const selection = new T.Mesh(ringGeo, ringMaterial); selection.rotation.x = -Math.PI / 2; selection.position.y = .5; scene.add(selection);
       const hitTargets: InstanceType<typeof T.Mesh>[] = []; const hitMaterial = new T.MeshBasicMaterial({ visible: false });
@@ -153,7 +158,8 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const pointerUp = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) < 6) { const place = hit(e); if (place) live.current.onSelect(place); } };
       const pointerMove = (e: PointerEvent) => { renderer.domElement.style.cursor = hit(e) ? 'pointer' : 'grab'; };
       renderer.domElement.addEventListener('pointerdown', pointerDown); renderer.domElement.addEventListener('pointerup', pointerUp); renderer.domElement.addEventListener('pointermove', pointerMove);
-      const reduced = motionPreference(); let frame = 0, last = 0, ready = false, animationTime = 0, lastAnimation = 0;
+      const reduced = motionPreference(); let frame = 0, last = 0, ready = false, animationTime = 0, lastAnimation = 0,frames=0,minimized=false,contextLost=false,lastShadow=0,shadowKey='';
+      const canDraw=()=>live.current.active&&!document.hidden&&!minimized&&!contextLost;
       const cameraPose = { x: 0, z: 0, zoom: 1 };
       const applyCamera = () => { orbit.target.set(cameraPose.x, .3, cameraPose.z); camera.position.set(28 + cameraPose.x, 28, 34 + cameraPose.z); camera.zoom = cameraPose.zoom; camera.updateProjectionMatrix(); orbit.update(); restart(); };
       function moveCamera(x: number, z: number, zoom: number) {
@@ -167,7 +173,7 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       controls.current = { zoom: amount => moveCamera(orbit.target.x, orbit.target.z, Math.max(.75, Math.min(2.2, camera.zoom + amount))), reset: () => moveCamera(0, 0, 1),production:()=>moveCamera(18,0,1.1) };
       function draw(now: number) {
         frame = 0;
-        if (live.current.active && !document.hidden && (reduced.matches || gsap.isTweening(cameraPose) || now - last >= 33)) {
+        if (canDraw() && (reduced.matches || gsap.isTweening(cameraPose) || now - last >= 33)) {
           last = now; const { state: s, selected } = live.current; mill.visible = s.owned.includes('windmill'); millFoundation.visible = !mill.visible; cottage.visible = s.owned.includes('cottage'); lanterns.visible = s.owned.includes('lanterns');
           purchasedFountain.visible=s.owned.includes('fountain');benches.visible=s.owned.includes('benches');greenhouse.visible=s.owned.includes('greenhouse');const sky=s.atmosphere==='night'?'#182b36':s.atmosphere==='dawn'?'#c6c5c3':'#bacbc7';(scene.background as InstanceType<typeof T.Color>).set(sky);ambient.intensity=s.atmosphere==='night'?.65:1.9;sun.intensity=s.atmosphere==='night'?.8:s.atmosphere==='dawn'?2.2:3.2;sun.color.set(s.atmosphere==='dawn'?'#edc3be':s.atmosphere==='night'?'#9fbcd8':'#ffe3bd');
           engine.scale.setScalar(1 + s.engine.level * .025);
@@ -181,11 +187,12 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
             ambient.intensity=cyber?.95:night?.75:1.7;sun.intensity=cyber?1.25:night?.75:2.8;sun.color.set(cyber?'#99b7ef':night?'#9fb7d6':dawn?'#e6b99d':'#f2dcc3');
             (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(cyber?'#111e30':night?'#263e53':'#678b9d');
           }
-          urban.update(s,delta,!reduced.matches);district.update(s);renderer.domElement.dataset.installationObjects=String(district.objects);renderer.domElement.dataset.installationLevels=district.root.children.filter(v=>v.name.startsWith('installation-')).map(v=>v.userData.level??0).join(',');
-          if (!reduced.matches) { animationTime += delta; wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
+          urban.update(s,delta,!reduced.matches);district.update(s,delta,!reduced.matches);farmProjects.update(s,delta,!reduced.matches);effects.update(s,delta,!reduced.matches);renderer.domElement.dataset.farmProjects=farmProjects.root.children.filter(v=>v.visible&&v.name!=='project-blueprint').map(v=>v.name).join(',');renderer.domElement.dataset.installationObjects=String(district.objects);renderer.domElement.dataset.installationLevels=district.root.children.filter(v=>v.name.startsWith('installation-')).map(v=>v.userData.level??0).join(',');
+          if (!reduced.matches) { animationTime += delta; if(Number(s.engine.power)>0)wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; trees.forEach((g,i)=>{g.rotation.z=Math.sin(animationTime*.8+i*.9)*.018;});citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
-          renderer.render(scene, camera);
+          const nextShadow=[s.skin,s.atmosphere,s.engine.level,s.owned.join(','),s.farm.built.join(','),Object.values(s.economy.producers).join(',')].join(':');if(nextShadow!==shadowKey||!reduced.matches&&now-lastShadow>1000){renderer.shadowMap.needsUpdate=true;lastShadow=now;shadowKey=nextShadow;}
+          renderer.render(scene, camera);renderer.domElement.dataset.frames=String(++frames);renderer.domElement.dataset.effectsTime=effects.time.toFixed(3);renderer.domElement.dataset.emitting=String(effects.emitting);renderer.domElement.dataset.farmWorking=String(farmProjects.working);renderer.domElement.dataset.motion=reduced.matches?'still':'running';renderer.domElement.dataset.drawCalls=String(renderer.info.render.calls);renderer.domElement.dataset.triangles=String(renderer.info.render.triangles);
           PLACES.forEach((p, i) => { const projected = new T.Vector3(p.x, p.id === 'mine' ? 3.7 : 3, p.z).project(camera); const label = labels.current[i]; if (label) { label.style.left = `${(projected.x * .5 + .5) * element.clientWidth}px`; label.style.top = `${(-projected.y * .5 + .5) * element.clientHeight}px`; label.style.visibility = projected.x < -1 || projected.x > 1 || projected.y < -1 || projected.y > 1 ? 'hidden' : 'visible'; } });
           renderer.domElement.dataset.ready = 'true';
           renderer.domElement.dataset.engineLevel = String(s.engine.level);
@@ -193,16 +200,18 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
           renderer.domElement.dataset.targetX = String(orbit.target.x); renderer.domElement.dataset.targetZ = String(orbit.target.z); renderer.domElement.dataset.zoom = String(camera.zoom);
           if (!ready) { ready = true; live.current.onReady(); }
         }
-        if (live.current.active && !document.hidden && !reduced.matches) frame = requestAnimationFrame(draw);
+        if (canDraw() && !reduced.matches) frame = requestAnimationFrame(draw);
       }
-      function restart() { if (!live.current.active || document.hidden) { cancelAnimationFrame(frame); frame = 0; lastAnimation = 0; gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; return; } if (!frame) frame = requestAnimationFrame(draw); }
+      function restart() { if (!canDraw()) {renderer.domElement.dataset.motion='paused'; cancelAnimationFrame(frame); frame = 0; lastAnimation = 0; gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; return; } if (!frame) frame = requestAnimationFrame(draw); }
+      const onLost=(event:Event)=>{event.preventDefault();contextLost=true;restart();setError('O cenário 3D foi interrompido. Use os objetivos, locais e ferramentas para continuar.');};renderer.domElement.addEventListener('webglcontextlost',onLost);
+      const removeWindow=window.desktop.onWindowState(s=>{minimized=s.minimized;restart();});void window.desktop.getWindowState().then(r=>{if(!stopped&&r.ok){minimized=r.value.minimized;restart();}});
       redraw.current = restart; orbit.addEventListener('change', restart);
       const observer = new ResizeObserver(() => { const width = Math.max(1, element.clientWidth), height = Math.max(1, element.clientHeight), aspect = width / height; camera.left = -15 * aspect; camera.right = 15 * aspect; camera.updateProjectionMatrix(); renderer.setSize(width, height); restart(); }); observer.observe(element);
       const stopForPreference = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; restart(); };
       const stopForGesture = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; };
       orbit.addEventListener('start', stopForGesture);
       document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', stopForPreference); restart();
-      cleanup = () => { focus.current = () => {}; redraw.current = () => {}; gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); district.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
+      cleanup = () => { focus.current = () => {}; redraw.current = () => {};removeWindow();renderer.domElement.removeEventListener('webglcontextlost',onLost); gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); district.dispose(); farmProjects.dispose();effects.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
     }).catch(() => { if (!stopped) { setError('Não foi possível carregar o cenário.'); live.current.onReady(); } });
     return () => { stopped = true; cleanup(); };
   }, []);

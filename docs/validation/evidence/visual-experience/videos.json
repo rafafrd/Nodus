@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-09T05:14:13.324Z",
+  "packaged": true,
+  "fixture": "C:\\Users\\Rafael\\Documents\\Programação\\Projetos\\Nodus\\.local\\videos-bpHAwa",
+  "reports": [
+    "CFG-01: PiP segue nas Configurações com mesmo guest/reprodução; desligar animações e cinema/retorno conservam player.",
+    "Salvamento, URL inválida, identificação estável, isolamento por matéria, seleção/restart e remoção pelo IPC real.",
+    "Player oficial YouTube carregado e reproduzido pela rede real; native input, sem bridge/Node/preload, um WebContents conservado em cinema/PiP/Explorer.",
+    "Cinema/retorno por Escape nativo, PiP por mouse/teclado, resize compacto e movimento reduzido; fechamento destrói player e conserva link; restart não conecta; PDF2 preservado.",
+    "Sessão efêmera distinta/UDP policy; popup/navegação/microfone negados; seis IPCs negados de janela hostil de prova; diálogos escondem view, scroll promove PiP e cinema não consome QTE oculto.",
+    "Crash real do renderer remoto isolado conserva link e mostra nova tentativa; retry carrega o player real novamente sem derrubar a mesa.",
+    "Origem de nota abre player oficial no segundo75; tempo inválido e matéria incorreta são rejeitados pelo IPC real."
+  ],
+  "capabilities": {
+    "desktop": "undefined",
+    "require": "undefined",
+    "process": "undefined",
+    "video": true,
+    "body": "YouTube Developers Live: Embedded Web Player Customization\nGoogle for Developers\nGoogle for Developers\n2,68 mi de inscritos\nAssista no"
+  },
+  "separation": {
+    "distinct": true,
+    "storage": null,
+    "policy": "disable_non_proxied_udp",
+    "windows": 1
+  },
+  "remoteDenied": {
+    "popup": true,
+    "mic": "NotAllowedError"
+  },
+  "foreignDenied": [
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    },
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    },
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    },
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    },
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    },
+    {
+      "ok": false,
+      "code": "FORBIDDEN",
+      "message": "Origem não autorizada."
+    }
+  ],
+  "guestId": 2,
+  "t0": 1.617294,
+  "continued": {
+    "time": 5.321683,
+    "paused": false
+  },
+  "compact": {
+    "x": 116,
+    "y": 433,
+    "width": 432,
+    "height": 315
+  },
+  "errors": []
+}

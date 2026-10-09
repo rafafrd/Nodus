@@ -10,8 +10,10 @@ import { D, dec, amount, integer, add, sub, formatAmount, type Amount } from '..
 import { activityReward } from '../shared/economic-activities';
 import { baselineStudy, syncStudy } from './economic-study';
 import type { EconomicContext } from '../shared/economy-types';
+import { FARM_PROJECTS, STATION_RESOURCE, freshFarm, normalizeFarm, settleFarm, nextProject, projectQuote, type Farm } from '../shared/farm';
+import {motorQuote} from '../shared/motor';
 
-type Player = { skin: GameState['skin']; economy:Economy; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: Amount; roundId: string | null; engine: Engine; challengeId: string | null };
+type Player = { skin: GameState['skin']; economy:Economy; farm:Farm; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; inventory: Record<Resource, number>; owned: ShopId[]; plots: Plot[]; build: Build; gatheredAt: number; passiveAt: number; passiveCarry: Amount; roundId: string | null; engine: Engine; challengeId: string | null };
 type StoredRound = Omit<Round, 'cards'> & { rewardVersion?:number; cards: { id: number; pair: number; text: string; matched: boolean }[] };
 export class Game {
   constructor(readonly store: Store, readonly clock: () => number = Date.now, readonly random:()=>number=Math.random) { this.store.transaction(()=>{this.load();}); }
@@ -19,7 +21,8 @@ export class Game {
     const row = this.store.db.prepare('SELECT coins,xp,state FROM game_player WHERE id=1').get() as { coins: string; xp: number; state: string } | undefined;
     if (row) {
       const state=JSON.parse(row.state),legacy=!state.economy?.version;
-      const p:Player={...state,skin:state.skin??'original',economy:normalizeEconomy(state.economy??this.legacyEconomy(),this.clock()),atmosphere:state.atmosphere??'golden',engine:state.engine??{level:0,clicks:0,lastClickAt:0},challengeId:state.challengeId??null,coins:amount(row.coins),xp:row.xp};
+      const p:Player={...state,farm:normalizeFarm(state.farm,this.clock()),skin:state.skin??'original',economy:normalizeEconomy(state.economy??this.legacyEconomy(),this.clock()),atmosphere:state.atmosphere??'golden',engine:state.engine??{level:0,clicks:0,lastClickAt:0},challengeId:state.challengeId??null,coins:amount(row.coins),xp:row.xp};
+      if(!state.farm)this.save(p); // Establish an empty baseline once, never retroactive materials.
       if(legacy){
         // Credit elapsed time under the previous rules before adopting new rates.
         const raw=state.economy??this.legacyEconomy(),oldBase=PRODUCERS.slice(0,5).reduce((sum,v,i)=>sum+[3,18,105,700,4800][i]*(raw.producers[v.id]??0)*2**[1,2,3].filter(i=>raw.upgrades.includes(`${v.id}-${i}`)).length,0)+(p.owned.includes('windmill')?4+p.build.focus:0);
@@ -29,7 +32,7 @@ export class Game {
       }
       return p;
     }
-    const p: Player = { skin:'original',economy:freshEconomy(this.clock()), atmosphere:'golden', coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null, engine: { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: null };
+    const p: Player = { skin:'original',economy:freshEconomy(this.clock()),farm:freshFarm(this.clock()), atmosphere:'golden', coins: 0, xp: 0, inventory: { wheat: 0, carrot: 0, stone: 0, wood: 0 }, owned: [], plots: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, crop: null, plantedAt: 0, readyAt: 0 })), build: { focus: 0, review: 0, planning: 0, practice: 0 }, gatheredAt: 0, passiveAt: this.clock(), passiveCarry: 0, roundId: null, engine: { level: 0, clicks: 0, lastClickAt: 0 }, challengeId: null };
     baselineStudy(this.store,p.economy);
     this.credit(p, 'starter', 'Boas-vindas à vila', 60, 0); this.save(p); return p;
   }
@@ -38,7 +41,11 @@ export class Game {
     if (!dec(coins).isInteger()||!Number.isSafeInteger(p.xp + xp)) throw new AppError('ECONOMY_LIMIT', 'Valor econômico inválido.');
     const next=add(p.coins,coins);dec(next);
     if (dec(next).lt(0)) throw new AppError('INSUFFICIENT_COINS', 'Você ainda não tem Produção suficiente.');
-    for (const [key, delta] of Object.entries(resources)) if (p.inventory[key as Resource] + delta < 0) throw new AppError('INSUFFICIENT_RESOURCE', 'Você ainda não tem esse recurso em quantidade suficiente.');
+    for (const [key, delta] of Object.entries(resources)) {
+      const next=p.inventory[key as Resource]+delta;
+      if(next<0)throw new AppError('INSUFFICIENT_RESOURCE', 'Você ainda não tem esse recurso em quantidade suficiente.');
+      if(!Number.isSafeInteger(next))throw new AppError('ECONOMY_LIMIT','O inventário atingiu seu limite. Venda materiais antes de recolher.');
+    }
     // Passive credits in the same real minute share one ledger row, rather than
     // generating tens of thousands of records while the city stays open.
     const prior=source.startsWith('production:')?this.store.db.prepare('SELECT coins FROM game_ledger WHERE source=?').get(source):null;
@@ -54,7 +61,13 @@ export class Game {
     e.challenges=Number(this.store.db.prepare("SELECT count(*) n FROM game_ledger WHERE source LIKE 'challenge:%'").get()?.n??0);return e;
   }
   private context(p:Player,now=this.clock()):EconomicContext {return{clicks:p.engine.clicks,level:p.engine.level,millRate:p.owned.includes('windmill')?4+p.build.focus:0,build:p.build,now,focusActive:Boolean(this.store.db.prepare("SELECT id FROM focus_sessions WHERE state='running' LIMIT 1").get())};}
-  private pulsePower(p:Player) {const day=new Date(this.clock()).toLocaleDateString('sv-SE'),spent=p.economy.motorDay===day?p.economy.motorEarned??0:0;return Math.min(BALANCE.pulseMaximum,enginePower(p.engine.level)*pulseMultiplier(p.economy),BALANCE.motorBudgetPerDay-spent);}
+  private motor(p:Player) {
+    const day=new Date(this.clock()).toLocaleDateString('sv-SE');
+    // Backward dates cannot reset a used daily budget. Only a later local day does.
+    const spent=!p.economy.motorDay||day>p.economy.motorDay?0:p.economy.motorEarned??0;
+    const installed={...p.economy,activeEvents:[]},referenceRate=production(installed,0,this.context(p));
+    return motorQuote(referenceRate,p.engine.level,pulseMultiplier(installed),spent);
+  }
   private rate(p:Player,now=this.clock()) {return production(p.economy,0,this.context(p,now));}
   private offlineDays(p:Player) {return Math.min(BALANCE.extendedOfflineDays,BALANCE.offlineDays*effectFactor('offline',p.economy,this.context(p)).toNumber());}
   private economyView(p:Player):EconomyView {
@@ -71,6 +84,7 @@ export class Game {
   }
   private settle(p: Player,boundary=false,legacyRate?:number) {
     const now=this.clock();if(!Number.isSafeInteger(now))throw new AppError('CLOCK_INVALID','Confira a data do computador.');
+    settleFarm(p.farm,now,this.offlineDays(p)*86400000);
     if(now<=p.passiveAt)return;
     const delta=now-p.passiveAt,quantum=Object.values(p.economy.producers).some(Boolean)?1000:60000;
     const elapsed=Math.min(this.offlineDays(p)*86400000,boundary?delta:Math.floor(delta/quantum)*quantum);if(!elapsed)return;
@@ -105,7 +119,11 @@ export class Game {
   private persistRound(round: StoredRound) { this.store.db.prepare('INSERT INTO game_rounds(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(round.id, JSON.stringify(round)); }
   private view(p: Player): GameState {
     const round = this.readRound(p.roundId);
-    return { ...p, economy:this.economyView(p),engine: { ...p.engine, power: this.pulsePower(p), upgradeCost: engineCost(p.engine.level) }, challenge: this.challenge(p), level: levelFor(p.xp), className: classFor(p.build), now: this.clock(), passiveCoins: this.rate(p), round: round ? { ...round, cards: round.cards.map(c => ({ id: c.id, matched: c.matched, label: c.matched || round.selected.includes(c.id) ? c.text : null })) } : null, recent: this.store.db.prepare('SELECT action,coins,xp,at FROM game_ledger ORDER BY id DESC LIMIT 6').all().map(row=>({...row,coins:amount(String(row.coins))})) as GameState['recent'] };
+    const next=nextProject(p.farm),objective=next?projectQuote(next,p.inventory):null;
+    const upgrade=objective?undefined:UPGRADES.find(u=>!p.economy.upgrades.includes(u.id)&&upgradeReady(u,p.economy,p.engine.clicks,p.engine.level));
+    const producer=PRODUCERS.find(v=>(p.economy.producers[v.id]??0)<BALANCE.maxUnits&&(p.economy.unlocks.includes(v.id)||dec(p.economy.lifetime).gte(v.unlock)));
+    const reinvestment=objective?null:upgrade?{kind:'upgrade' as const,id:upgrade.id,name:upgrade.name,benefit:upgrade.description,cost:upgrade.cost}:producer?{kind:'installation' as const,id:producer.id,name:producer.name,benefit:producer.description,cost:producerCost(producer,p.economy,1,this.context(p))}:null;
+    return { ...p, farm:{...p.farm,objective,reinvestment},economy:this.economyView(p),engine: { ...p.engine, ...this.motor(p), upgradeCost: engineCost(p.engine.level) }, challenge: this.challenge(p), level: levelFor(p.xp), className: classFor(p.build), now: this.clock(), passiveCoins: this.rate(p), round: round ? { ...round, cards: round.cards.map(c => ({ id: c.id, matched: c.matched, label: c.matched || round.selected.includes(c.id) ? c.text : null })) } : null, recent: this.store.db.prepare('SELECT action,coins,xp,at FROM game_ledger ORDER BY id DESC LIMIT 6').all().map(row=>({...row,coins:amount(String(row.coins))})) as GameState['recent'] };
   }
   private challenge(p: Player): Challenge | null { const row = p.challengeId && this.store.db.prepare('SELECT state FROM game_challenges WHERE id=?').get(p.challengeId); return row ? JSON.parse(String(row.state)) : null; }
   private saveChallenge(c: Challenge) { this.store.db.prepare('INSERT INTO game_challenges(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(c.id, JSON.stringify(c)); }
@@ -156,10 +174,28 @@ export class Game {
       const p=this.load(),previous=p.economy.returnReport;this.settle(p);const report=p.economy.returnReport!==previous?p.economy.returnReport:undefined;this.study(p);this.signals(p,report);this.expire(p);
       const prior = this.store.db.prepare('SELECT request,message FROM game_operations WHERE id=?').get(input.operationId);
       const request = JSON.stringify(input.action);
-      if (prior) { if (prior.request !== request) throw new AppError('OPERATION_CONFLICT', 'Essa operação já foi utilizada com outra ação.'); return { state: this.view(p), message: String(prior.message), replayed: true }; }
+      if (prior) { if (prior.request !== request) throw new AppError('OPERATION_CONFLICT', 'Essa operação já foi utilizada com outra ação.'); this.save(p); return { state: this.view(p), message: String(prior.message), replayed: true }; }
       const a = input.action, now = this.clock(), source = input.operationId;
       let message = 'Progresso salvo.';
-      if(a.kind==='skin'){p.skin=a.value;message='Skin da cidade aplicada e salva.';}
+      if(a.kind==='farm-target'){
+        if(!p.farm.built.includes('depot'))throw new AppError('LOCKED','Construa o depósito para liberar os postos.');
+        if(p.farm.built.includes(a.project))throw new AppError('ALREADY_OWNED','Esse posto já está construído.');
+        p.farm.target=a.project;message='Próximo projeto escolhido. Os materiais continuam no inventário.';
+      }else if(a.kind==='farm-build'){
+        const project=FARM_PROJECTS.find(v=>v.id===a.project)!;
+        if(p.farm.built.includes(a.project))throw new AppError('ALREADY_OWNED','Essa construção já faz parte da vila.');
+        if(a.project!=='depot'&&!p.farm.built.includes('depot'))throw new AppError('LOCKED','Construa o depósito para liberar os postos.');
+        this.credit(p,source,`Construção: ${project.name}`,0,0,Object.fromEntries(Object.entries(project.costs).map(([r,n])=>[r,-n])));
+        p.farm.built.push(a.project);
+        if(a.project!=='depot')p.farm.stations[a.project]={stock:0,carryMs:0,settledAt:now};
+        message=`${project.name} construído! ${project.benefit}`;
+      }else if(a.kind==='farm-collect'){
+        if(!p.farm.built.includes(a.station))throw new AppError('LOCKED','Construa esse posto antes de recolher.');
+        const station=p.farm.stations[a.station],resource=STATION_RESOURCE[a.station],stock=station.stock;
+        if(!stock)throw new AppError('EMPTY_STOCK','O estoque está vazio. O posto produz 1 material por minuto.');
+        this.credit(p,source,`Estoque: ${FARM_PROJECTS.find(v=>v.id===a.station)!.name}`,0,0,{[resource]:stock});station.stock=0;
+        message=`${stock} ${RESOURCES[resource].name.toLowerCase()} no inventário. Produção do posto retomada.`;
+      }else if(a.kind==='skin'){p.skin=a.value;message='Skin da cidade aplicada e salva.';}
       else if(a.kind==='dismiss-return'){delete p.economy.returnReport;}
       else if(a.kind==='activate-signal'){
         if(this.context(p).focusActive)throw new AppError('FOCUS_ACTIVE','Seu sinal está guardado. Ative depois de pausar ou terminar o Foco.');
@@ -195,12 +231,12 @@ export class Game {
         const challenge=this.challenge(p);if(challenge&&['active','paused'].includes(challenge.status)){challenge.status='failed';this.saveChallenge(challenge);}message=`Novo ciclo iniciado: +${formatAmount(gain)} insígnias e bônus permanente de ${formatAmount(amount(dec(p.economy.prestige).mul(5)))}%.`;
       }else if(a.kind==='atmosphere'){p.atmosphere=a.value;message='Ambiente da vila atualizado.';}
       else if (a.kind === 'engine-click') {
-        const coins=this.pulsePower(p),day=new Date(now).toLocaleDateString('sv-SE');if(p.economy.motorDay!==day){p.economy.motorDay=day;p.economy.motorEarned=0;}p.economy.motorEarned=(p.economy.motorEarned??0)+coins;
+        const coins=this.motor(p).power,day=new Date(now).toLocaleDateString('sv-SE');if(!p.economy.motorDay||day>p.economy.motorDay){p.economy.motorDay=day;p.economy.motorEarned=0;}p.economy.motorEarned=add(p.economy.motorEarned??0,coins);
         p.engine.clicks++; p.engine.lastClickAt = now;p.engine.lastGain=coins;
-        this.credit(p, source, 'Pulso do motor', coins, p.engine.clicks % 10 === 0 ? 1 : 0); message = `+${coins} moedas. Motor trabalhando!`;
+        this.credit(p, source, 'Pulso do motor', coins, p.engine.clicks % 10 === 0 ? 1 : 0); message = dec(coins).gt(0)?`+${formatAmount(coins)} de Produção. Motor trabalhando!`:'Orçamento do motor esgotado hoje. Colete materiais, cultive ou recolha os postos.';
       } else if (a.kind === 'engine-upgrade') {
         const cost = engineCost(p.engine.level); if (cost === null) throw new AppError('MAX_LEVEL', 'Seu motor já está no nível máximo.');
-        this.credit(p, source, 'Melhoria do motor', -cost, 0); p.engine.level++; message = `Motor nível ${p.engine.level}: ${enginePower(p.engine.level)} moedas por clique.`;
+        this.credit(p, source, 'Melhoria do motor', -cost, 0); p.engine.level++; message = `Motor nível ${p.engine.level}: +${formatAmount(this.motor(p).power)} de Produção no próximo pulso.`;
       } else if (['start-challenge', 'qte-input', 'skill-input', 'cancel-challenge','pause-challenge','resume-challenge'].includes(a.kind)) message = this.play(p, a);
       else if (a.kind === 'plant' || a.kind === 'harvest') {
         const plot = p.plots.find(v => v.id === a.plot); if (!plot) throw new AppError('LOCKED', 'Desbloqueie esse terreno na loja.');

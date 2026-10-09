@@ -1,0 +1,22 @@
+CAPTURE writing
+CAPTURE search
+CAPTURE pdf-selection
+CAPTURE captured
+CAPTURE practice
+CAPTURE video-note
+CAPTURE moved
+CAPTURE compact
+CAPTURE restart
+CAPTURE capture-new-note
+CAPTURE first-use
+CAPTURE first-note
+{
+  "checks": [
+    "Nota em um clique/foco imediato; título sugerido/editável; modelo e fonte completa preservam identidade; busca encontra rascunho pelo corpo.",
+    "Conexão e cartão por seleção, formulário curto; seleção real no PDF e inserção com página/versão; prática abre PDF pré-selecionado.",
+    "Momento de aula reutilizado; mudança de matéria conserva nota/cartão/relação; grafo mostra conexões antigas; abas/divisões e menu em1040×760.",
+    "Reinício conserva dados/abas; primeiro uso real prepara pasta isolada, matéria e nota sem formulário de título.",
+    "Captura sem nota cria arquivo real; comentário do PDF reutilizado e fonte volta à página2; edição mostra nome/página enquanto Markdown conserva UUID/hash; quatro novos canais negam outra janela e move rejeita hash inválido."
+  ],
+  "errors": []
+}

@@ -12,6 +12,7 @@ export const BALANCE = {
   signalEveryMs:45*60000, maxStoredSignals:24, maxConcurrentEvents:2,
   achievementPerIndex:.002, buildPerPoint:.015, maxBuildBonus:.3,
   pulseMaximum:64, motorBudgetPerDay:1200,
+  motorRateBudgetMinutes:2, motorRatePulseDivisor:600, motorRatePulseCapMinutes:.05,
   installationCosts:['40','2000','5e4','2e6','1e8','1e10','1e12','1e15','1e18','1e21','1e25','1e30','1e36','1e43','1e51','1e60'],
   installationRates:['3','60','900','18000','4e5','1e7','3e8','1e10','5e11','5e13','2e16','1e19','1e23','1e28','1e34','1e41'],
 } as const;

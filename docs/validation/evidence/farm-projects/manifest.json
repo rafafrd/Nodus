@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-09T04:27:36.877Z",
+  "platform": "win32",
+  "provenance": "Real Windows Electron package. Explicit isolated fixtures; screenshots contain generated study materials, no personal vault/profile. Simulation uses controlled clocks, not human playtime. User comprehension not evaluated.",
+  "files": [
+    {
+      "file": "all-projects.png",
+      "sha256": "2e3ab1b8cff80d8a236b930d2e59f1a8c4534d8f4ec50a278eceacbd0a180399"
+    },
+    {
+      "file": "choose-mine.png",
+      "sha256": "db52b50b8f3f99b8b55e49aa356f75e4ff6f22d79de61f899fe2f36968b317c0"
+    },
+    {
+      "file": "compact-project.png",
+      "sha256": "176c1e8ab8443d3b36fd1e7a6e120fc7b38e6152b85fec714663f1e2c3d41008"
+    },
+    {
+      "file": "compact-stocks.png",
+      "sha256": "a4290ceac733d9779870c69fa4ed089a56d70d77f8d6b1ef2ef639b11ab0abd9"
+    },
+    {
+      "file": "depot-complete.png",
+      "sha256": "e208fd4917cb4d037ed87c097be6bb1feb32e8f33b08afbdba7f1ffec277934b"
+    },
+    {
+      "file": "journey.json",
+      "sha256": "224bc50634db11c4c378e3ee532c8a8b54183d03f3a7d7dabdacdbb7bcd4edd2"
+    },
+    {
+      "file": "journey.log",
+      "sha256": "254db6a67bb5c01e51f2018d5fbd87320aa85cc035dca86938ca7b7a2834c676"
+    },
+    {
+      "file": "mine-complete.png",
+      "sha256": "db60384fd58e1f3430323ad294fddc8a990d5c7df6a8a5e8d21b11c518a59c3d"
+    },
+    {
+      "file": "motor-floor.png",
+      "sha256": "b9972adf0ac42530bea62e3a1e2f6059eed67e58eaa4f40e4a5764411dfc2821"
+    },
+    {
+      "file": "motor-last-pulse.png",
+      "sha256": "58e1d547281d307a50ffa9017c73d08e558e90dc63b55391f861db011337af31"
+    },
+    {
+      "file": "motor-rest.png",
+      "sha256": "7bf0934cffb83e4a581a8c24f49d8e350dd2d1b1bf533c19aada8f445b3aaf39"
+    },
+    {
+      "file": "next-depot.png",
+      "sha256": "a47a2c853b7d6f6df1412bc32a23db7fc514f43d59b4193701640321a541c30e"
+    },
+    {
+      "file": "notes-ux.json",
+      "sha256": "94014346994cd21c55eb42d21d51986003695177b3532cee24d4f8871ba8a691"
+    },
+    {
+      "file": "notes-ux.log",
+      "sha256": "ab364b1556023d51b699a489d89e9effcd1a32e49f7325dbd3aa3f0e5c2725d7"
+    },
+    {
+      "file": "offline-full.png",
+      "sha256": "d9faf924fcab6d967cc3b6a7146f0a9b02c8171e2e2da94abdec01ffe1d4feed"
+    },
+    {
+      "file": "package.json",
+      "sha256": "99cd45ba02c50de31d2394ecaa31b9bf615ccd63f4d5f369cf8d804078f014cb"
+    },
+    {
+      "file": "package.log",
+      "sha256": "65ebf2918e13e49bb0776e4f55b88f4aa81d634a4d99e220fc11f9143ea7067c"
+    },
+    {
+      "file": "projects-cyberpunk.png",
+      "sha256": "1eef8e69dfbb1bd2ca6c1e79d1cf6a40380f74be75f334c36ab1aefc758847a2"
+    },
+    {
+      "file": "projects-newyork.png",
+      "sha256": "6d0e0c2f465d82785283b2f0c3f92d40884cedddeae5a822f0a62cfde172ef06"
+    },
+    {
+      "file": "projects-original.png",
+      "sha256": "e3344677454d8a4a870ea516fcb6102e839392be18c5446b861c489405bb190e"
+    },
+    {
+      "file": "reinvestment.png",
+      "sha256": "a705a15f888e6074df5fcd83f3a380f926016215a709cfd1c9aa6b057aed3a29"
+    },
+    {
+      "file": "simulation.json",
+      "sha256": "b70bb47c6995ea97a4c15dd8cd47387776318cba1ee8eb6bc96105ea1b36b42c"
+    },
+    {
+      "file": "stocks-ready.png",
+      "sha256": "320f51e28a62039681d25e5aef88e16e24ddc944288e2d8d47c8c74ff6d9a137"
+    },
+    {
+      "file": "tests.log",
+      "sha256": "0e8d8cc2f67962c7d939ca4cdd052c7e3e74fb59a8e6409fd0b3a77608a80fbe"
+    },
+    {
+      "file": "windows.json",
+      "sha256": "ce159423b17b8d902b44efe367ad6f76592365ab9391b33f735d16fc10b171b3"
+    }
+  ]
+}
