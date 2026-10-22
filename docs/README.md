@@ -26,6 +26,7 @@ Para usar o app: [guia de uso](GUIA_DE_USO.md). Para retomar desenvolvimento: [e
 | [Estudo conectado e backups](validation/STUDY_EXPANSION.md) | NXT-01, nove incrementos locais, restauração separada, jornadas Windows e limites |
 | [YouTube, cinema e PiP](validation/YOUTUBE.md) | MED-01, reprodução oficial isolada e jornada Windows |
 | [Transições e refinamento](validation/SMOOTH_UI.md) | UI-02, navegação/painéis/câmera e prova Windows |
+| [Motion Dark Editorial](design/MOTION.md) | UI-07, tokens, catálogo de movimentos, regras de movimento reduzido; [provas Windows](validation/UI_07_MOTION.md) |
 | [Revisão de docs](validation/PRODUCT_DOCS.md) | Inventário completo, divergências/correções e limites |
 | [Validação bootstrap](validation/BOOTSTRAP.md) | Revisão deste pacote documental |
 | [Publicação](release/README.md) | Decisões e provas necessárias ao lançamento |

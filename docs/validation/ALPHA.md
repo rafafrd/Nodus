@@ -490,3 +490,19 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 | C4 | aprovado | [HOME_WHITE](HOME_WHITE.md): quinto tema/contrato/UI/realce/grafo/módulos/diálogo/restart/SQLite7/rollback |
 | C5 | aprovado | [HOME_WHITE](HOME_WHITE.md): typecheck/83 testes/pacote204assets/jornadas Home/Notas/Abas/MVP/fontes |
 | C6 | aprovado | [HOME_WHITE](HOME_WHITE.md): 15 fotos/clipe/relatório/ADR/guia/quadro/baseline164/manifesto/bootstrap/diff |
+
+
+## UI-07 — Frontend refatorado e motion Dark Editorial
+
+21/10/2026, feat/editorial-motion local, de main/62bfb0f. [Provas, fotos e limites](UI_07_MOTION.md); [ADR-0024](../adr/0024-sistema-de-motion.md); [catálogo](../design/MOTION.md). C1–C8 concluídos; pendências humanas/externas anteriores e as falhas pré-existentes de IA-02/CAP-01 e dos roteiros defasados (O-030) permanecem.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): tokens TS ↔ CSS com teste de paridade, literais proibidos fora das cenas 3D, 18 transições CSS convertidas |
+| C2 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): primitivas com context/cleanup, hairline no jsdom e perfil sóbrio × expressivo medido no Windows |
+| C3 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): contratos data-*, amostras de quadro sem escala/resíduo, animações off sem quadro intermediário, player e vídeo |
+| C4 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): App.tsx dividido, editorial.css achatado idêntico, fontes empacotadas, radius auditado, código morto removido |
+| C5 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): typecheck 61=61, 93 testes (8 novos) e 20 falhas idênticas à baseline, build e package:win |
+| C6 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): home-white, notes-ux, study-tabs, journey, videos, farm e deep-economy; defasados idênticos na baseline (O-030) |
+| C7 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): fotos antes/depois em quatro cenários, inspeção das capturas e vídeos locais |
+| C8 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): ADR-0024, MOTION.md, design, ticket, retomada, gotcha O-029 a O-031, bootstrap/diff |
