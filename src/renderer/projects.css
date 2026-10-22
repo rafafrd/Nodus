@@ -13,7 +13,7 @@
 .project-roots button.selected { color:#e4d5ad; background:#ccbc8210; }
 .project-roots small { color:#c3947c; }
 .project-tree { flex:1; min-height:0; overflow:auto; padding:9px 0; }
-.tree-entry { width:100%; display:flex; text-align:left; gap:9px; padding:7px 12px; font:12px Consolas,monospace; white-space:nowrap; }
+.tree-entry { width:100%; display:flex; text-align:left; gap:9px; padding:7px 12px; font:12px var(--font-mono); white-space:nowrap; }
 .tree-entry:hover, .tree-entry.selected { background:#a6b08712; color:#e4d5ad; }
 .tree-entry span { color:#87977f; width:9px; }
 .project-sidebar-tip { padding:18px 16px; border-top:1px solid #31382e; color:#85917d; font-size:10px; line-height:1.9; }
@@ -24,14 +24,14 @@
 .project-tabs { display:flex; overflow:auto; flex-shrink:0; min-height:40px; background:#111613; border-bottom:1px solid #303b30; }
 .project-tabs > div { display:flex; border-right:1px solid #303b30; border-top:1px solid transparent; color:#8a9989; }
 .project-tabs > div.selected { border-top-color:#ceb783; background:#1c231b; color:#e4d3a9; }
-.project-tabs button { padding:12px; font:11px Consolas,monospace; white-space:nowrap; }
+.project-tabs button { padding:12px; font:11px var(--font-mono); white-space:nowrap; }
 .project-tabs button+button { padding-left:0; }
-.project-breadcrumb { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:13px 22px; color:#8b9c82; font:11px Consolas,monospace; border-bottom:1px solid #ffffff06; flex-shrink:0; }
+.project-breadcrumb { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:13px 22px; color:#8b9c82; font:11px var(--font-mono); border-bottom:1px solid #ffffff06; flex-shrink:0; }
 .project-editor { flex:1; min-height:0; overflow:hidden; padding:0 10px; }
 .project-status { display:flex; justify-content:space-between; padding:9px 20px; border-top:1px solid #303b30; color:#9ba78f; font-size:10px; background:#1c251a; }
 .project-welcome { margin:auto; padding:40px; max-width:560px; }
 .project-welcome > span { color:#d5c394; font-size:36px; }
-.project-welcome h1 { font:36px Georgia,serif; margin:25px 0 17px; color:#dfdccb; }
+.project-welcome h1 { font:36px var(--font-display); margin:25px 0 17px; color:#dfdccb; }
 .project-welcome p { color:#97a78c; line-height:1.9; font-size:13px; margin-bottom:25px; }
 .project-welcome small { display:block; font-size:10px; margin-top:20px; color:#819177; }
 .project-limit { font-size:10px; padding:10px 16px; color:#beaa80; }

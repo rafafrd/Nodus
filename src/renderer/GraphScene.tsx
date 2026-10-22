@@ -2,7 +2,7 @@ import { useEffect,useRef,useState } from 'react';
 import { gsap } from 'gsap';
 import type { NoteRef } from '../shared/contracts';
 import type { NoteLink } from '../shared/study';
-import { useReducedMotion } from './motion';
+import { duration, ease, useReducedMotion } from './motion';
 import { usePreferences } from './preferences';
 export function GraphScene({notes,links,selected,select,active}:{notes:NoteRef[];links:NoteLink[];selected:string;select(id:string):void;active:boolean}){
  const {value:preferences}=usePreferences(),reduced=useReducedMotion(),editorial=preferences.theme==='editorial',white=preferences.theme==='white';
@@ -32,7 +32,7 @@ export function GraphScene({notes,links,selected,select,active}:{notes:NoteRef[]
    function tick(){raf=0;if(!live.current.active||document.hidden){canvas.dataset.camera='idle';return;}orbit.enableDamping=!live.current.reduced;const changed=orbit.update();if(live.current.reduced){if(gsap.isTweening(pose))gsap.killTweensOf(pose);zoomTarget=camera.zoom;if(alpha>.008){for(let i=0;i<220;i++)simulate();alpha=0;}}else simulate();const zooming=Math.abs(zoomTarget-camera.zoom)>.0002;if(zooming){camera.zoom+=(zoomTarget-camera.zoom)*.2;camera.updateProjectionMatrix();}const moving=!!changed||zooming||gsap.isTweening(pose);canvas.dataset.camera=moving?'moving':'idle';paint();if(moving||alpha>.008)request();}
    function request(){if(!live.current.active||document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;gsap.killTweensOf(pose);canvas.dataset.camera='idle';orbit.enabled=false;return;}orbit.enabled=true;if(!raf)raf=requestAnimationFrame(tick);}
    function apply(){const dx=pose.x-orbit.target.x,dy=pose.y-orbit.target.y;camera.position.x+=dx;camera.position.y+=dy;orbit.target.set(pose.x,pose.y,0);orbit.update();request();}
-   focus.current=id=>{gsap.killTweensOf(pose);const i=index.get(id);if(i===undefined)return;Object.assign(pose,{x:orbit.target.x,y:orbit.target.y});const target=nodes[i].position;if(live.current.reduced){pose.x=target.x*.65;pose.y=target.y*.65;apply();}else gsap.to(pose,{x:target.x*.65,y:target.y*.65,duration:.55,ease:'power3.out',onUpdate:apply,onComplete:request});};redraw.current=request;
+   focus.current=id=>{gsap.killTweensOf(pose);const i=index.get(id);if(i===undefined)return;Object.assign(pose,{x:orbit.target.x,y:orbit.target.y});const target=nodes[i].position;if(live.current.reduced){pose.x=target.x*.65;pose.y=target.y*.65;apply();}else gsap.to(pose,{x:target.x*.65,y:target.y*.65,duration:duration.panel,ease:ease.out,onUpdate:apply,onComplete:request});};redraw.current=request;
    function zoom(direction:number){zoomTarget=Math.min(3.5,Math.max(.35,zoomTarget*Math.exp(direction*.12)));if(live.current.reduced){camera.zoom=zoomTarget;camera.updateProjectionMatrix();}request();}controls.current={zoom,reset:()=>{gsap.killTweensOf(pose);pose.x=0;pose.y=0;apply();zoomTarget=1;if(live.current.reduced){camera.zoom=1;camera.updateProjectionMatrix();}request();}};
    function point(e:MouseEvent){const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.x)/r.width*2-1,-(e.clientY-r.y)/r.height*2+1);ray.setFromCamera(pointer,camera);return ray.intersectObjects(nodes)[0]?.object.userData.id as string|undefined;}
    function pick(e:MouseEvent){if(!live.current.active||dragged||document.querySelector('dialog[open]'))return;const id=point(e);if(id)live.current.select(id);}

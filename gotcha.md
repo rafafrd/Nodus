@@ -1,6 +1,6 @@
 # gotcha.md — riscos previstos e ocorrências verificadas
 
-Versão: 1.1. Atualizado em 09/10/2026, America/Sao_Paulo. Projeto: app de estudos. Nome do arquivo no bootstrap: gotcha.md.
+Versão: 1.1. Atualizado em 21/10/2026, America/Sao_Paulo. Projeto: app de estudos. Nome do arquivo no bootstrap: gotcha.md.
 
 ## Como usar
 
@@ -240,3 +240,16 @@ Observado neste Chromium/Windows depois de captureStream/MediaRecorder: screensh
 ## O-028 — Raiz selecionada do projeto conservava ouro claro no tema Branco (UX-03,09/10/2026)
 
 Observado na captura real do editor: o botão da raiz selecionada herdava a cor dourada do tema escuro e ficava pouco legível na nova paleta clara. white.css aplica texto verde escuro e fundo ativo próprio; a reconferência final mostra pasta/arquivo/código legíveis. O realce de código também usa variáveis claras com fallback original nos temas anteriores. Nenhuma alteração dos arquivos ou remount do editor para trocar cores. [Prova e foto final](docs/validation/HOME_WHITE.md).
+
+
+## O-029 — Contador animado herdava o estilo do rótulo de unidade (UI-07, 21/10/2026)
+
+Observado na primeira captura Editorial depois de trocar os indicadores da Home por AnimatedNumber: os valores apareciam pequenos, mono e apagados ("0 min"). O span numérico dentro de `strong` casava com as regras `.today-stats strong span` (editorial.css, experience.css e study.css), feitas para a unidade. As três regras passaram a excluir `.num`; a captura posterior mostra o numeral serifado grande e a unidade pequena, como antes. Nenhum dado ou contrato mudou. [Prova](docs/validation/UI_07_MOTION.md).
+
+## O-030 — Roteiros de smoke defasados em relação à UI atual (UI-07, 21/10/2026)
+
+Observado na baseline e no pacote novo, Windows 11, sem diferença entre eles: `smoke-sidebar`, `smoke-settings`, `smoke-clean-workspace`, `smoke-smooth-ui` e `preview-frontend` esperam um heading "Nota A" que deixou de existir quando UX-01 transformou o título da nota em campo de texto. Outros roteiros (annotations, checklist, desk, engine-explorer, expansion, focus, game, knowledge-backup, pdf, pdf-export) usam o mesmo seletor. Trocar só esse seletor não basta: os quatro primeiros também falham adiante por passos removidos ("Abrir todos os módulos", "Visitar bosque", heading "Nota B", opacidade do marcador do rail). Não corrigido nem silenciado neste ticket; a verificação da UI-07 usou os roteiros que passam na baseline (home-white, notes-ux, study-tabs, journey, videos, farm, deep-economy) e o novo smoke-motion. Próxima ação: atualizar os roteiros em um ticket próprio.
+
+## O-031 — smoke-home-white intermitente por corrida do roteiro (UI-07, 21/10/2026)
+
+Na baseline, 2 de 4 execuções falharam em `assert.equal(draftText(), draft)`: o roteiro lia o CodeMirror antes de ele redesenhar as linhas depois de reexibir a camada. No pacote novo apareceu também `setChecked` falhando ("Clicking the checkbox did not change its state"): o interruptor é controlado e só muda depois do IPC (22–68 ms na baseline, 36–83 ms agora, IPC puro 0,5 ms nos dois). Corrigido no roteiro, sem tocar no app: o rascunho é consultado até estabilizar e o interruptor usa clique condicional seguido da espera pelo atributo. Quatro execuções seguidas aprovadas. Nenhum dado nem rascunho foi perdido em nenhuma das falhas.

@@ -47,7 +47,7 @@ O modo reduzido desenha uma composição estática e conserva os ganhos/estoques
 ## Arquivos principais
 
 - [DayOverview](../../src/renderer/DayOverview.tsx), [StudySculpture](../../src/renderer/StudySculpture.tsx), [ContentShelf](../../src/renderer/ContentShelf.tsx) e [study-navigation](../../src/shared/study-navigation.ts).
-- [App](../../src/renderer/App.tsx), [ActivityRail](../../src/renderer/ActivityRail.tsx), [VideoWorkspace](../../src/renderer/VideoWorkspace.tsx), [motion](../../src/renderer/motion.tsx) e [experience.css](../../src/renderer/experience.css).
+- [App](../../src/renderer/App.tsx), [ActivityRail](../../src/renderer/ActivityRail.tsx), [VideoWorkspace](../../src/renderer/VideoWorkspace.tsx), [motion](../../src/renderer/motion/area-stage.tsx) e [experience.css](../../src/renderer/experience.css).
 - [FarmScene](../../src/renderer/FarmScene.ts), [CityEffects](../../src/renderer/CityEffects.ts), [CityScene](../../src/renderer/CityScene.tsx), [UrbanScene](../../src/renderer/UrbanScene.ts), [ProductionDistrict](../../src/renderer/ProductionDistrict.ts).
 - [Jornada nova](../../scripts/smoke-visual-experience.ts) e [teste da próxima ação](../../tests/study-navigation.test.ts).
 

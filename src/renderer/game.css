@@ -25,7 +25,7 @@
 .city-heading { position: absolute; left: 32px; top: 28px; pointer-events: none; color: #334e43; }
 .game-kicker { font-size: 8px; letter-spacing: 1.7px; color: #8ba079; }
 .city-heading .game-kicker { color: #5c7768; }
-.city-heading h1 { font-family: Georgia, serif; font-weight: 400; font-size: 43px; margin-top: 12px; letter-spacing: -1px; }
+.city-heading h1 { font-family: var(--font-display); font-weight: 400; font-size: 43px; margin-top: 12px; letter-spacing: -1px; }
 .city-heading p { color: #587568; font-size: 11px; margin-top: 10px; }
 .city-label { position: absolute; transform: translate(-50%, -100%); font-size: 8px; letter-spacing: 1.5px; color: #fff1c5; background: #254337d6; border: 1px solid #f5e6b72a; padding: 7px 9px; display: flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 12px #263d2925; }
 .city-label span { width: 4px; height: 4px; background: #cfc08a; }
@@ -43,12 +43,12 @@
 .player-strip > div:nth-child(2) { flex: 1; }
 .player-strip span { font-size: 12px; color: #dfdabe; }
 .player-strip small { display: block; margin-top: 5px; font-size: 8px; color: #8da084; }
-.player-strip > b { font-family: Georgia, serif; color: #d2c18b; font-size: 28px; font-weight: 400; }
+.player-strip > b { font-family: var(--font-display); color: #d2c18b; font-size: 28px; font-weight: 400; }
 .game-xp-track { height: 2px; background: #3a4b33; margin: 18px 0 27px; }
-.game-xp-track > div { height: 100%; background: #c4b779; transition: width .2s; }
+.game-xp-track > div { height: 100%; background: #c4b779; transition:width var(--motion-micro); }
 .inspector-title { display: flex; align-items: center; gap: 9px; font-size: 8px; color: #8aa177; letter-spacing: 1.3px; }
 .inspector-title > span:first-child { color: #bdad77; padding-right: 9px; border-right: 1px solid #506043; }
-.game-panel h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; line-height: 1.3; margin-top: 15px; color: #e7dec5; }
+.game-panel h2 { font-family: var(--font-display); font-weight: 400; font-size: 26px; line-height: 1.3; margin-top: 15px; color: #e7dec5; }
 .game-subtitle { font-size: 10px; color: #95a590; line-height: 1.8; margin: 9px 0 20px; }
 .game-select { font-size: 9px; color: #a2af97; display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
 .game-select select { padding: 10px 9px; font-size: 10px; background: #121b16; border-color: #3c4b34; width: 100%; }
@@ -95,14 +95,14 @@
 .game-notice button { border: 1px solid #c6ac6a; font-size: 10px; margin-left: 10px; }
 .game-loading { display: grid; place-items: center; height: 100%; color: #4f6e58; font-size: 13px; }
 .memory-stage { position: absolute; inset: 0; overflow: auto; background: #111b17; padding: 32px 36px 45px; }
-.memory-heading h1 { font-family: Georgia, serif; font-size: 36px; font-weight: 400; color: #e0d6b6; margin-top: 16px; }
+.memory-heading h1 { font-family: var(--font-display); font-size: 36px; font-weight: 400; color: #e0d6b6; margin-top: 16px; }
 .memory-heading p { color: #91a382; font-size: 11px; margin-top: 12px; }
 .memory-stats { display: flex; gap: 28px; border-top: 1px solid #3c4b31; border-bottom: 1px solid #3c4b31; padding: 13px 0; margin: 24px 0 21px; font-size: 10px; color: #b8c397; }
 .memory-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .memory-board.memory-hard { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .memory-card { min-height: 126px; position: relative; background: #202b22; border: 1px solid #46563b; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px 13px; }
 .memory-card small { position: absolute; left: 11px; top: 10px; font-size: 8px; color: #7d9069; }
-.memory-card > span { font-family: Georgia, serif; font-size: 30px; color: #a0ae79; line-height: 1.5; }
+.memory-card > span { font-family: var(--font-display); font-size: 30px; color: #a0ae79; line-height: 1.5; }
 .memory-card.revealed { background: #cdbd8d; border-color: #d2c797; }
 .memory-card.revealed > span { font-family: "Segoe UI", sans-serif; color: #2e4027; font-size: 13px; }
 .memory-card.matched { background: #344f36; border-color: #6d8850; opacity: 1; }
@@ -112,7 +112,7 @@
 .memory-card.revealed:hover:not(:disabled) { background: #d9cda4; }
 .memory-start { min-height: 440px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 23px; text-align: center; }
 .memory-start > span { font-size: 55px; color: #b5ba80; }
-.memory-start h2, .round-complete h2 { font-family: Georgia, serif; font-weight: 400; color: #d9d0ad; font-size: 27px; }
+.memory-start h2, .round-complete h2 { font-family: var(--font-display); font-weight: 400; color: #d9d0ad; font-size: 27px; }
 .memory-start p { color: #8ca477; font-size: 12px; line-height: 1.9; }
 .memory-rules { padding: 13px 0; border-top: 1px solid #3c4c32; border-bottom: 1px solid #3c4c32; }
 .memory-rules p { font-size: 10px; color: #b4c694; padding: 9px 0; }
@@ -149,37 +149,37 @@
 @media (prefers-reduced-motion: reduce) { .game-shell * { transition: none !important; animation: none !important; } }
 .engine-readout { margin:25px 0 18px; border-left:2px solid #b99c65; padding-left:14px; }
 .engine-readout > span { font-size:8px; letter-spacing:1.3px; color:#8f9b81; }
-.engine-readout strong { display:block; color:#dfc487; font:36px Georgia,serif; margin-top:12px; }
+.engine-readout strong { display:block; color:#dfc487; font:36px var(--font-display); margin-top:12px; }
 .engine-readout small { font:11px 'Segoe UI',sans-serif; color:#a5ad95; }
 .engine-pulse { width:100%; border:1px solid #9e895044; background:linear-gradient(135deg,#303c29,#1e291f); padding:23px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; color:#e2c791; }
 .engine-pulse:hover { background:#35422a; }
 .engine-pulse:active .engine-wheel { transform:rotate(35deg); }
-.engine-wheel { font-size:54px; line-height:1; transition:transform .15s; }
+.engine-wheel { font-size:54px; line-height:1; transition:transform var(--motion-micro); }
 .engine-pulse b { font-size:13px; font-weight:400; letter-spacing:1px; }
 .engine-pulse small { font-size:9px; color:#94a18b; }
 .engine-upgrade { width:100%; margin-top:13px; font-size:11px; }
 .engine-guide { font-size:10px; color:#a4ae97; line-height:2.4; margin:16px 0 15px; padding-left:19px; }
 .arcade-stage { position:absolute; inset:0; overflow:auto; padding:40px; color:#d6d9c7; background:radial-gradient(at 70% 0%,#2b3626,#161e19 70%); }
-.arcade-stage h1 { font:38px Georgia,serif; margin:16px 0 14px; }
+.arcade-stage h1 { font:38px var(--font-display); margin:16px 0 14px; }
 .arcade-stage > p { font-size:12px; color:#9caa90; }
 .arcade-choices { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:28px 0 18px; }
 .arcade-choices button { text-align:left; border:1px solid #a8a47a33; padding:23px; background:#ffffff03; }
 .arcade-choices button:hover { background:#ffffff08; }
 .arcade-choices span { font-size:8px; letter-spacing:2px; color:#b8a875; }
-.arcade-choices h2 { font:20px Georgia,serif; margin:15px 0 13px; color:#dfd4b6; }
+.arcade-choices h2 { font:20px var(--font-display); margin:15px 0 13px; color:#dfd4b6; }
 .arcade-choices p { font-size:11px; color:#9aa88d; line-height:1.7; }
 .arcade-choices b { display:block; margin-top:20px; font-size:10px; color:#c4b387; font-weight:400; }
 .arcade-pace { display:flex; gap:15px; align-items:center; font-size:10px; color:#a8b096; }
 .arcade-pace select { padding:8px; color:#c3c6ae; background:#1c241b; }
 .challenge-panel { border-top:1px solid #8b936d33; margin-top:22px; padding-top:21px; text-align:center; }
 .challenge-progress { display:flex; justify-content:space-between; color:#9caa88; font-size:9px; letter-spacing:2px; }
-.challenge-panel h2 { font:24px Georgia,serif; margin:20px 0; color:#dccb9c; }
+.challenge-panel h2 { font:24px var(--font-display); margin:20px 0; color:#dccb9c; }
 .challenge-panel p { font-size:11px; color:#a2ae91; margin:16px 0; }
-.qte-key { font:62px Consolas,monospace; color:#e6cd92; margin:18px 0; }
+.qte-key { font:62px var(--font-mono); color:#e6cd92; margin:18px 0; }
 .qte-time { height:3px; background:#35422c; max-width:300px; margin:0 auto; }
 .qte-time > div { height:100%; background:#c9aa6d; }
 .qte-buttons { display:flex; gap:12px; justify-content:center; }
-.qte-buttons button { border:1px solid #8c9b6544; padding:13px 23px; font:16px Consolas,monospace; color:#dcd1a6; }
+.qte-buttons button { border:1px solid #8c9b6544; padding:13px 23px; font:16px var(--font-mono); color:#dcd1a6; }
 .challenge-cancel { display:block; margin:20px auto 0; font-size:10px; color:#95a086; }
 .skill-track { position:relative; height:36px; background:#0e1712; border:1px solid #7d895244; margin:30px 10px; }
 .skill-zone { position:absolute; height:100%; background:#b79a5655; border-left:1px solid #d6b574; border-right:1px solid #d6b574; }
@@ -195,7 +195,7 @@
 .game-shell[data-atmosphere=night] .city-heading h1{color:#e6dec2}.game-shell[data-atmosphere=night] .city-heading p,.game-shell[data-atmosphere=night] .city-heading .game-kicker,.game-shell[data-atmosphere=night] .city-controls{color:#c6d4cf}
 
 .farm-objective{position:absolute;left:24px;bottom:38px;width:320px;max-width:calc(100% - 48px);max-height:calc(100% - 225px);overflow:auto;z-index:5;padding:18px;background:#18231df2;border:1px solid #75896d66;color:#e1dfcd;box-shadow:0 8px 28px #0003}
-.farm-objective h2{font:23px Georgia,serif;margin:8px 0}.farm-objective p{font-size:12px;line-height:1.5;color:#bec6b3;margin:8px 0 12px}.farm-objective-title{display:flex;align-items:center;justify-content:space-between;gap:12px}.farm-objective-title>span{font-size:12px;color:#dec48b}.farm-objective progress,.station-stock progress{display:block;width:100%;height:5px;accent-color:#b6c592;border:0;background:#3d4939}.project-materials{display:grid;gap:9px;margin:14px 0}.project-materials>div{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:12px}.project-materials b{font-weight:400;color:#d3c194;margin-left:6px}.project-materials button{font-size:11px;color:#e2c89b;padding:4px 0}.project-materials small{color:#b6c892}.project-build{width:100%;margin-top:8px;font-size:12px}.farm-project-choice{display:grid;gap:7px;font-size:11px;color:#b8c0ab;margin-top:12px}.farm-project-choice select{padding:7px;background:#263228;color:#e1dfcd;border:1px solid #627458}.farm-stocks{border-top:1px solid #75896d44;margin-top:16px;padding-top:12px}.farm-stocks summary{font-size:12px;cursor:pointer;color:#d6ccac}.farm-stocks>p{font-size:11px;margin-bottom:0}.station-stock{border:1px solid #75896d44;padding:12px;margin-top:12px;text-align:left;background:#1c2822}.station-stock strong{font-size:13px;display:block}.station-stock small{display:block;font-size:11px;line-height:1.5;color:#aebba7;margin:5px 0 10px}.station-collect{display:flex;justify-content:space-between;gap:8px;margin-top:10px;align-items:center;font-size:12px}.station-collect button{color:#dec58f;border:1px solid #8f9b7255;padding:6px 9px}.motor-budget{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;font-size:12px;margin:16px 0;color:#b5c1ad}.motor-budget strong{color:#e6cd94}.motor-budget small{font-size:11px}.motor-alternatives{display:grid;gap:8px;margin:14px 0;color:#bac4b0;font-size:12px}.motor-alternatives p{line-height:1.5}.motor-alternatives button{text-align:left;color:#e0c991;padding:5px 0}.construction-complete{border:1px solid #a8bd8277;background:#243d2a!important;color:#ecedcc!important}.game-shell[data-skin=cyberpunk] .farm-objective{background:#142237f2;border-color:#5a829e;color:#d6e6ea}.game-shell[data-skin=newyork] .farm-objective{background:#242c33f2;border-color:#849196;color:#e6e0d4}
+.farm-objective h2{font:23px var(--font-display);margin:8px 0}.farm-objective p{font-size:12px;line-height:1.5;color:#bec6b3;margin:8px 0 12px}.farm-objective-title{display:flex;align-items:center;justify-content:space-between;gap:12px}.farm-objective-title>span{font-size:12px;color:#dec48b}.farm-objective progress,.station-stock progress{display:block;width:100%;height:5px;accent-color:#b6c592;border:0;background:#3d4939}.project-materials{display:grid;gap:9px;margin:14px 0}.project-materials>div{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:12px}.project-materials b{font-weight:400;color:#d3c194;margin-left:6px}.project-materials button{font-size:11px;color:#e2c89b;padding:4px 0}.project-materials small{color:#b6c892}.project-build{width:100%;margin-top:8px;font-size:12px}.farm-project-choice{display:grid;gap:7px;font-size:11px;color:#b8c0ab;margin-top:12px}.farm-project-choice select{padding:7px;background:#263228;color:#e1dfcd;border:1px solid #627458}.farm-stocks{border-top:1px solid #75896d44;margin-top:16px;padding-top:12px}.farm-stocks summary{font-size:12px;cursor:pointer;color:#d6ccac}.farm-stocks>p{font-size:11px;margin-bottom:0}.station-stock{border:1px solid #75896d44;padding:12px;margin-top:12px;text-align:left;background:#1c2822}.station-stock strong{font-size:13px;display:block}.station-stock small{display:block;font-size:11px;line-height:1.5;color:#aebba7;margin:5px 0 10px}.station-collect{display:flex;justify-content:space-between;gap:8px;margin-top:10px;align-items:center;font-size:12px}.station-collect button{color:#dec58f;border:1px solid #8f9b7255;padding:6px 9px}.motor-budget{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;font-size:12px;margin:16px 0;color:#b5c1ad}.motor-budget strong{color:#e6cd94}.motor-budget small{font-size:11px}.motor-alternatives{display:grid;gap:8px;margin:14px 0;color:#bac4b0;font-size:12px}.motor-alternatives p{line-height:1.5}.motor-alternatives button{text-align:left;color:#e0c991;padding:5px 0}.construction-complete{border:1px solid #a8bd8277;background:#243d2a!important;color:#ecedcc!important}.game-shell[data-skin=cyberpunk] .farm-objective{background:#142237f2;border-color:#5a829e;color:#d6e6ea}.game-shell[data-skin=newyork] .farm-objective{background:#242c33f2;border-color:#849196;color:#e6e0d4}
 @media(max-height:780px){.farm-objective{max-height:calc(100% - 245px);bottom:32px;padding:13px}.clean-game .city-heading h1{font-size:25px}.clean-game .city-heading p{display:none}.farm-objective h2{font-size:20px}.project-materials{gap:5px;margin:9px 0}.farm-objective p{margin:6px 0 9px}}
 .clean-game .city-camera{left:auto;right:18px;bottom:50px;z-index:6}.clean-game .city-controls{left:auto;right:18px;bottom:18px}.clean-game .motor-module{justify-content:flex-start;padding-top:28px}.economy-target{padding:12px 16px;border:1px solid #b2bd8466;color:#dbcc9c;font-size:12px;margin-bottom:20px}
 .nodus-shell .clean-game .motor-module>*{flex-shrink:0}

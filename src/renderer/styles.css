@@ -12,7 +12,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; }
 button, input, select { font: inherit; }
-button { border: 1px solid transparent; background: transparent; color: inherit; cursor: pointer; border-radius: 0; padding: 8px 11px; transition: background .16s, color .16s, border-color .16s; }
+button { border: 1px solid transparent; background: transparent; color: inherit; cursor: pointer; border-radius: 0; padding: 8px 11px; transition:background var(--motion-micro), color var(--motion-micro), border-color var(--motion-micro); }
 button:hover { background: #ffffff09; color: #f3f7ee; }
 button:disabled { opacity: .4; cursor: default; }
 button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
@@ -84,7 +84,7 @@ button.primary:hover { background: #d7c499; }
 .local-label { display: flex; align-items: center; gap: 7px; font-size: 9px; letter-spacing: 1px; color: #b6cba7; border: 1px solid rgb(var(--theme-accent-rgb) / 0.1647); background: #131b16; border-radius: 0; padding: 5px 8px; }
 .local-label .connection { width: 4px; height: 4px; }
 .heading-row { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.heading-row h1 { font-family: Georgia, serif; font-weight: 400; font-size: 30px; letter-spacing: -.7px; line-height: 1.1; overflow-wrap: anywhere; }
+.heading-row h1 { font-family: var(--font-display); font-weight: 400; font-size: 30px; letter-spacing: -.7px; line-height: 1.1; overflow-wrap: anywhere; }
 .heading-row .rename { color: #82977e; font-size: 19px; padding: 3px 6px; }
 .workspace-header p { font-size: 11px; color: #a3b29f; margin-top: 11px; }
 .header-description { margin-left: 22px; color: #85948b; }
@@ -109,7 +109,7 @@ button.primary:hover { background: #d7c499; }
 .save-button kbd { font-size: 8px; }
 .note-panel { display: flex; flex-direction: column; background: #151718; }
 .note-title { padding: 22px 25px 17px; border-bottom: 1px solid #ffffff04; flex-shrink: 0; }
-.note-title h2 { font-family: Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: -.4px; overflow-wrap: anywhere; line-height: 1.25; }
+.note-title h2 { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -.4px; overflow-wrap: anywhere; line-height: 1.25; }
 .note-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; font-size: 10px; color: #b4c89f; gap: 8px; }
 .note-meta > [role=status]::before { content: ""; width: 4px; height: 4px; display: inline-block; border-radius: 0; background: currentColor; margin: 0 7px 2px 0; }
 .segmented { display: flex; gap: 2px; border: 1px solid #354037; background: #101714; border-radius: 0; padding: 3px; }
@@ -125,7 +125,7 @@ button.primary:hover { background: #d7c499; }
 .editor-source .cm-editor { max-height: 100%; }
 .editor-columns:not(.source-only) .editor-source { display: none; }
 .note-editor:has(.editor-columns:not(.source-only)) .format-toolbar { display: none; }
-.markdown-preview { overflow: auto; padding: 26px 34px 50px; font-family: Georgia, serif; font-size: 16px; line-height: 1.95; color: #d4dbcf; overflow-wrap: anywhere; }
+.markdown-preview { overflow: auto; padding: 26px 34px 50px; font-family: var(--font-display); font-size: 16px; line-height: 1.95; color: #d4dbcf; overflow-wrap: anywhere; }
 .markdown-preview > * { max-width: 70ch; margin-left: auto; margin-right: auto; }
 .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 { font-weight: 400; line-height: 1.4; color: #eef1e7; margin-bottom: 16px; }
 .markdown-preview h1 { font-size: 29px; letter-spacing: -.5px; }
@@ -136,7 +136,7 @@ button.primary:hover { background: #d7c499; }
 .markdown-preview li { padding-left: 4px; }
 .markdown-preview strong { color: #e2e9d7; }
 .markdown-preview pre { overflow: auto; background: #101715; padding: 16px; border: 1px solid #344132; border-radius: 0; font-size: 12px; line-height: 1.7; }
-.markdown-preview code { font-family: Consolas, monospace; font-size: .85em; color: #c6d7ae; }
+.markdown-preview code { font-family: var(--font-mono); font-size: .85em; color: #c6d7ae; }
 .markdown-preview blockquote { border-left: 2px solid #8aa36a; background: #bdd5a006; margin-top: 22px; margin-bottom: 22px; padding: 10px 20px; color: #abbf9d; font-style: italic; }
 .markdown-preview blockquote p { margin: 0; }
 .markdown-preview table { border-collapse: collapse; width: 100%; font-family: "Segoe UI", sans-serif; font-size: 12px; margin-top: 20px; margin-bottom: 20px; }
@@ -171,8 +171,8 @@ button.primary:hover { background: #d7c499; }
 .focus-module .focus-actions { margin-top: 18px; }
 .panel-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 15px; padding: 30px; min-height: 0; }
 .panel-empty > svg { width: 38px; height: 38px; color: #849979; padding: 6px; border: 1px solid #46583d; border-radius: 0; }
-.panel-empty h2 { font-family: Georgia, serif; font-weight: 400; font-size: 28px; }
-.panel-empty h3 { font-family: Georgia, serif; font-size: 23px; font-weight: 400; word-break: break-word; }
+.panel-empty h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; }
+.panel-empty h3 { font-family: var(--font-display); font-size: 23px; font-weight: 400; word-break: break-word; }
 .panel-empty p { font-size: 12px; color: var(--muted); line-height: 1.85; max-width: 260px; }
 .panel-empty button { font-size: 11px; border: 1px solid #526345; margin-top: 5px; }
 .draft-banner, .conflict-box { background: #302b1f; padding: 14px 20px; font-size: 12px; flex-shrink: 0; border-bottom: 1px solid #77673d; color: #e5d9b5; }
@@ -198,7 +198,7 @@ button.primary:hover { background: #d7c499; }
 /* The empty state describes the four modules without inventing user data. */
 .welcome { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 70px; padding: 25px 40px 50px; overflow: auto; }
 .welcome-copy { max-width: 480px; position: relative; z-index: 1; }
-.welcome h2 { font-family: Georgia, serif; font-size: clamp(46px, 4.4vw, 68px); font-weight: 400; letter-spacing: -2.4px; line-height: 1.12; margin: 24px 0; }
+.welcome h2 { font-family: var(--font-display); font-size: clamp(46px, 4.4vw, 68px); font-weight: 400; letter-spacing: -2.4px; line-height: 1.12; margin: 24px 0; }
 .welcome h2 em { font-weight: 400; color: var(--sage); }
 .welcome p { color: #a2aea2; font-size: 13px; line-height: 2; }
 .welcome .primary { display: flex; align-items: center; gap: 22px; margin-top: 30px; font-size: 12px; }
@@ -236,7 +236,7 @@ button.primary:hover { background: #d7c499; }
 .checklist-body { padding: 17px 20px; }
 .checklist-summary { display: flex; justify-content: space-between; font-size: 11px; color: #bccfa7; }
 .progress-track { height: 3px; background: #36452e; margin: 12px 0 17px; border-radius: 0; overflow: hidden; }
-.progress-track > div { height: 100%; background: var(--sage); transition: width .2s; }
+.progress-track > div { height: 100%; background: var(--sage); transition:width var(--motion-micro); }
 .task-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 16px 0 10px; }
 .task-heading h3 { font-size: 12px; font-weight: 600; color: #deead0; }
 .task-heading small { font-size: 10px; color: #a0b28c; }
@@ -277,7 +277,7 @@ button.primary:hover { background: #d7c499; }
 dialog { padding: 28px; border: 1px solid #666149; border-radius: 0; background: #191c1a; color: #e4e4db; width: 410px; box-shadow: 0 30px 100px #000b; }
 dialog::backdrop { background: #080e0cc4; backdrop-filter: blur(7px); }
 .dialog-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.dialog-title h2 { font-family: Georgia, serif; font-size: 28px; font-weight: 400; letter-spacing: -.5px; }
+.dialog-title h2 { font-family: var(--font-display); font-size: 28px; font-weight: 400; letter-spacing: -.5px; }
 .dialog-title button { font-size: 22px; color: #abbc9b; }
 dialog label { display: flex; flex-direction: column; gap: 9px; font-size: 12px; color: #bac9ab; margin: 16px 0; }
 dialog label input, dialog select { width: 100%; font-size: 13px; border-color: #41543a; background: #10190f; }
