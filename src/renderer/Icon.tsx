@@ -42,5 +42,5 @@ export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
     code: <path d="m7 6-5 6 5 6m10-12 5 6-5 6m-3-15-4 18"/>,
     table: <><rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M3 14h18M9 9v11M15 9v11"/></>,
   };
-  return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[kind]}</svg>;
+  return <svg data-icon={kind} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[kind]}</svg>;
 }

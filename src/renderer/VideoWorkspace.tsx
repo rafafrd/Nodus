@@ -6,7 +6,7 @@ import type { StudyVideo, VideoPlayerState, videoLayoutInput } from '../shared/v
 import type { z } from 'zod';
 import { Icon } from './Icon';
 import { MotionDialog } from './MotionDialog';
-import { useReducedMotion } from './motion';
+import { duration, ease, useReducedMotion } from './motion';
 import './videos.css';
 import { clockSeconds,clockLabel,type VideoMoment } from '../shared/study';
 type Mode = 'inline' | 'cinema' | 'pip';
@@ -137,7 +137,7 @@ export function VideoSurface({ controller: v }: { controller: Controller }) {
     tween.current?.kill();
     const fresh = previousVideo.current !== v.video.id; previousVideo.current = v.video.id;
     if (reduced || drag.current || fresh) { gsap.set(el, { ...rect, opacity: 1 }); el.dataset.motion = 'idle'; sendBounds(); }
-    else { el.dataset.motion = 'moving'; tween.current = gsap.to(el, { ...rect, duration: .48, ease: 'power3.inOut', onUpdate: sendBounds, onComplete: () => { el.dataset.motion = 'idle'; sendBounds(); } }); }
+    else { el.dataset.motion = 'moving'; tween.current = gsap.to(el, { ...rect, duration: duration.panel, ease: ease.inOut, onUpdate: sendBounds, onComplete: () => { el.dataset.motion = 'idle'; sendBounds(); } }); }
     return () => { tween.current?.kill(); };
   }, [v.mode, v.video?.id, v.slot, viewport.width, viewport.height, revision, pipPosition.x, pipPosition.y, reduced, sendBounds]);
   useLayoutEffect(() => { lastLayout.current = ''; sendBounds(); }, [v.state.state, dialogOpen, sendBounds]);

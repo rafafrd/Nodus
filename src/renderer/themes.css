@@ -2,6 +2,7 @@
   --theme-bg:#111714; --theme-rail:#101512; --theme-sidebar:#171e19; --theme-panel:#171d19; --theme-raised:#1d251f; --theme-editor:#141917; --theme-input:#0f1512;
   --theme-border:#303a32; --theme-text:#dedfdb; --theme-muted:#a4afa6; --theme-accent:#d2bc8a; --theme-accent-rgb:210 188 138; --theme-active:#242820;
   --muted:var(--theme-muted); --line:var(--theme-border); --surface:var(--theme-panel); --sage:var(--theme-accent);
+  --font-display:Georgia,'Times New Roman',serif; --font-sans:'Segoe UI Variable','Segoe UI',sans-serif; --font-mono:Consolas,'Cascadia Mono',monospace;
   background:var(--theme-bg); color:var(--theme-text); color-scheme:dark;
 }
 :root[data-theme=graphite] {
@@ -16,5 +17,7 @@
   --theme-bg:#090a0b; --theme-rail:#0b0c0d; --theme-sidebar:#0e0f10; --theme-panel:#101112; --theme-raised:#161718; --theme-editor:#0d0e0f; --theme-input:#090a0b;
   --theme-border:#303234; --theme-text:#e4e3df; --theme-muted:#a0a19e; --theme-accent:#dedbd1; --theme-accent-rgb:222 219 209; --theme-active:#1c1e1f;
   --editorial-grid:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+  /* Bundled OFL fonts (ADR-0024). The system stacks stay as fallback while the files load or if they fail. */
+  --font-display:'Newsreader Variable',Georgia,'Times New Roman',serif; --font-mono:'JetBrains Mono Variable',Consolas,'Cascadia Mono',monospace;
 }
 html[data-animations=off] *, html[data-animations=off] *::before, html[data-animations=off] *::after { transition:none !important; animation:none !important; scroll-behavior:auto !important; }

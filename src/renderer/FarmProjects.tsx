@@ -2,6 +2,8 @@ import {FARM_PROJECTS,STATION_CAPACITY,STATION_RESOURCE,type StationId} from '..
 import {RESOURCES,type GameAction,type GameState,type Resource} from '../shared/game';
 import {formatAmount} from '../shared/amount';
 import type {Place} from './CityScene';
+import {useRef} from 'react';
+import {usePanelEnter} from './motion';
 
 const RESOURCE_PLACE:Record<Resource,Place>={wood:'forest',stone:'mine',wheat:'farm',carrot:'farm'};
 export function StationStock({state,id,busy,execute}:{state:GameState;id:StationId;busy:boolean;execute(a:GameAction):void}){
@@ -10,8 +12,9 @@ export function StationStock({state,id,busy,execute}:{state:GameState;id:Station
 }
 export function FarmProjects({state,busy,execute,visit,reinvest}:{state:GameState;busy:boolean;execute(a:GameAction):void;visit(p:Place,crop?:'wheat'|'carrot'):void;reinvest():void}){
  const q=state.farm.objective,stations=(Object.keys(STATION_RESOURCE) as StationId[]).filter(id=>state.farm.built.includes(id)),choice=state.farm.built.includes('depot')&&stations.length===0;
- const next=state.farm.reinvestment;
- return <section className="farm-objective" aria-label="Próximo objetivo"><span className="game-kicker">{q?'PRÓXIMO PROJETO':'REINVESTIR NA VILA'}</span>
+ const next=state.farm.reinvestment,card=useRef<HTMLElement>(null);
+ usePanelEnter(card,true,'left');
+ return <section className="farm-objective" ref={card} aria-label="Próximo objetivo"><span className="game-kicker">{q?'PRÓXIMO PROJETO':'REINVESTIR NA VILA'}</span>
  {q?<><div className="farm-objective-title"><h2>{q.name}</h2><span>{q.progress}%</span></div><p>{q.benefit}</p><progress value={q.progress} max={100} aria-label={`Materiais para ${q.name}`}/>
  {choice&&<label className="farm-project-choice">Qual posto construir primeiro?<select aria-label="Próximo posto" disabled={busy} value={q.id} onChange={e=>execute({kind:'farm-target',project:e.target.value as StationId})}><option value="forest-post">Bosque · madeira</option><option value="mine-post">Mina · pedra</option></select></label>}
  <div className="project-materials">{q.materials.map(m=><div key={m.resource}><span>{RESOURCES[m.resource].name} <b>{Math.min(m.have,m.required)}/{m.required}</b></span>{m.missing?<button aria-label={`Buscar ${RESOURCES[m.resource].name}`} disabled={busy} onClick={()=>visit(RESOURCE_PLACE[m.resource],m.resource==='wheat'||m.resource==='carrot'?m.resource:undefined)}>Faltam {m.missing} · buscar ↗</button>:<small>✓ Pronto</small>}</div>)}</div>

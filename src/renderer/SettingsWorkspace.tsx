@@ -3,6 +3,7 @@ import type { AppInfo } from '../shared/contracts';
 import type { AppManagement } from '../shared/preferences';
 import { Avatar, usePreferences } from './preferences';
 import { Icon } from './Icon';
+import { LineReveal } from './motion';
 import './settings.css';
 import { PdfExportPanel } from './PdfExportPanel';
 import { BackupPanel } from './BackupPanel';
@@ -29,7 +30,7 @@ export default function SettingsWorkspace({ activeArea, navigate }: { activeArea
       <nav aria-label="Seções de configurações">{([['profile', 'person', 'Perfil'], ['appearance', 'layout', 'Aparência'], ['data', 'folder', 'Dados e app']] as const).map(([id, icon, title]) => <button key={id} aria-pressed={section === id} className={section === id ? 'selected' : ''} onClick={() => { setSection(id); setMessage(''); }}><Icon kind={icon}/>{title}<Icon kind="chevron"/></button>)}</nav>
       <p>Suas preferências acompanham este app, neste computador.</p>
     </aside>
-    <main className="settings-main"><header><div><span className="eyebrow">CONFIGURAÇÕES</span><h1>Seu espaço, do seu jeito.</h1></div><button onClick={() => navigate('study')}>Voltar aos estudos <Icon kind="arrow"/></button></header>
+    <main className="settings-main"><header data-hairline><div><span className="eyebrow">CONFIGURAÇÕES</span><LineReveal text="Seu espaço, do seu jeito."/></div><button onClick={() => navigate('study')}>Voltar aos estudos <Icon kind="arrow"/></button></header>
       {(error || prefs.error) && <p className="settings-error" role="alert">{error || prefs.error}</p>}
       {section === 'profile' && <section className="settings-section"><div className="settings-section-heading"><span>01</span><div><h2>Seu perfil</h2><p>Um nome e uma imagem para tornar o espaço seu.</p></div></div>
         <div className="settings-photo-row"><Avatar profile={{ ...prefs.value, name }}/><div><strong>Foto do perfil</strong><p>PNG ou JPEG · até 5 MB e 4 milhões de pixels.</p><div className="settings-actions"><button disabled={prefs.busy} onClick={() => photo.current?.click()}><Icon kind="image"/>{prefs.value.photo ? 'Trocar foto' : 'Adicionar foto'}</button>{prefs.value.photo && <button disabled={prefs.busy} onClick={async () => { if (await prefs.removePhoto()) setMessage('Foto removida. Seu nome foi conservado.'); }}>Remover foto</button>}</div></div>

@@ -1,0 +1,63 @@
+/* UI-07 / ADR-0024 — motion layer, loaded after every theme file.
+   Tokens mirror src/renderer/motion/tokens.ts (tests/motion-tokens.test.ts fails when they drift).
+   Everything here animates transform, opacity, clip-path or a custom property, never layout.
+   Reduced motion: html[data-animations=off] and prefers-reduced-motion switch every transition off (themes.css, refinement.css);
+   the JS primitives check the same preference and leave the static end state. */
+:root {
+  --motion-micro:.16s; --motion-ui:.28s; --motion-panel:.5s; --motion-scene:.8s; --motion-hero:1s;
+  --ease-out:cubic-bezier(.16,1,.3,1); --ease-soft:cubic-bezier(.25,1,.5,1); --ease-in:cubic-bezier(.55,.085,.68,.53); --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --pulse-ok:122 168 116; --pulse-warn:214 168 84; --pulse-error:214 110 98;
+}
+
+/* Interaction states shared by every theme. */
+.nodus-shell :is(button,a,summary,select,input,textarea,[role=tab],[role=option],[role=separator],[tabindex]:not([tabindex="-1"]):not(.cm-content)):focus-visible { outline:2px solid var(--theme-accent); outline-offset:2px; }
+.nodus-shell button:active:not(:disabled) { transform:translateY(1px); }
+.nodus-shell :is(.home-destinations>button,.today-subjects>button):active:not(:disabled) { transform:translateY(-1px); }
+.nodus-shell button>svg[data-icon=arrow] { transition:transform var(--motion-ui) var(--ease-out); }
+.nodus-shell button:is(:hover,:focus-visible):not(:disabled)>svg[data-icon=arrow] { transform:translateX(3px); }
+.nodus-shell .num { font-variant-numeric:tabular-nums; }
+
+/* Rail indicator: one bar slides to the selected module (useRailIndicator). */
+.rail-modules { position:relative; }
+.rail-indicator { position:absolute; left:0; top:0; width:2px; background:var(--theme-accent); opacity:0; visibility:hidden; pointer-events:none; z-index:2; }
+
+/* State feedback: a border pulse (usePulse, useStatusPulse, Banner). Quiet by design: one fade, no shake. */
+.nodus-shell :is(.error-banner,.note-notice,.draft-banner,.conflict-box,.note-panel,.review-card)[data-pulse] { position:relative; }
+:root[data-theme] .nodus-shell [data-pulse]::after { content:''; position:absolute; inset:0; z-index:5; pointer-events:none; border:1px solid rgb(var(--pulse-rgb,var(--theme-accent-rgb))); opacity:calc(var(--pulse,0) * .85); }
+.nodus-shell [data-pulse][data-tone=ok] { --pulse-rgb:var(--pulse-ok); }
+.nodus-shell [data-pulse][data-tone=warn] { --pulse-rgb:var(--pulse-warn); }
+.nodus-shell [data-pulse][data-tone=error] { --pulse-rgb:var(--pulse-error); }
+.split-line-mask { overflow-clip-margin:.22em; }
+
+/* Editorial: the expressive set (line reveal, hairline draw, sweep, spotlight) and sharper hover. */
+:root[data-theme=editorial] .nodus-shell :is(kbd,.eyebrow,.section-label,.panel-caption,.panel-index,.note-meta,.note-foot,.statusbar,.dock-caption,.focus-state,.next-caption,.dashboard-foot,.workspace-tab-count,.workspace-local,.workspace-pane-bar) { font-variant-numeric:tabular-nums; font-variant-ligatures:none; }
+:root[data-theme=editorial] .nodus-shell .cm-content { font-variant-ligatures:none; }
+
+/* Hairline draw: while live, the static border is hidden and a scaled line takes its place (drawHairlines). */
+:root[data-theme=editorial] .nodus-shell [data-hairline-live] { position:relative; overflow:visible; border-bottom-color:transparent; }
+:root[data-theme=editorial] .nodus-shell [data-hairline-live]::after { content:''; position:absolute; left:0; right:0; bottom:-1px; height:1px; background:var(--theme-border); transform:scaleX(var(--hairline,1)); transform-origin:0 50%; pointer-events:none; }
+
+/* Area change: a thin accent line sweeps the top edge while the layers move. */
+.area-stage::after { content:''; position:absolute; left:0; top:0; z-index:6; width:100%; height:1px; pointer-events:none; opacity:0; background:linear-gradient(90deg,transparent,var(--theme-accent) 35%,var(--theme-accent) 65%,transparent); transform:translateX(calc(-100% + var(--sweep,0) * 100%)); }
+:root[data-theme=editorial] .area-stage[data-motion=transitioning]::after { opacity:.7; }
+
+/* Spotlight: a radial highlight that follows the pointer over [data-spotlight] cards (useSpotlight). */
+:root[data-theme=editorial] .nodus-shell [data-spotlight] { background-image:radial-gradient(240px circle at var(--spot-x,50%) var(--spot-y,50%),rgb(var(--theme-accent-rgb) / calc(var(--spot-a,0) * .1)),transparent 70%); }
+
+/* Hover: the underline sweeps in from the left and leaves to the right; primary buttons invert. */
+:root[data-theme=editorial] .nodus-shell :is(.text-button,.dashboard-foot button,.today-stats button,.project-card>footer button,.study-section-heading>button,.subject-card-action) { position:relative; }
+:root[data-theme=editorial] .nodus-shell :is(.text-button,.dashboard-foot button,.today-stats button,.project-card>footer button,.study-section-heading>button,.subject-card-action)::after { content:''; position:absolute; left:0; right:0; bottom:1px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:100% 50%; transition:transform var(--motion-ui) var(--ease-out); pointer-events:none; }
+:root[data-theme=editorial] .nodus-shell :is(.text-button,.dashboard-foot button,.today-stats button,.project-card>footer button,.study-section-heading>button,.subject-card-action):is(:hover,:focus-visible)::after { transform:scaleX(1); transform-origin:0 50%; }
+:root[data-theme=editorial] .nodus-shell :is(button.primary,.save-button):hover:not(:disabled) { background:var(--theme-text); color:var(--theme-bg); border-color:var(--theme-text); }
+:root[data-theme=editorial] .nodus-shell :is(button.primary,.save-button):hover:not(:disabled) kbd { color:var(--theme-bg); border-color:currentColor; }
+:root[data-theme=editorial] .nodus-shell :is(.experience-today .today-next-copy .primary,.module-sidebar .rail-subject .primary):hover:not(:disabled) { background:transparent; color:var(--theme-accent); border-color:var(--theme-accent); }
+:root[data-theme=editorial] .nodus-shell .home-workspace .today-next-copy .primary { transition:transform var(--motion-ui) var(--ease-out),box-shadow var(--motion-ui) var(--ease-out),background-color var(--motion-micro) var(--ease-out),color var(--motion-micro) var(--ease-out),border-color var(--motion-micro) var(--ease-out); }
+:root[data-theme=editorial] .rail-module small { opacity:.62; transition:opacity var(--motion-ui) var(--ease-out); }
+:root[data-theme=editorial] .rail-module:is(:hover,:focus-within,.selected) small { opacity:1; }
+
+@media (prefers-reduced-motion:reduce) {
+  :root[data-theme=editorial] .nodus-shell [data-spotlight] { background-image:none; }
+  .area-stage::after { display:none; }
+}
+html[data-animations=off] .area-stage::after { display:none; }
+html[data-animations=off] .nodus-shell [data-spotlight] { background-image:none !important; }

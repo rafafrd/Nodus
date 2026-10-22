@@ -11,7 +11,7 @@
 .area-layer { position:absolute; inset:0; opacity:0; visibility:hidden; transform-origin:center; }
 .area-loading { display:grid; place-items:center; height:100%; color:var(--theme-accent); font-size:15px; }
 .navigation-error { position:fixed; left:88px; bottom:20px; right:20px; z-index:30; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:14px 20px; background:#4b3328; border:1px solid #ab876d; color:#f2ddc8; font-size:14px; }
-.nodus-shell button { transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
+.nodus-shell button { transition:background-color var(--motion-micro) var(--ease-out), color var(--motion-micro) var(--ease-out), border-color var(--motion-micro) var(--ease-out); }
 .nodus-shell button:disabled { opacity:1; color:#99a493; background:#232b23; border-color:#3d4839; cursor:not-allowed; }
 .nodus-shell .primary:disabled { color:#bac0a8; background:#3d4330; border-color:#555b41; }
 .nodus-shell .app-shell { background:var(--theme-bg); }
@@ -39,10 +39,10 @@
 .nodus-shell .tree-entry { align-items:center; font:14px 'Segoe UI Variable','Segoe UI',sans-serif; padding-top:8px; padding-bottom:8px; gap:7px; }
 .nodus-shell .tree-entry>svg { width:18px; height:18px; color:#b3beab; }
 .nodus-shell .tree-name { width:auto; color:inherit; overflow:hidden; text-overflow:ellipsis; }
-.nodus-shell .tree-chevron { display:flex; align-items:center; width:13px; flex-shrink:0; transition:transform .22s ease; }
+.nodus-shell .tree-chevron { display:flex; align-items:center; width:13px; flex-shrink:0; transition:transform var(--motion-ui) var(--ease-out); }
 .nodus-shell .tree-chevron svg { width:13px; height:13px; }
 .nodus-shell .tree-chevron.expanded { transform:rotate(90deg); }
-.project-resizer { cursor:col-resize; background:#222d24; touch-action:none; transition:background .2s; z-index:2; }
+.project-resizer { cursor:col-resize; background:#222d24; touch-action:none; transition:background var(--motion-micro); z-index:2; }
 .project-resizer:hover, .project-resizer:focus-visible { background:#c7af7d; outline:none; }
 .nodus-shell .project-top { height:80px; font-size:12px; }
 .nodus-shell .project-top button, .nodus-shell .project-sidebar-tip, .nodus-shell .project-status { font-size:12px; }
@@ -84,15 +84,15 @@
 .nodus-shell .city-label { font-size:12px; letter-spacing:.4px; padding:8px; overflow:hidden; }
 .nodus-shell .city-label:not(.selected):not(:hover):not(:focus-visible) { background:transparent; border-color:transparent; box-shadow:none; gap:0; padding:12px; }
 .nodus-shell .city-label:not(.selected)>span { background:#385847; outline:1px solid #dfd4aa; outline-offset:2px; }
-.city-label .place-name { max-width:0; opacity:0; transition:max-width .28s ease, opacity .2s ease; }
+.city-label .place-name { max-width:0; opacity:0; transition:max-width var(--motion-ui) var(--ease-out), opacity var(--motion-micro) var(--ease-out); }
 .city-label.selected .place-name, .city-label:hover .place-name, .city-label:focus-visible .place-name { max-width:130px; opacity:1; }
 .nodus-shell .city-controls { font-size:12px; }
 .nodus-shell .city-camera button { display:grid; place-items:center; width:38px; height:38px; }
 .nodus-shell .engine-pulse { position:relative; overflow:visible; }
 .nodus-shell .engine-wheel svg { width:52px; height:52px; }
-.nodus-shell .engine-wheel { transition:transform .24s cubic-bezier(.2,.7,.2,1); }
+.nodus-shell .engine-wheel { transition:transform var(--motion-ui) cubic-bezier(.2,.7,.2,1); }
 .nodus-shell .engine-pulse:active .engine-wheel { transform:rotate(18deg) scale(.96); }
-.nodus-shell .arcade-choices button { transition:transform .24s ease, background-color .2s, border-color .2s; }
+.nodus-shell .arcade-choices button { transition:transform var(--motion-ui) var(--ease-out), background-color var(--motion-micro), border-color var(--motion-micro); }
 .nodus-shell .arcade-choices button:enabled:hover { transform:translateY(-2px); }
 .engine-gain { position:absolute; top:14px; right:26px; color:#ead49b; font-size:24px; opacity:0; pointer-events:none; }
 .nodus-shell .engine-readout>span, .nodus-shell .engine-guide, .nodus-shell .engine-pulse small { font-size:12px; line-height:1.8; }

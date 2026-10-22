@@ -2,9 +2,9 @@
 .desktop-content { min-height:0; min-width:0; overflow:hidden; }
 .desktop-titlebar { position:relative; z-index:60; display:flex; align-items:stretch; background:var(--theme-rail); color:var(--theme-text); border-bottom:1px solid var(--theme-border); user-select:none; }
 .desktop-drag { flex:1; display:flex; align-items:center; gap:10px; padding:0 14px; app-region:drag; -webkit-app-region:drag; }
-.desktop-drag strong { font:14px Georgia,serif; font-weight:normal; }
-.desktop-emblem { border:1px solid var(--theme-border); width:18px; height:18px; display:grid; place-items:center; font:11px Georgia,serif; }
-.desktop-caption { padding-left:16px; color:var(--theme-muted); font:9px Consolas,monospace; letter-spacing:1px; }
+.desktop-drag strong { font:14px var(--font-display); font-weight:normal; }
+.desktop-emblem { border:1px solid var(--theme-border); width:18px; height:18px; display:grid; place-items:center; font:11px var(--font-display); }
+.desktop-caption { padding-left:16px; color:var(--theme-muted); font:9px var(--font-mono); letter-spacing:1px; }
 .window-buttons { display:flex; -webkit-app-region:no-drag; app-region:no-drag; }
 .window-buttons button { display:grid; place-items:center; width:46px; border:0; border-left:1px solid var(--theme-border); border-radius:0; padding:0; background:transparent; color:var(--theme-muted); }
 .window-buttons button:hover { background:var(--theme-raised); color:var(--theme-text); }

@@ -27,10 +27,12 @@ export function HomeBackground({active}:{active:boolean}){
      gl_FragColor=vec4(accent,alpha);
     }`});scene.add(new T.Mesh(geometry,material));
    const reduced=motionPreference();let frame=0,last=0,time=0,frames=0,minimized=false,lost=false,dirty=true;
+   // Colors are read when the theme changes, not on every frame.
+   function readTheme(){const style=getComputedStyle(document.documentElement);material.uniforms.accent.value.set(style.getPropertyValue('--theme-accent').trim());material.uniforms.light.value=document.documentElement.dataset.theme==='white'?1:0;}
    function running(){return live.current&&!document.hidden&&!minimized&&!lost;}
    function paint(now:number){frame=0;if(!running())return;if(now-last<65&&!dirty&&!reduced.matches){frame=requestAnimationFrame(paint);return;}
     const delta=last?Math.min(.1,(now-last)/1000):0;last=now;if(!reduced.matches)time+=delta;
-    const style=getComputedStyle(document.documentElement);material.uniforms.accent.value.set(style.getPropertyValue('--theme-accent').trim());material.uniforms.light.value=document.documentElement.dataset.theme==='white'?1:0;material.uniforms.time.value=time;
+    material.uniforms.time.value=time;
     renderer.render(scene,camera);dirty=false;canvas.dataset.ready='true';canvas.dataset.frames=String(++frames);canvas.dataset.time=time.toFixed(3);canvas.dataset.motion=reduced.matches?'still':'running';
     if(!reduced.matches)frame=requestAnimationFrame(paint);
    }
@@ -38,7 +40,7 @@ export function HomeBackground({active}:{active:boolean}){
    const resize=new ResizeObserver(()=>{renderer.setSize(Math.max(1,el.clientWidth),Math.max(1,el.clientHeight));material.uniforms.resolution.value.set(Math.max(1,el.clientWidth),Math.max(1,el.clientHeight));restart();});resize.observe(el);
    const contextLost=(event:Event)=>{event.preventDefault();lost=true;restart();setFailed(true);};canvas.addEventListener('webglcontextlost',contextLost);
    const removeWindow=window.desktop.onWindowState(state=>{minimized=state.minimized;restart();});void window.desktop.getWindowState().then(r=>{if(!disposed&&r.ok){minimized=r.value.minimized;restart();}});
-   document.addEventListener('visibilitychange',restart);reduced.addEventListener('change',restart);refresh.current=restart;restart();
+   document.addEventListener('visibilitychange',restart);reduced.addEventListener('change',restart);refresh.current=()=>{readTheme();restart();};readTheme();restart();
    cleanup=()=>{refresh.current=()=>{};cancelAnimationFrame(frame);resize.disconnect();removeWindow();document.removeEventListener('visibilitychange',restart);reduced.removeEventListener('change',restart);canvas.removeEventListener('webglcontextlost',contextLost);geometry.dispose();material.dispose();renderer.dispose();canvas.remove();};
   }).catch(()=>{if(!disposed)setFailed(true);});
   return()=>{disposed=true;cleanup();};

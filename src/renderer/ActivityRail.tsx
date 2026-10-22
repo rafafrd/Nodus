@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import { Icon } from './Icon';
+import { useRailIndicator } from './motion';
 import { Avatar, usePreferences } from './preferences';
 import { MODULE_DRAG_TYPE, type WorkspaceArea } from '../shared/workspace';
 import type { Subject } from '../shared/contracts';
@@ -12,13 +14,15 @@ export function ActivityRail({ active, panes, navigate, add, drag, pending, sear
   active: WorkspaceArea; panes: WorkspaceArea[]; navigate(area: WorkspaceArea): void; add(area: WorkspaceArea): void;
   drag(area: WorkspaceArea | null): void; pending: boolean; search(): void;
 }) {
-  const { value } = usePreferences();
+  const { value } = usePreferences(), modules = useRef<HTMLDivElement>(null), bar = useRef<HTMLSpanElement>(null);
+  useRailIndicator(modules, bar, active);
   function preload(area: WorkspaceArea) { if (area === 'explorer') void import('./ProjectWorkspace'); if (area === 'city') void import('./GameView'); }
   return <nav id="nodus-sidebar" className="activity-rail module-sidebar" hidden={value.sidebarCollapsed} aria-label="Áreas do Nodus" aria-busy={pending}>
     <div className="rail-identity"><span className="rail-brand" title="Nodus"><Icon/></span><span>Nodus<small>ESPAÇO DE TRABALHO</small></span></div>
     <button className="rail-search" aria-label="Abrir busca global" title="Busca global · Ctrl+K" onClick={search}><Icon kind="search"/><span>Buscar</span><kbd>Ctrl K</kbd></button>
     <div className="rail-subject"><label>Matéria atual<select aria-label="Matéria atual" value={subjectId??''} disabled={pending||!subjects.length} onChange={e=>selectSubject(e.target.value)}><option value="" disabled>Escolha uma matéria</option>{subjects.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label><button onClick={newSubject} aria-label="Nova matéria pelo menu">+ Matéria</button><button className="primary" onClick={newNote} disabled={pending}>Nova nota</button><button className="rail-add-content" onClick={addContent} disabled={pending}><Icon kind="plus"/> Adicionar conteúdo</button>{subjectId&&<button onClick={browse}>Minhas notas</button>}</div>
-    <div className="rail-modules">
+    <div className="rail-modules" ref={modules}>
+      <span className="rail-indicator" ref={bar} aria-hidden="true"/>
       {groups.map(group => <section className="rail-group" key={group.name} aria-label={group.name}><h2>{group.name}</h2>
         {group.items.map(([area, icon, title, label]) => <div key={area} className={`rail-module ${active === area ? 'selected' : ''}`}>
           <button aria-label={label} aria-current={active === area ? 'page' : undefined} disabled={pending} draggable={!pending}

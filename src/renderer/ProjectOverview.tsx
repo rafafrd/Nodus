@@ -1,16 +1,19 @@
+import { useRef } from 'react';
 import type { ProjectRef } from '../shared/projects';
 import { Icon } from './Icon';
+import { LineReveal, useSpotlight } from './motion';
 import { usePreferences } from './preferences';
 
 export function ProjectOverview({ projects, loading, choose, add }: { projects: ProjectRef[]; loading: boolean; choose(id: string): void; add(): void }) {
-  const prefs = usePreferences();
-  return <div className="project-overview">
-    <header><div><span className="eyebrow">EXPLORER / ACERVO LOCAL</span><h1>Projetos</h1><p>{loading ? 'Retomando seus projetos…' : `${projects.length} pastas vinculadas · Escolha um projeto e abra um arquivo na árvore.`}</p></div><button onClick={add}><Icon kind="plus"/> Adicionar projeto</button></header>
+  const prefs = usePreferences(), host = useRef<HTMLDivElement>(null);
+  useSpotlight(host);
+  return <div className="project-overview" ref={host}>
+    <header data-hairline><div><span className="eyebrow">EXPLORER / ACERVO LOCAL</span><LineReveal text="Projetos"/><p>{loading ? 'Retomando seus projetos…' : `${projects.length} pastas vinculadas · Escolha um projeto e abra um arquivo na árvore.`}</p></div><button onClick={add}><Icon kind="plus"/> Adicionar projeto</button></header>
     {prefs.error && <p role="alert">{prefs.error}</p>}
     {([true, false] as const).map(featured => {
       const group = projects.filter(p => prefs.value.featuredProjectIds.includes(p.id) === featured);
-      return <section key={String(featured)}><div className="study-section-heading"><h2>{featured ? 'Projetos principais' : 'Projetos secundários'}</h2><span>{String(group.length).padStart(2, '0')} PROJETOS</span></div>
-        <div className={`project-card-grid ${featured ? 'featured' : 'secondary'}`}>{group.map((project, index) => <article className="project-card" key={project.id}>
+      return <section key={String(featured)}><div className="study-section-heading" data-hairline><h2>{featured ? 'Projetos principais' : 'Projetos secundários'}</h2><span>{String(group.length).padStart(2, '0')} PROJETOS</span></div>
+        <div className={`project-card-grid ${featured ? 'featured' : 'secondary'}`}>{group.map((project, index) => <article className="project-card" data-spotlight key={project.id}>
           <button className="project-card-open" aria-label={`Explorar ${project.name}`} onClick={() => choose(project.id)}><div className="project-card-drawing"><span>{String(index + 1).padStart(2, '0')}</span><Icon kind="folder"/><small>{project.available ? 'PASTA LOCAL' : 'INDISPONÍVEL'}</small></div><div className="project-card-heading"><h3>{project.name}</h3><Icon kind="arrow"/></div><p>{project.available ? 'Navegar arquivos e retomar o trabalho.' : 'Pasta ausente. Seus rascunhos estão preservados.'}</p></button>
           <footer><span>{featured ? 'PRINCIPAL' : 'SECUNDÁRIO'}</span><button disabled={prefs.busy} aria-label={`${featured ? 'Tornar secundário' : 'Tornar principal'} ${project.name}`} onClick={() => void prefs.update({ featuredProjectIds: featured ? prefs.value.featuredProjectIds.filter(id => id !== project.id) : [...prefs.value.featuredProjectIds, project.id] })}>{featured ? 'Tornar secundário' : 'Tornar principal'} <Icon kind="arrow"/></button></footer>
         </article>)}</div>
