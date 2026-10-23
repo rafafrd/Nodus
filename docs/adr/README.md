@@ -28,5 +28,6 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0020](0020-clareza-e-animacao-3d.md) | Próxima ação de estudo, entrada de conteúdo e animação 3D por estado confirmado | Aceita para UX-02 |
 | [0021](0021-home-e-tema-branco.md) | Home com posição fixa, luz animada, atalhos e tema Branco persistente | Aceita para UX-03 |
 | [0024](0024-sistema-de-motion.md) | Sistema de motion Dark Editorial: tokens únicos, primitivas GSAP, perfil sóbrio/expressivo e fontes empacotadas | Aceita para UI-07 |
+| [0025](0025-fundo-por-tema.md) | Fundo compartilhado em todos os temas: um canvas atrás do shell, superfícies de página transparentes, teto de contraste calculado e intensidade escolhida | Aceita para UI-08 |
 
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.

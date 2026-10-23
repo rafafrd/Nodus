@@ -253,3 +253,11 @@ Observado na baseline e no pacote novo, Windows 11, sem diferença entre eles: `
 ## O-031 — smoke-home-white intermitente por corrida do roteiro (UI-07, 21/10/2026)
 
 Na baseline, 2 de 4 execuções falharam em `assert.equal(draftText(), draft)`: o roteiro lia o CodeMirror antes de ele redesenhar as linhas depois de reexibir a camada. No pacote novo apareceu também `setChecked` falhando ("Clicking the checkbox did not change its state"): o interruptor é controlado e só muda depois do IPC (22–68 ms na baseline, 36–83 ms agora, IPC puro 0,5 ms nos dois). Corrigido no roteiro, sem tocar no app: o rascunho é consultado até estabilizar e o interruptor usa clique condicional seguido da espera pelo atributo. Quatro execuções seguidas aprovadas. Nenhum dado nem rascunho foi perdido em nenhuma das falhas.
+
+## O-032 — Primeira versão do fundo novo baixava o texto secundário a 4,06:1 (UI-08, 23/10/2026)
+
+Observado na primeira medição do pacote novo, Windows 11: com opacidade fixa por tema, o pico do halo somado à grade levava `--theme-muted` a 4,06–4,84:1 no pior pixel em quatro temas (o Branco já estava em 4,55 na base). Correção: o teto de alfa passou a ser calculado pelos tokens do tema (maior opacidade que mantém 4,7:1) e vale para o shader e para o fallback CSS; a medição final ficou entre 4,68 e 5,31:1 em todos os temas e intensidades. Nenhum dado alterado. [Prova](docs/validation/UI_08_BACKDROP.md).
+
+## O-033 — Teste de motion lia arquivo apagado e ainda listado pelo Git (UI-08, 23/10/2026)
+
+`tests/motion-tokens.test.ts` percorria `git ls-files src/renderer` e falhava com ENOENT quando um componente era apagado antes do stage (HomeBackground/EditorialBackdrop). O teste agora ignora caminhos que não existem no disco. Sem efeito no app.

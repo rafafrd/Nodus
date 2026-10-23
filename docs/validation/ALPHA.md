@@ -506,3 +506,34 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 | C6 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): home-white, notes-ux, study-tabs, journey, videos, farm e deep-economy; defasados idênticos na baseline (O-030) |
 | C7 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): fotos antes/depois em quatro cenários, inspeção das capturas e vídeos locais |
 | C8 | aprovado | [UI_07_MOTION](UI_07_MOTION.md): ADR-0024, MOTION.md, design, ticket, retomada, gotcha O-029 a O-031, bootstrap/diff |
+
+## UI-08 — Fundo visível em todos os temas
+
+23/10/2026, feat/fundo-e-jogo-idle, de main/7ed54e1. [Provas, medições e capturas](UI_08_BACKDROP.md); [ADR-0025](../adr/0025-fundo-por-tema.md). C1–C7 concluídos; `smoke-editorial` não verificado (depende de preview-frontend, O-030).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): visível na UI (ΔL*≥3) 20,6–37,3% Início, 13,4–41,5% Ajustes, 4,7–9,9% Caderno; fundo isolado p99 ≤ 17,03 |
+| C2 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): cinco variantes pelos tokens, tinta escura no Branco |
+| C3 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): texto secundário ≥ 4,68:1 no pior ponto em 5 temas × 3 intensidades; leitura opaca |
+| C4 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): quadro parado visível com animações desligadas e movimento reduzido |
+| C5 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): backgroundIntensity aditiva, validada no main, perfis antigos sem regravação |
+| C6 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): um canvas, DPR ≤ 1,25, pausas e fallback provados; quadros > 50 ms 2→1 (Editorial), 0→0 (Branco) |
+| C7 | aprovado | [UI_08_BACKDROP](UI_08_BACKDROP.md): contratos app-background/app-backdrop, smokes atualizados, typecheck 61=61, 95/115 com 20 falhas da baseline, pacote |
+
+## GAM-06 — Jogo incremental refeito e independente do estudo
+
+23/10/2026, em andamento na mesma branch. [Ticket](../tasks/doing/GAM-06.md).
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | não verificado | — |
+| C2 | não verificado | — |
+| C3 | não verificado | — |
+| C4 | não verificado | — |
+| C5 | não verificado | — |
+| C6 | não verificado | — |
+| C7 | não verificado | — |
+| C8 | não verificado | — |
+| C9 | não verificado | — |
+| C10 | não verificado | — |

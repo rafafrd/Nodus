@@ -4,6 +4,8 @@ Direção atual de UI-03, 06/10/2026: **Editorial** é o padrão de novos perfis
 
 UI-07, 21/10/2026, leva o Editorial ao **Dark Editorial em movimento**: títulos em Newsreader e metadados em JetBrains Mono tabular (fontes empacotadas, só neste tema), line reveal, filetes que se desenham, spotlight de cartões e varredura de 1 px na troca de áreas. Os demais temas recebem apenas o conjunto sóbrio (transições, hover/press, rail indicator, contadores, diálogos, feedback de estado). Tempos, easings e o catálogo completo estão em [MOTION](MOTION.md); decisão em [ADR-0024](../adr/0024-sistema-de-motion.md).
 
+UI-08, 23/10/2026, torna o fundo **visível em todos os temas**: um canvas atrás do shell desenha grade de 48 px, luz, anéis e um feixe lento com a cor de destaque do tema (verde-escuro sobre o papel no Branco). As superfícies de página deixam o fundo aparecer nas margens e calhas; nota, editor, PDF e vídeo continuam opacos. Parado, o fundo continua visível; o usuário escolhe Sutil, Padrão ou Vivo, e o contraste do texto é protegido por construção. [ADR-0025](../adr/0025-fundo-por-tema.md), [provas](../validation/UI_08_BACKDROP.md).
+
 Direção anterior, conservada em Oliva: observatório espacial, com mesa sóbria para estudar e vistas mais ricas para grafo/base. Materiais grandes no centro, indicadores compactos nas bordas, barra lateral, dock e ferramentas flutuantes sobre painéis encaixados. Os registros seguintes descrevem os incrementos históricos.
 
 A mesa usa pouco brilho/cenário e dá prioridade a leitura, foco, contraste e estado de salvamento. As transições podem ser expressivas sem tirar o documento de vista. Controles têm rótulos, foco visível e operação por teclado. Evite reproduzir a aparência padrão de Radix/shadcn.

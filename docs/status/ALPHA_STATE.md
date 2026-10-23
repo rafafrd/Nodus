@@ -1,12 +1,14 @@
 # Retomada da alpha
 
-Bootstrap criado em 01/10/2026. Última execução: 21/10/2026, Windows 11 10.0.26300, America/Sao_Paulo, Node 24.21.0 portátil, app 0.1.0.
+Bootstrap criado em 01/10/2026. Última execução: 23/10/2026, Windows 11 10.0.26300, America/Sao_Paulo, Node 24.21.0 portátil, app 0.1.0.
 
 ## Estado real
 
 MVP local implementado e executado no Windows nativo, branch MVP e commits por fase. Alpha integral parcial. Resultados por critério em docs/validation/ALPHA.md; jornada local em docs/validation/MVP_JOURNEY.md.
 
 ## Próxima ação
+
+23/10/2026: branch feat/fundo-e-jogo-idle criada de main/7ed54e1 depois do merge do PR #16, com os arquivos não rastreados de IA-02/CAP-01 preservados e fora do stage. [UI-08](../tasks/done/UI-08.md) concluído: um canvas WebGL atrás do shell desenha o fundo em todos os temas, as superfícies de página deixam-no aparecer nas margens, leitura continua opaca, quadro parado visível em movimento reduzido, intensidade Sutil/Padrão/Vivo e teto de contraste calculado pelos tokens (texto secundário ≥ 4,68:1 medido). Caderno e Ajustes passaram de 0 % para 4,7–41,5 % de área com fundo visível. Typecheck 61=61, 115 testes com as 20 falhas de IA-02/CAP-01, pacote, smoke-home-white e smoke-motion aprovados. [Provas](../validation/UI_08_BACKDROP.md), [ADR-0025](../adr/0025-fundo-por-tema.md). [GAM-06](../tasks/doing/GAM-06.md) em andamento; próxima ação: pesquisa e GAME_DESIGN.md.
 
 21/10/2026: [UI-07](../tasks/done/UI-07.md) concluído na branch feat/editorial-motion, criada de main/62bfb0f, com os arquivos não rastreados de IA-02/CAP-01 preservados e fora do stage. Dark Editorial em movimento: tokens únicos de motion (TS + CSS com teste de paridade), primitivas GSAP (line reveal, hairline, panel enter, rail indicator, spotlight, pulso de estado, contadores), perfil sóbrio nos temas anteriores e expressivo no Editorial, fontes Newsreader/JetBrains Mono empacotadas (devDependencies, lockfile atualizado), App.tsx dividido em shell/, editorial.css aninhado com equivalência provada, Ambient.tsx e usePanelLayout removidos. Typecheck 61=61 (baseline), 93 testes (8 novos; as 20 falhas são as de IA-02/CAP-01), pacote Windows e smokes home-white/notes-ux/study-tabs/journey/videos/farm/deep-economy mais o novo smoke-motion aprovados. Roteiros sidebar/settings/clean-workspace/smooth-ui defasados desde UX-01 (O-030), idênticos na baseline. [Provas](../validation/UI_07_MOTION.md), [ADR-0024](../adr/0024-sistema-de-motion.md), [MOTION](../design/MOTION.md). Sem IPC, schema ou migration novos. Commits f985910 (código) e d6e0e81 (documentação) enviados com upstream; [PR #16](https://github.com/rafafrd/Nodus/pull/16) aberto para main, pronto para revisão, mergeable/limpo, sem os arquivos de IA-02/CAP-01. Typecheck 0 erros e 91/91 testes também em worktree limpo do commit. Próxima ação humana: revisar o PR e avaliar o ritmo em Ajustes → Aparência → Editorial. GAM-05/C8 humano e alpha externa continuam pendentes nos tickets existentes.
 
@@ -87,6 +89,8 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UX-02 | done | Concluído | UX-01, GAM-05, UI-06 | — |
 | UX-03 | done | Concluído | UX-02, CFG-01 | — |
 | UI-07 | done | Concluído | UI-03, UI-06, UX-03 | — |
+| UI-08 | done | Concluído | UI-07, UX-03 | — |
+| GAM-06 | doing | Em andamento | GAM-05, UI-07, UI-08 | C1, C2, C3, C4, C5, C6, C7, C8, C9, C10 |
 
 ## Checkpoints e atenção humana
 
@@ -98,4 +102,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [UI-07](../tasks/done/UI-07.md).
+Último ticket concluído: [UI-08](../tasks/done/UI-08.md).
