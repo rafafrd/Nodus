@@ -1,7 +1,6 @@
 import {useLayoutEffect,useRef,type ComponentProps} from 'react';
 import {gsap} from 'gsap';
 import {DayOverview} from './DayOverview';
-import {HomeBackground} from './HomeBackground';
 import {distance,duration,ease,stagger,useReducedMotion,useSpotlight} from './motion';
 import type {WorkspaceArea} from '../shared/workspace';
 
@@ -16,5 +15,5 @@ export function HomeWorkspace(props:ComponentProps<typeof DayOverview>&{navigate
   const tween=gsap.fromTo(components,{y:distance.panel,opacity:0},{y:0,opacity:1,duration:duration.panel,stagger:stagger.cards,ease:ease.out,clearProps:'opacity,transform,willChange',onComplete:()=>{el.dataset.componentMotion='idle';}});
   return()=>{tween.kill();gsap.set(components,{clearProps:'opacity,transform,willChange'});};
  },[props.activeArea,reduced]);
- return <div className="home-workspace" ref={host} data-testid="home-workspace"><HomeBackground active={props.activeArea}/><div className="home-scroll"><DayOverview {...props} home explore={props.navigate}/></div></div>;
+ return <div className="home-workspace" ref={host} data-testid="home-workspace"><div className="home-scroll"><DayOverview {...props} home explore={props.navigate}/></div></div>;
 }

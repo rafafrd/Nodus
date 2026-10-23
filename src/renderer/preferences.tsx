@@ -7,7 +7,7 @@ export function motionPreference() {
   const system = matchMedia('(prefers-reduced-motion: reduce)');
   return { get matches() { return document.documentElement.dataset.animations === 'off' || system.matches; }, addEventListener(_event: string, fn: () => void) { system.addEventListener('change', fn); window.addEventListener(EVENT, fn); }, removeEventListener(_event: string, fn: () => void) { system.removeEventListener('change', fn); window.removeEventListener(EVENT, fn); } };
 }
-function appearance(value: Preferences) { document.documentElement.dataset.theme = value.theme; document.documentElement.dataset.animations = value.animations ? 'on' : 'off'; window.dispatchEvent(new Event(EVENT)); }
+function appearance(value: Preferences) { document.documentElement.dataset.theme = value.theme; document.documentElement.dataset.animations = value.animations ? 'on' : 'off'; document.documentElement.dataset.backdropIntensity = value.backgroundIntensity; window.dispatchEvent(new Event(EVENT)); }
 type PreferencesContextValue = { value: Preferences; busy: boolean; error: string; update(input: Parameters<typeof window.desktop.updatePreferences>[0]): Promise<boolean>; photo(file: File): Promise<boolean>; removePhoto(): Promise<boolean> };
 const PreferencesContext = createContext<PreferencesContextValue | null>(null);
 export function PreferencesProvider({ children }: { children: ReactNode }) {
@@ -15,7 +15,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const pending = useRef(Promise.resolve()), count=useRef(0);
   useEffect(()=>{if(value)return;return window.desktop.onBeforeClose(()=>{void window.desktop.finishClose().then(r=>{if(!r.ok)setError(r.message);});});},[Boolean(value)]);
   useEffect(() => { let stopped = false; setError(''); void window.desktop.getPreferences().then(r => { if (stopped) return; if (r.ok) { appearance(r.value); setValue(r.value); } else setError(r.message); }).catch(() => { if (!stopped) setError('Não foi possível carregar as configurações. Tente novamente.'); }); return () => { stopped = true; }; }, [retry]);
-  useLayoutEffect(() => { if (value) appearance(value); }, [value?.theme, value?.animations, value?.editorialBackground]);
+  useLayoutEffect(() => { if (value) appearance(value); }, [value?.theme, value?.animations, value?.editorialBackground, value?.backgroundIntensity]);
   function mutate(action: () => Promise<Result<Preferences>>) {
     count.current++;setBusy(true);
     const task=pending.current.then(async()=>{setError('');

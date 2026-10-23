@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { cubic, distance, duration, ease, stagger } from '../src/renderer/motion/tokens';
 
 const renderer = 'src/renderer', css = fs.readFileSync(path.join(renderer, 'motion/motion.css'), 'utf8');
-const tracked = (extension: string) => execFileSync('git', ['ls-files', renderer], { encoding: 'utf8' }).split(/\r?\n/).filter(file => file.endsWith(extension));
+const tracked = (extension: string) => execFileSync('git', ['ls-files', renderer], { encoding: 'utf8' }).split(/\r?\n/).filter(file => file.endsWith(extension) && fs.existsSync(file));
 
 test('tokens de motion do GSAP e do CSS permanecem iguais', () => {
   for (const [name, seconds] of Object.entries(duration)) {

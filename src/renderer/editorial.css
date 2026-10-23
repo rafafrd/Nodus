@@ -73,7 +73,6 @@
 :root[data-theme=editorial] :is(kbd,.eyebrow,.section-label,.panel-caption,.local-label,.panel-index,.note-meta,.note-foot,.statusbar,.dock-caption,.focus-state,.next-caption) { font-family:var(--font-mono); color:var(--theme-muted); }
 :root[data-theme=editorial] kbd { border-color:var(--theme-border); font-size:9px; }
 :root[data-theme=editorial] .nodus-shell {
-  & :is(.area-stage,.desk,.study-workspace,.graph-workspace,.settings-main,.project-overview,.welcome) { background-color:var(--theme-bg); background-image:var(--editorial-grid); background-size:40px 40px; }
   & :is(.activity-rail,.sidebar,.settings-sidebar,.project-sidebar) { background:var(--theme-sidebar); border-color:var(--theme-border); }
   & .activity-rail { padding:12px 0 8px; background:var(--theme-rail); }
   & .rail-brand { margin:8px 0 20px; color:var(--theme-text); }
@@ -265,7 +264,6 @@
   & .settings-themes button>small { font-size:11px; }
   & .review-card { min-height:290px; padding:24px; }
   & .review-answer>p { font-size:14px; }
-  & .graph-canvas-host { background:var(--theme-bg); background-image:var(--editorial-grid); background-size:40px 40px; }
   & .graph-workspace { padding:26px 32px; }
   & .graph-workspace h1 { font-size:30px; }
   & .graph-node-label { background:var(--theme-panel); border-color:var(--theme-border); color:var(--theme-muted); font-size:11px; }
