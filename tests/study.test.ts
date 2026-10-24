@@ -78,7 +78,7 @@ test('migração real v4 para v7 é aditiva e restart conserva cartões/vínculo
     const migrated = new Store(path.join(f.dir, 'data'));
     let id = '';
     try {
-        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 7);
+        assert.equal(migrated.db.prepare('PRAGMA user_version').get()!.user_version, 8);
         assert.equal(new Game(migrated).get().coins, game.coins);
         assert.deepEqual(fs.readFileSync(path.join(f.root, f.n.ref.path)), original);
         id = new Study(migrated).create({ subjectId: f.a.id, noteId: f.n.ref.id, question: 'Persistir?', answer: 'Sim.', excerpt: '' }).id;

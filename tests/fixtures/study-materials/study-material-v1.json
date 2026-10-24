@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nodus.study-material/1",
+  "requestId": "00000000-0000-4000-8000-000000000001",
+  "subjectId": "00000000-0000-4000-8000-000000000002",
+  "language": "pt-BR",
+  "sources": [
+    {"id": "s01", "name": "Fixture — aula-http.pdf"},
+    {"id": "s02", "name": "Fixture — anotações-http.md"}
+  ],
+  "notes": [
+    {
+      "id": "n01",
+      "title": "HTTP: pedidos e respostas",
+      "markdown": "## A ideia central\n\nHTTP organiza a comunicação entre cliente e servidor. Um pedido descreve o recurso desejado; a resposta informa o resultado.\n\n## Métodos comuns\n\n| Método | Uso comum |\n| --- | --- |\n| GET | Consultar um recurso |\n| POST | Enviar dados para processamento |\n\n## Exemplo comentado\n\n```js\nconst resposta = await fetch('/aulas');\nconsole.log(resposta.status);\n```\n\nO código mostra uma consulta. O recurso e o caminho são apenas um exemplo.\n\n## Para lembrar\n\n- Método e endereço fazem parte do pedido.\n- O código de status pertence à resposta.\n- Confira os detalhes no material original.",
+      "sourceIds": ["s01", "s02"],
+      "supplement": "O exemplo com fetch foi acrescentado para ilustrar uma consulta; ele não foi executado."
+    },
+    {
+      "id": "n02",
+      "title": "Status HTTP: interpretar o resultado",
+      "markdown": "## Famílias de status\n\nO primeiro dígito ajuda a interpretar a resposta.\n\n| Família | Significado geral | Exemplo |\n| --- | --- | --- |\n| 2xx | Sucesso | 200 |\n| 4xx | Problema no pedido | 404 |\n| 5xx | Falha no servidor | 500 |\n\n## Uma relação para lembrar\n\nA família pode ser representada por $f = \\lfloor c / 100 \\rfloor$, onde $c$ é o código de status.\n\n## Para lembrar\n\nUm status descreve o resultado de um pedido. Leia também o corpo da resposta e confira o contexto antes de concluir a causa de uma falha.",
+      "sourceIds": ["s01"],
+      "supplement": "A expressão matemática é uma ajuda de memória acrescentada à explicação."
+    }
+  ]
+}
