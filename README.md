@@ -60,6 +60,7 @@ Escolha **Ajustes → Aparência → Branco** para a paleta clara. Editorial, Ol
 | :--- | :--- |
 | **Matérias e notas** | Escrever imediatamente, editar o título sugerido, usar modelos, importar Markdown e mover a nota entre matérias. CodeMirror conserva o arquivo canônico; conflitos externos mantêm as duas versões e rascunhos são recuperáveis. |
 | **Captura de conteúdo** | Transformar uma seleção de PDF, comentário ou momento de aula em nota com origem conferível; criar cartão ou conexão a partir da seleção, sem reescrever o trecho. |
+| **Material com IA** | Copiar um prompt, anexar arquivos na IA escolhida e importar notas organizadas por assunto. Prévia, fontes, complementos e retomada; arquivos Markdown reais na matéria. |
 | **Abas e painéis** | Manter até **quatro módulos por aba**, arrastar subitens laterais para dividir a tela e ajustar os separadores. Clicar no menu deixa a aba atual somente com o módulo escolhido. |
 | **PDF** | Ler arquivos locais, retomar a página, ajustar o documento à área e guardar marcações com comentários vinculados às notas. |
 | **Aulas em vídeo** | Salvar links YouTube por matéria, anotar momentos e usar cinema ou PiP interno arrastável. O player oficial abre por ação do usuário e precisa de internet. |
@@ -235,10 +236,25 @@ Capturas do executável real no Windows, com **fixtures de demonstração**. Sal
 
 <div align="center">
   <a href="https://github.com/rafafrd/Nodus/pull/13"><img src="https://img.shields.io/badge/IA_externa-integrada_%C3%A0_main-536255?style=for-the-badge" alt="IA externa integrada à main pelo PR 13"></a>
-  <p><strong>Escolha sua IA. Traga a atividade de volta ao Nodus.</strong></p>
+  <p><strong>Escolha sua IA. Traga notas e atividades de volta ao Nodus.</strong></p>
 </div>
 
 **Integrado à main pelo [PR #13](https://github.com/rafafrd/Nodus/pull/13).** Questionários e flashcards usam fontes selecionadas, por um fluxo manual sem chave de API nem chamadas automáticas.
+
+**Material com IA.** Em **Adicionar conteúdo** ou no **Caderno**, prepare o prompt, anexe os arquivos na IA que você preferir e traga o JSON. Confira as notas por assunto, as fontes e os complementos antes de guardá-las na matéria. O material de origem não precisa estar no Nodus. Repetir a importação não duplica nem sobrescreve notas editadas. [Uso](docs/features/material-ia-externa.md) · [Provas](docs/validation/STUDY_MATERIALS.md)
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="docs/validation/evidence/study-materials/02-preparar.png"><img src="docs/validation/evidence/study-materials/02-preparar.png" width="100%" alt="Preparar prompt de material com IA, matéria de destino, foco opcional e nível de detalhe"></a>
+      <p><strong>Dos anexos ao caderno</strong><br><sub>Prompt pronto para a IA escolhida pelo usuário.</sub></p>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="docs/validation/evidence/study-materials/09-previa-branco.png"><img src="docs/validation/evidence/study-materials/09-previa-branco.png" width="100%" alt="Prévia de notas de estudo no tema Branco com tabela, fontes e complemento da IA"></a>
+      <p><strong>Conferir antes de guardar</strong><br><sub>Notas reais importáveis a partir de uma resposta de demonstração.</sub></p>
+    </td>
+  </tr>
+</table>
 
 <table>
   <tr>
@@ -376,11 +392,9 @@ Código e versões exatas em [package.json](package.json) e [package-lock.json](
 
 | Situação | Escopo |
 | :--- | :--- |
-| **Disponível na main** | Mesa Windows, notas/PDF/vídeos, revisão, abas/grade, grafo, Explorer, quatro temas, exportação, backup, cidade com produção profunda e atividades importadas de IA externa pelo [PR #13](https://github.com/rafafrd/Nodus/pull/13). |
-| **Nesta entrega em revisão** | Branch `codex/home-white`: escrita/organização/captura simplificadas (UX-01), projetos e postos da farm (GAM-05), clareza/animação 3D (UX-02), Home em Início e quinto tema Branco (UX-03). [Fotos/clipe](docs/reports/HOME_BRANCO_2026-10-09.md) · [Provas Windows](docs/validation/HOME_WHITE.md) · [Guia](docs/GUIA_DE_USO.md). |
+| **Disponível na main** | Mesa Windows, notas/PDF/vídeos, revisão, abas/grade, grafo, Explorer, cinco temas com Home, exportação, backup, jogo da cidade com minigames (Mira, Memória, Horta e Conselho), atividades de IA externa ([PR #13](https://github.com/rafafrd/Nodus/pull/13)) e Material com IA. [Guia](docs/GUIA_DE_USO.md). |
 | **Avaliação de uso pendente** | Compreensão do próximo projeto e seu benefício por uma pessoa leiga: GAM-05/C8 continua parcial, com [roteiro pronto](docs/validation/FARM_PROJECTS.md). |
-| **Disponível na main** | Mesa Windows, notas/PDF/vídeos, revisão, abas/grade, grafo, Explorer, temas, exportação, backup e cidade com produção profunda. |
-| **Em revisão** | Atividades importadas de IA externa, [PR #13](https://github.com/rafafrd/Nodus/pull/13). |
+| **Em espera** | Captura pelo Edge com preparação por OpenRouter (CAP-01): implementação interrompida, depende de aprovação para o registro do host e uso pago. |
 | **Ainda pendente** | Consulta autenticada no celular com PC desligado, integração de agenda, tutor com geração automática, execução/Git de projetos e extração automática de relações. |
 
 A alpha integral permanece **parcial**. A consulta em nuvem, parte da prova de edição externa e a jornada completa desktop/mobile continuam em seus tickets. Nome definitivo, licença pública e hospedagem ainda não foram definidos. As funcionalidades locais têm evidências próprias; os testes deste repositório não substituem uma prova externa pendente.

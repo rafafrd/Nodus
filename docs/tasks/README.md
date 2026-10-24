@@ -1,8 +1,8 @@
 # Quadro de tarefas
 
-Incremento atual: [GAM-07 — Cidade em 3D melhor, minigames fáceis de achar e Mira](done/GAM-07.md), concluído na branch feat/cidade-e-mira, criada da main/488ce1c. C1–C5 aprovados; Mira, smokes da cidade e do jogo aprovados no pacote Windows. [Provas](../validation/GAM_07_AIM_CITY.md).
+Incremento atual: [IA-02 — Material de estudo por IA externa](done/IA-02.md), recuperado na branch feat/material-ia-e-captura, criada da main/bd35e43 (O-041). Typecheck 0, 96/96 testes, jornada e 30 smokes aprovados no pacote Windows. [CAP-01](doing/CAP-01.md) bloqueado e guardado em `.local/cap-01-parked/`. [Provas](../validation/STUDY_MATERIALS.md).
 
-Incremento anterior: [QA-01 — Roteiros de smoke atualizados à UI atual](done/QA-01.md), concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). 22 roteiros defasados (O-030/O-037) voltaram a passar no pacote Windows sem mudança no app; 29 smokes em sequência aprovados. [Provas](../validation/QA_01_SMOKES.md).
+Incremento anterior: [GAM-07 — Cidade em 3D melhor, minigames fáceis de achar e Mira](done/GAM-07.md), concluído na branch feat/cidade-e-mira e integrado pelo PR #19. [Provas](../validation/GAM_07_AIM_CITY.md).
 
 Incremento anterior: [UI-07 — Frontend refatorado e motion Dark Editorial](done/UI-07.md), concluído na branch feat/editorial-motion de main/62bfb0f. Tokens de motion únicos, primitivas GSAP, perfil expressivo no Editorial e sóbrio nos demais, fontes empacotadas, App.tsx dividido e editorial.css consolidado. Typecheck sem erro novo, 93 testes, pacote Windows e jornadas de baseline aprovados; roteiros defasados registrados em O-030. [Provas](../validation/UI_07_MOTION.md), [ADR-0024](../adr/0024-sistema-de-motion.md). IA-02/CAP-01 não rastreados preservados e fora do stage.
 
@@ -26,6 +26,8 @@ Execução local da alpha iniciada em 02/10/2026; consulte os tickets e as evid�
 
 ## Regra de movimentação
 
+Incremento atual: [IA-02 — Material de estudo por IA externa](done/IA-02.md), concluído localmente em codex/external-study-material. Prompt para anexos externos, prévia e importação em notas reais; typecheck/90testes/revisão7/7/pacote204arquivos/jornadas Windows aprovados. [Provas](../validation/STUDY_MATERIALS.md), [relatório](../reports/MATERIAL_IA_2026-10-09.md). Alterações anteriores preservadas, sem publicação. Próxima ação: usar Material com IA e conferir o conteúdo com os anexos.
+
 | Pasta | status no frontmatter | outcome permitido | Significado |
 | --- | --- | --- | --- |
 | todo | todo | a_fazer | Ainda não iniciada |
@@ -48,6 +50,7 @@ O comando move o arquivo; editar frontmatter/links/retomada faz parte da mesma a
 
 | Ticket | Entrega | Dependências | Arquivo |
 | --- | --- | --- | --- |
+| IA-02 | Material de estudo por IA externa | IA-01, UX-01, UX-03 | [Abrir](done/IA-02.md) |
 | ALP-01 | Fundação executável no Windows | — | [Abrir](done/ALP-01.md) |
 | ALP-02 | Prova de compatibilidade do editor Markdown | ALP-01 | [Abrir](doing/ALP-02.md) |
 | ALP-03 | Contratos e persistência local mínima | ALP-01 | [Abrir](done/ALP-03.md) |

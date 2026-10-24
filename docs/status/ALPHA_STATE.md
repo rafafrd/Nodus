@@ -8,6 +8,13 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+24/10/2026: [IA-02](../tasks/done/IA-02.md) recuperado na branch feat/material-ia-e-captura, criada da main/bd35e43 depois do merge do PR #19.
+
+- **Causa:** um reset em 21/10 tinha descartado a parte rastreada de IA-02 e CAP-01; os arquivos soltos deixavam 61 erros de tipos e 20 testes falhando (O-041).
+- **IA-02:** Material com IA reaplicado na interface atual, schema 8; typecheck 0, 96/96 testes, jornada e 30 smokes aprovados no pacote. [Provas](../validation/STUDY_MATERIALS.md).
+- **CAP-01:** [bloqueado](../tasks/doing/CAP-01.md); arquivos guardados intactos em `.local/cap-01-parked/`. Retomar exige reconstruir a parte perdida e aprovar registro HKCU e uso pago do OpenRouter.
+- **Próxima ação humana:** revisar e mesclar o PR de IA-02.
+
 24/10/2026: [GAM-07](../tasks/done/GAM-07.md) concluído na branch feat/cidade-e-mira, criada da main/488ce1c depois do merge dos PRs #17 e #18.
 
 - **Mira:** minigame de precisão no estilo osu!, com quatro níveis; o main sorteia, valida e paga.
@@ -103,6 +110,8 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | GAM-06 | done | Concluído | GAM-05, UI-07, UI-08 | — |
 | QA-01 | done | Concluído | UI-08, GAM-06 | — |
 | GAM-07 | done | Concluído | GAM-06, QA-01 | — |
+| IA-02 | done | Concluído | IA-01, UX-01, UX-03 | — |
+| CAP-01 | doing | Bloqueado | IA-01, IA-02, UX-03 | C1–C10 |
 
 ## Checkpoints e atenção humana
 

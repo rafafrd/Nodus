@@ -1,0 +1,45 @@
+CAPTURE 01-entrada
+CAPTURE 02-preparar
+CAPTURE 03-prompt
+CAPTURE 04-correcao
+CAPTURE 05-previa
+CAPTURE 06-importado
+CAPTURE 07-caderno
+CAPTURE 08-retomada-branco
+CAPTURE 09-previa-branco
+CAPTURE 10-compacto-branco
+CAPTURE 11-estreito
+CAPTURE 12-reinicio-rascunho
+CAPTURE 13-praticar-material
+{
+  "checks": [
+    "Entrada Adicionar conteúdo/Caderno; destino explícito e bloqueado após preparo; prompt para anexos sem enviar material local; clipboard Windows confirmado.",
+    "Colagem/arquivo UTF-8 e correção integral; fechamento imediato conserva resposta; prévia de todas as notas/fontes/complementos; HTML/link/imagem inertes.",
+    "Notas reais editáveis, Markdown/tabelas/código/fórmula/origem conservados; replay preserva edição; outra matéria/argumento inválido e oito canais de outra janela negados.",
+    "Tema Branco real, prévia/retomada e compacto1040×760/640px sem overflow; fechar aplicativo imediatamente salva rascunho; reinício conserva prompt, importação, edição e tema.",
+    "A nota importada e editada vira fonte real de um pedido de questionário no fluxo IA-01 existente."
+  ],
+  "errors": [],
+  "network": [],
+  "metrics": {
+    "whiteColors": {
+      "heading": "rgb(38, 51, 42)",
+      "table": "rgb(38, 51, 42)",
+      "text": "#26332a"
+    },
+    "compact": {
+      "left": 95,
+      "right": 945,
+      "bottom": 736,
+      "top": 24,
+      "overflow": false
+    },
+    "narrow": {
+      "left": 24,
+      "right": 616,
+      "bottom": 736,
+      "top": 24,
+      "overflow": false
+    }
+  }
+}

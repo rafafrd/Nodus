@@ -1,0 +1,153 @@
+{
+  "at": "2026-10-09T09:35:27.062Z",
+  "proofCommit": "07e223b579830f5ab8f7bc705980b6e5fade5855",
+  "browser": "154.0.4258.62",
+  "url": "https://github.com/rafafrd/Nodus/blob/codex/home-white/README.md#arquitetura",
+  "images": [
+    {
+      "alt": "Estágio: MVP local",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/est%C3%A1gio-MVP_local-74716a?style=for-the-badge"
+    },
+    {
+      "alt": "Execução nativa validada no Windows",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Windows-validado-536255?style=for-the-badge"
+    },
+    {
+      "alt": "Dados locais",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/dados-locais-536255?style=for-the-badge"
+    },
+    {
+      "alt": "Electron 44.5.1",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Electron-44.5.1-47848f?style=flat-square&logo=electron&logoColor=white"
+    },
+    {
+      "alt": "React 19.3",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/React-19.3-497f8b?style=flat-square&logo=react&logoColor=white"
+    },
+    {
+      "alt": "TypeScript 5.9.3",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/TypeScript-5.9.3-46688c?style=flat-square&logo=typescript&logoColor=white"
+    },
+    {
+      "alt": "Node.js 24",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/Node.js-24-536255?style=flat-square&logo=nodedotjs&logoColor=white"
+    },
+    {
+      "alt": "Persistência SQLite local",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/SQLite-local-74716a?style=flat-square&logo=sqlite&logoColor=white"
+    },
+    {
+      "alt": "Home do Nodus no tema Branco: próximo passo de estudo, livro 3D e atalhos para Caderno, Materiais, Revisão e Cidade",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/home-white/home-branca.png"
+    },
+    {
+      "alt": "Home animada do Nodus no tema Editorial com próxima tarefa e atalhos",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/home-white/home-editorial.png"
+    },
+    {
+      "alt": "Caderno do Nodus no tema Branco com editor Markdown e acervo de notas",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/home-white/caderno-branco.png"
+    },
+    {
+      "alt": "Seleção real de um PDF e captura do trecho em nota com origem preservada",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/notes-ux/pdf-selection.png"
+    },
+    {
+      "alt": "Cidade com Depósito e dois postos construídos, objetivos e estoques automáticos",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/farm-projects/all-projects.png"
+    },
+    {
+      "alt": "Quatro módulos do Nodus em uma grade 2 por 2",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/study-tabs/four.png"
+    },
+    {
+      "alt": "Grade de quatro painéis adaptada a uma janela de 1040 por 760 pixels com menu recolhido",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/sidebar/compact-four.png"
+    },
+    {
+      "alt": "Melhorias de produção com requisitos e custos no Observatório",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/evidence/gam-04/upgrades.png"
+    },
+    {
+      "alt": "Descobertas e conquistas progressivas do Observatório",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/evidence/gam-04/achievements.png"
+    },
+    {
+      "alt": "Vila Vale Sereno e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/evidence/gam-04/district-original.png"
+    },
+    {
+      "alt": "Cidade Cyberpunk com torres, iluminação neon e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/evidence/gam-04/district-cyberpunk.png"
+    },
+    {
+      "alt": "Cidade New York com prédios urbanos e distrito produtivo",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/evidence/gam-04/district-newyork.png"
+    },
+    {
+      "alt": "IA externa integrada à main pelo PR 13",
+      "loaded": true,
+      "source": "https://img.shields.io/badge/IA_externa-integrada_%C3%A0_main-536255?style=for-the-badge"
+    },
+    {
+      "alt": "Seleção de fontes e prompt completo para IA externa",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/external-activities/prompt.png"
+    },
+    {
+      "alt": "Questionário concluído com resultado, gabarito e explicações",
+      "loaded": true,
+      "source": "https://github.com/rafafrd/Nodus/raw/codex/home-white/docs/validation/evidence/external-activities/results.png"
+    }
+  ],
+  "diagrams": [
+    {
+      "svg": 1,
+      "body": "Clique\n\nArraste ou +\n\nSubitens do menu lateral\n\nUm módulo na aba atual\n\nAcrescentar painel\n\n2: duas colunas\n\n3: esquerda inteira + direita dividida\n\n4: grade 2 "
+    },
+    {
+      "svg": 1,
+      "body": "Minutos efetivos de Foco\n\nRegistro de estudo elegível\n\nRevisões devidas\n\nProdução do Observatório\n\nInstalações e sinergias\n\nMelhorias e descobertas\n\nLegado opci"
+    },
+    {
+      "svg": 1,
+      "body": "Válido\n\nInválido\n\nSelecionar materiais da matéria\n\nCopiar prompt completo\n\nColar em qualquer IA\n\nTrazer o JSON\n\nValidar no app\n\nImportar e estudar\n\nCopiar pedid"
+    }
+  ],
+  "width": {
+    "document": 430,
+    "viewport": 430
+  },
+  "tables": 12,
+  "navigation": [
+    "funcionalidades",
+    "galeria",
+    "ia-externa",
+    "começar-no-windows",
+    "arquitetura"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ]
+}

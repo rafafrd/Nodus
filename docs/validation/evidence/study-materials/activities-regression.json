@@ -1,0 +1,33 @@
+{
+  "platform": "win32",
+  "fixture": "Declarada, não é resposta de provedor.",
+  "checks": [
+    "Quatro fontes reais da mesma matéria, Markdown integral/código, três páginas extraídas por PDF.js e anotação local42s; clipboard Windows confirmado.",
+    "Falha de clipboard injetada: nenhuma confirmação falsa e texto integral disponível para cópia manual.",
+    "Duplicatas JSON recusadas, pedido/correção/original sobrevivem reabertura; quiz real retomado2/10, final100%/10explicações, referência PDF2 abre leitor; arquivo usa mesmo pipeline, replay não duplica, revisão preserva tentativa.",
+    "Flashcards por arquivo criam10cartões reais e replay por colagem conserva revisões; rollback injetado não deixa atividade/cartões parciais; verso por ação, autoavaliação Study.review persiste e biblioteca existente atualiza10cartões ao voltar, HTML inerte, complemento e snapshot alterado/ausente identificados.",
+    "Pedido de outra matéria requer escolha explícita; JSON original preservado, fontes/pedido corretos após mudança, nenhuma importação automática. Nove canais novos recusam sender externo real.",
+    "Limite2000 bloqueia cópia sem corte; viewport1040×760 dividido com PDF, fontes preservadas, três atividades/10cartões/uma revisão/duas tentativas; zero pageerror ou rede HTTP(S) no renderer."
+  ],
+  "counts": {
+    "activities": 3,
+    "cards": 10,
+    "reviews": 1,
+    "sessions": 2
+  },
+  "errors": [],
+  "network": [],
+  "screenshots": [
+    ".local/evidence/external-activities-prompt.png",
+    ".local/evidence/external-activities-correction.png",
+    ".local/evidence/external-activities-preview.png",
+    ".local/evidence/external-activities-quiz.png",
+    ".local/evidence/external-activities-results.png",
+    ".local/evidence/external-activities-reference.png",
+    ".local/evidence/external-activities-flashcards.png",
+    ".local/evidence/external-activities-missing-source.png",
+    ".local/evidence/external-activities-limit.png",
+    ".local/evidence/external-activities-compact.png",
+    ".local/evidence/external-activities-corresponding-request.png"
+  ]
+}

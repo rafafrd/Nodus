@@ -1,6 +1,6 @@
 # Nodus — como iniciar e usar
 
-Guia da versão local Windows, atualizado em 08/10/2026. O executável ainda se chama **App Estudos**. A branch local **codex/notes-navigation** inclui escrita imediata, captura de material e navegação orientada à matéria, além da implementação de IA-01. Abas/grade, foco, checklist, produção, temas, projetos, YouTube/cinema/PiP, exportação e backups permanecem disponíveis. Este incremento ainda não foi enviado ao remoto.
+Guia da versão local Windows, atualizado em 24/10/2026. O executável ainda se chama **App Estudos**. A `main` reúne notas, captura de conteúdo, Material com IA e atividades de IA externa, a Home com cinco temas, abas/grade, foco, checklist, o jogo da cidade com minigames, projetos, YouTube/cinema/PiP, exportação e backups.
 
 ## 1. Abrir agora neste PC
 
@@ -289,7 +289,7 @@ Depósito, postos, coleta e mercado (GAM-05) foram consolidados em GAM-06: as co
 
 **Início** destaca seu próximo passo: criar a primeira matéria, revisar cartões pendentes, continuar uma tarefa ou retomar a mesa. **Continuar esta tarefa** abre a matéria e seu checklist. **Escrever agora** abre uma nota diretamente; no primeiro uso, conduz à preparação da pasta e à criação da matéria.
 
-Use **Adicionar conteúdo** no Início ou no menu lateral. Confira a matéria indicada e escolha **Escrever uma nota**, **Trazer um PDF**, **Guardar uma aula** ou **Importar notas**. PDF usa o seletor de arquivos; aula usa o diálogo de link YouTube; importação aceita Markdown e conserva os arquivos originais. Sem matéria, comece pela escrita/primeira matéria. Os rascunhos e a retomada seguem os fluxos existentes.
+Use **Adicionar conteúdo** no Início ou no menu lateral. Confira a matéria indicada e escolha **Escrever uma nota**, **Material com IA**, **Trazer um PDF**, **Guardar uma aula** ou **Importar notas**. PDF usa o seletor de arquivos; aula usa o diálogo de link YouTube; importação aceita Markdown e conserva os arquivos originais. Sem matéria, comece pela escrita/primeira matéria. Os rascunhos e a retomada seguem os fluxos existentes.
 
 **Minhas notas** mostra seu acervo e identifica a nota aberta. A descrição sob a área selecionada no menu explica seu uso. Botões de tarefa e matéria permitem voltar ao estudo com seu contexto. Nomes dos locais ficam visíveis na Cidade ampla; em espaços menores, também aparecem ao focar ou passar o ponteiro.
 
@@ -308,3 +308,15 @@ Os componentes entram em sequência e os cartões respondem ao ponteiro e ao foc
 Para a aparência clara, escolha **Ajustes → Aparência → Branco**. O tema cobre menus, caderno, materiais, revisão, conexões, projetos, cidade e diálogos, com realce de código próprio. Imagens, PDFs e o cenário 3D conservam suas cores. A escolha continua após reiniciar, e trocar o tema preserva seus rascunhos.
 
 [Capturas, clipe e validação](validation/HOME_WHITE.md), [decisão](adr/0021-home-e-tema-branco.md).
+
+## 17. Material de estudo com IA
+
+Abra **Adicionar conteúdo → Material com IA** ou use o botão no Caderno. Confira a matéria, escolha um foco opcional e o detalhe das explicações. **Preparar prompt → Copiar prompt** gera o pedido com o formato do Nodus. Cole-o na IA escolhida e anexe os arquivos nessa conversa.
+
+Volte com o JSON completo: cole a resposta ou abra um arquivo JSON UTF-8. **Conferir material** mostra as notas, fontes e complementos. Se houver erro, copie o pedido de correção para a mesma conversa e traga o objeto completo corrigido. Leia a prévia e compare com os anexos antes de **Adicionar notas ao caderno**.
+
+São criadas até8notas Markdown novas por pedido, organizadas na matéria. Você pode editar, praticar ou exportar pelo fluxo existente. **Continuar um pedido** recupera prompt/resposta; importar novamente o mesmo lote conserva suas edições. Para outro material, use **Novo pedido**. Fechar espera a gravação do rascunho.
+
+O Nodus não chama a IA nem exige chave, e não copia os anexos dessa conversa. A qualidade depende do material e da IA escolhida; nomes das fontes são declarações da resposta, e validar o formato não confirma sua precisão acadêmica. Limite de resposta2MiB e prévia sem execução de HTML/código/links/imagens.
+
+[Passo a passo e recuperação](features/material-ia-externa.md) · [Contrato](contracts/study-material-v1.md) · [Capturas e provas](validation/STUDY_MATERIALS.md).

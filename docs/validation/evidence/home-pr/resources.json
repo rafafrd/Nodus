@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-09T09:23:02.427Z",
+  "gfmApiStatus": 200,
+  "images": 23,
+  "badges": 9,
+  "screenshots": 14,
+  "mermaidBlocks": 3,
+  "tables": 12,
+  "localImages": [
+    "docs/validation/evidence/home-white/home-branca.png",
+    "docs/validation/evidence/home-white/home-editorial.png",
+    "docs/validation/evidence/home-white/caderno-branco.png",
+    "docs/validation/evidence/notes-ux/pdf-selection.png",
+    "docs/validation/evidence/farm-projects/all-projects.png",
+    "docs/validation/evidence/study-tabs/four.png",
+    "docs/validation/evidence/sidebar/compact-four.png",
+    "docs/evidence/gam-04/upgrades.png",
+    "docs/evidence/gam-04/achievements.png",
+    "docs/evidence/gam-04/district-original.png",
+    "docs/evidence/gam-04/district-cyberpunk.png",
+    "docs/evidence/gam-04/district-newyork.png",
+    "docs/validation/evidence/external-activities/prompt.png",
+    "docs/validation/evidence/external-activities/results.png"
+  ],
+  "resources": [
+    {
+      "url": "https://img.shields.io/badge/est%C3%A1gio-MVP_local-74716a?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/Windows-validado-536255?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/dados-locais-536255?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/Electron-44.5.1-47848f?style=flat-square&logo=electron&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/React-19.3-497f8b?style=flat-square&logo=react&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/TypeScript-5.9.3-46688c?style=flat-square&logo=typescript&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/Node.js-24-536255?style=flat-square&logo=nodedotjs&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/SQLite-local-74716a?style=flat-square&logo=sqlite&logoColor=white",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    },
+    {
+      "url": "https://img.shields.io/badge/IA_externa-integrada_%C3%A0_main-536255?style=for-the-badge",
+      "status": 200,
+      "type": "image/svg+xml;charset=utf-8"
+    }
+  ]
+}

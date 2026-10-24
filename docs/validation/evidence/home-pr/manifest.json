@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-09T09:35:27.087Z",
+  "files": [
+    {
+      "file": "diagram.png",
+      "bytes": 131194,
+      "sha256": "581e1776bdc6289c000623d589c20e92ba1a2f36b4ca5395d3658249716c5aab"
+    },
+    {
+      "file": "gallery.png",
+      "bytes": 200681,
+      "sha256": "5594aa72bd68ddd0c8be9630196592255f48d7fab9a9ce5eeb821b45e1e662ad"
+    },
+    {
+      "file": "github-readme.json",
+      "bytes": 6135,
+      "sha256": "8967a1fe66420cd5b2dba7f5587ad8e8ee749fa33a43bc600a1db72bfdab2adc"
+    },
+    {
+      "file": "header.png",
+      "bytes": 247692,
+      "sha256": "e458445450289a2b8eb555749ebd1b26a5eef49dcdee9d2f1a29bda79e7742b0"
+    },
+    {
+      "file": "light.png",
+      "bytes": 48092,
+      "sha256": "fd0a92bcbda0fd4a21a8c1ebae55583aa593ae745290f39258538c74230bf872"
+    },
+    {
+      "file": "mobile-gallery.png",
+      "bytes": 68391,
+      "sha256": "eb77d81f150f88ed2ca425d6b4a3dbd37329e6e08cecdb3c9568fc9b904e30d8"
+    },
+    {
+      "file": "mobile.png",
+      "bytes": 47489,
+      "sha256": "5a81ebdd68320095943a6e7bb2efd19b7eccf5245b1ccf3c09225daa9b2ea886"
+    },
+    {
+      "file": "pull-request.json",
+      "bytes": 348,
+      "sha256": "30b629162f81b1a8a72a9f4100510aedd5f7e7938bd000b9bd19c733920556b6"
+    },
+    {
+      "file": "resources.json",
+      "bytes": 2614,
+      "sha256": "9d5db71c3c2f369069c9e16b17c6f8228a24db03e7208164d59573fdd43f29c2"
+    },
+    {
+      "file": "scan.json",
+      "bytes": 171,
+      "sha256": "fffc945ebb3a55966fdbc34e289ea5c218cc30439f61bf93354a69244fcf5a54"
+    }
+  ]
+}
