@@ -46,3 +46,7 @@ Pendências reproduzíveis:
 - Avaliação humana de diversão e de risco de procrastinação, que não foi feita.
 - `smoke-visual-experience` falha no trecho de primeiro uso, com seletor ambíguo, não relacionado e não verificado na baseline (O-037).
 - Os roteiros defasados de O-030 continuam sem atualização.
+
+## Entrega Git
+
+Pedido do usuário nesta sessão: branch, commits, push e PR autorizados; merge, release e publicação não. Branch `feat/fundo-e-jogo-idle`, criada de `main`/7ed54e1 depois do merge do PR #16. Commits 470414d e 80b36bf (UI-08); 1e445d3, 2e511b7, 6b7ce17 e cefbf56 (GAM-06), enviados com upstream. [PR #17](https://github.com/rafafrd/Nodus/pull/17) aberto para `main` pela API do GitHub (`gh` não está instalado; credencial do helper do Git só em memória): mesclável, limpo, 152 arquivos, nenhum de IA-02/CAP-01, 26 URLs de evidência conferidas com HTTP 200. Num worktree limpo do commit: typecheck com 0 erros, 87/87 testes (depois de criar a pasta `.local`, que os testes exigem) e `check-bootstrap` OK com 34 tickets e 234 critérios.

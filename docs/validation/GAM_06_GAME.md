@@ -106,7 +106,8 @@ Nada vem de CDN nem de gerador de imagem externo.
 | `smoke-visual-experience.ts` | **falhou** depois da parte do jogo (skins, partículas do núcleo, perda de WebGL aprovadas): o trecho de primeiro uso encontra duas esculturas (Caderno e Home) num seletor; não relacionado ao GAM-06 e **não verificado na baseline** (O-037) |
 | `smoke-sidebar`, `smoke-settings`, `smoke-clean-workspace`, `smoke-smooth-ui`, `smoke-engine-explorer`, `smoke-editorial` | **não executados**: defasados desde UX-01 (O-030); os quatro primeiros e `smoke-engine-explorer` também usam o jogo antigo |
 | `capture-game.ts` (cinco temas, compacta, vídeo) | aprovado, sem erros de página |
-| `node scripts/check-bootstrap.mjs` | só as falhas de CAP-01/IA-02 dos arquivos não rastreados; zero falhas num worktree limpo do commit |
+| `node scripts/check-bootstrap.mjs` | só as falhas de CAP-01/IA-02 dos arquivos não rastreados; num worktree limpo do commit cefbf56: OK (34 tickets, 234 critérios) |
+| worktree limpo do commit cefbf56: `tsc --noEmit` e `npm test` | 0 erros; 87/87 testes, depois de criar a pasta `.local`, que os testes já exigiam |
 
 ## Limites
 
