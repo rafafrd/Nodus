@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { _electron as electron } from 'playwright';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle } from './test-fixture';
 import { Store } from '../src/main/store';
-const f = prepareFixture('annotations-ui'), data = path.join(f.dir, 'data'), original = fs.readFileSync(f.pdfA), source = fs.readFileSync(path.join(f.root, f.noteA.ref.path));
+const f = prepareFixture('annotations-ui', ['study', 'pdf']), data = path.join(f.dir, 'data'), original = fs.readFileSync(f.pdfA), source = fs.readFileSync(path.join(f.root, f.noteA.ref.path));
 const destination=path.join(f.dir,'chosen-output');fs.mkdirSync(destination);const seed=new Store(data);seed.setSetting('pdfDestination',destination);seed.close();
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64');
 fs.writeFileSync(path.join(f.root, f.a.id, 'pixel.png'), image);
@@ -22,7 +22,7 @@ async function guestUrl() { for (let i = 0; i < 100; i++) {
 } return null; }
 try {
     await app.evaluate(({ app }, dir) => { app.setPath('downloads', dir); }, f.dir);
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
+    await noteTitle(page,'Nota A');
     await page.waitForFunction(() => document.querySelector('canvas[data-rendered-page="2"]'));
     await page.getByRole('button', { name: 'Marcar área', exact: true }).click();
     const box = await page.locator('.pdf-mark-overlay').boundingBox();
@@ -37,7 +37,7 @@ try {
     await page.getByText('Trecho importante para revisar.', { exact: true }).waitFor();
     await page.screenshot({ path: '.local/evidence/expansion-pdf-marks.png' });
     assert.deepEqual(fs.readFileSync(f.pdfA), original);
-    await page.getByRole('button', { name: 'Vídeos', exact: true }).click();
+    await page.getByRole('button', { name: 'Abrir Vídeo', exact: true }).click();
     await page.getByRole('button', { name: 'Salvar link do YouTube', exact: true }).click();
     await page.getByRole('textbox', { name: 'Link do YouTube', exact: true }).fill('https://youtu.be/M7lc1UVf-VE');
     await page.getByRole('textbox', { name: 'Título do vídeo', exact: true }).fill('Aula pública de demonstração');

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { _electron as electron } from 'playwright';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle } from './test-fixture';
 import { Store } from '../src/main/store';
 import { Projects } from '../src/main/projects';
 const fixture=prepareFixture('pdf-export'),data=path.join(fixture.dir,'data'),downloads=path.join(fixture.dir,'downloads');fs.mkdirSync(downloads);
@@ -18,7 +18,7 @@ try {
   // Real Electron path configuration confines this fixture's output; no dialog, IPC, FS or print mocks.
   await app.evaluate(({app},target)=>app.setPath('downloads',target),downloads);
   await app.evaluate(({app,session})=>{(globalThis as any).__pdfRuntime=[];app.on('browser-window-created',(_event,win)=>{win.webContents.on('did-finish-load',()=>{if(win.webContents.getURL().startsWith('nodus-pdf:'))(globalThis as any).__pdfRuntime.push({url:win.webContents.getURL(),prefs:win.webContents.getLastWebPreferences(),isolated:win.webContents.session!==session.defaultSession,storage:win.webContents.session.getStoragePath(),preloads:win.webContents.session.getPreloads()});});});});
-  await page.getByRole('heading',{name:'Nota A',exact:true}).waitFor();
+  await noteTitle(page,'Nota A');
   await page.getByRole('button',{name:'Abrir configurações',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-area=settings]')?.getAttribute('aria-hidden')==='false' && document.querySelector('[data-testid=area-stage]')?.getAttribute('data-motion')==='idle');
   await page.getByRole('button',{name:'Dados e app',exact:true}).click();const exportButton=page.getByRole('button',{name:'Exportar pasta em PDF',exact:true});await exportButton.waitFor();await page.waitForFunction(()=>!document.querySelector<HTMLButtonElement>('.settings-export>button')?.disabled);
   await exportButton.click();await page.getByRole('textbox',{name:'PDF exportado',exact:true}).waitFor({timeout:60000});const first=await page.getByRole('textbox',{name:'PDF exportado',exact:true}).inputValue();assert.ok(first.startsWith(downloads+path.sep));assert.ok(fs.readFileSync(first).subarray(0,5).equals(Buffer.from('%PDF-')));

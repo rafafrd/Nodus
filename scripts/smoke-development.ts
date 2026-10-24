@@ -4,7 +4,7 @@ import electronPath from 'electron';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { prepareFixture } from './test-fixture';
-const f = prepareFixture('development-smoke'); const server = await createServer(); await server.listen();
+const f = prepareFixture('development-smoke', ['study', 'pdf']); const server = await createServer(); await server.listen();
 const env = { ...process.env, APP_DEV_URL: 'http://127.0.0.1:5173' }; delete (env as Record<string, string | undefined>).ELECTRON_RUN_AS_NODE;
 const app = await electron.launch({ executablePath: electronPath, args: ['.', `--user-data-dir=${path.join(f.dir, 'data')}`], env });
 try {

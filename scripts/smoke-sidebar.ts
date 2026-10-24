@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { _electron as electron } from 'playwright';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle } from './test-fixture';
 import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 
@@ -27,18 +27,19 @@ async function toggle(collapsed:boolean,keyboard=false){const button=page.getByR
 async function size(){return page.locator('.workspace-body').evaluate(el=>{const r=el.getBoundingClientRect();return {x:r.x,width:r.width,right:r.right};});}
 async function close(){const closed=new Promise<void>(resolve=>app.once('close',()=>resolve()));await page.getByRole('button',{name:'Fechar janela',exact:true}).click();await closed;}
 try{
-  await page.getByRole('heading',{name:'Nota A',exact:true}).waitFor();await idle();
+  await noteTitle(page,'Nota A');await idle();
   await page.setViewportSize({width:1440,height:940});
   await page.getByRole('button',{name:'Leitura',exact:true}).click();await page.mouse.move(900,850);
-  const module=page.locator('.rail-module').first();
+  const module=page.locator('.rail-module:not(.selected)').first();
   const resting=await module.evaluate(el=>getComputedStyle(el,'::before').opacity);assert.equal(resting,'0');await shot('expanded');
-  await page.getByRole('button',{name:'Voltar aos estudos',exact:true}).hover();
+  await page.getByRole('button',{name:'Abrir PDF',exact:true}).hover();
   const line=await module.evaluate(el=>{const style=getComputedStyle(el,'::before'),r=el.getBoundingClientRect(),icon=el.querySelector('svg')!.getBoundingClientRect();return {opacity:style.opacity,gap:icon.left-r.left-parseFloat(style.left)-parseFloat(style.width),top:parseFloat(style.top)};});
-  assert.equal(line.opacity,'1');assert.ok(line.gap>=12);assert.ok(line.top>=6);await shot('hover');
-  await page.mouse.move(900,850);await page.getByRole('button',{name:'Voltar aos estudos',exact:true}).focus();assert.equal(await module.evaluate(el=>getComputedStyle(el,'::before').opacity),'1');
+  assert.equal(line.opacity,'1');// UI-07 moved the hover line from 16 to 8 px before the icon; UI-06 only requires a visible margin.
+  assert.ok(line.gap>=6,JSON.stringify(line));assert.ok(line.top>=6,JSON.stringify(line));await shot('hover');
+  await page.mouse.move(900,850);await page.getByRole('button',{name:'Abrir PDF',exact:true}).focus();assert.equal(await module.evaluate(el=>getComputedStyle(el,'::before').opacity),'1');
   checks.push(`Linha oculta em repouso; hover/foco visíveis com ${line.gap}px antes do ícone.`);
-  await page.getByRole('button',{name:'Dividir com PDF',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.locator('canvas[data-rendered-page="2"]').waitFor();
-  await page.getByRole('button',{name:'Dividir com Grafo',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.getByTestId('graph-canvas').waitFor();
+  await page.getByRole('button',{name:'Dividir com PDFs',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.locator('canvas[data-rendered-page="2"]').waitFor();
+  await page.getByRole('button',{name:'Dividir com Conexões',exact:true}).focus();await page.keyboard.press('Enter');await idle();await page.getByTestId('graph-canvas').waitFor();
   await page.getByRole('button',{name:'Nova aba',exact:true}).click();await idle();await page.getByRole('button',{name:'Abrir início',exact:true}).click();await idle();await page.keyboard.press('Control+1');await idle();
   await page.getByRole('separator',{name:'Largura das colunas',exact:true}).press('Shift+ArrowRight');
   await page.waitForFunction(async()=>{const r=await window.desktop.getPreferences();return r.ok&&r.value.workspaceTabs.tabs[0].columnSplit===55;});
@@ -46,7 +47,7 @@ try{
   assert.equal(await page.getByRole('navigation',{name:'Áreas do Nodus'}).count(),0);assert.ok(Math.abs(collapsed.x)<1&&collapsed.width-expanded.width>=187);
   assert.deepEqual((await prefs()).workspaceTabs,tabs);assert.equal(await page.getByRole('button',{name:'Expandir menu lateral'}).getAttribute('aria-expanded'),'false');await shot('collapsed-three');
   await page.keyboard.press('Control+2');await idle();await page.keyboard.press('Control+1');await idle();await toggle(false);assert.deepEqual((await prefs()).workspaceTabs,tabs);
-  await page.getByRole('button',{name:'Dividir com Vídeo',exact:true}).focus();await page.keyboard.press('Enter');await idle();await toggle(true);
+  await page.getByRole('button',{name:'Dividir com Aulas',exact:true}).focus();await page.keyboard.press('Enter');await idle();await toggle(true);
   await page.setViewportSize({width:1040,height:760});await idle();
   const geometry=await page.locator('.area-layer[aria-hidden=false]').evaluateAll(elements=>elements.map(el=>{const r=el.getBoundingClientRect();return {area:(el as HTMLElement).dataset.area,x:r.x,width:r.width,right:r.right,bottom:r.bottom};}));
   for(const pane of geometry)assert.ok(pane.width>400&&pane.right<=1040&&pane.bottom<=760);await shot('compact-four');

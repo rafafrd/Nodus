@@ -2,19 +2,19 @@ import { _electron as electron } from 'playwright';
 import electronPath from 'electron';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle } from './test-fixture';
 import { Store } from '../src/main/store';
 import { execFile } from 'node:child_process';
-const f = prepareFixture('focus-smoke'); const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
+const f = prepareFixture('focus-smoke', ['study', 'pdf']); const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
 let id = '', beforeClose = 0, crashElapsed = 0; let crashId = '';
 for (let pass = 0; pass < 3; pass++) {
   let terminated = false;
   const app = await electron.launch({ executablePath: electronPath, args: ['.', `--user-data-dir=${path.join(f.dir, 'data')}`], env });
   try {
     const page = await app.firstWindow();
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
+    await noteTitle(page,'Nota A');
     await page.locator('canvas[data-rendered-page="2"]').waitFor();
-    if (!pass) await page.getByRole('button', { name: 'Abrir foco', exact: true }).click();
+    await page.getByRole('button', { name: 'Abrir foco', exact: true }).click();
     if (!pass) {
       await page.getByRole('spinbutton', { name: 'Minutos de foco' }).fill('1');
       await page.getByRole('button', { name: 'Iniciar foco', exact: true }).click();
@@ -37,7 +37,7 @@ for (let pass = 0; pass < 3; pass++) {
       if (reopened.ok) assert.ok(reopened.value.session!.elapsedMs - beforeClose < 900);
       await page.getByRole('button', { name: 'Encerrar foco', exact: true }).click();
       const finished = await page.evaluate(subjectId => window.desktop.getFocus({ subjectId }), f.a.id); assert.ok(finished.ok && finished.value.session?.state === 'ended');
-      await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor(); await page.locator('canvas[data-rendered-page="2"]').waitFor();
+      await noteTitle(page,'Nota A'); await page.locator('canvas[data-rendered-page="2"]').waitFor();
       await page.getByRole('spinbutton', { name: 'Minutos de foco' }).fill('1'); await page.getByRole('button', { name: 'Iniciar foco', exact: true }).click();
       await page.waitForTimeout(6300);
       const disk = new Store(path.join(f.dir, 'data')); const last = disk.db.prepare("SELECT id,elapsed_ms FROM focus_sessions WHERE state='running'").get();

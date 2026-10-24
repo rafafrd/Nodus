@@ -4,7 +4,12 @@ import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 import { Desks } from '../src/main/desk';
 import {UserPreferences} from '../src/main/preferences';
-import {defaultWorkspace,defaultWorkspaceTabs} from '../src/shared/workspace';
+import {workspaceFromLegacy,type WorkspaceLayout} from '../src/shared/workspace';
+import type {Page} from 'playwright';
+// Since UX-01 the note title is an input, not a heading: wait until the open note shows it.
+export async function noteTitle(page: Page, title: string) { await page.waitForFunction(t => document.querySelector<HTMLInputElement>('#note-title-input')?.value === t, title); }
+// Subjects are chosen in the rail's "Matéria atual" select, no longer one button each.
+export async function chooseSubject(page: Page, name: string) { await page.getByRole('combobox', { name: 'Matéria atual', exact: true }).selectOption({ label: name }); }
 export function generatePdf(file: string, label: string) {
   const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>'];
   for (let i = 0; i < 3; i++) {
@@ -19,7 +24,8 @@ export function generatePdf(file: string, label: string) {
   pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
   fs.writeFileSync(file, pdf);
 }
-export function prepareFixture(prefix: string) {
+// panes: the first workspace tab; ['study','pdf'] reproduces the old desk with the PDF open beside the note.
+export function prepareFixture(prefix: string, panes: WorkspaceLayout['panes'] = ['study']) {
   fs.mkdirSync('.local', { recursive: true });
   const dir = fs.mkdtempSync(path.resolve(`.local/${prefix}-`)); const root = path.join(dir, 'vault'); fs.mkdirSync(root);
   const store = new Store(path.join(dir, 'data')); const vault = new Vault(store); const desks = new Desks(store); vault.selectRoot(root);
@@ -32,6 +38,7 @@ export function prepareFixture(prefix: string) {
   const materialA = desks.choose(a.id, pdfA), materialB = desks.choose(b.id, pdfB);
   desks.save({ subjectId: a.id, noteId: noteA.ref.id, materialId: materialA.id, split: 60, page: 2, preview: false });
   desks.save({ subjectId: b.id, noteId: noteB.ref.id, materialId: materialB.id, split: 42, page: 3, preview: false });
-  new UserPreferences(store).update({workspaceLayout:defaultWorkspace,workspaceTabs:defaultWorkspaceTabs});
+  const layout = {panes, sizes: panes.map(() => 100 / panes.length)};
+  new UserPreferences(store).update({workspaceLayout:layout,workspaceTabs:workspaceFromLegacy(layout)});
   store.close(); return { dir, root, a, b, noteA: savedA.document, noteB, materialA, materialB, pdfA, pdfB };
 }

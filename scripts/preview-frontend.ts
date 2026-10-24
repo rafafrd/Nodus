@@ -1,13 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { _electron as electron } from 'playwright';
+import { _electron as electron, type Page } from 'playwright';
 import electronPath from 'electron';
 import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 import { Desks } from '../src/main/desk';
 import { Checklist } from '../src/main/checklist';
 import { Focus } from '../src/main/focus';
+import { UserPreferences } from '../src/main/preferences';
+import { workspaceFromLegacy, type WorkspaceLayout } from '../src/shared/workspace';
+import { noteTitle, chooseSubject } from './test-fixture';
 
 // All content below is an explicit demonstration fixture, stored only in .local.
 const stage = process.argv.find(v => /^--stage=[a-z0-9-]+$/.test(v))?.split('=')[1] ?? 'current';
@@ -36,13 +39,20 @@ objects.forEach((object, i) => { offsets.push(Buffer.byteLength(pdf)); pdf += `$
 const xref = Buffer.byteLength(pdf); pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`; fs.writeFileSync(pdfPath, pdf);
 const material = desks.choose(subject.id, pdfPath);
 const focus = new Focus(store); const session = focus.start(subject.id, 25).session!; focus.act({ subjectId: subject.id, id: session.id, action: 'pause' });
-desks.save({ subjectId: subject.id, noteId: doc.ref.id, materialId: material.id, page: 2, split: 52, preview: true, tool: 'both', nextStepId: next.id }); store.close();
+desks.save({ subjectId: subject.id, noteId: doc.ref.id, materialId: material.id, page: 2, split: 52, preview: true, tool: 'both', nextStepId: next.id });
+// Since UI-04 the desk shows as workspace panes: the note beside its PDF.
+const layout = { panes: ['study', 'pdf'] as WorkspaceLayout['panes'], sizes: [52, 48] };
+new UserPreferences(store).update({ workspaceLayout: layout, workspaceTabs: workspaceFromLegacy(layout) }); store.close();
 const canonical = fs.readFileSync(path.join(root, doc.ref.path), 'utf8');
 const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-const app = await electron.launch({ executablePath: process.argv.includes('--packaged') ? path.resolve('release/win-unpacked/App Estudos.exe') : electronPath, args: [...(process.argv.includes('--packaged') ? [] : ['.']), `--user-data-dir=${data}`], env });
+const packaged = process.argv.includes('--packaged');
+const launch = (dir: string) => electron.launch({ executablePath: packaged ? path.resolve('release/win-unpacked/App Estudos.exe') : electronPath, args: [...(packaged ? [] : ['.']), `--user-data-dir=${dir}`], env });
+const idle = (page: Page) => page.locator('.area-stage[data-motion=idle]').waitFor();
+async function desk(page: Page) { await noteTitle(page, doc.ref.title); await page.locator('canvas[data-rendered-page="2"]').waitFor(); }
+const app = await launch(data);
 try {
   const page = await app.firstWindow(); const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
-  await page.getByRole('heading', { name: subject.name, exact: true }).waitFor(); await page.locator('canvas[data-rendered-page="2"]').waitFor();
+  await desk(page);
   await page.getByText('Entender a geometria dá sentido à conta.', { exact: true }).waitFor();
   await page.screenshot({ path: `.local/evidence/frontend-${stage}-desk.png` });
   if (!process.argv.includes('--desk-only')) {
@@ -59,35 +69,33 @@ try {
     });
     await page.screenshot({ path: `.local/evidence/frontend-${stage}-pdf-fit.png` });
     await page.getByRole('button', { name: 'Ajustar largura', exact: true }).click();
-    await page.getByRole('button', { name: 'Só caderno', exact: true }).click();
-    assert.equal(await page.locator('.sidebar').isVisible(), false); await page.screenshot({ path: `.local/evidence/frontend-${stage}-reading.png` });
-    await page.keyboard.press('Escape'); assert.equal(await page.locator('.sidebar').isVisible(), true);
+    // Reading room: the collapsed menu replaced "Só caderno" (UI-06).
+    await page.getByRole('button', { name: 'Recolher menu lateral', exact: true }).click(); await page.locator('.nodus-shell[data-sidebar-collapsed=true]').waitFor();
+    assert.equal(await page.locator('#nodus-sidebar').isVisible(), false); await page.screenshot({ path: `.local/evidence/frontend-${stage}-reading.png` });
+    await page.getByRole('button', { name: 'Expandir menu lateral', exact: true }).click(); assert.equal(await page.locator('#nodus-sidebar').isVisible(), true);
     await page.locator('canvas[data-rendered-page="2"]').waitFor();
     const restored = await page.evaluate(subjectId => window.desktop.openDesk({ subjectId }), subject.id); assert.ok(restored.ok && restored.value.materialId === material.id && restored.value.noteId === doc.ref.id && restored.value.page === 2 && restored.value.split === 52 && restored.value.tool === 'both');
-    await page.keyboard.press('Alt+2'); await page.getByText('Revisão de transformações', { exact: true }).waitFor();
-    await page.screenshot({ path: `.local/evidence/frontend-${stage}-checklist.png` });
+    await page.getByRole('button', { name: 'Abrir checklist', exact: true }).click(); await page.getByText('Revisão de transformações', { exact: true }).waitFor();
+    await page.screenshot({ path: `.local/evidence/frontend-${stage}-checklist.png` }); await page.getByRole('button', { name: 'Fechar painel suspenso', exact: true }).click();
     await page.getByRole('button', { name: 'Editar', exact: true }).click();
     const source = await page.evaluate(id => window.desktop.openNote({ id }), doc.ref.id); assert.ok(source.ok && source.value.ref.id === doc.ref.id && source.value.text === canonical);
     await page.screenshot({ path: `.local/evidence/frontend-${stage}-editor.png` });
-    await page.setViewportSize({ width: 1040, height: 760 });
-    await page.keyboard.press('Alt+3'); await page.locator('.module-grid .focus-module').waitFor();
+    await page.setViewportSize({ width: 1040, height: 760 }); await idle(page);
     await page.locator('canvas[data-rendered-page="2"]').waitFor();
-    const bounds = await page.locator('.statusbar').boundingBox(); assert.ok(bounds && bounds.y + bounds.height <= 760);
-    for (const selector of ['.note-panel', '.document-panel', '.focus-module', '.tool-panel']) {
-      const panel = await page.locator(selector).boundingBox(); assert.ok(panel && panel.height > 200 && panel.y + panel.height <= bounds!.y);
-    }
+    const footer = await page.locator('.suspended-tools').boundingBox(); assert.ok(footer && footer.y + footer.height <= 760);
+    for (const pane of await page.locator('.area-layer[aria-hidden=false]').all()) { const box = await pane.boundingBox(); assert.ok(box && box.height > 200 && box.y + box.height <= footer!.y + 1); }
     await page.screenshot({ path: `.local/evidence/frontend-${stage}-compact.png` });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.getByRole('button', { name: 'Algoritmos', exact: true }).click(); await page.getByRole('heading', { name: 'Ideias que ficam.' }).waitFor();
-    await page.keyboard.press('Alt+1'); await page.getByRole('button', { name: '15 min', exact: true }).click();
+    await chooseSubject(page, 'Algoritmos'); await page.locator('.clean-heading').filter({ hasText: 'Algoritmos' }).waitFor();
+    await page.getByRole('button', { name: 'Abrir foco', exact: true }).click(); await page.getByRole('button', { name: '15 min', exact: true }).click();
     assert.equal(await page.getByRole('spinbutton', { name: 'Minutos de foco' }).inputValue(), '15');
     await page.getByRole('button', { name: 'Iniciar foco', exact: true }).click(); await page.getByRole('button', { name: 'Pausar foco', exact: true }).click();
     const chosen = await page.evaluate(() => window.desktop.bootstrap()); assert.ok(chosen.ok);
     if (chosen.ok) { const id = chosen.value.subjects.find(s => s.name === 'Algoritmos')!.id; const active = await page.evaluate(subjectId => window.desktop.getFocus({ subjectId }), id); assert.ok(active.ok && active.value.session?.durationMs === 15 * 60000 && active.value.session.state === 'paused'); }
-    await page.getByRole('button', { name: 'Nova matéria', exact: true }).click(); await page.getByRole('dialog').waitFor();
-    await page.screenshot({ path: `.local/evidence/frontend-${stage}-modal.png` }); await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: subject.name, exact: true }).click();
-    await page.locator('.module-grid .focus-module').waitFor();
+    await page.getByRole('button', { name: 'Fechar painel suspenso', exact: true }).click();
+    await page.getByRole('button', { name: 'Nova matéria pelo menu', exact: true }).click(); await page.getByRole('dialog').waitFor();
+    await page.screenshot({ path: `.local/evidence/frontend-${stage}-modal.png` }); await page.keyboard.press('Escape'); await page.locator('dialog[open]').waitFor({ state: 'hidden' });
+    await chooseSubject(page, subject.name); await desk(page);
     await page.getByRole('button', { name: 'Leitura', exact: true }).click();
     await page.getByText('Entender a geometria dá sentido à conta.', { exact: true }).waitFor();
     assert.equal(fs.readFileSync(path.join(root, doc.ref.path), 'utf8'), canonical);
@@ -96,21 +104,19 @@ try {
   console.log(`Frontend ${stage}: capturas reais em .local/evidence/frontend-${stage}-*.png; dados fictícios isolados em ${directory}.`);
 } finally { await app.close(); }
 if (!process.argv.includes('--desk-only')) {
-  const reopened = await electron.launch({ executablePath: process.argv.includes('--packaged') ? path.resolve('release/win-unpacked/App Estudos.exe') : electronPath, args: [...(process.argv.includes('--packaged') ? [] : ['.']), `--user-data-dir=${data}`], env });
+  const reopened = await launch(data);
   try {
     const page = await reopened.firstWindow();
-    await page.getByRole('heading', { name: subject.name, exact: true }).waitFor();
-    await page.locator('.module-grid .focus-module').waitFor();
-    await page.locator('canvas[data-rendered-page="2"]').waitFor();
-    await page.locator('.next-action').filter({ hasText: 'Retomar: Resolver exercícios 1 a 3' }).waitFor();
+    await desk(page);
+    await page.getByRole('button', { name: 'Abrir checklist', exact: true }).click(); await page.locator('.next-action').filter({ hasText: 'Retomar: Resolver exercícios 1 a 3' }).waitFor();
     const restored = await page.evaluate(subjectId => window.desktop.openDesk({ subjectId }), subject.id);
     assert.ok(restored.ok && restored.value.tool === 'both' && restored.value.noteId === doc.ref.id && restored.value.materialId === material.id && restored.value.page === 2 && restored.value.split === 52 && restored.value.preview && restored.value.nextStepId === next.id);
     await page.screenshot({ path: `.local/evidence/frontend-${stage}-reopened.png` });
-    console.log('Grade restaurada após fechar/reabrir: nota, PDF, página, proporção, leitura e próxima ação preservados.');
+    console.log('Mesa restaurada após fechar/reabrir: nota, PDF, página, leitura e próxima ação preservados.');
   } finally { await reopened.close(); }
   const empty = fs.mkdtempSync(path.resolve('.local/frontend-empty-'));
-  const firstUse = await electron.launch({ executablePath: process.argv.includes('--packaged') ? path.resolve('release/win-unpacked/App Estudos.exe') : electronPath, args: [...(process.argv.includes('--packaged') ? [] : ['.']), `--user-data-dir=${empty}`], env });
-  try { const page = await firstUse.firstWindow(); await page.getByRole('button', { name: /Criar primeira matéria/ }).waitFor(); await page.screenshot({ path: `.local/evidence/frontend-${stage}-welcome.png` }); }
+  const firstUse = await launch(empty);
+  try { const page = await firstUse.firstWindow(); await page.getByRole('button', { name: 'Escrever agora', exact: true }).waitFor(); await page.screenshot({ path: `.local/evidence/frontend-${stage}-welcome.png` }); }
   finally { await firstUse.close(); }
-  fs.writeFileSync(`.local/evidence/frontend-${stage}-result.json`, JSON.stringify({ stage, packaged: process.argv.includes('--packaged'), platform: process.platform, directory, checks: ['PDF ajustado à altura', 'Só caderno/Esc sem alteração da mesa', 'Fonte Markdown idêntica', 'Grade compacta com painéis/rodapé dentro da janela', 'Foco de 15 min iniciado/pausado pelo serviço real', 'Redução de movimento', 'Grade persistida após reabertura', 'Primeiro uso real sem dados'], result: 'passed' }, null, 2));
+  fs.writeFileSync(`.local/evidence/frontend-${stage}-result.json`, JSON.stringify({ stage, packaged, platform: process.platform, directory, checks: ['PDF ajustado à altura', 'Menu recolhido sem alteração da mesa', 'Fonte Markdown idêntica', 'Janelas e rodapé dentro de 1040×760', 'Foco de 15 min iniciado/pausado pelo serviço real', 'Redução de movimento', 'Mesa persistida após reabertura', 'Primeiro uso real sem dados'], result: 'passed' }, null, 2));
 }

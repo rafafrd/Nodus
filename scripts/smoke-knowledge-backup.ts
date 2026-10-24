@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { _electron as electron, chromium } from 'playwright';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle } from './test-fixture';
 import { Store } from '../src/main/store';
 import { Vault } from '../src/main/vault';
 const f = prepareFixture('knowledge-ui'), data = path.join(f.dir, 'data'), docs = path.join(f.dir, 'documents');
@@ -18,43 +18,35 @@ let child: Awaited<ReturnType<typeof chromium.connectOverCDP>> | null = null, re
 async function area(name: string) { await page.waitForFunction(name => document.querySelector(`[data-area="${name}"]`)?.getAttribute('aria-hidden') === 'false' && document.querySelector('[data-testid=area-stage]')?.getAttribute('data-motion') === 'idle', name); }
 try {
     await app.evaluate(({ app }, dir) => app.setPath('documents', dir), docs);
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
+    await noteTitle(page,'Nota A');
     await page.getByRole('button', { name: 'Abrir grafo', exact: true }).click();
     await area('graph');
     await page.getByTestId('graph-canvas').waitFor();
+    await page.getByRole('button', { name: 'Mostrar notas e relações', exact: true }).click();
     await page.getByRole('combobox', { name: 'Nota de origem da relação', exact: true }).selectOption(f.noteA.ref.id);
     await page.getByRole('combobox', { name: 'Nota de destino da relação', exact: true }).selectOption(extra.ref.id);
     await page.getByRole('textbox', { name: 'Nome da relação', exact: true }).fill('Usa conceito');
     await page.getByRole('button', { name: 'Conectar notas', exact: true }).click();
     await page.getByRole('button', { name: 'Excluir relação Usa conceito', exact: true }).waitFor();
-    await page.getByRole('button', { name: 'Selecionar nó Vetores e relações', exact: true }).click();
+    await page.getByRole('button', { name: 'Selecionar nó Vetores e relações', exact: true }).dispatchEvent('click');
     await page.waitForFunction(() => document.querySelector('[data-testid=graph-canvas]')?.getAttribute('data-camera') === 'idle');
     await page.screenshot({ path: '.local/evidence/expansion-graph.png' });
     await page.getByRole('button', { name: 'Abrir no caderno', exact: false }).click();
     await area('study');
-    await page.getByRole('heading', { name: 'Vetores e relações', exact: true }).waitFor();
+    await noteTitle(page,'Vetores e relações');
     await page.getByRole('button', { name: 'Entrar na cidade', exact: true }).click();
     await area('city');
-    await page.getByRole('button', { name: 'Melhorar motor', exact: true }).click();
-    await page.getByRole('button', { name: 'Gerar moedas', exact: true }).waitFor();
-    for (let i = 0; i < 40; i++) {
-        await page.getByRole('button', { name: 'Gerar moedas', exact: true }).click();
-        await page.waitForTimeout(330);
-    }
-    await page.getByRole('button', { name: 'Mercado', exact: true }).click();
-    for (const name of ['Fonte do jardim', 'Bancos do jardim', 'Estufa de vidro']) {
-        await page.getByRole('button', { name: `Comprar ${name}`, exact: true }).click();
-        await page.getByRole('button', { name: `Comprar ${name}`, exact: true }).waitFor({ state: 'visible' });
-    }
+    // GAM-06: the core, one store purchase and the night ambience replace the motor and the market.
+    const core = page.getByRole('button', { name: 'Clicar no núcleo', exact: true });
+    for (let i = 0; i < 20; i++) { await core.click(); await page.waitForTimeout(45); }
+    await page.waitForFunction(async () => { const r = await window.desktop.getGame(); return r.ok && r.value.engine.clicks === 20; });
+    await page.getByRole('button', { name: 'Comprar 1 Coletores', exact: true }).click();
+    await page.waitForFunction(async () => { const r = await window.desktop.getGame(); return r.ok && r.value.economy.producers.collectors === 1; });
+    await page.getByRole('navigation', { name: 'Jogo' }).getByRole('button', { name: 'Perfil', exact: true }).click();
     await page.getByRole('button', { name: 'Noite', exact: true }).click();
-    await page.waitForTimeout(600);
+    await page.waitForFunction(async () => { const r = await window.desktop.getGame(); return r.ok && r.value.atmosphere === 'night'; });
     const game = await page.evaluate(() => window.desktop.getGame());
     assert.ok(game.ok);
-    if (game.ok) {
-        assert.equal(game.value.atmosphere, 'night');
-        assert.ok(['fountain', 'benches', 'greenhouse'].every(id => game.value.owned.includes(id as never)));
-        assert.equal(game.value.engine.clicks, 40);
-    }
     await page.screenshot({ path: '.local/evidence/expansion-city-night.png' });
     await page.getByRole('button', { name: 'Abrir configurações', exact: true }).click();
     await area('settings');
@@ -92,7 +84,7 @@ try {
     child = await chromium.connectOverCDP(`http://127.0.0.1:${port}`);
     const restoredPage = child.contexts()[0].pages().find(p => p.url().startsWith('study://app/'))!;
     assert.ok(restoredPage);
-    await restoredPage.getByRole('heading', { name: 'Vetores e relações', exact: true }).waitFor();
+    await noteTitle(restoredPage,'Vetores e relações');
     const management = await restoredPage.evaluate(() => window.desktop.getAppManagement());
     assert.ok(management.ok);
     if (management.ok) {
@@ -102,14 +94,14 @@ try {
     const links = await restoredPage.evaluate(subjectId => window.desktop.noteLinks({ subjectId }), f.a.id);
     assert.ok(links.ok && links.value.length === 1);
     const restoredGame = await restoredPage.evaluate(() => window.desktop.getGame());
-    assert.ok(restoredGame.ok && restoredGame.value.atmosphere === 'night');
+    assert.ok(restoredGame.ok && restoredGame.value.atmosphere === 'night' && restoredGame.value.engine.clicks === 20 && restoredGame.value.economy.producers.collectors === 1);
     await restoredPage.screenshot({ path: '.local/evidence/expansion-restored.png' });
     await restoredPage.evaluate(() => window.desktop.finishClose());
     for (const o of original)
         assert.deepEqual(fs.readFileSync(o.file), o.bytes);
     assert.deepEqual(errors, []);
     fs.writeFileSync('.local/evidence/knowledge-backup-results.json', JSON.stringify({ date: new Date().toISOString(), fixture: f.dir, snapshot, restored, game, foreign, management, links, relaunch: true, errors }, null, 2));
-    console.log('Windows real graph/GSAP/source; city 40 real engine pulses/upgrades/3 purchases/night; backup UI→hashes/schema clone→actual app.relaunch/CDP verified restored profile and preserved originals.');
+    console.log('Windows real graph/GSAP/source; city 20 real core clicks/1 purchase/night; backup UI→hashes/schema clone→actual app.relaunch/CDP verified restored profile and preserved originals.');
 }
 finally {
     if (!restarted)
