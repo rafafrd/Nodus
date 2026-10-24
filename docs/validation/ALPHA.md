@@ -523,17 +523,17 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 
 ## GAM-06 — Jogo incremental refeito e independente do estudo
 
-23/10/2026, em andamento na mesma branch. [Ticket](../tasks/doing/GAM-06.md).
+23/10/2026, feat/fundo-e-jogo-idle. [Provas, simulação, capturas e vídeo](GAM_06_GAME.md); [ADR-0026](../adr/0026-jogo-incremental-independente.md); [design](../design/GAME_DESIGN.md). C1–C10 concluídos; avaliação humana e smoke-visual-experience (O-037) pendentes fora dos critérios.
 
 | Critério | Resultado | Evidência |
 | --- | --- | --- |
-| C1 | não verificado | — |
-| C2 | não verificado | — |
-| C3 | não verificado | — |
-| C4 | não verificado | — |
-| C5 | não verificado | — |
-| C6 | não verificado | — |
-| C7 | não verificado | — |
-| C8 | não verificado | — |
-| C9 | não verificado | — |
-| C10 | não verificado | — |
+| C1 | aprovado | [GAME_DESIGN](../design/GAME_DESIGN.md): 12 hipóteses com 14 fontes, auditoria medida, comparação, loops e metas |
+| C2 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): estudo só XP/conquistas, recibos 0, índice sem conquistas de estudo, histórico preservado |
+| C3 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): clique sem orçamento, balde no relógio do main, replay/rollback, offline, IPC Zod e remetente |
+| C4 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): backup .sqlite, linha guardada, conversão por minutos, insígnias preservadas, reversão exata, pacote |
+| C5 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): tela única, motion por primitivas, ticker, som, reduzido, cinco temas e compacta |
+| C6 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): Horta e Conselho de decisão pela UI, Memória mantida, reflexo removido com registros |
+| C7 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): primeira compra 0 s, decisões 39 s, prestígio 2,95 h, gráficos antes × depois |
+| C8 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): Lampejo só com a cidade na tela e fora do Foco, sem notificações, offline sem punição |
+| C9 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): typecheck 61=61, 89/109 com as 20 da baseline, pacote e oito smokes Windows |
+| C10 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): ADR, tickets, retomada, gotcha, README, guia, economia e PR |

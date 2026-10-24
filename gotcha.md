@@ -261,3 +261,19 @@ Observado na primeira medição do pacote novo, Windows 11: com opacidade fixa p
 ## O-033 — Teste de motion lia arquivo apagado e ainda listado pelo Git (UI-08, 23/10/2026)
 
 `tests/motion-tokens.test.ts` percorria `git ls-files src/renderer` e falhava com ENOENT quando um componente era apagado antes do stage (HomeBackground/EditorialBackdrop). O teste agora ignora caminhos que não existem no disco. Sem efeito no app.
+
+## O-034 — Limitador de cliques media o intervalo entre lotes e perdia cliques legítimos (GAM-06, 23/10/2026)
+
+Observado no smoke-idle-game no pacote Windows: 20 cliques reais resultaram em 18 ou 19 contados. A primeira regra limitava cada lote pelo tempo desde o lote anterior (um clique a cada 40 ms), e dois lotes enviados com poucos milissegundos de diferença perdiam cliques. Correção: balde de fichas no relógio do main (até 40, reposição de 25 por segundo), sem perder lotes próximos e sem aceitar cliques inventados; teste unitário cobre rajada, 10 ms e 400 ms. No mesmo smoke, `waitForFunction` com predicado que devolve Promise passava antes da resposta do IPC; o roteiro passou a consultar o main pelo lado do Node. Nenhum dado perdido.
+
+## O-035 — Perfil v1 com economia sem versão caía no ramo de reconstrução pelo ledger (GAM-06, 23/10/2026)
+
+O teste de migração SQLite v5→v6 com economia salva sem `version` (formato de GAM-01/02) mostrou ganho de prestígio 0 em vez de 2: a conversão para as regras 3 usava o ledger quando faltava a versão, ignorando a economia salva. Correção em `game-migration.ts`: usar a economia salva sempre que existir e o ledger só quando ela não existir. Teste aprovado com crédito de legado preservado.
+
+## O-036 — Lampejo quadrado e sobre a loja; câmera sobre os botões de compra (GAM-06, 23/10/2026)
+
+Capturas do pacote mostraram: os controles de câmera da cena por cima das compras da loja; na janela 1040×760, o Lampejo e os controles sobre a loja empilhada; e o Lampejo quadrado, porque o `border-radius:0` de `.game-shell button` vencia o círculo. Correção em `idle.css`: câmera entre os painéis (oculta no compacto), região "céu" na grade para posicionar o Lampejo e seletor mais específico para o círculo com anel de tempo. O smoke verifica núcleo, loja e céu sem sobreposição em 1040×760. Nenhuma regra de jogo mudou.
+
+## O-037 — smoke-visual-experience encontra duas esculturas no primeiro uso (GAM-06, 23/10/2026)
+
+No pacote final, a parte de jogo do roteiro (skins, partículas do núcleo, perda de WebGL) passou; o trecho seguinte de primeiro uso falhou em modo estrito porque `canvas[data-testid=study-sculpture]` corresponde à escultura do Caderno e à da Home. Não há relação com GAM-06, mas a falha não foi conferida na baseline. Não corrigido nem silenciado. Próxima ação: limitar o seletor à área visível num ticket de manutenção dos roteiros, junto com O-030.

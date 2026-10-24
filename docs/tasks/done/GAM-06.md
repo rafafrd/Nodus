@@ -1,7 +1,7 @@
 ---
 id: GAM-06
-status: doing
-outcome: em_andamento
+status: done
+outcome: concluido
 depends_on: ["GAM-05", "UI-07", "UI-08"]
 criteria_count: 10
 ---
@@ -29,4 +29,20 @@ C10. Documentação: ADR-0026, decisão sobre GAM-05 registrada nos dois tickets
 
 ## Execução e retomada
 
-23/10/2026: em andamento. Leitura do código, ADR-0013, ADR-0019, GAM-05 e simuladores concluída; UI-08 entregue primeiro, no mesmo branch. Próxima ação: pesquisa e `GAME_DESIGN.md` (C1).
+Concluído em 23/10/2026. C1–C10 aprovados; medições, capturas, vídeo, comandos e limites em [GAM_06_GAME](../../validation/GAM_06_GAME.md). Decisão e tabela de conversão em [ADR-0026](../../adr/0026-jogo-incremental-independente.md); pesquisa e design em [GAME_DESIGN](../../design/GAME_DESIGN.md).
+
+Resumo:
+- Observatório numa só tela (núcleo sem orçamento, loja com revelação gradual, cidade com marcos, ticker).
+- Lampejo só com a cidade na tela e fora do Foco.
+- Horta e Conselho como minijogos de decisão; Memória mantida; Oficina de reflexo, coleta, postos e mercado removidos.
+- Estudo dá só XP e conquistas.
+- Regras 3 com conversão das regras 2 por minutos de produção, prestígio preservado, backup `.sqlite` e reversão.
+- Som WebAudio com volume em Ajustes.
+- Sem migration de tabela, dependência nova ou lockfile alterado.
+
+**Decisão sobre GAM-05:** superado por este ticket. Os projetos, postos e coleta de GAM-05 foram consolidados (as construções agora surgem por marco), então o C8 de GAM-05 (avaliação leiga do cartão de próximo projeto) deixou de ter objeto. GAM-05 permanece em doing/parcial como registro histórico, sem ação pendente; a avaliação humana passa a valer para o jogo novo.
+
+Pendências reproduzíveis:
+- Avaliação humana de diversão e de risco de procrastinação, que não foi feita.
+- `smoke-visual-experience` falha no trecho de primeiro uso, com seletor ambíguo, não relacionado e não verificado na baseline (O-037).
+- Os roteiros defasados de O-030 continuam sem atualização.

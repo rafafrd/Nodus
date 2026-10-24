@@ -1,0 +1,4531 @@
+{
+  "label": "after",
+  "mode": "idle",
+  "at": "2026-10-24T00:08:49.019Z",
+  "minutes": 60,
+  "model": "Game real + SQLite, relógio controlado; cidade na tela, sem cliques nem minijogos; compra o item útil mais barato que couber no saldo. Modelo de fórmula, não tempo humano.",
+  "firstPurchaseSeconds": 0,
+  "purchases": 263,
+  "windows": [
+    {
+      "window": "0-10 min",
+      "purchases": 16,
+      "perTenMinutes": 16,
+      "medianGapSeconds": 36,
+      "maxGapSeconds": 59
+    },
+    {
+      "window": "10-30 min",
+      "purchases": 75,
+      "perTenMinutes": 37.5,
+      "medianGapSeconds": 16,
+      "maxGapSeconds": 24
+    },
+    {
+      "window": "30-60 min",
+      "purchases": 172,
+      "perTenMinutes": 57.3,
+      "medianGapSeconds": 10,
+      "maxGapSeconds": 16
+    }
+  ],
+  "decisions": {
+    "first30": {
+      "count": 10,
+      "medianGapSeconds": 113,
+      "maxGapSeconds": 584
+    },
+    "total": 27
+  },
+  "decisionLog": [
+    {
+      "second": 0,
+      "what": "collectors"
+    },
+    {
+      "second": 584,
+      "what": "collectors-1"
+    },
+    {
+      "second": 629,
+      "what": "workshops"
+    },
+    {
+      "second": 983,
+      "what": "collectors-2"
+    },
+    {
+      "second": 1213,
+      "what": "workshops-1"
+    },
+    {
+      "second": 1280,
+      "what": "warehouses"
+    },
+    {
+      "second": 1393,
+      "what": "link-collectors-1"
+    },
+    {
+      "second": 1449,
+      "what": "collectors-3"
+    },
+    {
+      "second": 1679,
+      "what": "workshops-2"
+    },
+    {
+      "second": 1716,
+      "what": "network-1"
+    },
+    {
+      "second": 1871,
+      "what": "discovery-1"
+    },
+    {
+      "second": 1945,
+      "what": "warehouses-1"
+    },
+    {
+      "second": 2019,
+      "what": "powerplants"
+    },
+    {
+      "second": 2119,
+      "what": "link-workshops-1"
+    },
+    {
+      "second": 2152,
+      "what": "workshops-3"
+    },
+    {
+      "second": 2346,
+      "what": "collectors-4"
+    },
+    {
+      "second": 2428,
+      "what": "warehouses-2"
+    },
+    {
+      "second": 2478,
+      "what": "network-2"
+    },
+    {
+      "second": 2728,
+      "what": "powerplants-1"
+    },
+    {
+      "second": 2860,
+      "what": "observatories"
+    },
+    {
+      "second": 2898,
+      "what": "link-warehouses-1"
+    },
+    {
+      "second": 2922,
+      "what": "protocol-1"
+    },
+    {
+      "second": 2941,
+      "what": "warehouses-3"
+    },
+    {
+      "second": 3109,
+      "what": "workshops-4"
+    },
+    {
+      "second": 3254,
+      "what": "powerplants-2"
+    },
+    {
+      "second": 3307,
+      "what": "network-3"
+    },
+    {
+      "second": 3491,
+      "what": "discovery-2"
+    }
+  ],
+  "longestGapFirst30": 59,
+  "prestigeAtSeconds": null,
+  "clicks": 0,
+  "events": 0,
+  "income": {
+    "click": 0,
+    "passive": 25791480,
+    "other": 0
+  },
+  "final": {
+    "coins": 382563,
+    "ratePerSecond": 60890.25555,
+    "lifetime": 25791480,
+    "clickGain": 1,
+    "prestigeGain": 0
+  },
+  "purchaseLog": [
+    {
+      "second": 0,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 10,
+      "ratePerSecond": 0.12024
+    },
+    {
+      "second": 59,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 12,
+      "ratePerSecond": 0.24048
+    },
+    {
+      "second": 113,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 13,
+      "ratePerSecond": 0.36072
+    },
+    {
+      "second": 155,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 15,
+      "ratePerSecond": 0.48096
+    },
+    {
+      "second": 192,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 18,
+      "ratePerSecond": 0.6012
+    },
+    {
+      "second": 226,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 20,
+      "ratePerSecond": 0.72144
+    },
+    {
+      "second": 258,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 23,
+      "ratePerSecond": 0.84168
+    },
+    {
+      "second": 290,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 27,
+      "ratePerSecond": 0.96384
+    },
+    {
+      "second": 321,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 30,
+      "ratePerSecond": 1.08432
+    },
+    {
+      "second": 354,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 36,
+      "ratePerSecond": 1.2096
+    },
+    {
+      "second": 387,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 40,
+      "ratePerSecond": 1.33056
+    },
+    {
+      "second": 423,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 47,
+      "ratePerSecond": 1.45152
+    },
+    {
+      "second": 459,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 53,
+      "ratePerSecond": 1.57248
+    },
+    {
+      "second": 499,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 62,
+      "ratePerSecond": 1.69344
+    },
+    {
+      "second": 540,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 70,
+      "ratePerSecond": 1.8144
+    },
+    {
+      "second": 584,
+      "kind": "upgrade",
+      "id": "collectors-1",
+      "cost": 80,
+      "ratePerSecond": 3.6432
+    },
+    {
+      "second": 607,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 82,
+      "ratePerSecond": 3.88608
+    },
+    {
+      "second": 629,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 85,
+      "ratePerSecond": 4.80636
+    },
+    {
+      "second": 648,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 93,
+      "ratePerSecond": 5.04972
+    },
+    {
+      "second": 668,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 98,
+      "ratePerSecond": 5.96232
+    },
+    {
+      "second": 686,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 108,
+      "ratePerSecond": 6.21792
+    },
+    {
+      "second": 704,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 113,
+      "ratePerSecond": 7.13232
+    },
+    {
+      "second": 722,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 124,
+      "ratePerSecond": 7.37616
+    },
+    {
+      "second": 739,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 129,
+      "ratePerSecond": 8.29056
+    },
+    {
+      "second": 756,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 142,
+      "ratePerSecond": 8.5344
+    },
+    {
+      "second": 774,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 149,
+      "ratePerSecond": 9.4674
+    },
+    {
+      "second": 791,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 164,
+      "ratePerSecond": 9.71172
+    },
+    {
+      "second": 809,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 171,
+      "ratePerSecond": 10.62792
+    },
+    {
+      "second": 826,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 188,
+      "ratePerSecond": 10.87224
+    },
+    {
+      "second": 845,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 196,
+      "ratePerSecond": 11.78844
+    },
+    {
+      "second": 863,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 216,
+      "ratePerSecond": 12.03276
+    },
+    {
+      "second": 882,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 226,
+      "ratePerSecond": 12.94896
+    },
+    {
+      "second": 901,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 249,
+      "ratePerSecond": 13.19328
+    },
+    {
+      "second": 921,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 260,
+      "ratePerSecond": 14.10948
+    },
+    {
+      "second": 941,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 286,
+      "ratePerSecond": 14.382
+    },
+    {
+      "second": 962,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 299,
+      "ratePerSecond": 15.33
+    },
+    {
+      "second": 983,
+      "kind": "upgrade",
+      "id": "collectors-2",
+      "cost": 320,
+      "ratePerSecond": 21.462
+    },
+    {
+      "second": 998,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 330,
+      "ratePerSecond": 21.95256
+    },
+    {
+      "second": 1014,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 344,
+      "ratePerSecond": 22.87236
+    },
+    {
+      "second": 1031,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 378,
+      "ratePerSecond": 23.40864
+    },
+    {
+      "second": 1047,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 396,
+      "ratePerSecond": 24.33024
+    },
+    {
+      "second": 1065,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 436,
+      "ratePerSecond": 24.82176
+    },
+    {
+      "second": 1084,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 454,
+      "ratePerSecond": 25.74336
+    },
+    {
+      "second": 1103,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 500,
+      "ratePerSecond": 26.23488
+    },
+    {
+      "second": 1123,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 523,
+      "ratePerSecond": 27.15648
+    },
+    {
+      "second": 1144,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 576,
+      "ratePerSecond": 27.648
+    },
+    {
+      "second": 1166,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 602,
+      "ratePerSecond": 28.5696
+    },
+    {
+      "second": 1189,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 662,
+      "ratePerSecond": 29.06112
+    },
+    {
+      "second": 1213,
+      "kind": "upgrade",
+      "id": "workshops-1",
+      "cost": 680,
+      "ratePerSecond": 43.05264
+    },
+    {
+      "second": 1229,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 691,
+      "ratePerSecond": 44.90304
+    },
+    {
+      "second": 1246,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 762,
+      "ratePerSecond": 45.39648
+    },
+    {
+      "second": 1264,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 796,
+      "ratePerSecond": 47.24688
+    },
+    {
+      "second": 1280,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 800,
+      "ratePerSecond": 54.65472
+    },
+    {
+      "second": 1296,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 875,
+      "ratePerSecond": 55.15008
+    },
+    {
+      "second": 1313,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 915,
+      "ratePerSecond": 57.00768
+    },
+    {
+      "second": 1329,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 920,
+      "ratePerSecond": 64.23168
+    },
+    {
+      "second": 1345,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 1007,
+      "ratePerSecond": 64.72704
+    },
+    {
+      "second": 1361,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 1052,
+      "ratePerSecond": 66.58464
+    },
+    {
+      "second": 1377,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 1058,
+      "ratePerSecond": 73.80864
+    },
+    {
+      "second": 1393,
+      "kind": "upgrade",
+      "id": "link-collectors-1",
+      "cost": 1140,
+      "ratePerSecond": 83.1695832
+    },
+    {
+      "second": 1407,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 1158,
+      "ratePerSecond": 83.937018
+    },
+    {
+      "second": 1421,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 1209,
+      "ratePerSecond": 86.29764
+    },
+    {
+      "second": 1435,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 1217,
+      "ratePerSecond": 93.53564
+    },
+    {
+      "second": 1449,
+      "kind": "upgrade",
+      "id": "collectors-3",
+      "cost": 1280,
+      "ratePerSecond": 114.60232
+    },
+    {
+      "second": 1461,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 1332,
+      "ratePerSecond": 115.982272
+    },
+    {
+      "second": 1473,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 1391,
+      "ratePerSecond": 118.5407776
+    },
+    {
+      "second": 1484,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 1399,
+      "ratePerSecond": 125.7927776
+    },
+    {
+      "second": 1497,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 1531,
+      "ratePerSecond": 127.1919992
+    },
+    {
+      "second": 1509,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 1600,
+      "ratePerSecond": 129.7697744
+    },
+    {
+      "second": 1522,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 1609,
+      "ratePerSecond": 137.0217744
+    },
+    {
+      "second": 1534,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 1762,
+      "ratePerSecond": 138.4402656
+    },
+    {
+      "second": 1548,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 1840,
+      "ratePerSecond": 141.0373104
+    },
+    {
+      "second": 1561,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 1851,
+      "ratePerSecond": 148.2893104
+    },
+    {
+      "second": 1575,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 2025,
+      "ratePerSecond": 149.7270712
+    },
+    {
+      "second": 1589,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 2116,
+      "ratePerSecond": 152.3433856
+    },
+    {
+      "second": 1603,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 2128,
+      "ratePerSecond": 159.5953856
+    },
+    {
+      "second": 1617,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 2329,
+      "ratePerSecond": 161.052416
+    },
+    {
+      "second": 1632,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 2433,
+      "ratePerSecond": 164.32
+    },
+    {
+      "second": 1647,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 2447,
+      "ratePerSecond": 171.6
+    },
+    {
+      "second": 1663,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 2679,
+      "ratePerSecond": 173.082
+    },
+    {
+      "second": 1679,
+      "kind": "upgrade",
+      "id": "workshops-2",
+      "cost": 2720,
+      "ratePerSecond": 229.476
+    },
+    {
+      "second": 1691,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 2798,
+      "ratePerSecond": 234.396864
+    },
+    {
+      "second": 1703,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 2814,
+      "ratePerSecond": 242.1416272
+    },
+    {
+      "second": 1716,
+      "kind": "upgrade",
+      "id": "network-1",
+      "cost": 3000,
+      "ratePerSecond": 302.677034
+    },
+    {
+      "second": 1726,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 3080,
+      "ratePerSecond": 304.862108
+    },
+    {
+      "second": 1736,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 3218,
+      "ratePerSecond": 311.060966
+    },
+    {
+      "second": 1747,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 3237,
+      "ratePerSecond": 320.178466
+    },
+    {
+      "second": 1758,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 3543,
+      "ratePerSecond": 322.399489
+    },
+    {
+      "second": 1769,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 3700,
+      "ratePerSecond": 328.634296
+    },
+    {
+      "second": 1781,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 3722,
+      "ratePerSecond": 337.751796
+    },
+    {
+      "second": 1793,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 4074,
+      "ratePerSecond": 340.008768
+    },
+    {
+      "second": 1805,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 4256,
+      "ratePerSecond": 346.279524
+    },
+    {
+      "second": 1818,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 4280,
+      "ratePerSecond": 356.079168
+    },
+    {
+      "second": 1831,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 4685,
+      "ratePerSecond": 358.37649
+    },
+    {
+      "second": 1845,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 4894,
+      "ratePerSecond": 364.6953
+    },
+    {
+      "second": 1858,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 4922,
+      "ratePerSecond": 373.8303
+    },
+    {
+      "second": 1871,
+      "kind": "upgrade",
+      "id": "discovery-1",
+      "cost": 5000,
+      "ratePerSecond": 389.5856
+    },
+    {
+      "second": 1885,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 5387,
+      "ratePerSecond": 392.01728
+    },
+    {
+      "second": 1900,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 5628,
+      "ratePerSecond": 398.639936
+    },
+    {
+      "second": 1914,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 5661,
+      "ratePerSecond": 408.159936
+    },
+    {
+      "second": 1929,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 6196,
+      "ratePerSecond": 410.629152
+    },
+    {
+      "second": 1945,
+      "kind": "upgrade",
+      "id": "warehouses-1",
+      "cost": 6400,
+      "ratePerSecond": 553.429152
+    },
+    {
+      "second": 1957,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 6472,
+      "ratePerSecond": 560.089344
+    },
+    {
+      "second": 1968,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 6509,
+      "ratePerSecond": 579.129344
+    },
+    {
+      "second": 1980,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 7126,
+      "ratePerSecond": 581.636096
+    },
+    {
+      "second": 1993,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 7443,
+      "ratePerSecond": 588.333824
+    },
+    {
+      "second": 2006,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 7487,
+      "ratePerSecond": 607.373824
+    },
+    {
+      "second": 2019,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 8000,
+      "ratePerSecond": 680.339808
+    },
+    {
+      "second": 2031,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 8194,
+      "ratePerSecond": 685.39515
+    },
+    {
+      "second": 2044,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 8560,
+      "ratePerSecond": 692.2047
+    },
+    {
+      "second": 2056,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 8609,
+      "ratePerSecond": 711.4547
+    },
+    {
+      "second": 2069,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 9200,
+      "ratePerSecond": 780.2047
+    },
+    {
+      "second": 2081,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 9423,
+      "ratePerSecond": 785.6616
+    },
+    {
+      "second": 2094,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 9843,
+      "ratePerSecond": 792.534
+    },
+    {
+      "second": 2106,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 9900,
+      "ratePerSecond": 811.854
+    },
+    {
+      "second": 2119,
+      "kind": "upgrade",
+      "id": "link-workshops-1",
+      "cost": 10000,
+      "ratePerSecond": 920.713375
+    },
+    {
+      "second": 2130,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 10580,
+      "ratePerSecond": 989.963375
+    },
+    {
+      "second": 2141,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 10836,
+      "ratePerSecond": 992.7966695
+    },
+    {
+      "second": 2152,
+      "kind": "upgrade",
+      "id": "workshops-3",
+      "cost": 10880,
+      "ratePerSecond": 1253.418629
+    },
+    {
+      "second": 2161,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 11320,
+      "ratePerSecond": 1270.8314584
+    },
+    {
+      "second": 2170,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 11385,
+      "ratePerSecond": 1298.217008
+    },
+    {
+      "second": 2180,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 12167,
+      "ratePerSecond": 1367.467008
+    },
+    {
+      "second": 2189,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 12462,
+      "ratePerSecond": 1371.429216
+    },
+    {
+      "second": 2198,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 13018,
+      "ratePerSecond": 1389.137272
+    },
+    {
+      "second": 2208,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 13094,
+      "ratePerSecond": 1416.7633684
+    },
+    {
+      "second": 2218,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 13993,
+      "ratePerSecond": 1486.0133684
+    },
+    {
+      "second": 2227,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 14332,
+      "ratePerSecond": 1490.0671526
+    },
+    {
+      "second": 2237,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 14970,
+      "ratePerSecond": 1508.0714324
+    },
+    {
+      "second": 2247,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 15057,
+      "ratePerSecond": 1535.9390728
+    },
+    {
+      "second": 2258,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 16090,
+      "ratePerSecond": 1605.1890728
+    },
+    {
+      "second": 2268,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 16481,
+      "ratePerSecond": 1609.3354304
+    },
+    {
+      "second": 2279,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 17217,
+      "ratePerSecond": 1627.6369312
+    },
+    {
+      "second": 2289,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 17316,
+      "ratePerSecond": 1655.7471128
+    },
+    {
+      "second": 2301,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 18505,
+      "ratePerSecond": 1731.2245392
+    },
+    {
+      "second": 2312,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 18953,
+      "ratePerSecond": 1735.479774
+    },
+    {
+      "second": 2323,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 19798,
+      "ratePerSecond": 1754.14664
+    },
+    {
+      "second": 2334,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 19913,
+      "ratePerSecond": 1782.60272
+    },
+    {
+      "second": 2346,
+      "kind": "upgrade",
+      "id": "collectors-4",
+      "cost": 20480,
+      "ratePerSecond": 1885.35152
+    },
+    {
+      "second": 2357,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 21280,
+      "ratePerSecond": 1954.85152
+    },
+    {
+      "second": 2368,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 21796,
+      "ratePerSecond": 1961.069824
+    },
+    {
+      "second": 2380,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 22769,
+      "ratePerSecond": 1980.7842496
+    },
+    {
+      "second": 2391,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 22900,
+      "ratePerSecond": 2016.714114
+    },
+    {
+      "second": 2404,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 24472,
+      "ratePerSecond": 2086.464114
+    },
+    {
+      "second": 2416,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 25066,
+      "ratePerSecond": 2092.814433
+    },
+    {
+      "second": 2428,
+      "kind": "upgrade",
+      "id": "warehouses-2",
+      "cost": 25600,
+      "ratePerSecond": 2681.155683
+    },
+    {
+      "second": 2438,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 26183,
+      "ratePerSecond": 2703.698046
+    },
+    {
+      "second": 2448,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 26335,
+      "ratePerSecond": 2756.3813928
+    },
+    {
+      "second": 2458,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 28143,
+      "ratePerSecond": 2836.260896
+    },
+    {
+      "second": 2468,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 28825,
+      "ratePerSecond": 2842.745024
+    },
+    {
+      "second": 2478,
+      "kind": "upgrade",
+      "id": "network-2",
+      "cost": 30000,
+      "ratePerSecond": 3553.43128
+    },
+    {
+      "second": 2487,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 30111,
+      "ratePerSecond": 3582.23012
+    },
+    {
+      "second": 2495,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 30286,
+      "ratePerSecond": 3648.75434
+    },
+    {
+      "second": 2504,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 32365,
+      "ratePerSecond": 3736.25434
+    },
+    {
+      "second": 2513,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 33150,
+      "ratePerSecond": 3757.87278275
+    },
+    {
+      "second": 2522,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 34628,
+      "ratePerSecond": 3787.297487
+    },
+    {
+      "second": 2532,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 34828,
+      "ratePerSecond": 3854.496108
+    },
+    {
+      "second": 2541,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 37219,
+      "ratePerSecond": 3942.308608
+    },
+    {
+      "second": 2551,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 38121,
+      "ratePerSecond": 3950.72512
+    },
+    {
+      "second": 2561,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 39822,
+      "ratePerSecond": 3980.6741
+    },
+    {
+      "second": 2571,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 40052,
+      "ratePerSecond": 4048.3108
+    },
+    {
+      "second": 2582,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 42802,
+      "ratePerSecond": 4136.1233
+    },
+    {
+      "second": 2592,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 43840,
+      "ratePerSecond": 4144.68291125
+    },
+    {
+      "second": 2603,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 45796,
+      "ratePerSecond": 4175.1574315
+    },
+    {
+      "second": 2614,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 46061,
+      "ratePerSecond": 4258.33395
+    },
+    {
+      "second": 2626,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 49222,
+      "ratePerSecond": 4346.45895
+    },
+    {
+      "second": 2638,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 50416,
+      "ratePerSecond": 4355.1939
+    },
+    {
+      "second": 2650,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 52665,
+      "ratePerSecond": 4386.30555
+    },
+    {
+      "second": 2662,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 52969,
+      "ratePerSecond": 4455.066033
+    },
+    {
+      "second": 2674,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 56606,
+      "ratePerSecond": 4543.191033
+    },
+    {
+      "second": 2687,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 57979,
+      "ratePerSecond": 4552.0721295
+    },
+    {
+      "second": 2700,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 60564,
+      "ratePerSecond": 4583.713728
+    },
+    {
+      "second": 2714,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 60915,
+      "ratePerSecond": 4652.917656
+    },
+    {
+      "second": 2728,
+      "kind": "upgrade",
+      "id": "powerplants-1",
+      "cost": 64000,
+      "ratePerSecond": 5974.792656
+    },
+    {
+      "second": 2739,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 65096,
+      "ratePerSecond": 6151.042656
+    },
+    {
+      "second": 2750,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 66675,
+      "ratePerSecond": 6160.071168
+    },
+    {
+      "second": 2761,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 69649,
+      "ratePerSecond": 6192.243984
+    },
+    {
+      "second": 2772,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 70052,
+      "ratePerSecond": 6261.892626
+    },
+    {
+      "second": 2784,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 74861,
+      "ratePerSecond": 6438.142626
+    },
+    {
+      "second": 2796,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 76676,
+      "ratePerSecond": 6447.3198225
+    },
+    {
+      "second": 2808,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 80096,
+      "ratePerSecond": 6503.0039375
+    },
+    {
+      "second": 2821,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 80560,
+      "ratePerSecond": 6573.347125
+    },
+    {
+      "second": 2834,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 86090,
+      "ratePerSecond": 6750.222125
+    },
+    {
+      "second": 2847,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 88178,
+      "ratePerSecond": 6759.58235
+    },
+    {
+      "second": 2860,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 90000,
+      "ratePerSecond": 7369.2178
+    },
+    {
+      "second": 2873,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 92111,
+      "ratePerSecond": 7402.692596
+    },
+    {
+      "second": 2885,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 92644,
+      "ratePerSecond": 7473.73477
+    },
+    {
+      "second": 2898,
+      "kind": "upgrade",
+      "id": "link-warehouses-1",
+      "cost": 96000,
+      "ratePerSecond": 8425.81282
+    },
+    {
+      "second": 2910,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 99004,
+      "ratePerSecond": 8656.206045
+    },
+    {
+      "second": 2922,
+      "kind": "upgrade",
+      "id": "protocol-1",
+      "cost": 100000,
+      "ratePerSecond": 10387.447254
+    },
+    {
+      "second": 2931,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 101405,
+      "ratePerSecond": 10398.901968
+    },
+    {
+      "second": 2941,
+      "kind": "upgrade",
+      "id": "warehouses-3",
+      "cost": 102400,
+      "ratePerSecond": 13516.329498
+    },
+    {
+      "second": 2949,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 103500,
+      "ratePerSecond": 14219.229498
+    },
+    {
+      "second": 2956,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 105928,
+      "ratePerSecond": 14274.448896
+    },
+    {
+      "second": 2964,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 106540,
+      "ratePerSecond": 14484.1785792
+    },
+    {
+      "second": 2972,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 113854,
+      "ratePerSecond": 14789.6239872
+    },
+    {
+      "second": 2980,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 116615,
+      "ratePerSecond": 14801.2629888
+    },
+    {
+      "second": 2988,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 119025,
+      "ratePerSecond": 15504.1629888
+    },
+    {
+      "second": 2996,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 121816,
+      "ratePerSecond": 15560.6567232
+    },
+    {
+      "second": 3004,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 122522,
+      "ratePerSecond": 15773.9153904
+    },
+    {
+      "second": 3012,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 130932,
+      "ratePerSecond": 16082.1493944
+    },
+    {
+      "second": 3020,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 134108,
+      "ratePerSecond": 16093.9742172
+    },
+    {
+      "second": 3029,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 136879,
+      "ratePerSecond": 16796.8742172
+    },
+    {
+      "second": 3037,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 140090,
+      "ratePerSecond": 16854.6557496
+    },
+    {
+      "second": 3045,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 140899,
+      "ratePerSecond": 17071.4568624
+    },
+    {
+      "second": 3054,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 150573,
+      "ratePerSecond": 17382.4913904
+    },
+    {
+      "second": 3063,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 154223,
+      "ratePerSecond": 17394.503568
+    },
+    {
+      "second": 3072,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 157411,
+      "ratePerSecond": 18097.403568
+    },
+    {
+      "second": 3081,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 161102,
+      "ratePerSecond": 18156.48636
+    },
+    {
+      "second": 3090,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 162035,
+      "ratePerSecond": 18376.84338
+    },
+    {
+      "second": 3099,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 173158,
+      "ratePerSecond": 18690.69036
+    },
+    {
+      "second": 3109,
+      "kind": "upgrade",
+      "id": "workshops-4",
+      "cost": 174080,
+      "ratePerSecond": 20273.48058
+    },
+    {
+      "second": 3118,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 177357,
+      "ratePerSecond": 20291.543832
+    },
+    {
+      "second": 3126,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 181022,
+      "ratePerSecond": 20994.443832
+    },
+    {
+      "second": 3135,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 185268,
+      "ratePerSecond": 21083.7259344
+    },
+    {
+      "second": 3144,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 186340,
+      "ratePerSecond": 21319.28928
+    },
+    {
+      "second": 3154,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 199131,
+      "ratePerSecond": 21635.96064
+    },
+    {
+      "second": 3163,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 203961,
+      "ratePerSecond": 21654.36384
+    },
+    {
+      "second": 3173,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 208175,
+      "ratePerSecond": 22357.26384
+    },
+    {
+      "second": 3182,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 213058,
+      "ratePerSecond": 22448.18928
+    },
+    {
+      "second": 3192,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 214291,
+      "ratePerSecond": 22687.5869664
+    },
+    {
+      "second": 3202,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 229002,
+      "ratePerSecond": 23088.105531
+    },
+    {
+      "second": 3212,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 234555,
+      "ratePerSecond": 23106.917754
+    },
+    {
+      "second": 3222,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 239402,
+      "ratePerSecond": 23812.292754
+    },
+    {
+      "second": 3233,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 245017,
+      "ratePerSecond": 23905.202526
+    },
+    {
+      "second": 3243,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 246434,
+      "ratePerSecond": 24149.306052
+    },
+    {
+      "second": 3254,
+      "kind": "upgrade",
+      "id": "powerplants-2",
+      "cost": 256000,
+      "ratePerSecond": 30615.243552
+    },
+    {
+      "second": 3262,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 263351,
+      "ratePerSecond": 31197.372012
+    },
+    {
+      "second": 3271,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 269738,
+      "ratePerSecond": 31216.531536
+    },
+    {
+      "second": 3280,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 275312,
+      "ratePerSecond": 32033.9132256
+    },
+    {
+      "second": 3289,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 281769,
+      "ratePerSecond": 32128.8341088
+    },
+    {
+      "second": 3297,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 283400,
+      "ratePerSecond": 32405.5706832
+    },
+    {
+      "second": 3307,
+      "kind": "upgrade",
+      "id": "network-3",
+      "cost": 300000,
+      "ratePerSecond": 40648.596093
+    },
+    {
+      "second": 3314,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 302855,
+      "ratePerSecond": 41386.32134175
+    },
+    {
+      "second": 3322,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 310199,
+      "ratePerSecond": 41410.87986
+    },
+    {
+      "second": 3329,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 316609,
+      "ratePerSecond": 42446.16864
+    },
+    {
+      "second": 3337,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 324035,
+      "ratePerSecond": 42567.7896
+    },
+    {
+      "second": 3345,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 325909,
+      "ratePerSecond": 42922.3968
+    },
+    {
+      "second": 3353,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 348282,
+      "ratePerSecond": 43667.6832
+    },
+    {
+      "second": 3361,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 356729,
+      "ratePerSecond": 43692.77376
+    },
+    {
+      "second": 3369,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 364100,
+      "ratePerSecond": 44583.77376
+    },
+    {
+      "second": 3378,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 372640,
+      "ratePerSecond": 44707.553856
+    },
+    {
+      "second": 3386,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 374796,
+      "ratePerSecond": 45068.44752
+    },
+    {
+      "second": 3395,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 400525,
+      "ratePerSecond": 45818.73972
+    },
+    {
+      "second": 3404,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 410238,
+      "ratePerSecond": 45844.28064
+    },
+    {
+      "second": 3413,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 418716,
+      "ratePerSecond": 46735.28064
+    },
+    {
+      "second": 3422,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 428536,
+      "ratePerSecond": 46861.23888
+    },
+    {
+      "second": 3431,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 431016,
+      "ratePerSecond": 47228.438016
+    },
+    {
+      "second": 3441,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 460604,
+      "ratePerSecond": 47983.751136
+    },
+    {
+      "second": 3451,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 471773,
+      "ratePerSecond": 48009.746304
+    },
+    {
+      "second": 3461,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 481522,
+      "ratePerSecond": 48900.746304
+    },
+    {
+      "second": 3471,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 492816,
+      "ratePerSecond": 49028.901696
+    },
+    {
+      "second": 3481,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 495667,
+      "ratePerSecond": 49402.425312
+    },
+    {
+      "second": 3491,
+      "kind": "upgrade",
+      "id": "discovery-2",
+      "cost": 500000,
+      "ratePerSecond": 55920.800874
+    },
+    {
+      "second": 3501,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 529694,
+      "ratePerSecond": 56781.4738815
+    },
+    {
+      "second": 3510,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 542540,
+      "ratePerSecond": 56811.417552
+    },
+    {
+      "second": 3520,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 553751,
+      "ratePerSecond": 57819.980052
+    },
+    {
+      "second": 3530,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 566739,
+      "ratePerSecond": 57967.553406
+    },
+    {
+      "second": 3540,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 570018,
+      "ratePerSecond": 58397.541864
+    },
+    {
+      "second": 3550,
+      "kind": "producer",
+      "id": "powerplants",
+      "cost": 609148,
+      "ratePerSecond": 59263.932504
+    },
+    {
+      "second": 3561,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 623921,
+      "ratePerSecond": 59294.39916
+    },
+    {
+      "second": 3572,
+      "kind": "producer",
+      "id": "observatories",
+      "cost": 636813,
+      "ratePerSecond": 60302.96166
+    },
+    {
+      "second": 3582,
+      "kind": "producer",
+      "id": "workshops",
+      "cost": 651749,
+      "ratePerSecond": 60453.0651
+    },
+    {
+      "second": 3593,
+      "kind": "producer",
+      "id": "warehouses",
+      "cost": 655521,
+      "ratePerSecond": 60890.25555
+    }
+  ],
+  "samples": [
+    {
+      "second": 0,
+      "coins": 5,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 0
+    },
+    {
+      "second": 10,
+      "coins": 6,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 1
+    },
+    {
+      "second": 20,
+      "coins": 7,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 2
+    },
+    {
+      "second": 30,
+      "coins": 8,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 3
+    },
+    {
+      "second": 40,
+      "coins": 9,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 4
+    },
+    {
+      "second": 50,
+      "coins": 11,
+      "ratePerSecond": 0.12024,
+      "clickGain": 1,
+      "lifetime": 6
+    },
+    {
+      "second": 60,
+      "coins": 0,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 7
+    },
+    {
+      "second": 70,
+      "coins": 2,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 9
+    },
+    {
+      "second": 80,
+      "coins": 5,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 12
+    },
+    {
+      "second": 90,
+      "coins": 7,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 14
+    },
+    {
+      "second": 100,
+      "coins": 9,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 16
+    },
+    {
+      "second": 110,
+      "coins": 12,
+      "ratePerSecond": 0.24048,
+      "clickGain": 1,
+      "lifetime": 19
+    },
+    {
+      "second": 120,
+      "coins": 2,
+      "ratePerSecond": 0.36072,
+      "clickGain": 1,
+      "lifetime": 22
+    },
+    {
+      "second": 130,
+      "coins": 6,
+      "ratePerSecond": 0.36072,
+      "clickGain": 1,
+      "lifetime": 26
+    },
+    {
+      "second": 140,
+      "coins": 9,
+      "ratePerSecond": 0.36072,
+      "clickGain": 1,
+      "lifetime": 29
+    },
+    {
+      "second": 150,
+      "coins": 13,
+      "ratePerSecond": 0.36072,
+      "clickGain": 1,
+      "lifetime": 33
+    },
+    {
+      "second": 160,
+      "coins": 2,
+      "ratePerSecond": 0.48096,
+      "clickGain": 1,
+      "lifetime": 37
+    },
+    {
+      "second": 170,
+      "coins": 7,
+      "ratePerSecond": 0.48096,
+      "clickGain": 1,
+      "lifetime": 42
+    },
+    {
+      "second": 180,
+      "coins": 12,
+      "ratePerSecond": 0.48096,
+      "clickGain": 1,
+      "lifetime": 47
+    },
+    {
+      "second": 190,
+      "coins": 17,
+      "ratePerSecond": 0.48096,
+      "clickGain": 1,
+      "lifetime": 52
+    },
+    {
+      "second": 200,
+      "coins": 4,
+      "ratePerSecond": 0.6012,
+      "clickGain": 1,
+      "lifetime": 57
+    },
+    {
+      "second": 210,
+      "coins": 10,
+      "ratePerSecond": 0.6012,
+      "clickGain": 1,
+      "lifetime": 63
+    },
+    {
+      "second": 220,
+      "coins": 16,
+      "ratePerSecond": 0.6012,
+      "clickGain": 1,
+      "lifetime": 69
+    },
+    {
+      "second": 230,
+      "coins": 3,
+      "ratePerSecond": 0.72144,
+      "clickGain": 1,
+      "lifetime": 76
+    },
+    {
+      "second": 240,
+      "coins": 10,
+      "ratePerSecond": 0.72144,
+      "clickGain": 1,
+      "lifetime": 83
+    },
+    {
+      "second": 250,
+      "coins": 17,
+      "ratePerSecond": 0.72144,
+      "clickGain": 1,
+      "lifetime": 90
+    },
+    {
+      "second": 260,
+      "coins": 2,
+      "ratePerSecond": 0.84168,
+      "clickGain": 1,
+      "lifetime": 98
+    },
+    {
+      "second": 270,
+      "coins": 10,
+      "ratePerSecond": 0.84336,
+      "clickGain": 1,
+      "lifetime": 106
+    },
+    {
+      "second": 280,
+      "coins": 19,
+      "ratePerSecond": 0.84336,
+      "clickGain": 1,
+      "lifetime": 115
+    },
+    {
+      "second": 290,
+      "coins": 0,
+      "ratePerSecond": 0.96384,
+      "clickGain": 1,
+      "lifetime": 123
+    },
+    {
+      "second": 300,
+      "coins": 10,
+      "ratePerSecond": 0.96384,
+      "clickGain": 1,
+      "lifetime": 133
+    },
+    {
+      "second": 310,
+      "coins": 19,
+      "ratePerSecond": 0.96384,
+      "clickGain": 1,
+      "lifetime": 142
+    },
+    {
+      "second": 320,
+      "coins": 29,
+      "ratePerSecond": 0.96384,
+      "clickGain": 1,
+      "lifetime": 152
+    },
+    {
+      "second": 330,
+      "coins": 10,
+      "ratePerSecond": 1.08432,
+      "clickGain": 1,
+      "lifetime": 163
+    },
+    {
+      "second": 340,
+      "coins": 21,
+      "ratePerSecond": 1.08432,
+      "clickGain": 1,
+      "lifetime": 174
+    },
+    {
+      "second": 350,
+      "coins": 31,
+      "ratePerSecond": 1.08432,
+      "clickGain": 1,
+      "lifetime": 184
+    },
+    {
+      "second": 360,
+      "coins": 7,
+      "ratePerSecond": 1.2096,
+      "clickGain": 1,
+      "lifetime": 196
+    },
+    {
+      "second": 370,
+      "coins": 19,
+      "ratePerSecond": 1.2096,
+      "clickGain": 1,
+      "lifetime": 208
+    },
+    {
+      "second": 380,
+      "coins": 31,
+      "ratePerSecond": 1.2096,
+      "clickGain": 1,
+      "lifetime": 220
+    },
+    {
+      "second": 390,
+      "coins": 4,
+      "ratePerSecond": 1.33056,
+      "clickGain": 1,
+      "lifetime": 233
+    },
+    {
+      "second": 400,
+      "coins": 17,
+      "ratePerSecond": 1.33056,
+      "clickGain": 1,
+      "lifetime": 246
+    },
+    {
+      "second": 410,
+      "coins": 30,
+      "ratePerSecond": 1.33056,
+      "clickGain": 1,
+      "lifetime": 259
+    },
+    {
+      "second": 420,
+      "coins": 44,
+      "ratePerSecond": 1.33056,
+      "clickGain": 1,
+      "lifetime": 273
+    },
+    {
+      "second": 430,
+      "coins": 11,
+      "ratePerSecond": 1.45152,
+      "clickGain": 1,
+      "lifetime": 287
+    },
+    {
+      "second": 440,
+      "coins": 25,
+      "ratePerSecond": 1.45152,
+      "clickGain": 1,
+      "lifetime": 301
+    },
+    {
+      "second": 450,
+      "coins": 40,
+      "ratePerSecond": 1.45152,
+      "clickGain": 1,
+      "lifetime": 316
+    },
+    {
+      "second": 460,
+      "coins": 1,
+      "ratePerSecond": 1.57248,
+      "clickGain": 1,
+      "lifetime": 330
+    },
+    {
+      "second": 470,
+      "coins": 17,
+      "ratePerSecond": 1.57248,
+      "clickGain": 1,
+      "lifetime": 346
+    },
+    {
+      "second": 480,
+      "coins": 33,
+      "ratePerSecond": 1.57248,
+      "clickGain": 1,
+      "lifetime": 362
+    },
+    {
+      "second": 490,
+      "coins": 49,
+      "ratePerSecond": 1.57248,
+      "clickGain": 1,
+      "lifetime": 378
+    },
+    {
+      "second": 500,
+      "coins": 2,
+      "ratePerSecond": 1.69344,
+      "clickGain": 1,
+      "lifetime": 393
+    },
+    {
+      "second": 510,
+      "coins": 19,
+      "ratePerSecond": 1.69344,
+      "clickGain": 1,
+      "lifetime": 410
+    },
+    {
+      "second": 520,
+      "coins": 36,
+      "ratePerSecond": 1.69344,
+      "clickGain": 1,
+      "lifetime": 427
+    },
+    {
+      "second": 530,
+      "coins": 53,
+      "ratePerSecond": 1.69344,
+      "clickGain": 1,
+      "lifetime": 444
+    },
+    {
+      "second": 540,
+      "coins": 0,
+      "ratePerSecond": 1.8144,
+      "clickGain": 1,
+      "lifetime": 461
+    },
+    {
+      "second": 550,
+      "coins": 18,
+      "ratePerSecond": 1.8144,
+      "clickGain": 1,
+      "lifetime": 479
+    },
+    {
+      "second": 560,
+      "coins": 36,
+      "ratePerSecond": 1.8144,
+      "clickGain": 1,
+      "lifetime": 497
+    },
+    {
+      "second": 570,
+      "coins": 55,
+      "ratePerSecond": 1.818,
+      "clickGain": 1,
+      "lifetime": 516
+    },
+    {
+      "second": 580,
+      "coins": 73,
+      "ratePerSecond": 1.818,
+      "clickGain": 1,
+      "lifetime": 534
+    },
+    {
+      "second": 590,
+      "coins": 22,
+      "ratePerSecond": 3.6432,
+      "clickGain": 1,
+      "lifetime": 563
+    },
+    {
+      "second": 600,
+      "coins": 58,
+      "ratePerSecond": 3.6432,
+      "clickGain": 1,
+      "lifetime": 599
+    },
+    {
+      "second": 610,
+      "coins": 13,
+      "ratePerSecond": 3.88608,
+      "clickGain": 1,
+      "lifetime": 636
+    },
+    {
+      "second": 620,
+      "coins": 52,
+      "ratePerSecond": 3.88608,
+      "clickGain": 1,
+      "lifetime": 675
+    },
+    {
+      "second": 630,
+      "coins": 7,
+      "ratePerSecond": 4.80636,
+      "clickGain": 1,
+      "lifetime": 715
+    },
+    {
+      "second": 640,
+      "coins": 55,
+      "ratePerSecond": 4.80636,
+      "clickGain": 1,
+      "lifetime": 763
+    },
+    {
+      "second": 650,
+      "coins": 11,
+      "ratePerSecond": 5.04972,
+      "clickGain": 1,
+      "lifetime": 812
+    },
+    {
+      "second": 660,
+      "coins": 61,
+      "ratePerSecond": 5.04972,
+      "clickGain": 1,
+      "lifetime": 862
+    },
+    {
+      "second": 670,
+      "coins": 16,
+      "ratePerSecond": 5.96232,
+      "clickGain": 1,
+      "lifetime": 915
+    },
+    {
+      "second": 680,
+      "coins": 75,
+      "ratePerSecond": 5.96232,
+      "clickGain": 1,
+      "lifetime": 974
+    },
+    {
+      "second": 690,
+      "coins": 28,
+      "ratePerSecond": 6.21792,
+      "clickGain": 1,
+      "lifetime": 1035
+    },
+    {
+      "second": 700,
+      "coins": 90,
+      "ratePerSecond": 6.21792,
+      "clickGain": 1,
+      "lifetime": 1097
+    },
+    {
+      "second": 710,
+      "coins": 45,
+      "ratePerSecond": 7.13232,
+      "clickGain": 1,
+      "lifetime": 1165
+    },
+    {
+      "second": 720,
+      "coins": 116,
+      "ratePerSecond": 7.13232,
+      "clickGain": 1,
+      "lifetime": 1236
+    },
+    {
+      "second": 730,
+      "coins": 65,
+      "ratePerSecond": 7.37616,
+      "clickGain": 1,
+      "lifetime": 1309
+    },
+    {
+      "second": 740,
+      "coins": 11,
+      "ratePerSecond": 8.29056,
+      "clickGain": 1,
+      "lifetime": 1384
+    },
+    {
+      "second": 750,
+      "coins": 94,
+      "ratePerSecond": 8.29056,
+      "clickGain": 1,
+      "lifetime": 1467
+    },
+    {
+      "second": 760,
+      "coins": 36,
+      "ratePerSecond": 8.5344,
+      "clickGain": 1,
+      "lifetime": 1551
+    },
+    {
+      "second": 770,
+      "coins": 121,
+      "ratePerSecond": 8.5344,
+      "clickGain": 1,
+      "lifetime": 1636
+    },
+    {
+      "second": 780,
+      "coins": 63,
+      "ratePerSecond": 9.4674,
+      "clickGain": 1,
+      "lifetime": 1727
+    },
+    {
+      "second": 790,
+      "coins": 158,
+      "ratePerSecond": 9.4674,
+      "clickGain": 1,
+      "lifetime": 1822
+    },
+    {
+      "second": 800,
+      "coins": 91,
+      "ratePerSecond": 9.71172,
+      "clickGain": 1,
+      "lifetime": 1919
+    },
+    {
+      "second": 810,
+      "coins": 18,
+      "ratePerSecond": 10.62792,
+      "clickGain": 1,
+      "lifetime": 2017
+    },
+    {
+      "second": 820,
+      "coins": 124,
+      "ratePerSecond": 10.62792,
+      "clickGain": 1,
+      "lifetime": 2123
+    },
+    {
+      "second": 830,
+      "coins": 43,
+      "ratePerSecond": 10.87224,
+      "clickGain": 1,
+      "lifetime": 2230
+    },
+    {
+      "second": 840,
+      "coins": 152,
+      "ratePerSecond": 10.87224,
+      "clickGain": 1,
+      "lifetime": 2339
+    },
+    {
+      "second": 850,
+      "coins": 69,
+      "ratePerSecond": 11.78844,
+      "clickGain": 1,
+      "lifetime": 2452
+    },
+    {
+      "second": 860,
+      "coins": 187,
+      "ratePerSecond": 11.78844,
+      "clickGain": 1,
+      "lifetime": 2570
+    },
+    {
+      "second": 870,
+      "coins": 91,
+      "ratePerSecond": 12.03276,
+      "clickGain": 1,
+      "lifetime": 2690
+    },
+    {
+      "second": 880,
+      "coins": 211,
+      "ratePerSecond": 12.03276,
+      "clickGain": 1,
+      "lifetime": 2810
+    },
+    {
+      "second": 890,
+      "coins": 113,
+      "ratePerSecond": 12.94896,
+      "clickGain": 1,
+      "lifetime": 2938
+    },
+    {
+      "second": 900,
+      "coins": 242,
+      "ratePerSecond": 12.94896,
+      "clickGain": 1,
+      "lifetime": 3067
+    },
+    {
+      "second": 910,
+      "coins": 125,
+      "ratePerSecond": 13.19328,
+      "clickGain": 1,
+      "lifetime": 3199
+    },
+    {
+      "second": 920,
+      "coins": 257,
+      "ratePerSecond": 13.19328,
+      "clickGain": 1,
+      "lifetime": 3331
+    },
+    {
+      "second": 930,
+      "coins": 137,
+      "ratePerSecond": 14.10948,
+      "clickGain": 1,
+      "lifetime": 3471
+    },
+    {
+      "second": 940,
+      "coins": 278,
+      "ratePerSecond": 14.10948,
+      "clickGain": 1,
+      "lifetime": 3612
+    },
+    {
+      "second": 950,
+      "coins": 136,
+      "ratePerSecond": 14.382,
+      "clickGain": 1,
+      "lifetime": 3756
+    },
+    {
+      "second": 960,
+      "coins": 279,
+      "ratePerSecond": 14.382,
+      "clickGain": 1,
+      "lifetime": 3899
+    },
+    {
+      "second": 970,
+      "coins": 132,
+      "ratePerSecond": 15.33,
+      "clickGain": 1,
+      "lifetime": 4051
+    },
+    {
+      "second": 980,
+      "coins": 285,
+      "ratePerSecond": 15.33,
+      "clickGain": 1,
+      "lifetime": 4204
+    },
+    {
+      "second": 990,
+      "coins": 161,
+      "ratePerSecond": 21.462,
+      "clickGain": 1,
+      "lifetime": 4400
+    },
+    {
+      "second": 1000,
+      "coins": 47,
+      "ratePerSecond": 21.95256,
+      "clickGain": 1,
+      "lifetime": 4616
+    },
+    {
+      "second": 1010,
+      "coins": 266,
+      "ratePerSecond": 21.95256,
+      "clickGain": 1,
+      "lifetime": 4835
+    },
+    {
+      "second": 1020,
+      "coins": 148,
+      "ratePerSecond": 22.91712,
+      "clickGain": 1,
+      "lifetime": 5061
+    },
+    {
+      "second": 1030,
+      "coins": 377,
+      "ratePerSecond": 22.91712,
+      "clickGain": 1,
+      "lifetime": 5290
+    },
+    {
+      "second": 1040,
+      "coins": 232,
+      "ratePerSecond": 23.40864,
+      "clickGain": 1,
+      "lifetime": 5523
+    },
+    {
+      "second": 1050,
+      "coins": 73,
+      "ratePerSecond": 24.33024,
+      "clickGain": 1,
+      "lifetime": 5760
+    },
+    {
+      "second": 1060,
+      "coins": 316,
+      "ratePerSecond": 24.33024,
+      "clickGain": 1,
+      "lifetime": 6003
+    },
+    {
+      "second": 1070,
+      "coins": 126,
+      "ratePerSecond": 24.82176,
+      "clickGain": 1,
+      "lifetime": 6249
+    },
+    {
+      "second": 1080,
+      "coins": 374,
+      "ratePerSecond": 24.82176,
+      "clickGain": 1,
+      "lifetime": 6497
+    },
+    {
+      "second": 1090,
+      "coins": 174,
+      "ratePerSecond": 25.74336,
+      "clickGain": 1,
+      "lifetime": 6751
+    },
+    {
+      "second": 1100,
+      "coins": 432,
+      "ratePerSecond": 25.74336,
+      "clickGain": 1,
+      "lifetime": 7009
+    },
+    {
+      "second": 1110,
+      "coins": 193,
+      "ratePerSecond": 26.23488,
+      "clickGain": 1,
+      "lifetime": 7270
+    },
+    {
+      "second": 1120,
+      "coins": 455,
+      "ratePerSecond": 26.23488,
+      "clickGain": 1,
+      "lifetime": 7532
+    },
+    {
+      "second": 1130,
+      "coins": 201,
+      "ratePerSecond": 27.15648,
+      "clickGain": 1,
+      "lifetime": 7801
+    },
+    {
+      "second": 1140,
+      "coins": 472,
+      "ratePerSecond": 27.15648,
+      "clickGain": 1,
+      "lifetime": 8072
+    },
+    {
+      "second": 1150,
+      "coins": 171,
+      "ratePerSecond": 27.648,
+      "clickGain": 1,
+      "lifetime": 8347
+    },
+    {
+      "second": 1160,
+      "coins": 447,
+      "ratePerSecond": 27.648,
+      "clickGain": 1,
+      "lifetime": 8623
+    },
+    {
+      "second": 1170,
+      "coins": 125,
+      "ratePerSecond": 28.5696,
+      "clickGain": 1,
+      "lifetime": 8903
+    },
+    {
+      "second": 1180,
+      "coins": 411,
+      "ratePerSecond": 28.5696,
+      "clickGain": 1,
+      "lifetime": 9189
+    },
+    {
+      "second": 1190,
+      "coins": 35,
+      "ratePerSecond": 29.06112,
+      "clickGain": 1,
+      "lifetime": 9475
+    },
+    {
+      "second": 1200,
+      "coins": 326,
+      "ratePerSecond": 29.06112,
+      "clickGain": 1,
+      "lifetime": 9766
+    },
+    {
+      "second": 1210,
+      "coins": 617,
+      "ratePerSecond": 29.11788,
+      "clickGain": 1,
+      "lifetime": 10057
+    },
+    {
+      "second": 1220,
+      "coins": 325,
+      "ratePerSecond": 43.05264,
+      "clickGain": 1,
+      "lifetime": 10445
+    },
+    {
+      "second": 1230,
+      "coins": 67,
+      "ratePerSecond": 44.90304,
+      "clickGain": 1,
+      "lifetime": 10878
+    },
+    {
+      "second": 1240,
+      "coins": 516,
+      "ratePerSecond": 44.90304,
+      "clickGain": 1,
+      "lifetime": 11327
+    },
+    {
+      "second": 1250,
+      "coins": 205,
+      "ratePerSecond": 45.39648,
+      "clickGain": 1,
+      "lifetime": 11778
+    },
+    {
+      "second": 1260,
+      "coins": 659,
+      "ratePerSecond": 45.39648,
+      "clickGain": 1,
+      "lifetime": 12232
+    },
+    {
+      "second": 1270,
+      "coins": 328,
+      "ratePerSecond": 47.24688,
+      "clickGain": 1,
+      "lifetime": 12697
+    },
+    {
+      "second": 1280,
+      "coins": 0,
+      "ratePerSecond": 54.65472,
+      "clickGain": 1,
+      "lifetime": 13169
+    },
+    {
+      "second": 1290,
+      "coins": 547,
+      "ratePerSecond": 54.65472,
+      "clickGain": 1,
+      "lifetime": 13716
+    },
+    {
+      "second": 1300,
+      "coins": 220,
+      "ratePerSecond": 55.15008,
+      "clickGain": 1,
+      "lifetime": 14264
+    },
+    {
+      "second": 1310,
+      "coins": 772,
+      "ratePerSecond": 55.15008,
+      "clickGain": 1,
+      "lifetime": 14816
+    },
+    {
+      "second": 1320,
+      "coins": 421,
+      "ratePerSecond": 57.00768,
+      "clickGain": 1,
+      "lifetime": 15380
+    },
+    {
+      "second": 1330,
+      "coins": 79,
+      "ratePerSecond": 64.23168,
+      "clickGain": 1,
+      "lifetime": 15958
+    },
+    {
+      "second": 1340,
+      "coins": 721,
+      "ratePerSecond": 64.23168,
+      "clickGain": 1,
+      "lifetime": 16600
+    },
+    {
+      "second": 1350,
+      "coins": 359,
+      "ratePerSecond": 64.72704,
+      "clickGain": 1,
+      "lifetime": 17245
+    },
+    {
+      "second": 1360,
+      "coins": 1006,
+      "ratePerSecond": 64.72704,
+      "clickGain": 1,
+      "lifetime": 17892
+    },
+    {
+      "second": 1370,
+      "coins": 618,
+      "ratePerSecond": 66.58464,
+      "clickGain": 1,
+      "lifetime": 18556
+    },
+    {
+      "second": 1380,
+      "coins": 247,
+      "ratePerSecond": 73.80864,
+      "clickGain": 1,
+      "lifetime": 19243
+    },
+    {
+      "second": 1390,
+      "coins": 986,
+      "ratePerSecond": 73.80864,
+      "clickGain": 1,
+      "lifetime": 19982
+    },
+    {
+      "second": 1400,
+      "coins": 649,
+      "ratePerSecond": 83.1695832,
+      "clickGain": 1,
+      "lifetime": 20785
+    },
+    {
+      "second": 1410,
+      "coins": 325,
+      "ratePerSecond": 83.937018,
+      "clickGain": 1,
+      "lifetime": 21619
+    },
+    {
+      "second": 1420,
+      "coins": 1165,
+      "ratePerSecond": 83.937018,
+      "clickGain": 1,
+      "lifetime": 22459
+    },
+    {
+      "second": 1430,
+      "coins": 816,
+      "ratePerSecond": 86.29764,
+      "clickGain": 1,
+      "lifetime": 23319
+    },
+    {
+      "second": 1440,
+      "coins": 498,
+      "ratePerSecond": 93.53564,
+      "clickGain": 1,
+      "lifetime": 24218
+    },
+    {
+      "second": 1450,
+      "coins": 175,
+      "ratePerSecond": 114.60232,
+      "clickGain": 1,
+      "lifetime": 25175
+    },
+    {
+      "second": 1460,
+      "coins": 1321,
+      "ratePerSecond": 114.60232,
+      "clickGain": 1,
+      "lifetime": 26321
+    },
+    {
+      "second": 1470,
+      "coins": 1147,
+      "ratePerSecond": 115.982272,
+      "clickGain": 1,
+      "lifetime": 27479
+    },
+    {
+      "second": 1480,
+      "coins": 934,
+      "ratePerSecond": 118.5407776,
+      "clickGain": 1,
+      "lifetime": 28657
+    },
+    {
+      "second": 1490,
+      "coins": 764,
+      "ratePerSecond": 125.7927776,
+      "clickGain": 1,
+      "lifetime": 29886
+    },
+    {
+      "second": 1500,
+      "coins": 495,
+      "ratePerSecond": 127.1919992,
+      "clickGain": 1,
+      "lifetime": 31148
+    },
+    {
+      "second": 1510,
+      "coins": 169,
+      "ratePerSecond": 129.7697744,
+      "clickGain": 1,
+      "lifetime": 32422
+    },
+    {
+      "second": 1520,
+      "coins": 1467,
+      "ratePerSecond": 129.7697744,
+      "clickGain": 1,
+      "lifetime": 33720
+    },
+    {
+      "second": 1530,
+      "coins": 1214,
+      "ratePerSecond": 137.0217744,
+      "clickGain": 1,
+      "lifetime": 35076
+    },
+    {
+      "second": 1540,
+      "coins": 831,
+      "ratePerSecond": 138.4402656,
+      "clickGain": 1,
+      "lifetime": 36455
+    },
+    {
+      "second": 1550,
+      "coins": 380,
+      "ratePerSecond": 141.0373104,
+      "clickGain": 1,
+      "lifetime": 37844
+    },
+    {
+      "second": 1560,
+      "coins": 1791,
+      "ratePerSecond": 141.0373104,
+      "clickGain": 1,
+      "lifetime": 39255
+    },
+    {
+      "second": 1570,
+      "coins": 1415,
+      "ratePerSecond": 148.2893104,
+      "clickGain": 1,
+      "lifetime": 40730
+    },
+    {
+      "second": 1580,
+      "coins": 880,
+      "ratePerSecond": 149.7270712,
+      "clickGain": 1,
+      "lifetime": 42220
+    },
+    {
+      "second": 1590,
+      "coins": 264,
+      "ratePerSecond": 152.3433856,
+      "clickGain": 1,
+      "lifetime": 43720
+    },
+    {
+      "second": 1600,
+      "coins": 1788,
+      "ratePerSecond": 152.3433856,
+      "clickGain": 1,
+      "lifetime": 45244
+    },
+    {
+      "second": 1610,
+      "coins": 1234,
+      "ratePerSecond": 159.5953856,
+      "clickGain": 1,
+      "lifetime": 46818
+    },
+    {
+      "second": 1620,
+      "coins": 505,
+      "ratePerSecond": 161.052416,
+      "clickGain": 1,
+      "lifetime": 48418
+    },
+    {
+      "second": 1630,
+      "coins": 2116,
+      "ratePerSecond": 161.363328,
+      "clickGain": 1,
+      "lifetime": 50029
+    },
+    {
+      "second": 1640,
+      "coins": 1320,
+      "ratePerSecond": 164.32,
+      "clickGain": 1,
+      "lifetime": 51666
+    },
+    {
+      "second": 1650,
+      "coins": 538,
+      "ratePerSecond": 171.6,
+      "clickGain": 1,
+      "lifetime": 53331
+    },
+    {
+      "second": 1660,
+      "coins": 2254,
+      "ratePerSecond": 171.6,
+      "clickGain": 1,
+      "lifetime": 55047
+    },
+    {
+      "second": 1670,
+      "coins": 1301,
+      "ratePerSecond": 173.082,
+      "clickGain": 1,
+      "lifetime": 56773
+    },
+    {
+      "second": 1680,
+      "coins": 369,
+      "ratePerSecond": 229.476,
+      "clickGain": 1,
+      "lifetime": 58561
+    },
+    {
+      "second": 1690,
+      "coins": 2663,
+      "ratePerSecond": 229.476,
+      "clickGain": 1,
+      "lifetime": 60855
+    },
+    {
+      "second": 1700,
+      "coins": 2204,
+      "ratePerSecond": 234.396864,
+      "clickGain": 1,
+      "lifetime": 63194
+    },
+    {
+      "second": 1710,
+      "coins": 1789,
+      "ratePerSecond": 242.1416272,
+      "clickGain": 1,
+      "lifetime": 65593
+    },
+    {
+      "second": 1720,
+      "coins": 1452,
+      "ratePerSecond": 302.677034,
+      "clickGain": 1,
+      "lifetime": 68256
+    },
+    {
+      "second": 1730,
+      "coins": 1408,
+      "ratePerSecond": 304.862108,
+      "clickGain": 1,
+      "lifetime": 71292
+    },
+    {
+      "second": 1740,
+      "coins": 1263,
+      "ratePerSecond": 311.060966,
+      "clickGain": 1,
+      "lifetime": 74365
+    },
+    {
+      "second": 1750,
+      "coins": 1164,
+      "ratePerSecond": 320.178466,
+      "clickGain": 1,
+      "lifetime": 77503
+    },
+    {
+      "second": 1760,
+      "coins": 827,
+      "ratePerSecond": 322.399489,
+      "clickGain": 1,
+      "lifetime": 80709
+    },
+    {
+      "second": 1770,
+      "coins": 357,
+      "ratePerSecond": 328.634296,
+      "clickGain": 1,
+      "lifetime": 83939
+    },
+    {
+      "second": 1780,
+      "coins": 3644,
+      "ratePerSecond": 328.634296,
+      "clickGain": 1,
+      "lifetime": 87226
+    },
+    {
+      "second": 1790,
+      "coins": 3290,
+      "ratePerSecond": 337.751796,
+      "clickGain": 1,
+      "lifetime": 90594
+    },
+    {
+      "second": 1800,
+      "coins": 2610,
+      "ratePerSecond": 340.008768,
+      "clickGain": 1,
+      "lifetime": 93988
+    },
+    {
+      "second": 1810,
+      "coins": 1785,
+      "ratePerSecond": 346.279524,
+      "clickGain": 1,
+      "lifetime": 97419
+    },
+    {
+      "second": 1820,
+      "coins": 987,
+      "ratePerSecond": 356.079168,
+      "clickGain": 1,
+      "lifetime": 100901
+    },
+    {
+      "second": 1830,
+      "coins": 4548,
+      "ratePerSecond": 356.079168,
+      "clickGain": 1,
+      "lifetime": 104462
+    },
+    {
+      "second": 1840,
+      "coins": 3445,
+      "ratePerSecond": 358.37649,
+      "clickGain": 1,
+      "lifetime": 108044
+    },
+    {
+      "second": 1850,
+      "coins": 2166,
+      "ratePerSecond": 364.6953,
+      "clickGain": 1,
+      "lifetime": 111659
+    },
+    {
+      "second": 1860,
+      "coins": 909,
+      "ratePerSecond": 373.8303,
+      "clickGain": 1,
+      "lifetime": 115324
+    },
+    {
+      "second": 1870,
+      "coins": 4648,
+      "ratePerSecond": 373.8303,
+      "clickGain": 1,
+      "lifetime": 119063
+    },
+    {
+      "second": 1880,
+      "coins": 3528,
+      "ratePerSecond": 389.5856,
+      "clickGain": 1,
+      "lifetime": 122943
+    },
+    {
+      "second": 1890,
+      "coins": 2049,
+      "ratePerSecond": 392.01728,
+      "clickGain": 1,
+      "lifetime": 126851
+    },
+    {
+      "second": 1900,
+      "coins": 341,
+      "ratePerSecond": 398.639936,
+      "clickGain": 1,
+      "lifetime": 130771
+    },
+    {
+      "second": 1910,
+      "coins": 4327,
+      "ratePerSecond": 398.639936,
+      "clickGain": 1,
+      "lifetime": 134757
+    },
+    {
+      "second": 1920,
+      "coins": 2710,
+      "ratePerSecond": 408.159936,
+      "clickGain": 1,
+      "lifetime": 138801
+    },
+    {
+      "second": 1930,
+      "coins": 598,
+      "ratePerSecond": 410.629152,
+      "clickGain": 1,
+      "lifetime": 142885
+    },
+    {
+      "second": 1940,
+      "coins": 4704,
+      "ratePerSecond": 410.629152,
+      "clickGain": 1,
+      "lifetime": 146991
+    },
+    {
+      "second": 1950,
+      "coins": 3124,
+      "ratePerSecond": 553.429152,
+      "clickGain": 1,
+      "lifetime": 151811
+    },
+    {
+      "second": 1960,
+      "coins": 2207,
+      "ratePerSecond": 560.089344,
+      "clickGain": 1,
+      "lifetime": 157366
+    },
+    {
+      "second": 1970,
+      "coins": 1337,
+      "ratePerSecond": 579.129344,
+      "clickGain": 1,
+      "lifetime": 163005
+    },
+    {
+      "second": 1980,
+      "coins": 2,
+      "ratePerSecond": 581.636096,
+      "clickGain": 1,
+      "lifetime": 168796
+    },
+    {
+      "second": 1990,
+      "coins": 5818,
+      "ratePerSecond": 581.636096,
+      "clickGain": 1,
+      "lifetime": 174612
+    },
+    {
+      "second": 2000,
+      "coins": 4239,
+      "ratePerSecond": 588.333824,
+      "clickGain": 1,
+      "lifetime": 180476
+    },
+    {
+      "second": 2010,
+      "coins": 2711,
+      "ratePerSecond": 607.373824,
+      "clickGain": 1,
+      "lifetime": 186435
+    },
+    {
+      "second": 2020,
+      "coins": 858,
+      "ratePerSecond": 680.339808,
+      "clickGain": 1,
+      "lifetime": 192582
+    },
+    {
+      "second": 2030,
+      "coins": 7661,
+      "ratePerSecond": 680.339808,
+      "clickGain": 1,
+      "lifetime": 199385
+    },
+    {
+      "second": 2040,
+      "coins": 6316,
+      "ratePerSecond": 685.39515,
+      "clickGain": 1,
+      "lifetime": 206234
+    },
+    {
+      "second": 2050,
+      "coins": 4651,
+      "ratePerSecond": 692.2047,
+      "clickGain": 1,
+      "lifetime": 213129
+    },
+    {
+      "second": 2060,
+      "coins": 3041,
+      "ratePerSecond": 711.4547,
+      "clickGain": 1,
+      "lifetime": 220128
+    },
+    {
+      "second": 2070,
+      "coins": 1024,
+      "ratePerSecond": 780.2047,
+      "clickGain": 1,
+      "lifetime": 227311
+    },
+    {
+      "second": 2080,
+      "coins": 8826,
+      "ratePerSecond": 780.2047,
+      "clickGain": 1,
+      "lifetime": 235113
+    },
+    {
+      "second": 2090,
+      "coins": 7254,
+      "ratePerSecond": 785.6616,
+      "clickGain": 1,
+      "lifetime": 242964
+    },
+    {
+      "second": 2100,
+      "coins": 5309,
+      "ratePerSecond": 792.534,
+      "clickGain": 1,
+      "lifetime": 250862
+    },
+    {
+      "second": 2110,
+      "coins": 3412,
+      "ratePerSecond": 811.854,
+      "clickGain": 1,
+      "lifetime": 258865
+    },
+    {
+      "second": 2120,
+      "coins": 1639,
+      "ratePerSecond": 920.713375,
+      "clickGain": 1,
+      "lifetime": 267092
+    },
+    {
+      "second": 2130,
+      "coins": 266,
+      "ratePerSecond": 989.963375,
+      "clickGain": 1,
+      "lifetime": 276299
+    },
+    {
+      "second": 2140,
+      "coins": 10166,
+      "ratePerSecond": 989.963375,
+      "clickGain": 1,
+      "lifetime": 286199
+    },
+    {
+      "second": 2150,
+      "coins": 9255,
+      "ratePerSecond": 992.7966695,
+      "clickGain": 1,
+      "lifetime": 296124
+    },
+    {
+      "second": 2160,
+      "coins": 10388,
+      "ratePerSecond": 1253.418629,
+      "clickGain": 1,
+      "lifetime": 308137
+    },
+    {
+      "second": 2170,
+      "coins": 374,
+      "ratePerSecond": 1298.217008,
+      "clickGain": 1,
+      "lifetime": 320828
+    },
+    {
+      "second": 2180,
+      "coins": 1189,
+      "ratePerSecond": 1367.467008,
+      "clickGain": 1,
+      "lifetime": 333810
+    },
+    {
+      "second": 2190,
+      "coins": 2406,
+      "ratePerSecond": 1371.429216,
+      "clickGain": 1,
+      "lifetime": 347489
+    },
+    {
+      "second": 2200,
+      "coins": 3137,
+      "ratePerSecond": 1389.137272,
+      "clickGain": 1,
+      "lifetime": 361238
+    },
+    {
+      "second": 2210,
+      "coins": 3990,
+      "ratePerSecond": 1416.7633684,
+      "clickGain": 1,
+      "lifetime": 375185
+    },
+    {
+      "second": 2220,
+      "coins": 4303,
+      "ratePerSecond": 1486.0133684,
+      "clickGain": 1,
+      "lifetime": 389491
+    },
+    {
+      "second": 2230,
+      "coins": 4844,
+      "ratePerSecond": 1490.0671526,
+      "clickGain": 1,
+      "lifetime": 404364
+    },
+    {
+      "second": 2240,
+      "coins": 4828,
+      "ratePerSecond": 1508.0714324,
+      "clickGain": 1,
+      "lifetime": 419318
+    },
+    {
+      "second": 2250,
+      "coins": 4936,
+      "ratePerSecond": 1535.9390728,
+      "clickGain": 1,
+      "lifetime": 434483
+    },
+    {
+      "second": 2260,
+      "coins": 4343,
+      "ratePerSecond": 1605.1890728,
+      "clickGain": 1,
+      "lifetime": 449980
+    },
+    {
+      "second": 2270,
+      "coins": 3923,
+      "ratePerSecond": 1609.3354304,
+      "clickGain": 1,
+      "lifetime": 466041
+    },
+    {
+      "second": 2280,
+      "coins": 2817,
+      "ratePerSecond": 1627.6369312,
+      "clickGain": 1,
+      "lifetime": 482152
+    },
+    {
+      "second": 2290,
+      "coins": 1806,
+      "ratePerSecond": 1655.7471128,
+      "clickGain": 1,
+      "lifetime": 498457
+    },
+    {
+      "second": 2300,
+      "coins": 18417,
+      "ratePerSecond": 1661.7245392,
+      "clickGain": 1,
+      "lifetime": 515068
+    },
+    {
+      "second": 2310,
+      "coins": 17155,
+      "ratePerSecond": 1731.2245392,
+      "clickGain": 1,
+      "lifetime": 532311
+    },
+    {
+      "second": 2320,
+      "coins": 15548,
+      "ratePerSecond": 1735.479774,
+      "clickGain": 1,
+      "lifetime": 549657
+    },
+    {
+      "second": 2330,
+      "coins": 13236,
+      "ratePerSecond": 1754.14664,
+      "clickGain": 1,
+      "lifetime": 567143
+    },
+    {
+      "second": 2340,
+      "coins": 11035,
+      "ratePerSecond": 1782.60272,
+      "clickGain": 1,
+      "lifetime": 584855
+    },
+    {
+      "second": 2350,
+      "coins": 8792,
+      "ratePerSecond": 1885.35152,
+      "clickGain": 1,
+      "lifetime": 603092
+    },
+    {
+      "second": 2360,
+      "coins": 6574,
+      "ratePerSecond": 1954.85152,
+      "clickGain": 1,
+      "lifetime": 622154
+    },
+    {
+      "second": 2370,
+      "coins": 4339,
+      "ratePerSecond": 1961.069824,
+      "clickGain": 1,
+      "lifetime": 641715
+    },
+    {
+      "second": 2380,
+      "coins": 1180,
+      "ratePerSecond": 1980.7842496,
+      "clickGain": 1,
+      "lifetime": 661325
+    },
+    {
+      "second": 2390,
+      "coins": 20988,
+      "ratePerSecond": 1980.7842496,
+      "clickGain": 1,
+      "lifetime": 681133
+    },
+    {
+      "second": 2400,
+      "coins": 18219,
+      "ratePerSecond": 2016.714114,
+      "clickGain": 1,
+      "lifetime": 701264
+    },
+    {
+      "second": 2410,
+      "coins": 14333,
+      "ratePerSecond": 2086.464114,
+      "clickGain": 1,
+      "lifetime": 721850
+    },
+    {
+      "second": 2420,
+      "coins": 10157,
+      "ratePerSecond": 2092.814433,
+      "clickGain": 1,
+      "lifetime": 742740
+    },
+    {
+      "second": 2430,
+      "coins": 6662,
+      "ratePerSecond": 2681.155683,
+      "clickGain": 1,
+      "lifetime": 764845
+    },
+    {
+      "second": 2440,
+      "coins": 7336,
+      "ratePerSecond": 2703.698046,
+      "clickGain": 1,
+      "lifetime": 791702
+    },
+    {
+      "second": 2450,
+      "coins": 8143,
+      "ratePerSecond": 2756.3813928,
+      "clickGain": 1,
+      "lifetime": 818844
+    },
+    {
+      "second": 2460,
+      "coins": 7724,
+      "ratePerSecond": 2836.260896,
+      "clickGain": 1,
+      "lifetime": 846568
+    },
+    {
+      "second": 2470,
+      "coins": 7274,
+      "ratePerSecond": 2842.745024,
+      "clickGain": 1,
+      "lifetime": 874943
+    },
+    {
+      "second": 2480,
+      "coins": 7123,
+      "ratePerSecond": 3553.43128,
+      "clickGain": 1,
+      "lifetime": 904792
+    },
+    {
+      "second": 2490,
+      "coins": 12633,
+      "ratePerSecond": 3582.23012,
+      "clickGain": 1,
+      "lifetime": 940413
+    },
+    {
+      "second": 2500,
+      "coins": 18502,
+      "ratePerSecond": 3648.75434,
+      "clickGain": 1,
+      "lifetime": 976568
+    },
+    {
+      "second": 2510,
+      "coins": 23189,
+      "ratePerSecond": 3749.5981055,
+      "clickGain": 1,
+      "lifetime": 1013620
+    },
+    {
+      "second": 2520,
+      "coins": 27593,
+      "ratePerSecond": 3757.87278275,
+      "clickGain": 1,
+      "lifetime": 1051174
+    },
+    {
+      "second": 2530,
+      "coins": 30779,
+      "ratePerSecond": 3787.297487,
+      "clickGain": 1,
+      "lifetime": 1088988
+    },
+    {
+      "second": 2540,
+      "coins": 34362,
+      "ratePerSecond": 3854.496108,
+      "clickGain": 1,
+      "lifetime": 1127399
+    },
+    {
+      "second": 2550,
+      "coins": 36478,
+      "ratePerSecond": 3942.308608,
+      "clickGain": 1,
+      "lifetime": 1166734
+    },
+    {
+      "second": 2560,
+      "coins": 37856,
+      "ratePerSecond": 3950.72512,
+      "clickGain": 1,
+      "lifetime": 1206233
+    },
+    {
+      "second": 2570,
+      "coins": 37811,
+      "ratePerSecond": 3980.6741,
+      "clickGain": 1,
+      "lifetime": 1246010
+    },
+    {
+      "second": 2580,
+      "coins": 38174,
+      "ratePerSecond": 4048.3108,
+      "clickGain": 1,
+      "lifetime": 1286425
+    },
+    {
+      "second": 2590,
+      "coins": 36558,
+      "ratePerSecond": 4136.1233,
+      "clickGain": 1,
+      "lifetime": 1327611
+    },
+    {
+      "second": 2600,
+      "coins": 34147,
+      "ratePerSecond": 4144.68291125,
+      "clickGain": 1,
+      "lifetime": 1369040
+    },
+    {
+      "second": 2610,
+      "coins": 30012,
+      "ratePerSecond": 4175.1574315,
+      "clickGain": 1,
+      "lifetime": 1410701
+    },
+    {
+      "second": 2620,
+      "coins": 26201,
+      "ratePerSecond": 4258.33395,
+      "clickGain": 1,
+      "lifetime": 1452951
+    },
+    {
+      "second": 2630,
+      "coins": 19915,
+      "ratePerSecond": 4346.45895,
+      "clickGain": 1,
+      "lifetime": 1495887
+    },
+    {
+      "second": 2640,
+      "coins": 12981,
+      "ratePerSecond": 4355.1939,
+      "clickGain": 1,
+      "lifetime": 1539369
+    },
+    {
+      "second": 2650,
+      "coins": 3868,
+      "ratePerSecond": 4386.30555,
+      "clickGain": 1,
+      "lifetime": 1582921
+    },
+    {
+      "second": 2660,
+      "coins": 47731,
+      "ratePerSecond": 4386.30555,
+      "clickGain": 1,
+      "lifetime": 1626784
+    },
+    {
+      "second": 2670,
+      "coins": 39175,
+      "ratePerSecond": 4455.066033,
+      "clickGain": 1,
+      "lifetime": 1671197
+    },
+    {
+      "second": 2680,
+      "coins": 27649,
+      "ratePerSecond": 4543.191033,
+      "clickGain": 1,
+      "lifetime": 1716277
+    },
+    {
+      "second": 2690,
+      "coins": 15128,
+      "ratePerSecond": 4552.0721295,
+      "clickGain": 1,
+      "lifetime": 1761735
+    },
+    {
+      "second": 2700,
+      "coins": 85,
+      "ratePerSecond": 4583.713728,
+      "clickGain": 1,
+      "lifetime": 1807256
+    },
+    {
+      "second": 2710,
+      "coins": 45922,
+      "ratePerSecond": 4583.713728,
+      "clickGain": 1,
+      "lifetime": 1853093
+    },
+    {
+      "second": 2720,
+      "coins": 31259,
+      "ratePerSecond": 4652.917656,
+      "clickGain": 1,
+      "lifetime": 1899345
+    },
+    {
+      "second": 2730,
+      "coins": 16432,
+      "ratePerSecond": 5974.792656,
+      "clickGain": 1,
+      "lifetime": 1948518
+    },
+    {
+      "second": 2740,
+      "coins": 11261,
+      "ratePerSecond": 6151.042656,
+      "clickGain": 1,
+      "lifetime": 2008443
+    },
+    {
+      "second": 2750,
+      "coins": 6096,
+      "ratePerSecond": 6160.071168,
+      "clickGain": 1,
+      "lifetime": 2069953
+    },
+    {
+      "second": 2760,
+      "coins": 67697,
+      "ratePerSecond": 6160.071168,
+      "clickGain": 1,
+      "lifetime": 2131554
+    },
+    {
+      "second": 2770,
+      "coins": 59938,
+      "ratePerSecond": 6192.243984,
+      "clickGain": 1,
+      "lifetime": 2193444
+    },
+    {
+      "second": 2780,
+      "coins": 52366,
+      "ratePerSecond": 6261.892626,
+      "clickGain": 1,
+      "lifetime": 2255924
+    },
+    {
+      "second": 2790,
+      "coins": 41181,
+      "ratePerSecond": 6438.142626,
+      "clickGain": 1,
+      "lifetime": 2319600
+    },
+    {
+      "second": 2800,
+      "coins": 28923,
+      "ratePerSecond": 6447.3198225,
+      "clickGain": 1,
+      "lifetime": 2384018
+    },
+    {
+      "second": 2810,
+      "coins": 13412,
+      "ratePerSecond": 6503.0039375,
+      "clickGain": 1,
+      "lifetime": 2448603
+    },
+    {
+      "second": 2820,
+      "coins": 78442,
+      "ratePerSecond": 6503.0039375,
+      "clickGain": 1,
+      "lifetime": 2513633
+    },
+    {
+      "second": 2830,
+      "coins": 63545,
+      "ratePerSecond": 6573.347125,
+      "clickGain": 1,
+      "lifetime": 2579296
+    },
+    {
+      "second": 2840,
+      "coins": 44250,
+      "ratePerSecond": 6750.222125,
+      "clickGain": 1,
+      "lifetime": 2646091
+    },
+    {
+      "second": 2850,
+      "coins": 23602,
+      "ratePerSecond": 6759.58235,
+      "clickGain": 1,
+      "lifetime": 2713621
+    },
+    {
+      "second": 2860,
+      "coins": 1198,
+      "ratePerSecond": 7369.2178,
+      "clickGain": 1,
+      "lifetime": 2781217
+    },
+    {
+      "second": 2870,
+      "coins": 74890,
+      "ratePerSecond": 7369.2178,
+      "clickGain": 1,
+      "lifetime": 2854909
+    },
+    {
+      "second": 2880,
+      "coins": 56705,
+      "ratePerSecond": 7402.692596,
+      "clickGain": 1,
+      "lifetime": 2928835
+    },
+    {
+      "second": 2890,
+      "coins": 38444,
+      "ratePerSecond": 7473.73477,
+      "clickGain": 1,
+      "lifetime": 3003218
+    },
+    {
+      "second": 2900,
+      "coins": 19085,
+      "ratePerSecond": 8425.81282,
+      "clickGain": 1,
+      "lifetime": 3079859
+    },
+    {
+      "second": 2910,
+      "coins": 4339,
+      "ratePerSecond": 8656.206045,
+      "clickGain": 1,
+      "lifetime": 3164117
+    },
+    {
+      "second": 2920,
+      "coins": 90901,
+      "ratePerSecond": 8656.206045,
+      "clickGain": 1,
+      "lifetime": 3250679
+    },
+    {
+      "second": 2930,
+      "coins": 91313,
+      "ratePerSecond": 10387.447254,
+      "clickGain": 1,
+      "lifetime": 3351091
+    },
+    {
+      "second": 2940,
+      "coins": 93886,
+      "ratePerSecond": 10398.901968,
+      "clickGain": 1,
+      "lifetime": 3455069
+    },
+    {
+      "second": 2950,
+      "coins": 20735,
+      "ratePerSecond": 14219.229498,
+      "clickGain": 1,
+      "lifetime": 3587818
+    },
+    {
+      "second": 2960,
+      "coins": 57220,
+      "ratePerSecond": 14274.448896,
+      "clickGain": 1,
+      "lifetime": 3730231
+    },
+    {
+      "second": 2970,
+      "coins": 94683,
+      "ratePerSecond": 14484.1785792,
+      "clickGain": 1,
+      "lifetime": 3874234
+    },
+    {
+      "second": 2980,
+      "coins": 11499,
+      "ratePerSecond": 14801.2629888,
+      "clickGain": 1,
+      "lifetime": 4021519
+    },
+    {
+      "second": 2990,
+      "coins": 41892,
+      "ratePerSecond": 15504.1629888,
+      "clickGain": 1,
+      "lifetime": 4170937
+    },
+    {
+      "second": 3000,
+      "coins": 75344,
+      "ratePerSecond": 15560.6567232,
+      "clickGain": 1,
+      "lifetime": 4326205
+    },
+    {
+      "second": 3010,
+      "coins": 109708,
+      "ratePerSecond": 15773.9153904,
+      "clickGain": 1,
+      "lifetime": 4483091
+    },
+    {
+      "second": 3020,
+      "coins": 4873,
+      "ratePerSecond": 16093.9742172,
+      "clickGain": 1,
+      "lifetime": 4643296
+    },
+    {
+      "second": 3030,
+      "coins": 29637,
+      "ratePerSecond": 16796.8742172,
+      "clickGain": 1,
+      "lifetime": 4804939
+    },
+    {
+      "second": 3040,
+      "coins": 57689,
+      "ratePerSecond": 16854.6557496,
+      "clickGain": 1,
+      "lifetime": 4973081
+    },
+    {
+      "second": 3050,
+      "coins": 86420,
+      "ratePerSecond": 17071.4568624,
+      "clickGain": 1,
+      "lifetime": 5142711
+    },
+    {
+      "second": 3060,
+      "coins": 108428,
+      "ratePerSecond": 17382.4913904,
+      "clickGain": 1,
+      "lifetime": 5315292
+    },
+    {
+      "second": 3070,
+      "coins": 128114,
+      "ratePerSecond": 17394.503568,
+      "clickGain": 1,
+      "lifetime": 5489201
+    },
+    {
+      "second": 3080,
+      "coins": 150271,
+      "ratePerSecond": 18097.403568,
+      "clickGain": 1,
+      "lifetime": 5668769
+    },
+    {
+      "second": 3090,
+      "coins": 8640,
+      "ratePerSecond": 18376.84338,
+      "clickGain": 1,
+      "lifetime": 5850275
+    },
+    {
+      "second": 3100,
+      "coins": 19564,
+      "ratePerSecond": 18690.69036,
+      "clickGain": 1,
+      "lifetime": 6034357
+    },
+    {
+      "second": 3110,
+      "coins": 33974,
+      "ratePerSecond": 20273.48058,
+      "clickGain": 1,
+      "lifetime": 6222847
+    },
+    {
+      "second": 3120,
+      "coins": 59388,
+      "ratePerSecond": 20291.543832,
+      "clickGain": 1,
+      "lifetime": 6425618
+    },
+    {
+      "second": 3130,
+      "coins": 84093,
+      "ratePerSecond": 20994.443832,
+      "clickGain": 1,
+      "lifetime": 6631345
+    },
+    {
+      "second": 3140,
+      "coins": 109216,
+      "ratePerSecond": 21083.7259344,
+      "clickGain": 1,
+      "lifetime": 6841736
+    },
+    {
+      "second": 3150,
+      "coins": 135127,
+      "ratePerSecond": 21319.28928,
+      "clickGain": 1,
+      "lifetime": 7053987
+    },
+    {
+      "second": 3160,
+      "coins": 151089,
+      "ratePerSecond": 21635.96064,
+      "clickGain": 1,
+      "lifetime": 7269080
+    },
+    {
+      "second": 3170,
+      "coins": 163616,
+      "ratePerSecond": 21654.36384,
+      "clickGain": 1,
+      "lifetime": 7485568
+    },
+    {
+      "second": 3180,
+      "coins": 176905,
+      "ratePerSecond": 22357.26384,
+      "clickGain": 1,
+      "lifetime": 7707032
+    },
+    {
+      "second": 3190,
+      "coins": 188147,
+      "ratePerSecond": 22448.18928,
+      "clickGain": 1,
+      "lifetime": 7931332
+    },
+    {
+      "second": 3200,
+      "coins": 200253,
+      "ratePerSecond": 22687.5869664,
+      "clickGain": 1,
+      "lifetime": 8157729
+    },
+    {
+      "second": 3210,
+      "coins": 201331,
+      "ratePerSecond": 23088.105531,
+      "clickGain": 1,
+      "lifetime": 8387809
+    },
+    {
+      "second": 3220,
+      "coins": 197808,
+      "ratePerSecond": 23106.917754,
+      "clickGain": 1,
+      "lifetime": 8618841
+    },
+    {
+      "second": 3230,
+      "coins": 195118,
+      "ratePerSecond": 23812.292754,
+      "clickGain": 1,
+      "lifetime": 8855553
+    },
+    {
+      "second": 3240,
+      "coins": 188874,
+      "ratePerSecond": 23905.202526,
+      "clickGain": 1,
+      "lifetime": 9094326
+    },
+    {
+      "second": 3250,
+      "coins": 183201,
+      "ratePerSecond": 24149.306052,
+      "clickGain": 1,
+      "lifetime": 9335087
+    },
+    {
+      "second": 3260,
+      "coins": 207490,
+      "ratePerSecond": 30615.243552,
+      "clickGain": 1,
+      "lifetime": 9615376
+    },
+    {
+      "second": 3270,
+      "coins": 254948,
+      "ratePerSecond": 31197.372012,
+      "clickGain": 1,
+      "lifetime": 9926185
+    },
+    {
+      "second": 3280,
+      "coins": 22811,
+      "ratePerSecond": 32033.9132256,
+      "clickGain": 1,
+      "lifetime": 10239098
+    },
+    {
+      "second": 3290,
+      "coins": 61476,
+      "ratePerSecond": 32128.8341088,
+      "clickGain": 1,
+      "lifetime": 10559532
+    },
+    {
+      "second": 3300,
+      "coins": 100194,
+      "ratePerSecond": 32405.5706832,
+      "clickGain": 1,
+      "lifetime": 10881650
+    },
+    {
+      "second": 3310,
+      "coins": 148979,
+      "ratePerSecond": 40648.596093,
+      "clickGain": 1,
+      "lifetime": 11230435
+    },
+    {
+      "second": 3320,
+      "coins": 257037,
+      "ratePerSecond": 41386.32134175,
+      "clickGain": 1,
+      "lifetime": 11641348
+    },
+    {
+      "second": 3330,
+      "coins": 45324,
+      "ratePerSecond": 42446.16864,
+      "clickGain": 1,
+      "lifetime": 12056443
+    },
+    {
+      "second": 3340,
+      "coins": 146115,
+      "ratePerSecond": 42567.7896,
+      "clickGain": 1,
+      "lifetime": 12481269
+    },
+    {
+      "second": 3350,
+      "coins": 247657,
+      "ratePerSecond": 42922.3968,
+      "clickGain": 1,
+      "lifetime": 12908720
+    },
+    {
+      "second": 3360,
+      "coins": 333816,
+      "ratePerSecond": 43667.6832,
+      "clickGain": 1,
+      "lifetime": 13343161
+    },
+    {
+      "second": 3370,
+      "coins": 50781,
+      "ratePerSecond": 44583.77376,
+      "clickGain": 1,
+      "lifetime": 13780955
+    },
+    {
+      "second": 3380,
+      "coins": 124226,
+      "ratePerSecond": 44707.553856,
+      "clickGain": 1,
+      "lifetime": 14227040
+    },
+    {
+      "second": 3390,
+      "coins": 197949,
+      "ratePerSecond": 45068.44752,
+      "clickGain": 1,
+      "lifetime": 14675559
+    },
+    {
+      "second": 3400,
+      "coins": 251860,
+      "ratePerSecond": 45818.73972,
+      "clickGain": 1,
+      "lifetime": 15129995
+    },
+    {
+      "second": 3410,
+      "coins": 299963,
+      "ratePerSecond": 45844.28064,
+      "clickGain": 1,
+      "lifetime": 15588336
+    },
+    {
+      "second": 3420,
+      "coins": 345926,
+      "ratePerSecond": 46735.28064,
+      "clickGain": 1,
+      "lifetime": 16053015
+    },
+    {
+      "second": 3430,
+      "coins": 385751,
+      "ratePerSecond": 46861.23888,
+      "clickGain": 1,
+      "lifetime": 16521376
+    },
+    {
+      "second": 3440,
+      "coins": 426652,
+      "ratePerSecond": 47228.438016,
+      "clickGain": 1,
+      "lifetime": 16993293
+    },
+    {
+      "second": 3450,
+      "coins": 445130,
+      "ratePerSecond": 47983.751136,
+      "clickGain": 1,
+      "lifetime": 17472375
+    },
+    {
+      "second": 3460,
+      "coins": 453429,
+      "ratePerSecond": 48009.746304,
+      "clickGain": 1,
+      "lifetime": 17952447
+    },
+    {
+      "second": 3470,
+      "coins": 460023,
+      "ratePerSecond": 48900.746304,
+      "clickGain": 1,
+      "lifetime": 18440563
+    },
+    {
+      "second": 3480,
+      "coins": 457368,
+      "ratePerSecond": 49028.901696,
+      "clickGain": 1,
+      "lifetime": 18930724
+    },
+    {
+      "second": 3490,
+      "coins": 455352,
+      "ratePerSecond": 49402.425312,
+      "clickGain": 1,
+      "lifetime": 19424375
+    },
+    {
+      "second": 3500,
+      "coins": 508041,
+      "ratePerSecond": 55920.800874,
+      "clickGain": 1,
+      "lifetime": 19977064
+    },
+    {
+      "second": 3510,
+      "coins": 2761,
+      "ratePerSecond": 56811.417552,
+      "clickGain": 1,
+      "lifetime": 20544018
+    },
+    {
+      "second": 3520,
+      "coins": 17125,
+      "ratePerSecond": 57819.980052,
+      "clickGain": 1,
+      "lifetime": 21112133
+    },
+    {
+      "second": 3530,
+      "coins": 28585,
+      "ratePerSecond": 57967.553406,
+      "clickGain": 1,
+      "lifetime": 21690332
+    },
+    {
+      "second": 3540,
+      "coins": 38243,
+      "ratePerSecond": 58397.541864,
+      "clickGain": 1,
+      "lifetime": 22270008
+    },
+    {
+      "second": 3550,
+      "coins": 13070,
+      "ratePerSecond": 59263.932504,
+      "clickGain": 1,
+      "lifetime": 22853983
+    },
+    {
+      "second": 3560,
+      "coins": 605710,
+      "ratePerSecond": 59263.932504,
+      "clickGain": 1,
+      "lifetime": 23446623
+    },
+    {
+      "second": 3570,
+      "coins": 574702,
+      "ratePerSecond": 59294.39916,
+      "clickGain": 1,
+      "lifetime": 24039536
+    },
+    {
+      "second": 3580,
+      "coins": 538902,
+      "ratePerSecond": 60302.96166,
+      "clickGain": 1,
+      "lifetime": 24640549
+    },
+    {
+      "second": 3590,
+      "coins": 491383,
+      "ratePerSecond": 60453.0651,
+      "clickGain": 1,
+      "lifetime": 25244779
+    }
+  ]
+}

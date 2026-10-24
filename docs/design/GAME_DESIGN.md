@@ -1,7 +1,7 @@
 # Design do jogo — Observatório incremental
 
 > [!NOTE]
-> Documento de design de [GAM-06](../tasks/doing/GAM-06.md), 23/10/2026. O Cookie Clicker e a literatura sobre jogos incrementais são **referência, não molde**: nenhum nome, texto, arte, som ou número foi copiado. A decisão está em [ADR-0026](../adr/0026-jogo-incremental-independente.md); medições e evidências estão em [GAM_06_GAME](../validation/GAM_06_GAME.md).
+> Documento de design de [GAM-06](../tasks/done/GAM-06.md), 23/10/2026. O Cookie Clicker e a literatura sobre jogos incrementais são **referência, não molde**: nenhum nome, texto, arte, som ou número foi copiado. A decisão está em [ADR-0026](../adr/0026-jogo-incremental-independente.md); medições e evidências estão em [GAM_06_GAME](../validation/GAM_06_GAME.md).
 
 ## Resumo
 
@@ -155,16 +155,18 @@ A decisão é colher para ganhar agora ou manter flores para o bônus passivo. U
 
 ## 7. Curvas-alvo e plano de balanceamento
 
-| Meta | Valor | Por quê |
-| --- | --- | --- |
-| Primeira compra, jogador ativo | < 15 s | a primeira ação precisa responder logo[^pec1] |
-| Intervalo mediano entre decisões, 0 a 30 min, ativo | 30 a 90 s | sempre um próximo objetivo a minutos, nunca horas[^pec1] |
-| Maior intervalo sem compra, 0 a 30 min, ativo | ≤ 3 min | sem tempo morto no começo |
-| Jogador ocioso, 0 a 60 min | pelo menos uma compra a cada 5 min | deixar aberto também progride |
-| Primeiro prestígio viável, ativo | 2 a 6 h | recomeço em horas, não minutos; dobrar o legado exige alguns percursos[^pec3] |
-| Clique em relação à produção | 5 % a 30 % da renda em jogo ativo | clique importa sem tornar a produção irrelevante[^cpc] |
+| Meta | Valor | Por quê | Medido (regras 3) |
+| --- | --- | --- | --- |
+| Primeira compra, jogador ativo | < 15 s | a primeira ação precisa responder logo[^pec1] | 0 s |
+| Intervalo mediano entre decisões, 0 a 30 min, ativo | 30 a 90 s | sempre um próximo objetivo a minutos, nunca horas[^pec1] | 39 s com Lampejo e Conselho; 43 s só com compras |
+| Maior intervalo sem compra, 0 a 30 min, ativo | ≤ 3 min | sem tempo morto no começo | 17 s |
+| Jogador ocioso, 0 a 60 min | pelo menos uma compra a cada 5 min | deixar aberto também progride | 263 compras; maior intervalo de 59 s |
+| Primeiro prestígio viável, ativo | 2 a 6 h | recomeço em horas, não minutos; dobrar o legado exige alguns percursos[^pec3] | 2,95 h |
+| Clique em relação à produção | 5 % a 30 % da renda em jogo ativo | clique importa sem tornar a produção irrelevante[^cpc] | 7,4% na 1ª hora; 14% em 8 h |
 
-O simulador roda os modelos ativo e ocioso, antes e depois, e gera curvas de compras acumuladas, intervalo entre compras e produção por segundo. Os resultados, gráficos e ajustes estão em [GAM_06_GAME](../validation/GAM_06_GAME.md).
+O simulador roda os modelos ativo e ocioso, antes e depois, e gera curvas de compras acumuladas, intervalo entre decisões e produção por segundo. Ele também apontou o único ajuste necessário: o multiplicador do clique valia também para a parcela das lentes, e o clique dominava a renda. Gráficos, dados e ajustes estão em [GAM_06_GAME](../validation/GAM_06_GAME.md).
+
+![Compras acumuladas, jogador ativo, antes e depois](../validation/evidence/gam-06/compras-ativo.png)
 
 > [!WARNING]
 > Simulação mede as fórmulas, não pessoas: não prova diversão nem retenção. A avaliação humana continua pendente.

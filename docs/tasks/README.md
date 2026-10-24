@@ -89,4 +89,4 @@ Os tickets foram extraídos do pacote original em docs/planning. Use o arquivo d
 
 Último incremento: [UI-04 — ritmo contínuo e espaço de trabalho limpo](done/UI-04.md), concluído conforme escolhas do usuário: um módulo padrão, até três áreas/PDF/Vídeo ajustáveis e foco/checklist suspensos. Branch codex/clean-workspace; UI-03/GAM-03 preservados. [Provas e capturas Windows](../validation/CLEAN_WORKSPACE.md), C1–C8 aprovados, sem commit/push/publicação.
 
-Último incremento: [UI-08 — fundo visível em todos os temas](done/UI-08.md), concluído na branch feat/fundo-e-jogo-idle; [GAM-06 — jogo incremental refeito](doing/GAM-06.md) em andamento no mesmo PR.
+Último incremento: [UI-08 — fundo visível em todos os temas](done/UI-08.md), concluído na branch feat/fundo-e-jogo-idle; [GAM-06 — jogo incremental refeito e independente do estudo](done/GAM-06.md), concluído no mesmo PR; GAM-05 superado.

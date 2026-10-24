@@ -29,5 +29,6 @@ Uma ADR registra contexto, decisão, alternativas e consequências. Aceita signi
 | [0021](0021-home-e-tema-branco.md) | Home com posição fixa, luz animada, atalhos e tema Branco persistente | Aceita para UX-03 |
 | [0024](0024-sistema-de-motion.md) | Sistema de motion Dark Editorial: tokens únicos, primitivas GSAP, perfil sóbrio/expressivo e fontes empacotadas | Aceita para UI-07 |
 | [0025](0025-fundo-por-tema.md) | Fundo compartilhado em todos os temas: um canvas atrás do shell, superfícies de página transparentes, teto de contraste calculado e intensidade escolhida | Aceita para UI-08 |
+| [0026](0026-jogo-incremental-independente.md) | Jogo incremental numa tela, Lampejo assistido, minijogos de decisão, estudo só com XP e conversão das regras 2 com backup e reversão | Aceita para GAM-06 |
 
 Use [o template](TEMPLATE.md) para novas decisões. O estado atual inclui o MVP local implementado; consulte validação. A prova específica do editor fica em docs/decisions/markdown-editor.md; critérios ficam nos tickets.

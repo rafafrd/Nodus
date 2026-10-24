@@ -1,0 +1,18 @@
+{
+  "platform": "win32",
+  "packaged": true,
+  "checks": [
+    "Janela: maximizar/restaurar/minimizar, região de arraste, fundo pausado minimizado e argumento inválido",
+    "IPC do jogo: outro remetente negado; watching, lote de 41 cliques e ação antiga rejeitados pelo Zod",
+    "Núcleo: 20 cliques reais em lotes confirmados pelo main, números flutuantes, ticker; loja comprou Coletores",
+    "Lampejo: surge com a cidade visível, pego pela UI uma vez; bloqueado durante o Foco e fora da área",
+    "Horta plantada, Conselho com pauta e deliberação gasta, Memória iniciada, Conquistas/Legado/Perfil abertos",
+    "Três skins no mesmo canvas; movimento reduzido sem números flutuantes nem animação do ticker",
+    "Janela compacta 1040×760: núcleo e loja sem sobreposição",
+    "Prestígio pela UI (cancelar e confirmar), Horta/Conselho preservados, melhoria permanente",
+    "Som do jogo silenciado em Ajustes e salvo",
+    "Fechar/reabrir: cliques pendentes gravados, Foco pausado, preferências e Markdown intactos",
+    "Perfil das regras 2 convertido pelo app empacotado, com backup .sqlite e progresso preservado"
+  ],
+  "errors": []
+}

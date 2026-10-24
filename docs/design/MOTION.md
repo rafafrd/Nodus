@@ -162,3 +162,16 @@ flowchart LR
 | Movimento reduzido, animações desligadas, Fundo animado desligado | quadro parado, visível (`data-motion=still`) |
 | Janela oculta ou minimizada; troca de áreas em curso | pausa, mantém o último quadro |
 | WebGL indisponível ou contexto perdido | fallback CSS estático com o mesmo teto |
+
+## Jogo (GAM-06)
+
+| Movimento | Onde | Primitiva | Movimento reduzido |
+| --- | --- | --- | --- |
+| Press do núcleo (escala 0,96 → 1) e giro da engrenagem | `CorePanel` | GSAP com `duration.micro`/`duration.ui` | sem escala nem giro |
+| Número "+N" que sobe do ponto do clique e some | `CorePanel` | GSAP `duration.hero`, `ease.soft`; até 12 simultâneos | não aparece; o valor fica em "Por clique" |
+| Contador do saldo e do XP | cabeçalho do jogo | `AnimatedNumber` (saldo otimista com os cliques a caminho) | valor final direto |
+| Pulso da linha da loja ao comprar | `ProducerRow` | `usePulse` | sem pulso |
+| Entrada do Lampejo, respiração da luz e anel de tempo | `FlashLight` | GSAP `duration.panel`; keyframe com `--motion-hero`; anel por `--left` | anel continua (é informação de tempo); entrada e respiração param |
+| Troca da frase do ticker | `GameTicker` | keyframe com `--motion-panel` | troca sem animação |
+
+O anel do Lampejo é tempo essencial, como o relógio do Foco: ele continua com movimento reduzido porque informa quanto falta. Sons não dependem do perfil de movimento; o volume fica em Ajustes.

@@ -14,6 +14,7 @@
 /* Observatory: the city fills the stage, the core and the store float at its sides. */
 .observatory { position:absolute; inset:0; display:grid; grid-template-columns:minmax(220px,250px) minmax(0,1fr) minmax(300px,360px); grid-template-rows:minmax(0,1fr) auto; gap:14px; padding:14px; pointer-events:none; z-index:3; }
 .observatory>* { pointer-events:auto; }
+.nodus-shell .idle-game .game-notice { bottom:104px; }
 /* The sky is the visible part of the city between the panels: the Lampejo is placed inside it, never over a panel. */
 .observatory>.observatory-sky { grid-column:2; grid-row:1; position:relative; pointer-events:none; min-height:0; }
 .observatory-sky .flash-light { pointer-events:auto; }
@@ -76,8 +77,11 @@
 .observatory-rule { grid-column:1 / span 2; grid-row:2; align-self:end; margin:0; justify-self:start; padding:6px 10px; font:10px var(--font-mono); color:var(--theme-muted); background:color-mix(in srgb,var(--theme-panel) 88%,transparent); border:1px solid var(--theme-border); }
 
 /* Lampejo: a point of light over the city; the ring shows the time left. */
-.flash-light { position:absolute; z-index:5; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; border:0; padding:0; cursor:pointer; background:conic-gradient(rgb(var(--theme-accent-rgb)) calc(var(--left,1) * 360deg),transparent 0); display:grid; place-items:center; }
-.flash-light>span { width:44px; height:44px; border-radius:50%; background:radial-gradient(circle,#fffbe8 0%,#f3d98a 38%,rgb(243 217 138 / .25) 70%,transparent 72%); animation:flash-breathe var(--motion-hero) var(--ease-soft) infinite alternate; }
+.nodus-shell .idle-game .flash-light { position:absolute; z-index:5; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; border:0; padding:0; cursor:pointer; background:transparent; display:grid; place-items:center; }
+/* The ring empties as the 12 s pass (--left goes 1 → 0, set from the main process clock). */
+.nodus-shell .idle-game .flash-light::before { content:''; position:absolute; inset:0; border-radius:50%; background:conic-gradient(#f3d98a calc(var(--left,1) * 360deg),rgb(243 217 138 / .18) 0); -webkit-mask:radial-gradient(circle,transparent 24px,#000 25px); mask:radial-gradient(circle,transparent 24px,#000 25px); }
+.flash-light:focus-visible { outline:2px solid var(--theme-accent); outline-offset:4px; }
+.flash-light>span { position:relative; width:44px; height:44px; border-radius:50%; background:radial-gradient(circle,#fffbe8 0%,#f3d98a 38%,rgb(243 217 138 / .25) 70%,transparent 72%); animation:flash-breathe var(--motion-hero) var(--ease-soft) infinite alternate; }
 @keyframes flash-breathe { from { transform:scale(.86); opacity:.85; } to { transform:scale(1.06); opacity:1; } }
 
 /* Minigames and panels share one page layout. */

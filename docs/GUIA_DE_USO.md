@@ -116,48 +116,31 @@ PDF e vídeo têm seleções separadas: abrir o módulo **PDF** conserva o docum
 
 Vídeos privados, indisponíveis, restritos por idade/região ou sem incorporação podem ser recusados pelo YouTube. O app não baixa o vídeo nem contorna essa restrição. Uma falha de conexão/processo mostra **Tentar novamente**; erros específicos do vídeo aparecem no player oficial. PiP fica dentro desta janela, não por cima de outros programas. Movimento reduzido acompanha a configuração já descrita no guia.
 
-## 5. Jogar em Vale Sereno
+## 5. Jogar no Observatório (GAM-06)
 
-Clique em **Cidade** na barra fixa à esquerda. O jogo também funciona antes de criar matérias/vault. Ao entrar, o app preserva seu rascunho e pausa o foco ativo. Use **Voltar à mesa** para continuar os estudos; retome o foco quando quiser voltar a contar tempo.
+Clique em **Cidade** na barra à esquerda. O jogo é opcional, local e **independente do estudo**: Foco e revisões dão só XP e conquistas de estudo, nunca centelhas ou produção. Ele nunca abre sozinho, não envia notificações e não pede atenção durante uma sessão de Foco. Um perfil novo começa com 15 centelhas.
 
-O perfil começa com **60 moedas, XP zero e quatro canteiros**. O progresso é local e compartilhado entre as matérias desse perfil.
+### O Observatório
 
-### Um primeiro ciclo
+1. **Núcleo** (à esquerda): clique para ganhar centelhas. Não há limite diário. As melhorias *Núcleo afinado* dobram o clique; as *Lentes* fazem cada clique somar 1% da produção por segundo. Os cliques são enviados em lotes e o saldo do topo já mostra os que estão a caminho.
+2. **Loja** (à direita): escolha ×1, ×10, ×100 ou máx e compre instalações. Cada linha mostra o ganho por segundo e, quando ainda não dá, em quanto tempo dará. A próxima família aparece como **???** até o total produzido alcançá-la. Melhorias ao alcance ficam no topo, ordenadas por preço.
+3. **Cidade** (ao centro): construções crescem conforme as quantidades; casas, fonte, lanternas, moinho e postos surgem sozinhos em marcos do total produzido. Arraste para explorar; os botões abaixo aproximam, afastam e centralizam.
+4. **Lampejo**: um ponto de luz aparece sobre a cidade depois de 4 a 9 minutos **com a Cidade na tela** (o tempo em outras áreas não conta) e fica 12 segundos. Clique para receber **Maré** (produção ×5 por 1 min), **Achado** (até 12 minutos de produção) ou **Faísca** (clique ×200 por 10 s). Perder um Lampejo não custa nada. Com Foco ativo, nenhum aparece.
+5. O **ticker** no topo traz notícias do vale conforme seu progresso.
 
-1. A cidade abre no cenário. Abra **Motor** para o espaço de produção ativa e clique em **Acionar motor**: começa em uma moeda por pulso, sem intervalo artificial. Cada clique anima o botão/engrenagem e entra na fila de operações, mesmo com retorno pendente. O primeiro upgrade custa **25 moedas** e aumenta a produção para **3 por pulso**. Upgrades seguintes crescem de preço, até o nível 10. A cada 10 pulsos, recebe 1 XP.
-2. Junte moedas para melhorar o motor ou comprar instalações no mercado. Esse é o caminho principal de farm ativo.
-3. Na **Fazenda**, escolha Trigo e plante. Cada semente custa duas moedas; o cultivo amadurece em 45 segundos. Cenoura custa cinco e leva 90 segundos.
-4. Enquanto cresce, visite **Mina** ou **Bosque** pelos rótulos na cidade. Coletar rende recursos, moedas e XP; há intervalo de 1,5 segundo entre coletas.
-5. Volte à fazenda e clique em **Colher** quando o canteiro estiver pronto. Trigo rende oito moedas, cinco XP e uma unidade de trigo; cenoura rende 18 moedas, dez XP e uma unidade.
-6. Em **Mercado**, venda o inventário para ganhar mais moedas. Role o módulo Mercado para ver todas as opções. Inventário fica recolhido no rodapé da Cidade.
-7. Compre melhorias. Elas ficam persistidas; a casa, o moinho e as lanternas aparecem no cenário. Terra fértil abre dois canteiros extras e a picareta dobra a pedra das coletas.
+### Horta, Conselho e Memória
 
-| Melhoria | Preço | Uso |
-| --- | --- | --- |
-| Moinho | 75 | Quatro moedas/minuto, inclusive com app fechado; até sete dias por visita |
-| Terra fértil | 60 | Seis canteiros ao todo |
-| Picareta de ferro | 85 | Duas pedras por coleta |
-| Casa do viajante | 120 | Sua casa junto à praça |
-| Luzes da vila | 50 | Lanternas nas ruas |
+- **Horta** (abre com 10 Coletores): escolha a semente e plante; cada uma custa um minuto de produção. Trigo-luz (3 min) paga 8 minutos de produção; Raiz-âmbar (8 min) deixa o clique ×3 por 5 minutos; Flor-de-orvalho (15 min) soma 3% de produção **enquanto estiver plantada** e paga pouco ao colher. Plantas maduras esperam o tempo que for preciso.
+- **Conselho** (abre com 5 Oficinas): três cadeiras de força 100%, 60% e 35%. Cada pauta tem ganho e custo (por exemplo, *Turno estendido*: mais produção, clique mais fraco). Trocar uma pauta gasta uma deliberação; elas voltam uma a cada 30 minutos, até três. Esvaziar uma cadeira é grátis.
+- **Memória de Conceitos**: 3, 6 ou 9 pares, sem limite de tempo; a recompensa é medida em minutos de produção.
 
-Arraste o cenário para explorar e use a roda do mouse ou **+ / −** para aproximar/afastar. O botão de mira centraliza a câmera. Selecionar um local aproxima a câmera suavemente; arrastar ou usar a roda interrompe o deslocamento. Os nomes aparecem ao selecionar, passar o mouse ou usar foco de teclado. Os rótulos dos locais também funcionam como botões.
+### Conquistas, Legado e Perfil
 
-### Oficina: QTE e skillcheck
+**Conquistas** mostra as próximas, as conquistadas, as de estudo e as notas secretas; cada conquista de jogo soma 0,2% à produção. **Legado** abre o recomeço voluntário: confira a prévia, marque que entendeu e confirme para ganhar insígnias (+5% de produção cada) e comprar melhorias permanentes; Horta, Conselho, marcos da vila e conquistas continuam. **Perfil** guarda XP, nível e a build, que define só a classe; ali também ficam cenário (Vale Sereno, Cyberpunk, New York) e ambiente (Dourado, Amanhecer, Noite).
 
-Abra **Oficina** e escolha **Tranquilo** para começar. A tentativa é gratuita.
+Em **Ajustes → Aparência**, **Som do jogo** regula o volume dos sons curtos da Cidade, ou deixa mudo. Se você jogava antes de GAM-06, o progresso foi convertido na primeira abertura, com um backup `backups/antes-regras-jogo-v3-*.sqlite` na pasta de dados: [o que mudou e como reverter](adr/0026-jogo-incremental-independente.md).
 
-- **Sincronizar o motor:** pressione A/S/D/W conforme a tecla grande ou clique no botão da tecla. Aguarde a preparação inicial e responda a36 etapas consecutivas em três fases; até240moedas/60XP no tranquilo ou300moedas/60XP no normal. Até seis erros, sem multa.
-- **Calibrar a válvula:** espere o marcador entrar na faixa dourada e pressione **Espaço** ou **Calibrar válvula**. São36 calibrações em três fases; cada acerto aumenta a recompensa, até300moedas/60XP no tranquilo ou375moedas/60XP no normal. O marcador vai e volta, até duas passagens por etapa; são tolerados dez erros.
-
-A preparação aparece somente antes de começar (4,5s no Tranquilo, 3,5s no Normal). As etapas seguem imediatamente, uma atrás da outra. As partidas ficam mais curtas e intensas; não há meta de 2–4 minutos nesta versão. Tranquilo dá mais tempo/faixa maior; Normal exige mais precisão. **Encerrar tentativa** permite trocar desafio sem custo. Use **Pausar partida** antes de sair para conservar o tempo da Oficina. Sem pausa, prazos continuam; memória não tem limite de tempo. Movimento reduzido suspende decoração da cidade, mas o marcador necessário ao timing continua visível.
-
-### Memória e personagem
-
-Em **Memória**, escolha 3, 6 ou 9 pares e comece. Encontre conceito/definição, conceito/exemplo e fórmula/situação. Não há limite de tempo. Uma rodada completa rende moedas/XP conforme dificuldade, tentativas e melhor combo. Você pode iniciar outra rodada para continuar progredindo. O primeiro baralho é demonstrativo, com fundamentos curados de matemática/programação.
-
-Em **Personagem**, distribua os pontos de cada nível e clique em **Salvar build · grátis**. Foco melhora o moinho; Revisão melhora recompensas da memória; Planejamento acelera cultivos; Prática melhora moedas de coleta. A maior habilidade determina sua classe. Redistribuir é gratuito.
-
-XP e moedas indicam progressão do jogo. O app não usa esses números como medida de domínio acadêmico. Regras e valores ainda são provisórios: [detalhes do balanceamento](decisions/game-rules.md).
+XP e centelhas não medem domínio acadêmico. [Design do jogo](design/GAME_DESIGN.md) · [provas](validation/GAM_06_GAME.md).
 
 ## 6. Explorer: seus projetos e arquivos
 
@@ -229,7 +212,7 @@ Esse perfil tem carteira/mesa próprias. Escolha também um vault de teste para 
 | PDF foi movido | Use o controle de localizar/substituir material para vincular o arquivo atual |
 | Nota mostra conflito/rascunho | Leia as versões, preserve seu texto e confirme o salvamento desejado |
 | Arquivo bloqueado no Explorer | Confira UTF-8, tamanho até1MiB e se é arquivo regular dentro da pasta, sem link/.git |
-| QTE terminou sem prêmio | Tente o ritmo Tranquilo; use a tecla indicada dentro do prazo |
+| Nenhum Lampejo aparece | Ele só conta tempo com a Cidade na tela e nunca aparece durante o Foco; pause o Foco se quiser jogar |
 | Compra/colheita indisponível | Confira moedas, canteiro pronto e se a melhoria já foi comprada |
 
 Se um comando falhar, registre a mensagem e a etapa. Preserve seu perfil/vault para diagnóstico. As provas desta entrega estão em [GAME](validation/GAME.md), [frontend](validation/FRONTEND.md) e [estado do projeto](status/ALPHA_STATE.md).
@@ -250,7 +233,7 @@ Em **Material → Vídeos**, **Momentos da aula** guarda uma anotação com o te
 
 **Grafo** mostra notas da matéria e relações salvas. Escolha origem/destino e o nome da relação, depois **Conectar notas**; repetir a mesma dupla atualiza o nome. Selecione um nó ou use a lista para ver a prévia e **Abrir no caderno**. Arraste/role para explorar; até 200 notas ficam no cenário e a lista acessa todas. HTML/imagens remotas permanecem inertes. Movimento reduzido e animações desligadas também valem para a câmera.
 
-Na cidade, **Mercado** oferece **Fonte do jardim** (45), **Bancos do jardim** (15) e **Estufa de vidro** (90). São decorações, sem renda adicional. **Dourado**, **Amanhecer** e **Noite** mudam o ambiente e ficam salvos. Motor, desafios e economia seguem as regras atuais descritas abaixo.
+Fonte, bancos e estufa são decorações; desde GAM-06 surgem sozinhas em marcos do total produzido. **Dourado**, **Amanhecer** e **Noite** (em **Perfil**) mudam o ambiente e ficam salvos.
 
 Em **Ajustes → Dados e app → Cópias de segurança**, clique **Conferir prévia do backup**, confira arquivos/omissões e **Criar backup agora**. A cópia inclui banco de estudo, preferências, rascunhos/recuperações, vault, arquivos dos projetos e PDFs disponíveis; vai para **Documentos/NodusBackups**. Salve as edições que quer como arquivos; rascunhos já preservados também entram no banco. Git, dependências, ocultos, links, saídas de snapshots, cache do navegador e credenciais conhecidas por nome/extensão ficam fora. Tokens escritos nas suas notas continuam sendo conteúdo privado da cópia. Proteja essa pasta: não há criptografia própria. Limites: 300 MiB, 5.000 arquivos, 16 níveis, 100 MiB por arquivo e 64 MiB de banco. Projetos/PDFs ausentes e notas excluídas são comunicados na prévia/recibo.
 
@@ -260,15 +243,11 @@ Para restaurar, use a cópia recém-criada ou **Selecionar backup para restaurar
 
 A faixa superior do Nodus tem **Minimizar**, **Maximizar/Restaurar** e **Fechar**. Arraste pela região do nome para mover a janela. Fechar conserva rascunhos e pausa o foco pelo fluxo normal. Cinema e vídeo flutuante deixam a faixa disponível.
 
-Em **Ajustes → Aparência**, **Fundo animado do Editorial** controla somente a luz/linhas lentas do tema. Desligue para manter fundo estático; **Animações da interface**, movimento reduzido do Windows e minimização também suspendem o efeito. Outros temas conservam seu fundo.
+Em **Ajustes → Aparência**, **Fundo animado** (desde UI-08, para todos os temas) liga ou desliga o movimento lento da grade e da luz atrás das áreas sem leitura; desligado, o fundo continua visível como um quadro parado. **Intensidade do fundo** escolhe Sutil, Padrão ou Vivo, sempre com texto legível. Movimento reduzido do Windows, animações gerais desligadas e janela minimizada também param o fundo. [Provas](validation/UI_08_BACKDROP.md).
 
 Em **Cidade → Vila**, use **Cenário** para escolher **Vale Sereno**, **Cyberpunk** ou **New York**. A escolha é gratuita e salva. Construções/iluminação/materiais/atmosfera mudam; locais, cultivos, controles e progresso permanecem. Os três ambientes Dourado/Amanhecer/Noite continuam disponíveis em cada skin.
 
-Abra **Produção** para construir Coletores, Oficinas, Armazéns, Centrais e Observatórios. Compre ×1/×10; os preços crescem a cada unidade e novos tipos aparecem conforme as moedas produzidas na jornada. O saldo disponível é diferente do total produzido. **Tecnologias** exibe requisitos, custo e cadeias: especializações em 5/15/30 unidades, sinergias em 20/60/150 produtores, melhorias de pulso por atividade/nível do motor. Produtores trabalham automaticamente, inclusive entre visitas; limite de 7 dias offline, ampliável a 14 pelo legado.
-
-**Conquistas** mostra 27 marcos e progresso; cada conquista concede +1% de produção automática permanente. **Prestígio** fica disponível a partir de 20.000 moedas produzidas na jornada: confira **Revisar novo ciclo**, leia perdas/preservações, marque o entendimento e escolha **Confirmar novo ciclo**. Reinicia moedas, produtores, tecnologias do ciclo e nível do motor; encerra uma Oficina ativa. Seu estudo, XP/personagem, inventário, cultivos, compras do mercado, skins, memória, conquistas e melhorias permanentes ficam preservados. Cada ponto dá +5% de produção; gaste insígnias em ferramentas, desconto, horizonte offline ou conhecimento. Você pode continuar o ciclo atual e nunca usar prestígio.
-
-A **Oficina** tem QTE e calibração de 36 etapas, três fases e dificuldade crescente, cerca de 2–4 minutos em jogo contínuo. Aguarde a contagem de preparação antes de responder. QTE aceita A/S/D/W ou botões, até seis erros; calibração aceita Espaço/botão, até dez erros. Ritmo normal dá +25% de moedas. **Pausar partida** conserva etapa/tempo, inclusive ao sair/reabrir; **Retomar partida** continua, **Encerrar tentativa** não cobra multa. Sem pausa, prazos continuam entre áreas/visitas. Partidas antigas de três etapas já abertas continuam com suas regras originais.
+Produção, conquistas, prestígio e a Oficina descritos aqui pertencem às regras de GAM-03 e foram substituídos em GAM-06: veja a seção 5.
 
 [Regras e análise de Cookie Clicker](decisions/city-progression.md), [ticket concluído](tasks/done/GAM-03.md), [provas do pacote e limites](validation/CITY_PROGRESSION.md). Pacote local atualizado, sem commit/push/publicação.
 
@@ -276,21 +255,13 @@ A **Oficina** tem QTE e calibração de 36 etapas, três fases e dificuldade cre
 
 Grafo abre o cenário inteiro, com lista/relações recolhidas. Arraste para explorar, use roda/+ / − para zoom e selecione um nó para focar e abrir seus detalhes. **Notas e relações** abre a lista, origem/destino e conexões; o × recolhe. A câmera preserva sua posição ao conectar notas. Setas e +/− com foco no canvas também navegam. Cena até 200 nós; lista permite todas as notas. Em Ajustes → Aparência, desligar animações, ou usar movimento reduzido do Windows, aplica pan/zoom imediato e grafo estático.
 
-A Cidade usa espaços próprios para Motor, Produção, Mercado, Memória, Oficina e Personagem; detalhes de fazenda/mina/bosque/moinho/praça aparecem ao escolher um local e podem ser recolhidos. Movimento reduzido mantém feedback textual dos cliques e o timing essencial dos desafios; **Pausar partida** continua necessário antes de ocultar a Oficina.
+Desde GAM-06, a Cidade tem as abas Observatório, Horta, Conselho, Memória, Conquistas, Legado e Perfil; os rótulos da cena levam à aba correspondente. Movimento reduzido mantém números e estados, sem números flutuantes nem animações decorativas.
 
 [Decisão de áreas](adr/0014-areas-isoladas.md), [provas e limites](validation/CLEAN_WORKSPACE.md). Alterações locais sem commit/push/publicação.
 
-## 13. Produção conectada ao estudo
+## 13. Produção conectada ao estudo (histórico)
 
-As quantidades e preços econômicos da seção11 são históricos de GAM-03. Agora, em **Cidade → Produção**, use **Instalações** para comprar×1/×10/×100/MAX entre16famílias. A próxima descoberta fica visível; **Produção e conexões** abre taxa/participação/marcos/parceiros, e **Por que produzo…** explica os multiplicadores. **Como meu estudo…** mostra sua recompensa atual. Na Vila, o botão da casa abre o distrito produtivo, cuja forma cresce nos marcos1/10/50/100/250/500 e acompanha cada skin.
-
-**Melhorias** revela tiers/sinergias conforme progresso. **Descobertas** mostra próximos marcos, conquistadas ou notas secretas já encontradas; índice de conquistas elegíveis fortalece a rede. **Sinais** guarda oportunidades sem expirar; durante Foco ficam protegidas. Depois, ative até dois tipos temporários para combinar; cache é instantâneo. A produção offline continua até7dias, ampliável a14. O resumo de retorno pode ser dispensado.
-
-Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; pausa e tempo fechado não contam. Uma revisão/cartão/dia pode render, até100revisões econômicas diárias. Consistência dá bônus, sem tirar progresso. Memória/Oficina/colheitas/expedições crescem junto com a rede; XP permanece com suas regras anteriores. Motor mostra o ganho real por pulso e o saldo diário. Seu apoio acompanha a produção instalada, com orçamento de dois minutos de produção ou1.200 (o maior). Eventos temporários não ampliam o orçamento; ao esgotar, o botão descansa e oferece outros caminhos na Vila. Melhorias duradouras podem ampliar o apoio durante o mesmo dia.
-
-**Legado** aparece mais tarde. Confira a prévia, cancele para continuar ou confirme o novo ciclo. Reinicia saldo/unidades/melhorias temporárias/sinais ativos/motor e encerra Oficina ativa; conserva estudo, notas, materiais, projetos, XP, inventário, cultivos, mercado, Memória, skins, conquistas, sinais guardados e permanentes. Não exige prestígio para continuar usando o app.
-
-[Regras atuais](architecture/economy.md), [simulação e limites](decisions/deep-production-balance.md), [capturas e provas Windows](validation/DEEP_PRODUCTION.md). Missões semanais, coleções e platinums permanecem futuros.
+Desde GAM-06, o estudo **não** gera Produção nem centelhas: Foco e revisões dão XP e conquistas de estudo. O que esta seção descrevia (regras de GAM-04) está no histórico do Git e em [DEEP_PRODUCTION](validation/DEEP_PRODUCTION.md); as regras atuais estão na seção 5 e em [economia](architecture/economy.md).
 
 
 ## Criar atividades em qualquer IA
@@ -298,21 +269,10 @@ Minutos efetivos de Foco e revisões devidas geram Produção automaticamente; p
 Na matéria, Prática → Criar questionário/Criar flashcards. Selecione fontes e dificuldade, prepare e copie o prompt. Cole na IA escolhida, importe o JSON por texto/arquivo e use Importar e começar. Erro oferece relatório e pedido de correção para a mesma conversa. Revisão → Atividades retoma pedidos/tentativas salvos. [Passo a passo e limites](features/atividades-ia-externa.md).
 
 
-## 14. Projetos e postos da Vila
+## 14. Projetos e postos da Vila (histórico)
 
-Em **Cidade → Vila**, o cartão **Próximo projeto** explica o benefício da construção e mostra os materiais que faltam. **Buscar** abre bosque, mina ou fazenda; trigo/cenoura já ficam selecionados. Junte os materiais e use **Construir**: o depósito abre os postos. Depois dele, escolha qual posto construir primeiro. A troca de objetivo conserva seus materiais.
+Depósito, postos, coleta e mercado (GAM-05) foram consolidados em GAM-06: as construções surgem sozinhas em marcos do total produzido, e materiais e estoques antigos viraram centelhas na conversão. Registro histórico em [FARM_PROJECTS](validation/FARM_PROJECTS.md); regras atuais na seção 5.
 
-| Construção | Materiais | Benefício |
-| --- | --- | --- |
-| Depósito | 10 madeiras +5 pedras | Libera os postos automáticos |
-| Posto do bosque | 20 madeiras +10 pedras +10 trigos | 1 madeira/minuto |
-| Posto da mina | 30 pedras +15 madeiras +5 cenouras | 1 pedra/minuto |
-
-**Postos** abre os estoques no mesmo cartão; o local do bosque/mina também mostra seu posto. Cada um guarda até200 materiais, inclusive enquanto o app está fechado. Cheio, pausa; **Recolher** leva tudo ao inventário e abre espaço para continuar. Você pode usar ou vender materiais no Mercado. Recolher não concede XP nem Produção diretamente. Trigo e cenoura continuam precisando de plantio/colheita manual.
-
-Construções e estoques aparecem nas três skins e continuam após prestígio. Perfil antigo começa sem projetos, preservando o inventário. Após os três projetos, **Ver em Produção** indica uma instalação/melhoria já disponível. Em uma janela pequena, o cartão pode ser rolado para acessar todos os estoques.
-
-[Regras](adr/0019-projetos-e-postos-da-farm.md), [provas e roteiro leigo](validation/FARM_PROJECTS.md). Alterações locais de GAM-05/UX-01 preservadas, sem publicação.
 
 ## 15. Próxima ação, conteúdo e animações 3D
 
@@ -322,7 +282,7 @@ Use **Adicionar conteúdo** no Início ou no menu lateral. Confira a matéria in
 
 **Minhas notas** mostra seu acervo e identifica a nota aberta. A descrição sob a área selecionada no menu explica seu uso. Botões de tarefa e matéria permitem voltar ao estudo com seu contexto. Nomes dos locais ficam visíveis na Cidade ampla; em espaços menores, também aparecem ao focar ou passar o ponteiro.
 
-O livro do Início/primeiro uso responde ao ponteiro e mostra páginas e ideias conectadas. A Cidade tem água, nuvens/luzes, contorno do próximo projeto e partículas ao construir, recolher ou gerar um pulso com ganho. Rodas e cargas dos postos param quando seus estoques enchem; o rotor do Motor pausa quando seu apoio diário acaba. As três skins conservam as mesmas regras.
+O livro do Início/primeiro uso responde ao ponteiro e mostra páginas e ideias conectadas. A Cidade tem água, nuvens/luzes, contorno da próxima construção e partículas quando um clique no núcleo é confirmado. As três skins conservam as mesmas regras.
 
 Em **Ajustes → Aparência**, desligar animações mantém as cenas estáticas; a preferência reduzida do sistema também é respeitada. Minimizar ou mudar para outra área pausa a animação. Se o cenário 3D falhar, os objetivos e ferramentas continuam disponíveis. O relógio visual não concede recursos.
 
