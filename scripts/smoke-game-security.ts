@@ -16,8 +16,8 @@ try {
       await foreign.loadURL('data:text/html,<title>Isolated IPC security probe</title>');
       return await foreign.webContents.executeJavaScript(`(async () => {
         const {ipcRenderer} = require('electron');
-        const read = await ipcRenderer.invoke('game:get');
-        const write = await ipcRenderer.invoke('game:action', {operationId: require('node:crypto').randomUUID(), action: {kind:'gather',resource:'stone'}});
+        const read = await ipcRenderer.invoke('game:get', {watching:true});
+        const write = await ipcRenderer.invoke('game:action', {operationId: require('node:crypto').randomUUID(), action: {kind:'core-click',count:40}});
         const projects = await ipcRenderer.invoke('project:list');
         const choose = await ipcRenderer.invoke('project:choose');
         const projectWrite = await ipcRenderer.invoke('project:save', {projectId:require('node:crypto').randomUUID(),path:'file.txt',hash:'0'.repeat(64),text:'fixture'});
