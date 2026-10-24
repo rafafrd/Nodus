@@ -1,9 +1,9 @@
-import type { Resource } from './game';
-
+// Farm buildings of GAM-05. Since GAM-06 they are village pieces that appear at milestones (DECOR in game.ts);
+// stations no longer produce materials. The shapes stay because the 3D scene and saved profiles use them.
 export const FARM_PROJECTS = [
-  { id:'depot', name:'Depósito', benefit:'Libera os postos que produzem materiais entre visitas.', costs:{wood:10,stone:5} },
-  { id:'forest-post', name:'Posto do bosque', benefit:'Produz 1 madeira por minuto, até 200 no estoque.', costs:{wood:20,stone:10,wheat:10} },
-  { id:'mine-post', name:'Posto da mina', benefit:'Produz 1 pedra por minuto, até 200 no estoque.', costs:{stone:30,wood:15,carrot:5} },
+  { id:'depot', name:'Depósito' },
+  { id:'forest-post', name:'Posto do bosque' },
+  { id:'mine-post', name:'Posto da mina' },
 ] as const;
 export type FarmProjectId = typeof FARM_PROJECTS[number]['id'];
 export type StationId = Exclude<FarmProjectId,'depot'>;
@@ -17,8 +17,8 @@ export function normalizeFarm(raw:Partial<Farm>|undefined,now:number):Farm {
   const base=freshFarm(now);
   return {...base,...raw,stations:{'forest-post':{...base.stations['forest-post'],...raw?.stations?.['forest-post']},'mine-post':{...base.stations['mine-post'],...raw?.stations?.['mine-post']}}};
 }
-// Full stocks discard elapsed time and fractions: clearing space never unlocks
-// a backlog accumulated while production was paused. Regressions keep the watermark.
+/** Rules v2 station production, used once to convert the stock a profile accumulated before GAM-06.
+ * Full stocks discard elapsed time; regressions keep the watermark. */
 export function settleFarm(farm:Farm,now:number,offlineMs:number) {
   for(const id of Object.keys(STATION_RESOURCE) as StationId[]){
     const station=farm.stations[id];if(!farm.built.includes(id)||now<=station.settledAt)continue;
@@ -28,16 +28,4 @@ export function settleFarm(farm:Farm,now:number,offlineMs:number) {
     station.carryMs=station.stock===STATION_CAPACITY?0:units%STATION_MINUTE_MS;
     station.settledAt=now;
   }
-}
-export type ProjectQuote = {id:FarmProjectId;name:string;benefit:string;ready:boolean;progress:number;materials:{resource:Resource;required:number;have:number;missing:number}[]};
-export function projectQuote(id:FarmProjectId,inventory:Record<Resource,number>):ProjectQuote {
-  const project=FARM_PROJECTS.find(p=>p.id===id)!;
-  const materials=Object.entries(project.costs).map(([resource,required])=>({resource:resource as Resource,required,have:inventory[resource as Resource],missing:Math.max(0,required-inventory[resource as Resource])}));
-  const total=materials.reduce((sum,m)=>sum+m.required,0),collected=materials.reduce((sum,m)=>sum+Math.min(m.have,m.required),0);
-  return {id,name:project.name,benefit:project.benefit,ready:materials.every(m=>!m.missing),progress:Math.floor(collected/total*100),materials};
-}
-export function nextProject(farm:Farm):FarmProjectId|null {
-  if(!farm.built.includes('depot'))return 'depot';
-  if(!farm.built.includes(farm.target))return farm.target;
-  return (Object.keys(STATION_RESOURCE) as StationId[]).find(id=>!farm.built.includes(id))??null;
 }

@@ -10,7 +10,7 @@ import { Desks } from './desk';
 import { Focus } from './focus';
 import { Checklist } from './checklist';
 import { Game } from './game';
-import { gameInput } from '../shared/game';
+import { gameInput, gameReadInput } from '../shared/game';
 import { Projects } from './projects';
 import { projectTreeInput, projectFileInput, projectWriteInput, projectViewInput } from '../shared/projects';
 import { UserPreferences } from './preferences';
@@ -148,7 +148,7 @@ function register() {
   handle('project:draft', projectWriteInput, input => projects.draft(input));
   handle('project:discard', projectFileInput, input => projects.discard(input));
   handle('project:view', projectViewInput, input => projects.view(input));
-  handle('game:get', z.undefined(), () => game.get());
+  handle('game:get', gameReadInput, input => game.get(input));
   handle('game:action', gameInput, input => game.act(input));
   handle('app:version', z.undefined(), () => ({ version: app.getVersion(), electron: process.versions.electron, node: process.versions.node }));
   handle('app:bootstrap', z.undefined(), () => store.bootstrap());

@@ -10,10 +10,10 @@ import {createCityEffects} from './CityEffects';
 
 export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
-  { id: 'engine', name: 'MOTOR', x: 3, z: 2.4 },
-  { id: 'farm', name: 'FAZENDA', x: 3.3, z: -6.8 }, { id: 'shop', name: 'MERCADO', x: -1, z: -2.1 },
+  { id: 'engine', name: 'NÚCLEO', x: 3, z: 2.4 },
+  { id: 'farm', name: 'HORTA', x: 3.3, z: -6.8 }, { id: 'shop', name: 'CONSELHO', x: -1, z: -2.1 },
   { id: 'mine', name: 'MINA', x: -10.3, z: -5.8 }, { id: 'forest', name: 'BOSQUE', x: -9.8, z: 7.6 },
-  { id: 'mill', name: 'MOINHO', x: 4.4, z: 5.7 }, { id: 'plaza', name: 'PRAÇA', x: -3, z: 2.1 },
+  { id: 'mill', name: 'MOINHO', x: 4.4, z: 5.7 }, { id: 'plaza', name: 'MEMÓRIA', x: -3, z: 2.1 },
 ];
 export function CityScene({ state, selected, onSelect, active, onReady }: { state: GameState; selected: Place; active: boolean; onSelect(place: Place): void; onReady(): void }) {
   const host = useRef<HTMLDivElement>(null), labels = useRef<(HTMLButtonElement | null)[]>([]);

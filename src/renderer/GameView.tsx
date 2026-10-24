@@ -1,89 +1,91 @@
 import { useEffect, useRef, useState } from 'react';
-import { CityScene, type Place } from './CityScene';
-import { CROPS, SHOP, SKILLS, RESOURCES, CITY_SKINS, type Build, type CropId, type GameAction, type GameState, type Resource, type ShopId } from '../shared/game';
 import type { z } from 'zod';
-import type { gameInput } from '../shared/game';
-import './game.css';
-import { EconomyWorkspace } from './EconomyWorkspace';
-import './economy.css';
-import { Arcade } from './Arcade';
+import { CityScene, type Place } from './CityScene';
+import type { GameAction, GameState, gameInput } from '../shared/game';
+import { add, dec, formatAmount, integer } from '../shared/amount';
 import { Icon } from './Icon';
 import { AnimatedNumber, useSurfaceMotion } from './motion';
-import { EngineButton } from './EngineButton';
-import { FarmProjects, StationStock } from './FarmProjects';
-import type { Amount } from '../shared/amount';
-import { dec, enough, formatAmount } from '../shared/amount';
+import { usePreferences } from './preferences';
+import { CorePanel, StorePanel, FlashLight, flashRule } from './Observatory';
+import { GardenPanel, CouncilPanel, MemoryPanel } from './GameMinigames';
+import { AchievementsPanel, LegacyPanel, ProfilePanel } from './GamePanels';
+import { GameTicker } from './GameTicker';
+import { playCue } from './gameSound';
+import './game.css';
+import './idle.css';
 
-const PLACE_INFO: Record<Place, { title: string; subtitle: string; number: string }> = {
-  engine: { title: 'Motor da vila', subtitle: 'Seu primeiro passo para fazer a vila crescer.', number: '00' },
-  farm: { title: 'Sua fazenda', subtitle: 'Pequenas sementes. Novos caminhos.', number: '01' },
-  mine: { title: 'Mina da colina', subtitle: 'Pedra, experiência e um pouco mais de Produção.', number: '02' },
-  forest: { title: 'Bosque dos viajantes', subtitle: 'Madeira para o que vem pela frente.', number: '03' },
-  mill: { title: 'O moinho', subtitle: 'Sua vila trabalha enquanto você descansa.', number: '04' },
-  shop: { title: 'Mercado da vila', subtitle: 'Troque sua colheita por possibilidades.', number: '05' },
-  plaza: { title: 'Praça dos encontros', subtitle: 'Uma pausa. Uma nova descoberta.', number: '06' },
-};
-export default function GameView({ onClose, onExplorer, activeArea,keyboardActive=true,registerFlush }: { activeArea: boolean;keyboardActive?:boolean;registerFlush?(fn:(()=>Promise<boolean>)|null):void;onClose(): void; onExplorer(): void }) {
+type Tab = 'observatory' | 'garden' | 'council' | 'memory' | 'achievements' | 'legacy' | 'profile';
+const TABS: [Tab, Parameters<typeof Icon>[0]['kind'], string][] = [['observatory', 'engine', 'Observatório'], ['garden', 'tree', 'Horta'], ['council', 'person', 'Conselho'], ['memory', 'memory', 'Memória'], ['achievements', 'target', 'Conquistas'], ['legacy', 'orbit', 'Legado'], ['profile', 'person', 'Perfil']];
+const PLACE_TAB: Record<Place, Tab> = { engine: 'observatory', farm: 'garden', shop: 'council', plaza: 'memory', mine: 'observatory', forest: 'observatory', mill: 'observatory' };
+// Clicks are counted locally and sent as one authoritative batch at most every 500 ms.
+const CLICK_FLUSH_MS = 500;
+
+export default function GameView({ onClose, activeArea, keyboardActive = true, registerFlush }: { activeArea: boolean; keyboardActive?: boolean; registerFlush?(fn: (() => Promise<boolean>) | null): void; onClose(): void; onExplorer(): void }) {
   const [state, setState] = useState<GameState | null>(null), [message, setMessage] = useState(''), [error, setError] = useState('');
-  const [tab, setTab] = useState<'city' | 'shop' | 'memory' | 'arcade' | 'build' | 'economy' | 'motor'>('city'), [place, setPlace] = useState<Place>('engine');
-  const [crop, setCrop] = useState<CropId>('wheat'), [difficulty, setDifficulty] = useState<'easy' | 'normal' | 'hard'>('easy');
-  const [draft, setDraft] = useState<Build>({ focus: 0, review: 0, planning: 0, practice: 0 }), [busy, setBusy] = useState(false);
+  const [tab, setTab] = useState<Tab>('observatory'), [place, setPlace] = useState<Place>('engine'), [busy, setBusy] = useState(false), [sceneReady, setSceneReady] = useState(false);
+  const [pendingClicks, setPendingClicks] = useState(0), clicks = useRef({ pending: 0, inFlight: 0 });
   const guard = useRef(false), epoch = useRef(0), retry = useRef<z.infer<typeof gameInput> | null>(null);
-  const queue=useRef<z.infer<typeof gameInput>[]>([]),running=useRef<Promise<void>|null>(null),mounted=useRef(true);
-  const panel = useRef<HTMLElement>(null), stage = useRef<HTMLElement>(null);
-  const [sceneReady, setSceneReady] = useState(false), [gain, setGain] = useState<{id:number;coins:Amount}>({ id: 0, coins: 0 });
-  useSurfaceMotion(panel, `${tab}:${place}`, activeArea);
+  const queue = useRef<z.infer<typeof gameInput>[]>([]), running = useRef<Promise<void> | null>(null), mounted = useRef(true), stage = useRef<HTMLElement>(null);
+  const volume = usePreferences().value.gameVolume, sound = useRef(volume); sound.current = volume;
+  const seen = useRef({ flash: '', unlocks: 0, achievements: -1 });
   useSurfaceMotion(stage, tab, activeArea);
+  // Polling reports whether the city is actually on screen: only watched time brings a Lampejo closer.
   useEffect(() => {
     if (!activeArea) return;
     let stopped = false;
-    async function refresh() { if (guard.current) return; const token = epoch.current; try { const r = await window.desktop.getGame(); if (!stopped && token === epoch.current) { if (r.ok) setState(r.value); else setError(r.message); } } catch { if (!stopped) setError('Não foi possível carregar sua vila. Tente novamente.'); } }
+    async function refresh() { if (guard.current) return; const token = epoch.current; try { const r = await window.desktop.getGame({ watching: !document.hidden }); if (!stopped && token === epoch.current) { if (r.ok) setState(r.value); else setError(r.message); } } catch { if (!stopped) setError('Não foi possível carregar sua cidade. Tente novamente.'); } }
     void refresh(); const timer = setInterval(refresh, 1000); return () => { stopped = true; clearInterval(timer); };
   }, [activeArea]);
-  useEffect(() => { if (state) setDraft({ ...state.build }); }, [state?.build.focus, state?.build.review, state?.build.planning, state?.build.practice]);
-  useEffect(() => { if (state?.round) setDifficulty(state.round.difficulty); }, [state?.round?.id]);
-  function drain():Promise<void>{
-    if(running.current)return running.current;
-    guard.current=true;epoch.current++;setBusy(true);
-    const task=(async()=>{while(queue.current.length){const input=queue.current[0];
-      try{const r=await window.desktop.gameAction(input);if(!mounted.current)return;if(r.ok){setState(r.value.state);if(input.action.kind==='engine-click'&&!r.value.replayed)setGain({id:r.value.state.engine.clicks,coins:r.value.state.engine.lastGain??r.value.state.engine.power});setMessage(['qte-input','skill-input'].includes(input.action.kind)||input.action.kind==='engine-click'&&dec(r.value.state.engine.lastGain??0).gt(0)?'':r.value.message);}else setError(r.message);queue.current.shift();retry.current=null;}
-      catch{retry.current=input;setError('A resposta não chegou. Repita a tentativa para conferir todos os cliques.');break;}
-    }})().finally(()=>{guard.current=false;running.current=null;if(mounted.current)setBusy(false);if(queue.current.length&&!retry.current)void drain();});running.current=task;return task;
+  useEffect(() => {
+    if (!state) return;
+    const s = seen.current, unlocks = state.economy.unlocks.length, achievements = state.economy.achievements.length;
+    if (state.flash && state.flash.id !== s.flash) { s.flash = state.flash.id; playCue('flash', sound.current); }
+    if (s.achievements >= 0 && (achievements > s.achievements || unlocks > s.unlocks)) playCue('unlock', sound.current);
+    s.unlocks = unlocks; s.achievements = achievements;
+  }, [state]);
+  function drain(): Promise<void> {
+    if (running.current) return running.current;
+    guard.current = true; epoch.current++; setBusy(true);
+    const task = (async () => { while (queue.current.length) { const input = queue.current[0];
+      try { const r = await window.desktop.gameAction(input); if (!mounted.current) return;
+        if (input.action.kind === 'core-click') { clicks.current.inFlight -= input.action.count; setPendingClicks(clicks.current.pending + clicks.current.inFlight); }
+        if (r.ok) { setState(r.value.state); const kind = input.action.kind; if (!r.value.replayed && (kind === 'producer-buy' || kind === 'economy-upgrade' || kind === 'permanent-upgrade')) playCue('buy', sound.current); if (!r.value.replayed && kind === 'flash-catch') playCue('catch', sound.current); setMessage(kind === 'core-click' ? '' : r.value.message); } else setError(r.message);
+        queue.current.shift(); retry.current = null; }
+      catch { retry.current = input; setError('A resposta não chegou. Repita a tentativa para conferir.'); break; }
+    } })().finally(() => { guard.current = false; running.current = null; if (mounted.current) setBusy(false); if (queue.current.length && !retry.current) void drain(); }); running.current = task; return task;
   }
-  function execute(action:GameAction,existing?:z.infer<typeof gameInput>){if(existing){retry.current=null;setError('');return drain();}if(retry.current||guard.current&&action.kind!=='engine-click')return Promise.resolve();setError('');queue.current.push({operationId:crypto.randomUUID(),action});return drain();}
-  useEffect(()=>{mounted.current=true;registerFlush?.(async()=>{await drain();return !queue.current.length&&!retry.current;});return()=>{mounted.current=false;registerFlush?.(null);};},[]);
-  function select(next:Place){setPlace(next);setTab(next==='engine'?'motor':next==='shop'?'shop':'city');setDetailsVisible(next!=='engine'&&next!=='shop');setMessage('');setError('');}
-  const [detailsVisible,setDetailsVisible]=useState(false);
-  const disabled = busy || !state;
-  const round = state?.round;
-  const nextLevel = state ? state.xp % 100 : 0;
-  const sell = (resource: Resource) => { if (state?.inventory[resource]) void execute({ kind: 'sell', resource, quantity: state.inventory[resource] }); };
-  const exhausted=Boolean(state&&dec(state.engine.power).lte(0));
-  function visit(next:Place,nextCrop?:CropId){if(nextCrop)setCrop(nextCrop);select(next);}
-  const [economyTarget,setEconomyTarget]=useState<GameState['farm']['reinvestment']>(null);
-  const motorModule=<section className="motor-module"><span className="game-kicker">MOTOR / APOIO À VILA</span><h1>Encontre seu ritmo.</h1><div className="engine-readout"><span>PRODUÇÃO ATIVA / NÍVEL {state?.engine.level ?? 0}</span><strong data-testid="motor-power">{exhausted?'Em descanso':'+'+formatAmount(state?.engine.power??1)}<small>{exhausted?' · orçamento de hoje esgotado':' de Produção por pulso'}</small></strong></div>
-    <div className="motor-budget"><span>Disponível hoje</span><strong data-testid="motor-remaining">{formatAmount(state?.engine.remaining??1200)}</strong><small>de {formatAmount(state?.engine.budget??1200)} de Produção</small></div>
-    <EngineButton disabled={!state||Boolean(retry.current)} exhausted={exhausted} gain={gain} press={()=>void execute({kind:'engine-click'})}/>
-    {exhausted&&<div className="motor-alternatives"><p>O orçamento renova no próximo dia. Sua vila continua funcionando.</p><button onClick={()=>visit('forest')}>Coletar madeira →</button><button onClick={()=>visit('farm')}>Cuidar dos cultivos →</button><button onClick={()=>{setTab('city');setDetailsVisible(false);}}>Ver projetos e postos →</button></div>}
-    <button className="primary engine-upgrade" aria-label="Melhorar motor" disabled={disabled || state?.engine.upgradeCost === null || !enough(state?.coins ?? 0,state?.engine.upgradeCost ?? 0)} onClick={() => execute({ kind: 'engine-upgrade' })}>{state?.engine.upgradeCost === null ? 'Motor no nível máximo' : 'Melhorar · '+state?.engine.upgradeCost+' de Produção →'}</button>
-    <p className="game-tip">O nível do motor e as melhorias aumentam o pulso. Instalações ampliam o apoio que ele oferece à vila.</p><details className="engine-how"><summary>Como funciona</summary><ol className="engine-guide"><li>O orçamento diário acompanha dois minutos de produção instalada, com piso de 1.200.</li><li>Eventos temporários não ampliam esse orçamento. O valor acima já considera o saldo de hoje.</li><li>Construções, cultivos, coleta, estudo e jogos oferecem outros caminhos para crescer.</li></ol></details><small className="motor-count">{state?.engine.clicks??0} pulsos na jornada</small></section>;
-  return <div className="game-shell clean-game" data-tab={tab} data-skin={state?.skin??'original'} data-atmosphere={state?.atmosphere??'golden'} aria-busy={busy} data-area-ready={Boolean(error) || Boolean(state && sceneReady)}>
-    <header className="game-header" data-hairline><button className="game-back" onClick={onClose}>← <span>Voltar à mesa</span></button><div className="game-brand"><span className="game-brand-mark"><Icon kind="city"/></span><div>NODUS / OBSERVATÓRIO<small>SEU MUNDO, UM POUCO MAIOR</small></div></div><div className="game-wallet"><span className="wallet-coin"><Icon kind="coin"/></span><AnimatedNumber value={state?.coins} testId="game-coins"/><small>PRODUÇÃO</small><span className="wallet-rule"/><AnimatedNumber value={state?.xp} testId="game-xp"/><small>XP DO JOGO</small></div></header>
-    <div className="game-layout"><nav className="game-nav" aria-label="Jogo"><span className="game-nav-caption">VALE SERENO</span>{([['city', 'city', 'Vila'], ['motor','engine','Motor'], ['economy', 'engine', 'Produção'], ['shop', 'shop', 'Mercado'], ['memory', 'memory', 'Memória'], ['arcade', 'engine', 'Oficina'], ['build', 'person', 'Personagem']] as const).map(([id, icon, name]) => <button key={id} aria-label={name} className={tab === id ? 'selected' : ''} aria-current={tab === id ? 'page' : undefined} onClick={() => { setTab(id); setMessage(''); setError(''); }}><Icon kind={icon}/><span>{name}</span></button>)}<div className="game-nav-bottom"><span className="connection connected"/> PROGRESSO LOCAL</div></nav>
-    <main className="game-stage" ref={stage}>{state && <div className="city-scene-host" hidden={tab === "arcade" || tab === "memory" || tab === "economy" || tab === "motor" || tab === "build" || tab === "shop"}><CityScene state={state} selected={place} onSelect={select} active={activeArea && tab !== "arcade" && tab !== "memory" && tab !== "economy" && tab !== "motor" && tab !== "build" && tab !== "shop"} onReady={() => setSceneReady(true)}/></div>}{state ? tab === 'motor' ? motorModule : tab === 'economy' ? <EconomyWorkspace state={state} busy={busy} execute={execute} target={economyTarget}/> : tab === 'arcade' ? <Arcade state={state} busy={busy} execute={execute} visible={activeArea} inputActive={keyboardActive}/> : tab === 'memory' ? <section className="memory-stage"><div className="memory-heading"><span className="game-kicker">PRÁTICA / BARALHO DEMONSTRATIVO</span><h1>Memória de Conceitos</h1><p>Uma ideia encontra a outra. Sem limite de tempo.</p><label className="game-select">Dificuldade<select aria-label="Dificuldade da memória" disabled={Boolean(round && !round.completed)} value={difficulty} onChange={e => setDifficulty(e.target.value as typeof difficulty)}><option value="easy">Leve · 3 pares</option><option value="normal">Normal · 6 pares</option><option value="hard">Desafio · 9 pares</option></select></label></div>{round ? <><div className="memory-stats"><span>{round.cards.filter(c => c.matched).length / 2} / {round.cards.length / 2} pares</span><span>{round.attempts} tentativas</span><span>Combo ×{round.combo}</span></div><div className={`memory-board ${round.cards.length > 12 ? 'memory-hard' : ''}`}>{round.cards.map(card => <button key={card.id} className={`memory-card ${card.label ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} aria-label={`Carta ${card.id + 1}${card.label ? `: ${card.label}` : ', fechada'}`} disabled={busy || card.matched || round.completed || round.selected.length < 2 && round.selected.includes(card.id)} onClick={() => execute({ kind: 'flip', roundId: round.id, card: card.id })}><small>{String(card.id + 1).padStart(2, '0')}</small><span>{card.label ?? '✧'}</span>{card.matched && <b>PAR ENCONTRADO</b>}</button>)}</div>{round.completed && <div className="round-complete" role="status"><span>RODADA CONCLUÍDA</span><h2>Uma descoberta de cada vez.</h2><p>+{formatAmount(round.coins)} de Produção · +{round.xp} XP · melhor combo ×{round.maxCombo}</p><button className="primary" disabled={busy} onClick={() => execute({ kind: 'start-round', difficulty })}>Jogar nova rodada →</button></div>}</> : <div className="memory-start"><span><Icon kind="memory"/></span><h2>Encontre os pares.</h2><p>Conceito e definição. Conceito e exemplo.<br/>Fórmula e situação de uso.</p><button className="primary" disabled={disabled} onClick={() => execute({ kind: 'start-round', difficulty })}>Começar rodada →</button></div>}</section> : null : <div className="game-loading">Abrindo sua vila…</div>}
-      {tab !== 'memory' && tab !== 'arcade' && tab !== 'economy' && tab !== 'motor' && tab !== 'build' && tab !== 'shop' && <div className="city-heading"><span className="game-kicker">EXPLORAR / CONSTRUIR / RETOMAR</span><h1>{CITY_SKINS.find(s=>s.id===(state?.skin??'original'))!.name}</h1><p>Todo grande lugar começa com uma pequena ideia.</p><div className="city-atmospheres" role="group" aria-label="Ambiente da vila">{([['golden','Dourado'],['dawn','Amanhecer'],['night','Noite']] as const).map(([value,title])=><button key={value} disabled={disabled} aria-pressed={state?.atmosphere===value} onClick={()=>execute({kind:'atmosphere',value})}>{title}</button>)}</div><label className="city-skin-select">CENÁRIO <select aria-label="Skin da cidade" value={state?.skin??'original'} disabled={disabled} onChange={event=>execute({kind:'skin',value:event.target.value as GameState['skin']})}>{CITY_SKINS.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label></div>}
-      {tab==='city'&&state&&<FarmProjects state={state} busy={busy} execute={execute} visit={visit} reinvest={()=>{setEconomyTarget(state.farm.reinvestment);setTab('economy');}}/>}
-      <div className="game-notice" aria-live="polite">{error ? <span className="game-error">{error}{retry.current && <button disabled={busy} onClick={() => retry.current && execute(retry.current.action, retry.current)}>Repetir tentativa</button>}</span> : message && <span className={message.includes('construído!')?'construction-complete':undefined}>{message}</span>}</div>
-    </main>
-    <aside className="game-inspector" ref={panel} hidden={!(tab==='city'&&detailsVisible||tab==='build'||tab==='shop')}><button className="game-inspector-close" aria-label="Fechar detalhes do local" onClick={()=>setDetailsVisible(false)}>×</button><div className="player-strip"><div className="player-avatar"><Icon kind="person"/></div><div><span>{state?.className ?? 'Viajante'}</span><small>Nível {state?.level ?? 1} · Jornada pessoal</small></div><b>{state?.level ?? 1}</b></div><div className="game-xp-track" role="progressbar" aria-label="Progresso do nível do jogo" aria-valuenow={nextLevel} aria-valuemin={0} aria-valuemax={100}><div style={{ width: `${nextLevel}%` }}/></div>
-      {tab === 'city' && <section className="game-panel"><div className="inspector-title"><span>{PLACE_INFO[place].number}</span><span>LOCAL SELECIONADO</span></div><h2>{PLACE_INFO[place].title}</h2><p className="game-subtitle">{PLACE_INFO[place].subtitle}</p>
-        {place === 'farm' ? <><label className="game-select">Sementes<select aria-label="Tipo de cultivo" value={crop} onChange={e => setCrop(e.target.value as CropId)}>{Object.entries(CROPS).map(([id, c]) => <option key={id} value={id}>{c.name} · {c.cost} de Produção · {c.seconds}s</option>)}</select></label><div className="farm-beds">{state?.plots.map(plot => { const ripe = plot.crop && state.now >= plot.readyAt, remaining = Math.max(0, Math.ceil((plot.readyAt - state.now) / 1000)); return <div key={plot.id} className={`farm-bed ${ripe ? 'ripe' : ''}`}><span className="bed-number">{String(plot.id).padStart(2, '0')}</span><div><strong>{plot.crop ? CROPS[plot.crop].name : 'Terra livre'}</strong><small>{plot.crop ? ripe ? 'Pronto para colher' : `Crescendo · ${remaining}s` : 'Uma nova possibilidade'}</small></div><button disabled={busy || Boolean(plot.crop && !ripe) || !plot.crop && !enough(state.coins,CROPS[crop].cost)} aria-label={plot.crop ? `Colher canteiro ${plot.id}` : `Plantar canteiro ${plot.id}`} onClick={() => execute(plot.crop ? { kind: 'harvest', plot: plot.id } : { kind: 'plant', plot: plot.id, crop })}>{plot.crop ? ripe ? 'Colher' : '…' : 'Plantar'}</button></div>; })}</div><p className="game-tip">A colheita rende Produção, XP e recursos. O crescimento continua entre visitas.</p></> : place === 'mine' || place === 'forest' ? <div className="gather-panel"><span className="gather-symbol"><Icon kind={place === 'mine' ? 'stone' : 'tree'}/></span><strong>{place === 'mine' ? 'Uma expedição à colina' : 'Uma trilha no bosque'}</strong><p>Receba {place === 'mine' && state?.owned.includes('pickaxe') ? 2 : 1} {place === 'mine' ? 'pedra' : 'madeira'}, {formatAmount(state?.economy.activityQuotes.gather??4)} de Produção e 3 XP por coleta.</p><button className="primary" disabled={disabled || Boolean(state && state.now - state.gatheredAt < 1500)} onClick={() => execute({ kind: 'gather', resource: place === 'mine' ? 'stone' : 'wood' })}>{place === 'mine' ? 'Explorar mina' : 'Coletar madeira'} →</button><small>Prepare uma nova coleta a cada 1,5 segundo.</small>{state&&state.farm.built.includes(place==='mine'?'mine-post':'forest-post')&&<StationStock state={state} id={place==='mine'?'mine-post':'forest-post'} busy={busy} execute={execute}/>}</div> : place === 'mill' ? <div className="mill-panel"><span><Icon kind="engine"/></span><h3>{state?.owned.includes('windmill') ? 'O vento está a seu favor.' : 'Um novo começo.'}</h3><p>{state?.owned.includes('windmill') ? `${formatAmount(state.passiveCoins)} de Produção por minuto, recebidas automaticamente. A produção continua com o jogo fechado, até ${state.economy.offlineDays} dias por visita.` : 'Construa o moinho no mercado para receber produção passiva.'}</p><button className="primary" onClick={() => setTab('shop')}>Visitar mercado →</button></div> : <div className="plaza-panel"><span><Icon kind="memory"/></span><h3>Um encontro entre ideias.</h3><p>Jogue Memória de Conceitos e transforme descobertas em novas possibilidades para sua vila.</p><button className="primary" onClick={() => setTab('memory')}>Jogar memória →</button></div>}
-        <div className="place-links">{(['engine', 'farm', 'mine', 'forest', 'mill', 'plaza'] as Place[]).filter(p => p !== place).map(p => <button key={p} onClick={() => select(p)}>{PLACE_INFO[p].title} ↗</button>)}</div>
-      </section>}
-      {tab === 'shop' && <section className="game-panel"><div className="inspector-title"><span>05</span><span>FAÇA A VILA CRESCER</span></div><h2>Mercado da vila</h2><p className="game-subtitle">Um recurso vira uma possibilidade.</p><div className="shop-catalog">{SHOP.map((item, i) => { const owned = state?.owned.includes(item.id); return <article className="shop-item" key={item.id}><span className="shop-number">{String(i + 1).padStart(2, '0')}</span><div><h3>{item.name}</h3><p>{item.description}</p><button aria-label={`Comprar ${item.name}`} className={owned ? 'owned' : ''} disabled={disabled || owned || !enough(state?.coins ?? 0,item.cost)} onClick={() => execute({ kind: 'buy', item: item.id as ShopId })}>{owned ? '✓ Na sua vila' : `◈ ${item.cost} · Comprar`}</button></div></article>; })}</div><div className="inventory-sell"><span className="game-kicker">VENDA SUA PRODUÇÃO</span>{Object.entries(RESOURCES).map(([id, resource]) => <div key={id}><span>{resource.name} <small>×{state?.inventory[id as Resource] ?? 0}</small></span><button disabled={disabled || !state?.inventory[id as Resource]} aria-label={`Vender ${resource.name}`} onClick={() => sell(id as Resource)}>Vender · {resource.price}/un</button></div>)}</div></section>}
-      {tab === 'build' && <section className="game-panel"><div className="inspector-title"><span><Icon kind="person"/></span><span>SEU CAMINHO</span></div><h2>Uma build, muitas jornadas.</h2><p className="game-subtitle">Sua classe acompanha suas escolhas. Redistribuir é sempre gratuito.</p><p className="build-points">{(state?.level ?? 1) - Object.values(draft).reduce((sum, v) => sum + v, 0)} pontos disponíveis</p>{SKILLS.map(skill => <div className="skill-row" key={skill.id}><div><strong>{skill.name}</strong><p>{skill.effect}</p></div><div className="skill-controls"><button aria-label={`Diminuir ${skill.name}`} disabled={busy || draft[skill.id] === 0} onClick={() => setDraft(d => ({ ...d, [skill.id]: d[skill.id] - 1 }))}>−</button><b>{draft[skill.id]}</b><button aria-label={`Aumentar ${skill.name}`} disabled={disabled || Object.values(draft).reduce((sum, v) => sum + v, 0) >= (state?.level ?? 1)} onClick={() => setDraft(d => ({ ...d, [skill.id]: d[skill.id] + 1 }))}>+</button></div></div>)}<button className="primary build-save" disabled={disabled} onClick={() => execute({ kind: 'respec', build: draft })}>Salvar build · grátis</button><button className="build-reset" disabled={disabled} onClick={() => { setDraft({ focus: 0, review: 0, planning: 0, practice: 0 }); void execute({ kind: 'respec', build: { focus: 0, review: 0, planning: 0, practice: 0 } }); }}>Redistribuir todos os pontos</button></section>}
-      <details className="game-journal"><summary>Atividade recente</summary><span className="game-kicker">ÚLTIMOS PASSOS</span>{state?.recent.slice(0, 3).map((event, i) => <p key={`${event.at}:${i}`}><span>{event.action}</span><small>{dec(event.coins).gt(0) ? '+' : ''}{formatAmount(event.coins)} ◈</small></p>)}</details>
-    </aside></div>
-    <footer className="game-footer"><details className="game-inventory"><summary>Inventário</summary><div>{Object.entries(RESOURCES).map(([id, resource]) => <div key={id}><span>{resource.name}</span><strong data-testid={`inventory-${id}`}>{state?.inventory[id as Resource] ?? 0}</strong></div>)}</div></details><small>PROGRESSO LOCAL</small></footer>
+  function execute(action: GameAction, existing?: z.infer<typeof gameInput>) { if (existing) { retry.current = null; setError(''); return drain(); } if (retry.current) return Promise.resolve(); setError(''); queue.current.push({ operationId: crypto.randomUUID(), action }); return drain(); }
+  function flushClicks() { const c = clicks.current; if (!c.pending || retry.current) return Promise.resolve(); const count = Math.min(40, c.pending); c.pending -= count; c.inFlight += count; queue.current.push({ operationId: crypto.randomUUID(), action: { kind: 'core-click', count } }); return drain(); }
+  useEffect(() => { const timer = setInterval(() => void flushClicks(), CLICK_FLUSH_MS); return () => clearInterval(timer); }, []);
+  useEffect(() => { mounted.current = true; registerFlush?.(async () => { while (clicks.current.pending && !retry.current) await flushClicks(); await drain(); return !queue.current.length && !retry.current && !clicks.current.pending; }); return () => { mounted.current = false; registerFlush?.(null); }; }, []);
+  function press() { clicks.current.pending++; setPendingClicks(clicks.current.pending + clicks.current.inFlight); playCue('click', sound.current, Math.min(7, Math.floor(clicks.current.pending / 6))); }
+  // Space or Enter on the focused core button is native; no global key listener competes with the rest of the app.
+  useEffect(() => { if (!keyboardActive) clicks.current.pending && void flushClicks(); }, [keyboardActive]);
+  function select(next: Place) { setPlace(next); setTab(PLACE_TAB[next]); setMessage(''); setError(''); }
+  const shownCoins = state ? add(state.coins, integer(dec(state.engine.power).mul(pendingClicks))) : undefined;
+  return <div className="game-shell clean-game idle-game" data-tab={tab} data-skin={state?.skin ?? 'original'} data-atmosphere={state?.atmosphere ?? 'golden'} aria-busy={busy} data-area-ready={Boolean(error) || Boolean(state && sceneReady)}>
+    <header className="game-header" data-hairline><button className="game-back" onClick={onClose}>← <span>Voltar à mesa</span></button><div className="game-brand"><span className="game-brand-mark"><Icon kind="city"/></span><div>NODUS / OBSERVATÓRIO<small>UM NÚMERO QUE CRESCE COM VOCÊ</small></div></div>
+      <div className="game-wallet"><span className="wallet-coin"><Icon kind="coin"/></span><AnimatedNumber value={shownCoins} testId="game-coins"/><small>CENTELHAS</small><span className="wallet-rule"/><span className="num wallet-rate">{state ? formatAmount(dec(state.economy.rate).div(60).toDecimalPlaces(1).toString()) : '—'}</span><small>POR SEGUNDO</small><span className="wallet-rule"/><AnimatedNumber value={state?.xp} testId="game-xp"/><small>XP</small></div></header>
+    {state && <GameTicker state={state}/>}
+    <div className="game-layout"><nav className="game-nav" aria-label="Jogo"><span className="game-nav-caption">VALE SERENO</span>{TABS.map(([id, icon, name]) => { const locked = id === 'garden' && !state?.garden.unlocked || id === 'council' && !state?.council.unlocked; return <button key={id} aria-label={name} className={tab === id ? 'selected' : ''} aria-current={tab === id ? 'page' : undefined} data-locked={locked || undefined} onClick={() => { setTab(id); setMessage(''); setError(''); }}><Icon kind={icon}/><span>{name}</span></button>; })}<div className="game-nav-bottom"><span className="connection connected"/> PROGRESSO LOCAL</div></nav>
+      <main className="game-stage" ref={stage}>
+        {state && <div className="city-scene-host" hidden={tab !== 'observatory'}><CityScene state={state} selected={place} onSelect={select} active={activeArea && tab === 'observatory'} onReady={() => setSceneReady(true)}/></div>}
+        {!state ? <div className="game-loading">Abrindo o observatório…</div>
+          : tab === 'observatory' ? <div className="observatory">
+            <CorePanel state={state} unconfirmed={pendingClicks} press={press}/>
+            <StorePanel state={state} busy={busy} execute={a => void execute(a)}/>
+            <div className="observatory-sky"><FlashLight state={state} catchIt={id => void execute({ kind: 'flash-catch', id })}/></div>
+            {state.economy.returnReport && <div className="economy-return" role="status"><p>{Math.floor(state.economy.returnReport.elapsedMs / 3600000)} h {Math.floor(state.economy.returnReport.elapsedMs / 60000) % 60} min fora · <strong className="num">+{formatAmount(state.economy.returnReport.credited)}</strong> centelhas produzidas{state.economy.returnReport.capped ? ' (limite de ausência aplicado)' : ''}</p><button aria-label="Dispensar resumo de retorno" disabled={busy} onClick={() => void execute({ kind: 'dismiss-return' })}>×</button></div>}
+            <p className="observatory-rule">{state.economy.focusActive ? 'Foco ativo: nenhum Lampejo aparece até a sessão parar.' : flashRule}</p>
+          </div>
+          : tab === 'garden' ? <GardenPanel state={state} busy={busy} execute={a => void execute(a)}/>
+          : tab === 'council' ? <CouncilPanel state={state} busy={busy} execute={a => void execute(a)}/>
+          : tab === 'memory' ? <MemoryPanel state={state} busy={busy} execute={a => void execute(a)}/>
+          : tab === 'achievements' ? <AchievementsPanel state={state}/>
+          : tab === 'legacy' ? <LegacyPanel state={state} busy={busy} execute={a => void execute(a)}/>
+          : <ProfilePanel state={state} busy={busy} execute={a => void execute(a)}/>}
+        <div className="game-notice" aria-live="polite">{error ? <span className="game-error">{error}{retry.current && <button disabled={busy} onClick={() => retry.current && execute(retry.current.action, retry.current)}>Repetir tentativa</button>}</span> : message && <span>{message}</span>}</div>
+      </main>
+    </div>
   </div>;
 }
