@@ -35,6 +35,9 @@
 :root[data-theme=white] .nodus-shell .markdown-preview :is(code,pre){background:#edf1e9;color:#354531;border-color:var(--theme-border)}
 :root[data-theme=white] .nodus-shell .markdown-preview :is(a,.source-link){color:#365b3d}
 :root[data-theme=white] .nodus-shell .markdown-preview blockquote{border-left-color:var(--theme-accent);color:var(--theme-muted)}
+:root[data-theme=white] .nodus-shell .markdown-preview :is(h1,h2,h3,h4,h5,h6,th,strong){color:var(--theme-text)}
+:root[data-theme=white] .nodus-shell .markdown-preview :is(td,th){border-color:var(--theme-border)}
+:root[data-theme=white] .nodus-shell .markdown-preview th{background:var(--theme-raised)}
 :root[data-theme=white] .nodus-shell .pdf-page{background:white;box-shadow:0 3px 15px #31492e24}
 :root[data-theme=white] .nodus-shell :is(.pdf-viewer,.pdf-scroll,.pdf-canvas-wrap){background:#e8ede5}
 :root[data-theme=white] .nodus-shell :is(.graph-node-label,.suspended-tools,.focus-panel,.checklist-panel,.material-menu,.panel-empty,.command-results button,.notes-list button){background:var(--theme-panel);color:var(--theme-text);border-color:var(--theme-border)}

@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { distance, duration, ease, useReducedMotion } from './motion';
 import { Icon } from './Icon';
 
-export function MotionDialog({ title, children, close }: { title: string; children(requestClose: () => void): ReactNode; close(): void }) {
+export function MotionDialog({ title, children, close, beforeClose }: { title: string; children(requestClose: () => void): ReactNode; close(): void; beforeClose?():boolean|Promise<boolean> }) {
   const element = useRef<HTMLDialogElement>(null), closing = useRef(false), callback = useRef(close);
   callback.current = close;
   const reduced = useReducedMotion();
@@ -16,8 +16,10 @@ export function MotionDialog({ title, children, close }: { title: string; childr
     return () => { gsap.killTweensOf(el); };
   }, [reduced]);
   // Leaving is faster than entering: the dialog is already dismissed in the user's mind.
-  function requestClose() {
-    if (closing.current) return;
+  const checking = useRef(false);
+  async function requestClose() {
+    if (closing.current || checking.current) return;
+    if (beforeClose) { checking.current = true; try { if (!await beforeClose()) return; } finally { checking.current = false; } }
     closing.current = true;
     const el = element.current!; gsap.killTweensOf(el);
     if (reduced) callback.current();
