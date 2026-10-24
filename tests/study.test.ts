@@ -34,7 +34,7 @@ test('revisão é persistente/idempotente, usa relógio do main e conserva fonte
         assert.equal(study.today().due, 1);
         assert.deepEqual(fs.readFileSync(path.join(f.root, f.n.ref.path)), source);
         assert.equal(f.vault.open(f.n.ref.id).draft!.text, f.n.text + 'rascunho');
-        assert.equal(new Game(f.store).get().coins, Number(game.coins)+40);
+        const after = new Game(f.store).get(); assert.equal(after.coins, game.coins, 'revisão não gera centelhas (GAM-06)'); assert.equal(after.xp, game.xp + 3);
     }
     finally {
         f.store.close();
@@ -72,7 +72,7 @@ test('busca/Hoje/relações consultam entidades reais; foco pausado não acresce
     }
 });
 test('migração real v4 para v7 é aditiva e restart conserva cartões/vínculos sem reset', () => {
-    const f = fixture(5), original = fs.readFileSync(path.join(f.root, f.n.ref.path)); new Game(f.store); const game={coins:60};
+    const f = fixture(5), original = fs.readFileSync(path.join(f.root, f.n.ref.path)); new Game(f.store); const game={coins:15};
     f.store.db.exec('DROP TABLE card_reviews; DROP TABLE flashcards; DROP TABLE pdf_marks; DROP TABLE video_moments; DROP TABLE note_links; PRAGMA user_version=4;');
     f.store.close();
     const migrated = new Store(path.join(f.dir, 'data'));

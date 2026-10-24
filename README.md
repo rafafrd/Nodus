@@ -129,39 +129,35 @@ flowchart LR
   Four --> Save
 ```
 
-### Uma cidade que acompanha a rotina
+### Uma cidade que cresce com você
 
-O **Observatório** conecta minutos efetivos de Foco e revisões elegíveis à produção da cidade. XP e moedas pertencem ao jogo; não são uma medida de domínio acadêmico.
+O **Observatório** é um jogo incremental local e opcional: um núcleo para clicar, uma loja que revela o próximo passo e uma cidade 3D que cresce por marcos. **Ele é independente do estudo**: Foco e revisões dão só XP e conquistas de estudo, nunca centelhas ou produção. Desde GAM-06, o jogo nunca abre sozinho, não notifica e não pede atenção durante uma sessão de Foco.
 
 | Sistema | Experiência disponível |
 | :--- | :--- |
-| **Produção** | **16 famílias de instalações**, compras ×1/×10/×100/MAX, participação na taxa e conexões entre produtores. |
-| **Melhorias e descobertas** | Catálogo de **305 melhorias** e **284 conquistas**, com requisitos, especializações, sinergias e marcos progressivos. |
-| **Sinais e combinações** | Oportunidades guardadas durante o foco, efeitos temporários e combinação de tipos diferentes depois de estudar. |
-| **Produção offline** | Até sete dias por padrão, com extensão pelo legado e resumo do retorno. |
-| **Prestígio opcional** | Prévia do novo ciclo e bônus permanentes. Notas, materiais e histórico de estudo são preservados. Você pode continuar sem reiniciar. |
-| **Projetos da farm** | Depósito e postos do bosque/mina com custos materiais, próximo objetivo e atalhos de coleta. Cada posto produz **1 material/minuto**, guarda até **200** e pausa quando cheio; recolher leva o estoque ao inventário. |
-| **Motor e Oficina** | Apoio do motor proporcional à produção instalada, ganho/orçamento restante reais e alternativas ao esgotar. QTE e calibração com **36 etapas** e dificuldade crescente, preparo somente antes de começar. |
-| **Motor e Oficina** | Cliques consecutivos com feedback; QTE e calibração com **36 etapas** e dificuldade crescente, preparo somente antes de começar. |
-| **Vila e personagem** | Cultivo, coleta, mercado, Memória de Conceitos e distribuição gratuita de pontos da build. |
-| **Cenários completos** | Vale Sereno, **Cyberpunk** e **New York**, com construções, iluminação e atmosfera próprias. |
+| **Núcleo** | Clique sem limite diário; melhorias o multiplicam e lentes somam uma parcela da produção por segundo. Lotes confirmados pelo processo principal. |
+| **Loja** | **16 famílias** com compras ×1/×10/×100/máx, a próxima ainda como silhueta, melhorias ao alcance ordenadas por preço e tempo até poder comprar. |
+| **Lampejo** | Um ponto de luz que aparece de 4 a 9 minutos depois **com a Cidade na tela**, nunca durante o Foco, e fica 12 s: Maré, Achado ou Faísca. |
+| **Horta e Conselho** | Minijogos de decisão ligados às construções: o que plantar e quando colher; quais pautas, com custos, ocupam três cadeiras. |
+| **Memória de Conceitos** | Pares de conceito, exemplo e fórmula, sem limite de tempo. |
+| **Marcos e ticker** | Casas, fonte, moinho e postos surgem com o total produzido; um ticker de notícias próprio acompanha o progresso. |
+| **Prestígio opcional** | Insígnias e 40 melhorias permanentes; Horta, Conselho, marcos e conquistas continuam. |
+| **Offline e som** | Até sete dias de produção sem punir a ausência; sons curtos sintetizados com volume/mudo em Ajustes. |
+| **Cenários** | Vale Sereno, **Cyberpunk** e **New York**. |
 
 ```mermaid
 flowchart LR
-  Focus["Minutos efetivos de Foco"] --> Receipt["Registro de estudo elegível"]
-  Review["Revisões devidas"] --> Receipt
-  Receipt --> City["Produção do Observatório"]
-  City --> Network["Instalações e sinergias"]
-  Network --> Discoveries["Melhorias e descobertas"]
-  Discoveries --> Legacy["Legado opcional"]
-  Legacy --> Network
-  Notes["Notas e histórico acadêmico"] --> Preserve["Conservados entre ciclos"]
+  Core["Clique no núcleo"] --> Sparks["Centelhas"]
+  Prod["Produção automática"] --> Sparks
+  Sparks --> Shop["Instalações e melhorias"]
+  Shop --> Prod
+  Flash["Lampejo<br/>só com a Cidade na tela"] --> Sparks
+  Garden["Horta · Conselho · Memória"] --> Prod
+  Sparks --> Legacy["Insígnias e legado opcional"]
+  Study["Foco e revisões"] -.->|"só XP"| Profile["Nível e classe cosméticos"]
 ```
 
-[Regras atuais da economia](docs/architecture/economy.md) · [Modelos de equilíbrio e limites](docs/decisions/deep-production-balance.md).
-
-Na Vila, siga o ciclo **coletar → construir → automatizar → reinvestir**. O Depósito libera os dois postos; você escolhe qual construir primeiro. Estoques acompanham a pausa, construções sobrevivem ao prestígio e cultivos continuam manuais. Água, ambiente, rodas, cargas e partículas 3D respondem ao estado confirmado do jogo nas três skins. [Regras, simulação e provas da farm](docs/validation/FARM_PROJECTS.md).
-
+[Design e pesquisa](docs/design/GAME_DESIGN.md) · [Decisão e conversão do progresso](docs/adr/0026-jogo-incremental-independente.md) · [Provas e simulação](docs/validation/GAM_06_GAME.md).
 ## Galeria
 
 Capturas do executável real no Windows, com **fixtures de demonstração**. Saldo e progresso de jogo foram preparados para mostrar sistemas avançados; não representam tempo de estudo humano. Clique nas imagens para ampliar. A interface de algumas capturas anteriores conserva a navegação da versão em que foram registradas.
@@ -183,8 +179,8 @@ Capturas do executável real no Windows, com **fixtures de demonstração**. Sal
       <p><strong>Capture sem reescrever</strong><br><sub>Trecho do PDF vira nota com página e fonte.</sub></p>
     </td>
     <td width="50%" align="center" valign="top">
-      <a href="docs/validation/evidence/farm-projects/all-projects.png"><img src="docs/validation/evidence/farm-projects/all-projects.png" width="100%" alt="Cidade com Depósito e dois postos construídos, objetivos e estoques automáticos"></a>
-      <p><strong>Construir e automatizar</strong><br><sub>Depósito, bosque e mina com estoque próprio.</sub></p>
+      <a href="docs/validation/evidence/gam-06/observatorio-editorial.png"><img src="docs/validation/evidence/gam-06/observatorio-editorial.png" width="100%" alt="Observatório do jogo: núcleo, cidade 3D e loja na mesma tela, tema Editorial"></a>
+      <p><strong>Observatório</strong><br><sub>Núcleo, cidade e loja na mesma tela.</sub></p>
     </td>
   </tr>
   <tr>
@@ -399,7 +395,7 @@ Notas ficam nas pastas escolhidas. Banco e rascunhos ficam no perfil local do ap
 | **Saber o que está concluído** | [Estado e próxima ação](docs/status/ALPHA_STATE.md) · [Quadro de tickets](docs/tasks/README.md) |
 | **Conferir provas e limitações** | [Validação da alpha](docs/validation/ALPHA.md) · [Histórico de execução](docs/status/RUN_LOG.md) |
 | **Entender estudo e navegação** | [Home e Branco](docs/validation/HOME_WHITE.md) · [Escrita/captura](docs/validation/NOTES_UX.md) · [Abas e grade](docs/validation/STUDY_TABS.md) |
-| **Entender o jogo** | [Economia atual](docs/architecture/economy.md) · [Farm e postos](docs/validation/FARM_PROJECTS.md) · [Produção profunda](docs/validation/DEEP_PRODUCTION.md) |
+| **Entender o jogo** | [Design do jogo](docs/design/GAME_DESIGN.md) · [Economia atual](docs/architecture/economy.md) · [Provas GAM-06](docs/validation/GAM_06_GAME.md) |
 | **Entender estudo e navegação** | [Abas e grade](docs/validation/STUDY_TABS.md) · [Menu lateral](docs/validation/SIDEBAR.md) |
 | **Entender o jogo** | [Economia atual](docs/architecture/economy.md) · [Provas Windows](docs/validation/DEEP_PRODUCTION.md) |
 | **Entender o código** | [Arquitetura](docs/architecture/README.md) · [SDD](docs/sdd.md) · [ADRs](docs/adr/README.md) |

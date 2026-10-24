@@ -1,0 +1,2291 @@
+{
+  "label": "before",
+  "mode": "idle",
+  "at": "2026-10-23T22:39:26.255Z",
+  "minutes": 60,
+  "model": "Game real + SQLite, relógio controlado; 4 cliques/s quando o clique paga; plantio/colheita de trigo, coleta a cada 1,5 s quando o motor zera, sinais ativados ao aparecer; compra o item útil mais barato que couber no saldo. Modelo de fórmula, não tempo humano.",
+  "firstPurchaseSeconds": 0,
+  "purchases": 11,
+  "windows": [
+    {
+      "window": "0-10 min",
+      "purchases": 2,
+      "perTenMinutes": 2,
+      "medianGapSeconds": 520,
+      "maxGapSeconds": 520
+    },
+    {
+      "window": "10-30 min",
+      "purchases": 2,
+      "perTenMinutes": 1,
+      "medianGapSeconds": 530,
+      "maxGapSeconds": 530
+    },
+    {
+      "window": "30-60 min",
+      "purchases": 7,
+      "perTenMinutes": 2.3,
+      "medianGapSeconds": 260,
+      "maxGapSeconds": 349
+    }
+  ],
+  "longestGap": {
+    "gap": 530,
+    "endsAt": 1050
+  },
+  "clicks": 0,
+  "events": 0,
+  "income": {
+    "click": 0,
+    "passive": 944,
+    "other": 0
+  },
+  "final": {
+    "coins": 116,
+    "ratePerSecond": 0.5723333333333334,
+    "lifetime": 944,
+    "clickGain": 1,
+    "clickBudgetRemaining": 1200
+  },
+  "purchaseLog": [
+    {
+      "second": 0,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 40,
+      "ratePerSecond": 0.0501
+    },
+    {
+      "second": 520,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 46,
+      "ratePerSecond": 0.1002
+    },
+    {
+      "second": 1050,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 53,
+      "ratePerSecond": 0.1503
+    },
+    {
+      "second": 1456,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 61,
+      "ratePerSecond": 0.2008
+    },
+    {
+      "second": 1805,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 70,
+      "ratePerSecond": 0.251
+    },
+    {
+      "second": 2104,
+      "kind": "shop",
+      "id": "windmill",
+      "cost": 75,
+      "ratePerSecond": 0.31793333333333335
+    },
+    {
+      "second": 2359,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 81,
+      "ratePerSecond": 0.3681333333333333
+    },
+    {
+      "second": 2609,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 92,
+      "ratePerSecond": 0.41833333333333333
+    },
+    {
+      "second": 2865,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 107,
+      "ratePerSecond": 0.46946666666666664
+    },
+    {
+      "second": 3125,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 122,
+      "ratePerSecond": 0.5197666666666667
+    },
+    {
+      "second": 3396,
+      "kind": "producer",
+      "id": "collectors",
+      "cost": 141,
+      "ratePerSecond": 0.5723333333333334
+    }
+  ],
+  "samples": [
+    {
+      "second": 0,
+      "coins": 20,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 10,
+      "coins": 20,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 20,
+      "coins": 20,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 30,
+      "coins": 21,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 40,
+      "coins": 21,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 50,
+      "coins": 22,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 60,
+      "coins": 22,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 70,
+      "coins": 23,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 80,
+      "coins": 23,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 90,
+      "coins": 24,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 100,
+      "coins": 24,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 110,
+      "coins": 25,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 120,
+      "coins": 25,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 130,
+      "coins": 26,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 140,
+      "coins": 26,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 150,
+      "coins": 27,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 160,
+      "coins": 27,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 170,
+      "coins": 28,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 180,
+      "coins": 28,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 190,
+      "coins": 29,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 200,
+      "coins": 29,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 210,
+      "coins": 30,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 220,
+      "coins": 30,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 230,
+      "coins": 31,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 240,
+      "coins": 31,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 250,
+      "coins": 32,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 260,
+      "coins": 32,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 270,
+      "coins": 33,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 280,
+      "coins": 33,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 290,
+      "coins": 34,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 300,
+      "coins": 34,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 310,
+      "coins": 35,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 320,
+      "coins": 35,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 330,
+      "coins": 36,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 340,
+      "coins": 36,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 350,
+      "coins": 37,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 360,
+      "coins": 37,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 370,
+      "coins": 38,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 380,
+      "coins": 38,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 390,
+      "coins": 39,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 400,
+      "coins": 39,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 410,
+      "coins": 40,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 420,
+      "coins": 40,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 430,
+      "coins": 41,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 440,
+      "coins": 41,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 450,
+      "coins": 42,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 460,
+      "coins": 42,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 470,
+      "coins": 43,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 480,
+      "coins": 43,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 490,
+      "coins": 44,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 500,
+      "coins": 44,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 510,
+      "coins": 45,
+      "ratePerSecond": 0.0501,
+      "clickGain": 1
+    },
+    {
+      "second": 520,
+      "coins": 0,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 530,
+      "coins": 0,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 540,
+      "coins": 1,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 550,
+      "coins": 2,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 560,
+      "coins": 3,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 570,
+      "coins": 4,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 580,
+      "coins": 5,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 590,
+      "coins": 6,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 600,
+      "coins": 7,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 610,
+      "coins": 8,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 620,
+      "coins": 9,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 630,
+      "coins": 10,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 640,
+      "coins": 11,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 650,
+      "coins": 12,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 660,
+      "coins": 13,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 670,
+      "coins": 14,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 680,
+      "coins": 15,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 690,
+      "coins": 16,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 700,
+      "coins": 17,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 710,
+      "coins": 18,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 720,
+      "coins": 19,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 730,
+      "coins": 20,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 740,
+      "coins": 21,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 750,
+      "coins": 22,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 760,
+      "coins": 23,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 770,
+      "coins": 25,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 780,
+      "coins": 26,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 790,
+      "coins": 27,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 800,
+      "coins": 28,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 810,
+      "coins": 29,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 820,
+      "coins": 30,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 830,
+      "coins": 31,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 840,
+      "coins": 32,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 850,
+      "coins": 33,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 860,
+      "coins": 34,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 870,
+      "coins": 35,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 880,
+      "coins": 36,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 890,
+      "coins": 37,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 900,
+      "coins": 38,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 910,
+      "coins": 39,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 920,
+      "coins": 40,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 930,
+      "coins": 41,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 940,
+      "coins": 42,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 950,
+      "coins": 43,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 960,
+      "coins": 44,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 970,
+      "coins": 45,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 980,
+      "coins": 46,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 990,
+      "coins": 47,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1000,
+      "coins": 48,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1010,
+      "coins": 49,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1020,
+      "coins": 50,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1030,
+      "coins": 51,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1040,
+      "coins": 52,
+      "ratePerSecond": 0.1002,
+      "clickGain": 1
+    },
+    {
+      "second": 1050,
+      "coins": 0,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1060,
+      "coins": 1,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1070,
+      "coins": 3,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1080,
+      "coins": 4,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1090,
+      "coins": 6,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1100,
+      "coins": 7,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1110,
+      "coins": 9,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1120,
+      "coins": 10,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1130,
+      "coins": 12,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1140,
+      "coins": 13,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1150,
+      "coins": 15,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1160,
+      "coins": 16,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1170,
+      "coins": 18,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1180,
+      "coins": 19,
+      "ratePerSecond": 0.1503,
+      "clickGain": 1
+    },
+    {
+      "second": 1190,
+      "coins": 21,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1200,
+      "coins": 22,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1210,
+      "coins": 24,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1220,
+      "coins": 25,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1230,
+      "coins": 27,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1240,
+      "coins": 28,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1250,
+      "coins": 30,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1260,
+      "coins": 31,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1270,
+      "coins": 33,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1280,
+      "coins": 34,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1290,
+      "coins": 36,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1300,
+      "coins": 37,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1310,
+      "coins": 39,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1320,
+      "coins": 40,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1330,
+      "coins": 42,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1340,
+      "coins": 43,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1350,
+      "coins": 45,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1360,
+      "coins": 46,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1370,
+      "coins": 48,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1380,
+      "coins": 49,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1390,
+      "coins": 51,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1400,
+      "coins": 52,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1410,
+      "coins": 54,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1420,
+      "coins": 55,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1430,
+      "coins": 57,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1440,
+      "coins": 58,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1450,
+      "coins": 60,
+      "ratePerSecond": 0.1506,
+      "clickGain": 1
+    },
+    {
+      "second": 1460,
+      "coins": 0,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1470,
+      "coins": 2,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1480,
+      "coins": 4,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1490,
+      "coins": 6,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1500,
+      "coins": 8,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1510,
+      "coins": 10,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1520,
+      "coins": 12,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1530,
+      "coins": 14,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1540,
+      "coins": 16,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1550,
+      "coins": 18,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1560,
+      "coins": 20,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1570,
+      "coins": 22,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1580,
+      "coins": 24,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1590,
+      "coins": 26,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1600,
+      "coins": 28,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1610,
+      "coins": 30,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1620,
+      "coins": 32,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1630,
+      "coins": 34,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1640,
+      "coins": 37,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1650,
+      "coins": 39,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1660,
+      "coins": 41,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1670,
+      "coins": 43,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1680,
+      "coins": 45,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1690,
+      "coins": 47,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1700,
+      "coins": 49,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1710,
+      "coins": 51,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1720,
+      "coins": 53,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1730,
+      "coins": 55,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1740,
+      "coins": 57,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1750,
+      "coins": 59,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1760,
+      "coins": 61,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1770,
+      "coins": 63,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1780,
+      "coins": 65,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1790,
+      "coins": 67,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1800,
+      "coins": 69,
+      "ratePerSecond": 0.2008,
+      "clickGain": 1
+    },
+    {
+      "second": 1810,
+      "coins": 1,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1820,
+      "coins": 3,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1830,
+      "coins": 6,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1840,
+      "coins": 8,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1850,
+      "coins": 11,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1860,
+      "coins": 13,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1870,
+      "coins": 16,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1880,
+      "coins": 18,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1890,
+      "coins": 21,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1900,
+      "coins": 23,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1910,
+      "coins": 26,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1920,
+      "coins": 28,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1930,
+      "coins": 31,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1940,
+      "coins": 33,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1950,
+      "coins": 36,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1960,
+      "coins": 38,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1970,
+      "coins": 41,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1980,
+      "coins": 44,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 1990,
+      "coins": 46,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2000,
+      "coins": 49,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2010,
+      "coins": 51,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2020,
+      "coins": 54,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2030,
+      "coins": 56,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2040,
+      "coins": 59,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2050,
+      "coins": 61,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2060,
+      "coins": 64,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2070,
+      "coins": 66,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2080,
+      "coins": 69,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2090,
+      "coins": 71,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2100,
+      "coins": 74,
+      "ratePerSecond": 0.251,
+      "clickGain": 1
+    },
+    {
+      "second": 2110,
+      "coins": 1,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2120,
+      "coins": 5,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2130,
+      "coins": 8,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2140,
+      "coins": 11,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2150,
+      "coins": 14,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2160,
+      "coins": 17,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2170,
+      "coins": 21,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2180,
+      "coins": 24,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2190,
+      "coins": 27,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2200,
+      "coins": 30,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2210,
+      "coins": 33,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2220,
+      "coins": 36,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2230,
+      "coins": 40,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2240,
+      "coins": 43,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2250,
+      "coins": 46,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2260,
+      "coins": 49,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2270,
+      "coins": 52,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2280,
+      "coins": 56,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2290,
+      "coins": 59,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2300,
+      "coins": 62,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2310,
+      "coins": 65,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2320,
+      "coins": 68,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2330,
+      "coins": 71,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2340,
+      "coins": 75,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2350,
+      "coins": 78,
+      "ratePerSecond": 0.31793333333333335,
+      "clickGain": 1
+    },
+    {
+      "second": 2360,
+      "coins": 0,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2370,
+      "coins": 4,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2380,
+      "coins": 7,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2390,
+      "coins": 11,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2400,
+      "coins": 15,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2410,
+      "coins": 18,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2420,
+      "coins": 22,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2430,
+      "coins": 26,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2440,
+      "coins": 29,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2450,
+      "coins": 33,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2460,
+      "coins": 37,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2470,
+      "coins": 40,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2480,
+      "coins": 44,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2490,
+      "coins": 48,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2500,
+      "coins": 51,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2510,
+      "coins": 55,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2520,
+      "coins": 59,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2530,
+      "coins": 63,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2540,
+      "coins": 66,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2550,
+      "coins": 70,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2560,
+      "coins": 74,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2570,
+      "coins": 77,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2580,
+      "coins": 81,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2590,
+      "coins": 85,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2600,
+      "coins": 88,
+      "ratePerSecond": 0.3681333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2610,
+      "coins": 0,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2620,
+      "coins": 4,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2630,
+      "coins": 8,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2640,
+      "coins": 13,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2650,
+      "coins": 17,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2660,
+      "coins": 21,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2670,
+      "coins": 25,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2680,
+      "coins": 29,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2690,
+      "coins": 33,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2700,
+      "coins": 38,
+      "ratePerSecond": 0.41833333333333333,
+      "clickGain": 1
+    },
+    {
+      "second": 2710,
+      "coins": 42,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2720,
+      "coins": 46,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2730,
+      "coins": 50,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2740,
+      "coins": 54,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2750,
+      "coins": 59,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2760,
+      "coins": 63,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2770,
+      "coins": 67,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2780,
+      "coins": 71,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2790,
+      "coins": 75,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2800,
+      "coins": 80,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2810,
+      "coins": 84,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2820,
+      "coins": 88,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2830,
+      "coins": 92,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2840,
+      "coins": 96,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2850,
+      "coins": 101,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2860,
+      "coins": 105,
+      "ratePerSecond": 0.4191666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 2870,
+      "coins": 2,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2880,
+      "coins": 7,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2890,
+      "coins": 11,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2900,
+      "coins": 16,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2910,
+      "coins": 21,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2920,
+      "coins": 26,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2930,
+      "coins": 30,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2940,
+      "coins": 35,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2950,
+      "coins": 40,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2960,
+      "coins": 44,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2970,
+      "coins": 49,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2980,
+      "coins": 54,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 2990,
+      "coins": 58,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3000,
+      "coins": 63,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3010,
+      "coins": 68,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3020,
+      "coins": 73,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3030,
+      "coins": 77,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3040,
+      "coins": 82,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3050,
+      "coins": 87,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3060,
+      "coins": 91,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3070,
+      "coins": 96,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3080,
+      "coins": 101,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3090,
+      "coins": 105,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3100,
+      "coins": 110,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3110,
+      "coins": 115,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3120,
+      "coins": 119,
+      "ratePerSecond": 0.46946666666666664,
+      "clickGain": 1
+    },
+    {
+      "second": 3130,
+      "coins": 2,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3140,
+      "coins": 8,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3150,
+      "coins": 13,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3160,
+      "coins": 18,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3170,
+      "coins": 23,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3180,
+      "coins": 28,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3190,
+      "coins": 34,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3200,
+      "coins": 39,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3210,
+      "coins": 44,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3220,
+      "coins": 49,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3230,
+      "coins": 54,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3240,
+      "coins": 60,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3250,
+      "coins": 65,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3260,
+      "coins": 70,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3270,
+      "coins": 75,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3280,
+      "coins": 80,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3290,
+      "coins": 86,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3300,
+      "coins": 91,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3310,
+      "coins": 96,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3320,
+      "coins": 101,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3330,
+      "coins": 106,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3340,
+      "coins": 112,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3350,
+      "coins": 117,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3360,
+      "coins": 122,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3370,
+      "coins": 127,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3380,
+      "coins": 132,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3390,
+      "coins": 137,
+      "ratePerSecond": 0.5197666666666667,
+      "clickGain": 1
+    },
+    {
+      "second": 3400,
+      "coins": 2,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3410,
+      "coins": 8,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3420,
+      "coins": 13,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3430,
+      "coins": 19,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3440,
+      "coins": 25,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3450,
+      "coins": 30,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3460,
+      "coins": 36,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3470,
+      "coins": 42,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3480,
+      "coins": 48,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3490,
+      "coins": 53,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3500,
+      "coins": 59,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3510,
+      "coins": 65,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3520,
+      "coins": 71,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3530,
+      "coins": 76,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3540,
+      "coins": 82,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3550,
+      "coins": 88,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3560,
+      "coins": 93,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3570,
+      "coins": 99,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3580,
+      "coins": 105,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    },
+    {
+      "second": 3590,
+      "coins": 111,
+      "ratePerSecond": 0.5723333333333334,
+      "clickGain": 1
+    }
+  ]
+}

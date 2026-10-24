@@ -1,0 +1,1568 @@
+{
+  "label": "after-intensity",
+  "at": "2026-10-23T22:15:37.462Z",
+  "window": "1440x900",
+  "themes": {
+    "editorial-on-subtle": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.421,
+          "visibleFraction3": 0.145,
+          "p99": 7.46,
+          "medianWhereVisible": 2.31
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 2.2,
+        "p50": 1.93,
+        "p95": 5.44,
+        "p99": 7.46,
+        "max": 13.28,
+        "coverage1": 0.754,
+        "coverage3": 0.279,
+        "extremeColor": [
+          39,
+          40,
+          39
+        ],
+        "textContrast": 11.52,
+        "mutedContrast": 5.7,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          7.46,
+          7.46
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.104,
+          "visibleFraction3": 0.032,
+          "p99": 5.44,
+          "medianWhereVisible": 2.67
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 1.99,
+        "p50": 1.56,
+        "p95": 4.93,
+        "p99": 6.96,
+        "max": 12.8,
+        "coverage1": 0.694,
+        "coverage3": 0.197,
+        "extremeColor": [
+          38,
+          39,
+          38
+        ],
+        "textContrast": 11.67,
+        "mutedContrast": 5.77,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          6.96,
+          6.96
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.276,
+          "visibleFraction3": 0.098,
+          "p99": 6.09,
+          "medianWhereVisible": 2.67
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 1.8,
+        "p50": 1.22,
+        "p95": 4.44,
+        "p99": 6.45,
+        "max": 11.98,
+        "coverage1": 0.596,
+        "coverage3": 0.139,
+        "extremeColor": [
+          37,
+          37,
+          37
+        ],
+        "textContrast": 11.94,
+        "mutedContrast": 5.9,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          6.45,
+          6.45
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "editorial-on-vivid": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.6,
+          "visibleFraction3": 0.342,
+          "p99": 17.59,
+          "medianWhereVisible": 3.21
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 5.83,
+        "p50": 4.07,
+        "p95": 14.93,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.985,
+        "coverage3": 0.744,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.126,
+          "visibleFraction3": 0.097,
+          "p99": 16.57,
+          "medianWhereVisible": 6.45
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 6.35,
+        "p50": 4.44,
+        "p95": 15.64,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.987,
+        "coverage3": 0.774,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.417,
+          "visibleFraction3": 0.329,
+          "p99": 19.75,
+          "medianWhereVisible": 7.46
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 7.11,
+        "p50": 5.44,
+        "p95": 17.03,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.993,
+        "coverage3": 0.823,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "editorial-off": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.647,
+          "visibleFraction3": 0.474,
+          "p99": 19.75,
+          "medianWhereVisible": 4.29
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 7.64,
+        "p50": 6.09,
+        "p95": 18.05,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.998,
+        "coverage3": 0.871,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.131,
+          "visibleFraction3": 0.11,
+          "p99": 19.43,
+          "medianWhereVisible": 7.46
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 7.64,
+        "p50": 6.09,
+        "p95": 18.05,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.998,
+        "coverage3": 0.871,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.417,
+          "visibleFraction3": 0.361,
+          "p99": 19.75,
+          "medianWhereVisible": 8.46
+        },
+        "bgLstar": 2.7,
+        "meanDeltaL": 7.64,
+        "p50": 6.09,
+        "p95": 18.05,
+        "p99": 19.75,
+        "max": 19.75,
+        "coverage1": 0.998,
+        "coverage3": 0.871,
+        "extremeColor": [
+          53,
+          54,
+          52
+        ],
+        "textContrast": 9.46,
+        "mutedContrast": 4.68,
+        "textOnBg": 15.43,
+        "mutedOnBg": 7.63,
+        "p99Range": [
+          19.75,
+          19.75
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      }
+    },
+    "olive-on-subtle": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.513,
+          "visibleFraction3": 0.174,
+          "p99": 7.92,
+          "medianWhereVisible": 2.15
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 2.9,
+        "p50": 2.15,
+        "p95": 6.15,
+        "p99": 8.88,
+        "max": 12.3,
+        "coverage1": 0.911,
+        "coverage3": 0.35,
+        "extremeColor": [
+          46,
+          48,
+          38
+        ],
+        "textContrast": 10.01,
+        "mutedContrast": 5.91,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          8.4,
+          8.88
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.084,
+          "visibleFraction3": 0.046,
+          "p99": 6.15,
+          "medianWhereVisible": 3.53
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 2.82,
+        "p50": 2.15,
+        "p95": 5.69,
+        "p99": 8.4,
+        "max": 12.21,
+        "coverage1": 0.916,
+        "coverage3": 0.345,
+        "extremeColor": [
+          45,
+          48,
+          38
+        ],
+        "textContrast": 10.04,
+        "mutedContrast": 5.93,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          8.4,
+          8.4
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.325,
+          "visibleFraction3": 0.194,
+          "p99": 7.92,
+          "medianWhereVisible": 3.53
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 2.6,
+        "p50": 2.15,
+        "p95": 5.56,
+        "p99": 7.92,
+        "max": 12.21,
+        "coverage1": 0.877,
+        "coverage3": 0.317,
+        "extremeColor": [
+          45,
+          48,
+          38
+        ],
+        "textContrast": 10.04,
+        "mutedContrast": 5.93,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          7.09,
+          7.92
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "olive-on-vivid": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.635,
+          "visibleFraction3": 0.383,
+          "p99": 15.08,
+          "medianWhereVisible": 3.99
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 5.42,
+        "p50": 4.98,
+        "p95": 12.21,
+        "p99": 15.65,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.772,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          15.55,
+          15.65
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.089,
+          "visibleFraction3": 0.082,
+          "p99": 10.46,
+          "medianWhereVisible": 6.51
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 5.34,
+        "p50": 4.98,
+        "p95": 11.84,
+        "p99": 15.55,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.758,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          15.55,
+          15.55
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.403,
+          "visibleFraction3": 0.276,
+          "p99": 13.78,
+          "medianWhereVisible": 5.47
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 5.69,
+        "p50": 5.47,
+        "p95": 12.21,
+        "p99": 16.2,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.788,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          16.1,
+          16.2
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "olive-off": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.677,
+          "visibleFraction3": 0.415,
+          "p99": 15.2,
+          "medianWhereVisible": 3.99
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 6.12,
+        "p50": 5.69,
+        "p95": 12.43,
+        "p99": 16.88,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.826,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          16.88,
+          16.88
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.088,
+          "visibleFraction3": 0.081,
+          "p99": 10.46,
+          "medianWhereVisible": 7.09
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 6.12,
+        "p50": 5.69,
+        "p95": 12.43,
+        "p99": 16.88,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.826,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          16.88,
+          16.88
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.403,
+          "visibleFraction3": 0.291,
+          "p99": 15.2,
+          "medianWhereVisible": 6.15
+        },
+        "bgLstar": 7.07,
+        "meanDeltaL": 6.12,
+        "p50": 5.69,
+        "p95": 12.43,
+        "p99": 16.88,
+        "max": 18.84,
+        "coverage1": 1,
+        "coverage3": 0.826,
+        "extremeColor": [
+          63,
+          62,
+          48
+        ],
+        "textContrast": 8.07,
+        "mutedContrast": 4.77,
+        "textOnBg": 13.56,
+        "mutedOnBg": 8.01,
+        "p99Range": [
+          16.88,
+          16.88
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      }
+    },
+    "graphite-on-subtle": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.528,
+          "visibleFraction3": 0.194,
+          "p99": 7.36,
+          "medianWhereVisible": 2.46
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 3.17,
+        "p50": 3.07,
+        "p95": 6.05,
+        "p99": 8.79,
+        "max": 12.94,
+        "coverage1": 0.984,
+        "coverage3": 0.503,
+        "extremeColor": [
+          45,
+          50,
+          56
+        ],
+        "textContrast": 10.23,
+        "mutedContrast": 5.96,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          8.32,
+          8.79
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.084,
+          "visibleFraction3": 0.065,
+          "p99": 5.39,
+          "medianWhereVisible": 3.47
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 3.18,
+        "p50": 3.07,
+        "p95": 6.05,
+        "p99": 8.79,
+        "max": 12.94,
+        "coverage1": 0.985,
+        "coverage3": 0.507,
+        "extremeColor": [
+          45,
+          50,
+          56
+        ],
+        "textContrast": 10.23,
+        "mutedContrast": 5.96,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          8.79,
+          8.79
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.297,
+          "visibleFraction3": 0.212,
+          "p99": 7.88,
+          "medianWhereVisible": 3.92
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 3.35,
+        "p50": 2.57,
+        "p95": 6.5,
+        "p99": 9.27,
+        "max": 13.53,
+        "coverage1": 0.986,
+        "coverage3": 0.496,
+        "extremeColor": [
+          47,
+          51,
+          58
+        ],
+        "textContrast": 10.04,
+        "mutedContrast": 5.85,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          9.14,
+          9.27
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "graphite-on-vivid": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.689,
+          "visibleFraction3": 0.487,
+          "p99": 18.85,
+          "medianWhereVisible": 4.84
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 7.48,
+        "p50": 6.5,
+        "p95": 15.14,
+        "p99": 20,
+        "max": 20,
+        "coverage1": 1,
+        "coverage3": 0.914,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          20,
+          20
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.088,
+          "visibleFraction3": 0.072,
+          "p99": 13.86,
+          "medianWhereVisible": 7.36
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 6.91,
+        "p50": 6.01,
+        "p95": 14.4,
+        "p99": 19.64,
+        "max": 20,
+        "coverage1": 0.999,
+        "coverage3": 0.885,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          19.64,
+          19.64
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.297,
+          "visibleFraction3": 0.284,
+          "p99": 16.61,
+          "medianWhereVisible": 7.88
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 6.07,
+        "p50": 5.39,
+        "p95": 13.07,
+        "p99": 17.96,
+        "max": 20,
+        "coverage1": 0.996,
+        "coverage3": 0.816,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          16.61,
+          17.96
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "graphite-off": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.605,
+          "visibleFraction3": 0.349,
+          "p99": 14.63,
+          "medianWhereVisible": 3.47
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 5.31,
+        "p50": 4.55,
+        "p95": 12.48,
+        "p99": 16.49,
+        "max": 20,
+        "coverage1": 0.992,
+        "coverage3": 0.717,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          16.49,
+          16.49
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.085,
+          "visibleFraction3": 0.067,
+          "p99": 11.98,
+          "medianWhereVisible": 6.05
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 5.31,
+        "p50": 4.55,
+        "p95": 12.48,
+        "p99": 16.49,
+        "max": 20,
+        "coverage1": 0.992,
+        "coverage3": 0.717,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          16.49,
+          16.49
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.297,
+          "visibleFraction3": 0.261,
+          "p99": 14.86,
+          "medianWhereVisible": 6.05
+        },
+        "bgLstar": 7.59,
+        "meanDeltaL": 5.31,
+        "p50": 4.55,
+        "p95": 12.48,
+        "p99": 16.49,
+        "max": 20,
+        "coverage1": 0.992,
+        "coverage3": 0.717,
+        "extremeColor": [
+          59,
+          66,
+          73
+        ],
+        "textContrast": 8.06,
+        "mutedContrast": 4.7,
+        "textOnBg": 14.23,
+        "mutedOnBg": 8.29,
+        "p99Range": [
+          16.49,
+          16.49
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      }
+    },
+    "midnight-on-subtle": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.426,
+          "visibleFraction3": 0.074,
+          "p99": 6.22,
+          "medianWhereVisible": 2
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 2.07,
+        "p50": 1.92,
+        "p95": 5.26,
+        "p99": 6.34,
+        "max": 10.87,
+        "coverage1": 0.873,
+        "coverage3": 0.14,
+        "extremeColor": [
+          32,
+          46,
+          62
+        ],
+        "textContrast": 11.24,
+        "mutedContrast": 6.68,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          6.34,
+          6.34
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.077,
+          "visibleFraction3": 0.021,
+          "p99": 5.26,
+          "medianWhereVisible": 2.55
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 2.12,
+        "p50": 1.92,
+        "p95": 5.38,
+        "p99": 6.34,
+        "max": 10.87,
+        "coverage1": 0.884,
+        "coverage3": 0.158,
+        "extremeColor": [
+          32,
+          46,
+          62
+        ],
+        "textContrast": 11.24,
+        "mutedContrast": 6.68,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          6.34,
+          6.34
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.293,
+          "visibleFraction3": 0.098,
+          "p99": 6.22,
+          "medianWhereVisible": 2.55
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 2.52,
+        "p50": 2.05,
+        "p95": 5.43,
+        "p99": 7.7,
+        "max": 12.3,
+        "coverage1": 0.953,
+        "coverage3": 0.28,
+        "extremeColor": [
+          35,
+          49,
+          66
+        ],
+        "textContrast": 10.76,
+        "mutedContrast": 6.4,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          6.82,
+          7.7
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "midnight-on-vivid": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.665,
+          "visibleFraction3": 0.456,
+          "p99": 18.79,
+          "medianWhereVisible": 4.36
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 7.87,
+        "p50": 6.34,
+        "p95": 15.94,
+        "p99": 21.39,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.904,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          20.63,
+          21.39
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.089,
+          "visibleFraction3": 0.079,
+          "p99": 13.51,
+          "medianWhereVisible": 10.02
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 7.92,
+        "p50": 6.82,
+        "p95": 16.32,
+        "p99": 21.39,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.906,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          21.39,
+          21.39
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.295,
+          "visibleFraction3": 0.286,
+          "p99": 19.78,
+          "medianWhereVisible": 9.6
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 8.19,
+        "p50": 7.7,
+        "p95": 16.32,
+        "p99": 21.39,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.915,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          21.39,
+          21.39
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "midnight-off": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.711,
+          "visibleFraction3": 0.479,
+          "p99": 18.98,
+          "medianWhereVisible": 4.77
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 8.03,
+        "p50": 7.7,
+        "p95": 15.83,
+        "p99": 20.95,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.905,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          20.95,
+          20.95
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.089,
+          "visibleFraction3": 0.079,
+          "p99": 12.76,
+          "medianWhereVisible": 10.36
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 8.03,
+        "p50": 7.7,
+        "p95": 15.83,
+        "p99": 20.95,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.905,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          20.95,
+          20.95
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.295,
+          "visibleFraction3": 0.286,
+          "p99": 18.98,
+          "medianWhereVisible": 9.09
+        },
+        "bgLstar": 7.53,
+        "meanDeltaL": 8.03,
+        "p50": 7.7,
+        "p95": 15.83,
+        "p99": 20.95,
+        "max": 21.39,
+        "coverage1": 1,
+        "coverage3": 0.905,
+        "extremeColor": [
+          51,
+          70,
+          89
+        ],
+        "textContrast": 7.91,
+        "mutedContrast": 4.71,
+        "textOnBg": 14.66,
+        "mutedOnBg": 8.72,
+        "p99Range": [
+          20.95,
+          20.95
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      }
+    },
+    "white-on-subtle": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.488,
+          "visibleFraction3": 0.164,
+          "p99": 5.99,
+          "medianWhereVisible": 2.53
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 2.45,
+        "p50": 2.53,
+        "p95": 4.75,
+        "p99": 6.61,
+        "max": 7.31,
+        "coverage1": 0.892,
+        "coverage3": 0.278,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          5.98,
+          6.61
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.079,
+          "visibleFraction3": 0.018,
+          "p99": 3.96,
+          "medianWhereVisible": 2.63
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 2.28,
+        "p50": 2.21,
+        "p95": 4.48,
+        "p99": 5.98,
+        "max": 7.31,
+        "coverage1": 0.859,
+        "coverage3": 0.177,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          5.98,
+          5.98
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.212,
+          "visibleFraction3": 0.046,
+          "p99": 5.06,
+          "medianWhereVisible": 2.53
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 2.06,
+        "p50": 2.18,
+        "p95": 4.13,
+        "p99": 5.55,
+        "max": 7.31,
+        "coverage1": 0.805,
+        "coverage3": 0.125,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          5.55,
+          5.55
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "white-on-vivid": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.617,
+          "visibleFraction3": 0.313,
+          "p99": 7.32,
+          "medianWhereVisible": 3.23
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.41,
+        "p50": 4.13,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.992,
+        "coverage3": 0.741,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.084,
+          "visibleFraction3": 0.071,
+          "p99": 7.31,
+          "medianWhereVisible": 5.53
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.56,
+        "p50": 4.13,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.992,
+        "coverage3": 0.747,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "paused"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.315,
+          "visibleFraction3": 0.19,
+          "p99": 7.31,
+          "medianWhereVisible": 3.96
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.79,
+        "p50": 4.48,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.993,
+        "coverage3": 0.764,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "true",
+        "canvas": "running"
+      }
+    },
+    "white-off": {
+      "inicio": {
+        "ui": {
+          "visibleFraction": 0.615,
+          "visibleFraction3": 0.324,
+          "p99": 7.33,
+          "medianWhereVisible": 3.24
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.97,
+        "p50": 4.75,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.994,
+        "coverage3": 0.789,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "inicioRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "caderno": {
+        "ui": {
+          "visibleFraction": 0.085,
+          "visibleFraction3": 0.068,
+          "p99": 7.31,
+          "medianWhereVisible": 7.04
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.97,
+        "p50": 4.75,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.994,
+        "coverage3": 0.789,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "cadernoRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      },
+      "ajustes": {
+        "ui": {
+          "visibleFraction": 0.315,
+          "visibleFraction3": 0.202,
+          "p99": 7.31,
+          "medianWhereVisible": 3.93
+        },
+        "bgLstar": 97.43,
+        "meanDeltaL": 4.97,
+        "p50": 4.75,
+        "p95": 7.31,
+        "p99": 7.31,
+        "max": 7.31,
+        "coverage1": 0.994,
+        "coverage3": 0.789,
+        "extremeColor": [
+          224,
+          228,
+          221
+        ],
+        "textContrast": 10.26,
+        "mutedContrast": 4.71,
+        "textOnBg": 12.39,
+        "mutedOnBg": 5.68,
+        "p99Range": [
+          7.31,
+          7.31
+        ]
+      },
+      "ajustesRunning": {
+        "editorial": null,
+        "app": "false",
+        "canvas": "still"
+      }
+    }
+  },
+  "errors": []
+}

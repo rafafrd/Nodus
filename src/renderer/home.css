@@ -1,7 +1,4 @@
-.home-workspace{height:100%;position:relative;overflow:hidden;isolation:isolate;background:var(--theme-bg);--home-glass:color-mix(in srgb,var(--theme-panel) 89%,transparent)}
-.home-background{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden;background:radial-gradient(ellipse at 80% 20%,rgb(var(--theme-accent-rgb)/.045),transparent 65%)}
-.home-background canvas{width:100%;height:100%;display:block}
-.home-background[data-fallback=true] canvas{visibility:hidden}
+.home-workspace{height:100%;position:relative;overflow:hidden;isolation:isolate;--home-glass:color-mix(in srgb,var(--theme-panel) 89%,transparent)}
 .home-scroll{position:absolute;inset:0;overflow:auto;scrollbar-gutter:stable;overscroll-behavior:contain}
 :root[data-theme] .nodus-shell .home-workspace .experience-today{height:auto;min-height:100%;overflow:visible;background:transparent;padding:38px clamp(24px,3.5vw,54px) 42px;max-width:1450px;margin:auto}
 :root[data-theme] .nodus-shell .home-workspace .dashboard-header h1{font:clamp(30px,3vw,42px)/1.15 var(--font-display);letter-spacing:-1px}

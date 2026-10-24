@@ -23,7 +23,7 @@ test('snapshot real inclui WAL/drafts/fontes/projetos/PDF; restauração remapei
     const catalog = new Projects(store).chooseRoot(project), projectId = catalog.projects[0].id;
     new Vault(store).draft({ id: f.noteA.ref.id, hash: f.noteA.hash, text: f.noteA.text + '\nRascunho preservado' });
     const card = new Study(store).create({ subjectId: f.a.id, noteId: f.noteA.ref.id, question: 'Q', answer: 'A', excerpt: '' }), game = new Game(store);
-    game.act({ operationId: randomUUID(), action: { kind: 'buy', item: 'fountain' } });
+    game.act({ operationId: randomUUID(), action: { kind: 'producer-buy', producer: 'collectors', quantity: 1 } });
     const originals = [f.pdfA, path.join(f.root, f.noteA.ref.path), path.join(project, 'readme.md')].map(file => ({ file, bytes: fs.readFileSync(file) }));
     try {
         assert.ok(backups.preview().omissions.some(s => s.includes('.env')));
@@ -34,8 +34,8 @@ test('snapshot real inclui WAL/drafts/fontes/projetos/PDF; restauração remapei
         try {
             assert.equal(new Vault(copy).open(f.noteA.ref.id).draft!.text, f.noteA.text + '\nRascunho preservado');
             assert.equal(new Study(copy).cards()[0].id, card.id);
-            assert.equal(new Game(copy).get().coins, 15);
-            assert.ok(new Game(copy).get().owned.includes('fountain'));
+            assert.equal(new Game(copy).get().coins, 5);
+            assert.equal(new Game(copy).get().economy.producers.collectors, 1);
             assert.equal(copy.setting('vault'), path.join(restored.path, 'vault'));
             assert.equal(copy.db.prepare('SELECT root FROM project_folders WHERE id=?').get(projectId)!.root, path.join(restored.path, 'projects', projectId));
             assert.deepEqual(fs.readFileSync(String(copy.db.prepare('SELECT path FROM materials WHERE id=?').get(f.materialA.id)!.path)), fs.readFileSync(f.pdfA));
@@ -92,14 +92,16 @@ test('restore nega traversal/hash atualizado com schema malicioso/junction; audi
         store.close();
     }
 });
-test('decorações e ambiente usam preço/main/replay/audit sem inflação de XP ou redefinição de perfil', () => {
+test('decorações surgem por marcos e ambiente usa main/replay/audit sem inflação de XP ou redefinição de perfil', () => {
     const f = prepareFixture('cosmetics-unit'), store = new Store(path.join(f.dir, 'data')), game = new Game(store);
     try {
-        const buy = { operationId: randomUUID(), action: { kind: 'buy' as const, item: 'fountain' as const } }, p = game.act(buy);
-        assert.equal(p.state.coins, 15);
-        assert.equal(game.act(buy).state.coins, 15);
-        assert.throws(() => game.act({ ...buy, operationId: randomUUID() }));
-        assert.throws(() => game.act({ operationId: randomUUID(), action: { kind: 'buy', item: 'greenhouse' } }));
+        // Fixture: journey total set directly; village pieces follow it, nothing is bought.
+        const raw = JSON.parse(String(store.db.prepare('SELECT state FROM game_player').get()!.state)); raw.economy.lifetime = 2500; store.db.prepare('UPDATE game_player SET state=?').run(JSON.stringify(raw));
+        const p = game.get();
+        assert.deepEqual(p.owned, ['benches', 'fountain']);
+        assert.equal(p.coins, 15);
+        assert.equal(p.nextDecor!.id, 'lanterns');
+        assert.throws(() => game.act({ operationId: randomUUID(), action: { kind: 'buy', item: 'greenhouse' } as never }));
         const changed = game.act({ operationId: randomUUID(), action: { kind: 'atmosphere', value: 'night' } });
         assert.equal(changed.state.atmosphere, 'night');
         assert.equal(changed.state.xp, 0);

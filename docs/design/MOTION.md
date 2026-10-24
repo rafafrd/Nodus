@@ -68,7 +68,7 @@ Regra de ouro das primitivas: `gsap.context` + cleanup, `clearProps` ao terminar
 | 9 | **Spotlight** — realce radial segue o ponteiro | `useSpotlight`, `[data-spotlight]` | cartões da Home e do Explorer | Editorial |
 | 10 | **Troca de áreas** — deslocamento + clip pelo lado de origem, varredura de 1 px | `AreaStage` | todas as áreas | todos (varredura: Editorial) |
 | 11 | **Grafo e Revisão** — foco de nó no mesmo easing, resposta revelada, avaliação com pulso | `GraphScene`, `useReveal`, `usePulse` | Conexões, Revisão | todos |
-| 12 | **Fundo** — grade/luz contínua, pausa oculto/minimizado/inativo | `HomeBackground`, `EditorialBackdrop` | Home, Editorial | conforme tema |
+| 12 | **Fundo** — grade, luz, anéis e feixe lentos atrás do shell; quadro estático visível quando parado (UI-08) | `AppBackdrop`, `backdrop.css` | áreas sem leitura anima; Caderno/PDFs/Aulas parado | todos, uma variante por tema |
 
 <details>
 <summary>Detalhes da troca de áreas (contrato com os smokes)</summary>
@@ -97,8 +97,8 @@ sequenceDiagram
 | `data-present`, `aria-hidden`, `inert` | por camada | smokes e leitores de tela |
 | `data-area-ready="true"` | áreas prontas | `AreaStage` |
 | `data-component-motion` | `still` · `entering` · `idle` | Home |
-| `home-background` (`data-ready`, `data-frames`, `data-time`, `data-motion`) | WebGL | smoke da Home |
-| `editorial-background` (`data-running`) | fundo CSS | smoke do Editorial |
+| `app-background` (`data-ready`, `data-frames`, `data-time`, `data-motion` = `running · paused · still`) | canvas WebGL único do fundo (era `home-background`) | smokes da Home e da cidade |
+| `app-backdrop` (`data-running`, `data-fallback`) | host do fundo (era `editorial-background`) | smokes da Home e da cidade |
 | `engine-gain` | ganho do motor | jornada do motor |
 
 Camadas visitadas continuam montadas: editor, PDF e player nunca remontam nem são clonados.
@@ -124,7 +124,7 @@ flowchart LR
 
 > [!IMPORTANT]
 > - **MED-01:** nenhum overlay sobre o player; `clip-path` fica só nas camadas de área, que nunca contêm a superfície nativa. Cinema usa `inert` e os gates das áreas persistentes.
-> - **Cena 3D e desafios:** `CityScene`, `FarmScene` e o timing de Oficina/QTE ficam como estão. Three.js continua em `import()` dinâmico, DPR ≤ 1,25, pausa com aba oculta, janela minimizada ou área inativa, e tem fallback quando o WebGL falha.
+> - **Cena 3D e desafios:** `CityScene`, `FarmScene` e o timing de Oficina/QTE ficam como estão. Three.js continua em `import()` dinâmico, DPR ≤ 1,25, pausa com aba oculta, janela minimizada ou área inativa, e tem fallback quando o WebGL falha. O fundo compartilhado (UI-08) segue as mesmas regras.
 > - Só `transform`, `opacity`, `clip-path` e variáveis CSS são animados. Barras `width` de XP/foco são medidores de dado pré-existentes.
 
 <details>
@@ -149,3 +149,29 @@ flowchart LR
 
 `--font-display` e `--font-mono` apontam para elas **somente** no tema Editorial, com Georgia e Consolas como fallback; os demais temas resolvem os mesmos valores de antes. Os `.woff2` saem em `dist/renderer/assets` e a CSP existente (`font-src 'self'`) basta.
 </details>
+
+## Fundo (UI-08)
+
+> [!NOTE]
+> Um só canvas WebGL atrás do shell, para todos os temas. A tinta vem de `--theme-accent-rgb`, a força de `--backdrop-strength` e a escolha do usuário de `--backdrop-scale` (Sutil 0,6 · Padrão 1 · Vivo 1,5). O teto `--backdrop-cap` é calculado pelos tokens para que `--theme-muted` fique em pelo menos 4,7:1 sobre o ponto mais claro. Decisão em [ADR-0025](../adr/0025-fundo-por-tema.md); medições em [UI_08_BACKDROP](../validation/UI_08_BACKDROP.md).
+
+| Situação | Fundo |
+| --- | --- |
+| Início, Ajustes, Revisão, Conexões ou Projetos visíveis, sem área de leitura | anima a cerca de 30 quadros/s |
+| Caderno, PDFs ou Aulas visíveis; cidade sozinha; cinema | quadro parado, visível |
+| Movimento reduzido, animações desligadas, Fundo animado desligado | quadro parado, visível (`data-motion=still`) |
+| Janela oculta ou minimizada; troca de áreas em curso | pausa, mantém o último quadro |
+| WebGL indisponível ou contexto perdido | fallback CSS estático com o mesmo teto |
+
+## Jogo (GAM-06)
+
+| Movimento | Onde | Primitiva | Movimento reduzido |
+| --- | --- | --- | --- |
+| Press do núcleo (escala 0,96 → 1) e giro da engrenagem | `CorePanel` | GSAP com `duration.micro`/`duration.ui` | sem escala nem giro |
+| Número "+N" que sobe do ponto do clique e some | `CorePanel` | GSAP `duration.hero`, `ease.soft`; até 12 simultâneos | não aparece; o valor fica em "Por clique" |
+| Contador do saldo e do XP | cabeçalho do jogo | `AnimatedNumber` (saldo otimista com os cliques a caminho) | valor final direto |
+| Pulso da linha da loja ao comprar | `ProducerRow` | `usePulse` | sem pulso |
+| Entrada do Lampejo, respiração da luz e anel de tempo | `FlashLight` | GSAP `duration.panel`; keyframe com `--motion-hero`; anel por `--left` | anel continua (é informação de tempo); entrada e respiração param |
+| Troca da frase do ticker | `GameTicker` | keyframe com `--motion-panel` | troca sem animação |
+
+O anel do Lampejo é tempo essencial, como o relógio do Foco: ele continua com movimento reduzido porque informa quanto falta. Sons não dependem do perfil de movimento; o volume fica em Ajustes.

@@ -1,0 +1,30 @@
+/* UI-08 / ADR-0025 â€” one backdrop behind the whole shell, every theme.
+   Ink comes from the theme accent (dark accent over a light page in Branco); strength evens out
+   the perceived contrast between themes and --backdrop-scale is the user's intensity choice.
+   AppBackdrop reads them once per theme/intensity change, never per frame, and derives --backdrop-cap:
+   the highest ink alpha that keeps --theme-muted text at 4.7:1 over the brightest point. */
+:root { --backdrop-ink:var(--theme-accent-rgb); --backdrop-strength:.95; --backdrop-scale:1; }
+:root[data-theme=editorial] { --backdrop-strength:1; }
+:root[data-theme=graphite] { --backdrop-strength:.95; }
+:root[data-theme=midnight] { --backdrop-strength:1; }
+:root[data-theme=white] { --backdrop-strength:1.2; }
+:root[data-backdrop-intensity=subtle] { --backdrop-scale:.6; }
+:root[data-backdrop-intensity=vivid] { --backdrop-scale:1.5; }
+
+.nodus-shell { isolation:isolate; }
+.app-backdrop { position:fixed; inset:34px 0 0; z-index:-1; pointer-events:none; overflow:hidden; }
+.app-backdrop canvas { display:block; width:100%; height:100%; }
+/* Static CSS version of the same drawing, used when WebGL is unavailable or the context is lost. */
+.app-backdrop[data-fallback=true] {
+  --a:calc(var(--backdrop-strength) * var(--backdrop-scale));
+  background:
+    radial-gradient(ellipse 42% 46% at 88% 24%, rgb(var(--backdrop-ink) / min(calc(.11 * var(--a)), var(--backdrop-cap, .1))), transparent 70%),
+    radial-gradient(ellipse 30% 30% at 0% 100%, rgb(var(--backdrop-ink) / min(calc(.05 * var(--a)), var(--backdrop-cap, .1))), transparent 70%),
+    linear-gradient(rgb(var(--backdrop-ink) / min(calc(.05 * var(--a)), var(--backdrop-cap, .1))) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgb(var(--backdrop-ink) / min(calc(.05 * var(--a)), var(--backdrop-cap, .1))) 1px, transparent 1px) 0 0 / 48px 48px;
+}
+.app-backdrop[data-fallback=true] canvas { visibility:hidden; }
+
+/* Page surfaces let the backdrop through. Reading surfaces (note panel, editor, PDF, video, code,
+   game) keep their own opaque panels, so writing and reading stay calm. */
+:root[data-theme] .nodus-shell :is(.workspace-frame,.area-stage,.area-layer,.app-shell,.workspace-header,.desk,.home-workspace,.settings-workspace,.settings-main,.study-workspace,.graph-workspace,.graph-canvas-host,.project-shell,.project-overview,.project-top,.welcome) { background-color:transparent; background-image:none; }

@@ -93,7 +93,7 @@ export interface DesktopApi {
   recoverProjectDraft(input: z.infer<typeof import('./projects').projectWriteInput>): Promise<Result<void>>;
   discardProjectDraft(input: import('./projects').ProjectFileRef): Promise<Result<import('./projects').ProjectDocument>>;
   saveProjectView(input: import('./projects').ProjectView): Promise<Result<import('./projects').ProjectView>>;
-  getGame(): Promise<Result<import('./game').GameState>>;
+  getGame(input?: { watching: boolean }): Promise<Result<import('./game').GameState>>;
   gameAction(input: z.infer<typeof import('./game').gameInput>): Promise<Result<import('./game').GameResult>>;
   version(): Promise<Result<AppInfo>>;
   bootstrap(): Promise<Result<Bootstrap>>;
