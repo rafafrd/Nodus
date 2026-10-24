@@ -294,3 +294,9 @@ Observado ao atualizar os 22 roteiros de O-030/O-037 no pacote Windows, sem muda
 - No tema Editorial (padrão) o código do Explorer é monocromático por decisão de 1976aa3; a prova de realce de sintaxe roda no tema Oliva.
 
 O-030 foi resolvido pela atualização dos roteiros, com helpers comuns em `scripts/test-fixture.ts`.
+
+## O-039 — Aviso do jogo cobria o fundo da arena da Mira (GAM-07, 24/10/2026)
+
+No pacote Windows, `smoke-aim-city` clicou no centro dos 20 quadrados da rodada Leve, mas em cerca de uma de cada três execuções a precisão saiu 95% ou 90%, com 1 ou 2 "perdidos" e nenhum clique no vazio. Um registro de `pointerdown` mostrou que, nesses quadrados, o evento caía num `<span>` sem classe: a mensagem "Mira Leve: acerte o centro dos quadrados." da barra `.game-notice` (`bottom:104px`, `pointer-events:auto`) ficava sobre a parte de baixo da arena. Um jogador teria perdido esses cliques do mesmo jeito.
+
+Corrigido em `idle.css`: durante uma rodada (`.idle-game:has(.aim-playing)`), as mensagens comuns somem e só os erros continuam visíveis. O roteiro passou a conferir com `elementFromPoint`, antes de cada clique, que nada cobre o quadrado. Depois da correção, 4 execuções seguidas deram 20/20 e SS.

@@ -157,3 +157,78 @@
 }
 @media (prefers-reduced-motion:reduce) { .game-ticker-line,.flash-light>span { animation:none; } }
 html[data-animations=off] :is(.game-ticker-line,.flash-light>span) { animation:none; }
+
+/* GAM-07: minigames are easy to find (grouped menu, shortcuts on the observatory, play marks on the map). */
+.nodus-shell .idle-game .game-nav { overflow-y:auto; }
+.nodus-shell .idle-game .game-nav-caption { display:block; margin:12px 0 4px; padding:10px 0 0; border-top:1px solid var(--theme-border); font:9px var(--font-mono); letter-spacing:.8px; text-align:center; color:var(--theme-muted); }
+.nodus-shell .idle-game .game-nav-caption:first-child { margin-top:0; padding-top:0; border-top:0; }
+.nodus-shell .idle-game .game-nav>button { position:relative; }
+.nodus-shell .idle-game .game-nav>button[data-ready]::after { content:''; position:absolute; top:8px; left:calc(50% + 10px); width:7px; height:7px; border-radius:50%; background:var(--theme-accent); box-shadow:0 0 0 3px rgb(var(--theme-accent-rgb) / .2); }
+.observatory-side { grid-column:1; grid-row:1; align-self:start; display:flex; flex-direction:column; gap:12px; min-height:0; max-height:100%; overflow:auto; }
+.observatory-side .core-panel { max-height:none; overflow:visible; flex-shrink:0; }
+.minigame-shortcuts { display:grid; gap:6px; padding:12px; border:1px solid var(--theme-border); background:color-mix(in srgb,var(--theme-panel) 94%,transparent); color:var(--theme-text); flex-shrink:0; }
+.minigame-shortcuts>button { display:grid; grid-template-columns:30px minmax(0,1fr) auto; align-items:center; gap:10px; padding:8px; text-align:left; border:1px solid var(--theme-border); background:var(--theme-input); color:var(--theme-text); transition:border-color var(--motion-micro) var(--ease-out),background-color var(--motion-micro) var(--ease-out); }
+.minigame-shortcuts>button:hover, .minigame-shortcuts>button:focus-visible { border-color:var(--theme-accent); background:var(--theme-raised); }
+.minigame-shortcuts>button[data-ready] { border-color:var(--theme-accent); }
+.minigame-shortcuts>button[data-locked] { opacity:.62; }
+.shortcut-icon { width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--theme-border); color:var(--theme-accent); }
+.shortcut-icon svg { width:16px; height:16px; }
+.shortcut-copy { display:grid; gap:2px; min-width:0; }
+.shortcut-copy strong { font-size:13px; font-weight:500; }
+.shortcut-copy small { font:10px var(--font-mono); color:var(--theme-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.shortcut-go { font:13px var(--font-mono); color:var(--theme-accent); }
+.minigame-shortcuts>button[data-ready] .shortcut-go::before { content:'●'; margin-right:6px; font-size:9px; }
+/* Labels of minigame places: warm tag and a play mark, so they read as entrances, not as scenery. */
+.nodus-shell .idle-game .city-label.minigame:not(.selected):not(:hover):not(:focus-visible) { background:#3a3420ee; border-color:#f2c86bb3; color:#fbefc8; }
+.nodus-shell .idle-game[data-skin=cyberpunk] .city-label.minigame:not(.selected):not(:hover):not(:focus-visible) { background:#10303ae8; border-color:#6ff0e6b3; color:#c9fbf6; }
+.nodus-shell .idle-game .city-label.minigame[data-locked]:not(.selected):not(:hover):not(:focus-visible) { background:#2a302ce0; border-color:#c5d0b74d; color:#c9cfc4; }
+.city-label .place-play { font:8px var(--font-mono); font-style:normal; letter-spacing:.6px; padding:2px 5px; margin-left:2px; background:#f2c86b; color:#2c2a1d; }
+.idle-game[data-skin=cyberpunk] .city-label .place-play { background:#6ff0e6; color:#0d2228; }
+.city-label[data-locked] .place-play { background:#7d857f; color:#eef1ea; }
+.city-label[data-ready] .place-play { animation:play-pulse 1.6s var(--ease-soft) infinite alternate; }
+@keyframes play-pulse { from { box-shadow:0 0 0 0 #f2c86b00; } to { box-shadow:0 0 0 4px #f2c86b55; } }
+
+/* Mira: arena in the 5:3 ratio of the main process's coordinates; the closing square is the target's own clock. */
+.aim-levels { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:18px 0; max-width:1000px; }
+.aim-levels button { display:grid; gap:5px; align-content:start; text-align:left; padding:12px; border:1px solid var(--theme-border); background:var(--theme-panel); color:var(--theme-text); }
+.aim-levels button[aria-checked=true] { border-color:var(--theme-accent); background:var(--theme-active); }
+.aim-levels strong { font:18px var(--font-display); font-weight:400; }
+.aim-levels small { font-size:11px; line-height:1.4; color:var(--theme-muted); }
+.aim-levels em { margin-top:4px; font:10px var(--font-mono); font-style:normal; color:var(--theme-accent); }
+.aim-start { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.nodus-shell .idle-game .aim-start button { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; }
+.aim-start svg { width:16px; height:16px; }
+.aim-start span, .aim-note { font-size:12px; color:var(--theme-muted); }
+.aim-note { margin-top:16px; }
+.aim-result { margin-top:22px; max-width:1000px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px 24px; align-items:center; padding:16px 18px; border:1px solid var(--theme-accent); background:var(--theme-panel); }
+.aim-grade { grid-row:span 2; min-width:84px; text-align:center; font:58px var(--font-display); line-height:1; color:var(--theme-accent); }
+.aim-result dl { margin:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
+.aim-result dt { font:9px var(--font-mono); color:var(--theme-muted); letter-spacing:.4px; }
+.aim-result dd { margin:4px 0 0; font:18px var(--font-display); }
+.aim-result p { margin:0; font-size:12px; color:var(--theme-muted); }
+.minigame-panel.aim-playing { display:flex; flex-direction:column; gap:10px; padding:16px 20px; overflow:hidden; }
+.aim-hud { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+.aim-hud span { display:grid; gap:2px; }
+.aim-hud small { font:9px var(--font-mono); letter-spacing:.6px; color:var(--theme-muted); }
+.aim-hud strong { font:20px var(--font-display); font-weight:400; }
+.nodus-shell .idle-game .aim-hud button { margin-left:auto; padding:7px 12px; border:1px solid var(--theme-border); background:var(--theme-panel); color:var(--theme-text); }
+.aim-stage { flex:1; min-height:0; display:grid; place-items:center; }
+.aim-arena { position:relative; overflow:hidden; cursor:crosshair; touch-action:none; user-select:none; border:1px solid var(--theme-border); background:linear-gradient(rgb(var(--theme-accent-rgb) / .05) 1px,transparent 1px) 0 0 / 10% 16.666%,linear-gradient(90deg,rgb(var(--theme-accent-rgb) / .05) 1px,transparent 1px) 0 0 / 10% 16.666%,var(--theme-panel); }
+.aim-target { position:absolute; transform:translate(-50%,-50%); display:grid; place-items:center; cursor:crosshair; border:2px solid var(--theme-accent); background:rgb(var(--theme-accent-rgb) / .12); }
+.aim-target::before, .aim-target::after { content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:1px solid rgb(var(--theme-accent-rgb) / .55); pointer-events:none; }
+.aim-target::before { width:75%; height:75%; }
+.aim-target::after { width:40%; height:40%; background:rgb(var(--theme-accent-rgb) / .35); }
+.aim-target b { position:relative; z-index:1; font:11px var(--font-mono); color:var(--theme-text); pointer-events:none; }
+.aim-approach { position:absolute; left:50%; top:50%; width:100%; height:100%; border:2px solid var(--theme-text); opacity:.65; pointer-events:none; }
+.aim-mark { position:absolute; transform:translate(-50%,-50%); font:14px var(--font-mono); pointer-events:none; animation:aim-mark 520ms var(--ease-out) forwards; }
+.aim-mark.p300 { color:var(--theme-accent); } .aim-mark.p100 { color:var(--theme-text); } .aim-mark.p50 { color:var(--theme-muted); }
+.aim-mark.miss, .aim-mark.misclick { color:#d0564a; font-size:18px; }
+@keyframes aim-mark { from { opacity:1; transform:translate(-50%,-50%) scale(1); } to { opacity:0; transform:translate(-50%,-110%) scale(1.15); } }
+.aim-countdown { position:absolute; inset:0; display:grid; place-items:center; font:96px var(--font-display); color:var(--theme-accent); pointer-events:none; }
+.aim-hint { margin:0; font-size:11px; color:var(--theme-muted); }
+@container (max-width:980px) { .aim-levels { grid-template-columns:repeat(2,minmax(0,1fr)); } .aim-result dl { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@container (max-width:720px) { .observatory-side { grid-column:1; grid-row:1; } .observatory-side .core-panel { flex-direction:row; flex-wrap:wrap; align-items:center; } .minigame-shortcuts { grid-template-columns:repeat(2,minmax(0,1fr)); } .aim-result { grid-template-columns:1fr; } .aim-grade { grid-row:auto; } }
+@media (prefers-reduced-motion:reduce) { .aim-mark, .city-label[data-ready] .place-play { animation:none; } }
+html[data-animations=off] :is(.aim-mark,.city-label[data-ready] .place-play) { animation:none; }
+/* During a Mira round the notice bar would cover the bottom of the arena and swallow clicks; only errors stay. */
+.idle-game:has(.aim-playing) .game-notice > span:not(.game-error) { display:none; }

@@ -41,12 +41,37 @@ export function classFor(build: Build) {
 export type Plot = { id: number; crop: CropId | null; plantedAt: number; readyAt: number };
 export type Card = { id: number; label: string | null; matched: boolean };
 export type Round = { id: string; difficulty: 'easy' | 'normal' | 'hard'; cards: Card[]; selected: number[]; attempts: number; combo: number; maxCombo: number; completed: boolean; coins: Amount; xp: number; startedAt: number };
-export type Engine = { level: number; clicks: number; lastClickAt: number; lastGain?:Amount; clickTokens?:number };
+/** Mira: squares appear in a 1000×600 arena and leave after `life` ms; precision decides the points (osu!-like). */
+export const AIM_ARENA = { width: 1000, height: 600, leadMs: 3000 } as const;
+export const AIM_LEVELS = {
+  easy: { name: 'Leve', targets: 20, size: 110, lifeMs: 1500, gapMs: 850, multiplier: 1 },
+  normal: { name: 'Normal', targets: 28, size: 84, lifeMs: 1150, gapMs: 650, multiplier: 2 },
+  hard: { name: 'Difícil', targets: 36, size: 64, lifeMs: 850, gapMs: 500, multiplier: 3 },
+  expert: { name: 'Insano', targets: 45, size: 46, lifeMs: 620, gapMs: 360, multiplier: 4 },
+} as const;
+export type AimLevel = keyof typeof AIM_LEVELS;
+/** at: ms after the round starts (the countdown included); x, y: center in arena units; size: side in arena units. */
+export type AimTarget = { x: number; y: number; at: number; life: number; size: number };
+export type AimHit = { target: number; t: number; dx: number; dy: number };
+export type AimResult = { difficulty: AimLevel; accuracy: number; counts: [number, number, number, number]; misclicks: number; maxCombo: number; grade: string; coins: Amount; xp: number };
+export type AimView = { active: { id: string; difficulty: AimLevel; targets: AimTarget[] } | null; last: AimResult | null; best: Partial<Record<AimLevel, number>> };
+/** dx, dy: click offset from the center in half-sides (−1…1). The square's center ring is worth the most. */
+export const aimPoints = (dx: number, dy: number) => { const r = Math.max(Math.abs(dx), Math.abs(dy)); return r <= .4 ? 300 : r <= .75 ? 100 : 50; };
+export const aimGrade = (accuracy: number) => accuracy >= 1 ? 'SS' : accuracy >= .95 ? 'S' : accuracy >= .9 ? 'A' : accuracy >= .8 ? 'B' : accuracy >= .7 ? 'C' : 'D';
+/** Counts 300/100/50/miss, accuracy over targets plus misclicks, and the longest run of hit targets. */
+export function aimScore(targets: AimTarget[], hits: AimHit[], misclicks: number) {
+  const byTarget = new Map(hits.map(h => [h.target, aimPoints(h.dx, h.dy)])), counts: [number, number, number, number] = [0, 0, 0, 0];
+  let total = 0, combo = 0, maxCombo = 0;
+  targets.forEach((_, i) => { const points = byTarget.get(i); if (points === undefined) { counts[3]++; combo = 0; return; } total += points; counts[points === 300 ? 0 : points === 100 ? 1 : 2]++; maxCombo = Math.max(maxCombo, ++combo); });
+  const accuracy = Math.floor(total / (300 * (targets.length + misclicks)) * 10000) / 10000;
+  return { counts, accuracy, maxCombo, grade: aimGrade(accuracy) };
+}
+export type Engine ={ level: number; clicks: number; lastClickAt: number; lastGain?:Amount; clickTokens?:number };
 export type GardenView = { unlocked:boolean; seedCost:Amount; growth:number; dew:number };
 export type CouncilView = { unlocked:boolean; seats:(string|null)[]; deliberations:number; nextDeliberationAt:number|null };
 export type GameState = {
   skin:typeof CITY_SKINS[number]['id']; economy:EconomyView; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; level: number; build: Build; className: string;
-  owned: ShopId[]; plots: Plot[]; now: number; passiveCoins: Amount; round: Round | null;
+  owned: ShopId[]; plots: Plot[]; now: number; passiveCoins: Amount; round: Round | null; aim: AimView;
   farm: Farm & { objective:{id:FarmProjectId}|null };
   engine: Engine & { power: Amount };
   flash: Flash | null; garden: GardenView; council: CouncilView; nextDecor: { id:string; name:string; at:number } | null;
@@ -68,6 +93,9 @@ export const gameAction = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('respec'), build: z.strictObject({ focus: z.number().int().min(0).max(100), review: z.number().int().min(0).max(100), planning: z.number().int().min(0).max(100), practice: z.number().int().min(0).max(100) }) }),
   z.strictObject({ kind: z.literal('start-round'), difficulty: z.enum(['easy', 'normal', 'hard']) }),
   z.strictObject({ kind: z.literal('flip'), roundId: z.uuid(), card: z.number().int().min(0).max(17) }),
+  z.strictObject({ kind: z.literal('aim-start'), difficulty: z.enum(['easy', 'normal', 'hard', 'expert']) }),
+  z.strictObject({ kind: z.literal('aim-finish'), roundId: z.uuid(), misclicks: z.number().int().min(0).max(999),
+    hits: z.array(z.strictObject({ target: z.number().int().min(0).max(63), t: z.number().int().min(0).max(600000), dx: z.number().min(-1).max(1), dy: z.number().min(-1).max(1) })).max(64) }),
 ]);
 export type GameAction = z.infer<typeof gameAction>;
 export const gameInput = z.strictObject({ operationId: z.uuid(), action: gameAction });

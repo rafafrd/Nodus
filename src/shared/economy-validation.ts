@@ -3,7 +3,7 @@ import { dec } from './amount';
 import type { Producer, Upgrade, Achievement, Signal } from './economy-types';
 const value=z.union([z.number().finite().nonnegative(),z.string().max(1100).regex(/^\d+(?:\.\d+)?(?:e[+-]?\d+)?$/i)]).refine(v=>dec(v).gte(0));
 const id=z.string().min(1).max(64).regex(/^[a-z0-9-]+$/);
-const metric=z.enum(['lifetime','clicks','engine','index','producers','upgrades','harvested','gathered','challenges','perfect','rounds','prestige','focusMinutes','reviews','studyDays','events','combos','cycles','families','synergies','builds','memoryPerfect']);
+const metric=z.enum(['lifetime','clicks','engine','index','producers','upgrades','harvested','gathered','challenges','perfect','rounds','prestige','focusMinutes','reviews','studyDays','events','combos','cycles','families','synergies','builds','memoryPerfect','aimRounds','aimPerfect']);
 const condition=z.union([z.strictObject({owned:id}),z.strictObject({metric,target:value,producer:id.optional()})]);
 const effect=z.discriminatedUnion('kind',[
  z.strictObject({kind:z.enum(['production','cost','offline','duration','eventChance','active','achievement','pulse','synergyBoost','click','clickShare','garden']),factor:z.number().positive().max(1000),producer:id.optional()}),

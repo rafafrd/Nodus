@@ -5,7 +5,7 @@ import type { GameState } from '../shared/game';
 export function createUrbanScene() {
   const geometries:T.BufferGeometry[]=[new T.BoxGeometry(1,1,1),new T.CylinderGeometry(1,1,1,12),new T.IcosahedronGeometry(1,0)], materials=new Map<string,T.MeshStandardMaterial>();
   const [cube,cylinder,sphere]=geometries;
-  function material(color:string,glow=false) {const key=color+glow;if(!materials.has(key))materials.set(key,new T.MeshStandardMaterial({color,roughness:glow?.35:.75,metalness:glow?.35:.1,emissive:glow?color:'#000000',emissiveIntensity:glow?1.2:0,flatShading:true}));return materials.get(key)!;}
+  function material(color:string,glow=false) {const key=color+glow;if(!materials.has(key))materials.set(key,new T.MeshStandardMaterial({color,roughness:glow?.35:.75,metalness:glow?.35:.1,emissive:glow?color:'#000000',emissiveIntensity:glow?.85:0,flatShading:true}));return materials.get(key)!;}
   function shape(parent:T.Object3D,geometry:T.BufferGeometry,color:string,x:number,y:number,z:number,sx:number,sy:number,sz:number,glow=false) {const m=new T.Mesh(geometry,material(color,glow));m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=!glow;m.receiveShadow=true;parent.add(m);return m;}
   const box=(parent:T.Object3D,color:string,x:number,y:number,z:number,sx:number,sy:number,sz:number,glow=false)=>shape(parent,cube,color,x,y,z,sx,sy,sz,glow);
   function build(cyber:boolean) {
@@ -59,8 +59,14 @@ export function createUrbanScene() {
     const greenhouse=group(6,-6.8);box(greenhouse,cyber?'#376071':'#75988e',0,1.2,0,2.2,2.3,2);for(const x of [-1,0,1])box(greenhouse,cyber?accent:'#c2d0be',x,1.2,1.05,.07,2.3,.07,cyber);
     const lights=new T.Group();root.add(lights);for(const [x,z] of [[-5,1.4],[-1.5,1.4],[-4,4.4],[6,.3],[6,4]]){box(lights,dark,x,1.6,z,.07,2.7,.07);box(lights,accent,x,2.9,z,.5,.15,.15,true);}
     const bridge=group(9.8,2.1);box(bridge,dark,0,.38,0,4.4,.2,1.5);for(const z of [-.75,.75])box(bridge,cyber?accent:'#a6a39a',0,.95,z,4.4,.06,.06,cyber);
-    return {root,engine,rotor,mill,cottage,decoration,extraFountain,greenhouse,lights,beds,cars};
+    // Cyberpunk air traffic: small craft with a neon keel circle above the towers.
+    const drones:T.Group[]=[];
+    if(cyber)for(let i=0;i<6;i++){const d=new T.Group();root.add(d);box(d,dark,0,0,0,.7,.18,.34);box(d,i%2?accent:pink,0,-.1,0,.74,.04,.38,true);box(d,'#9fe7ff',.22,.08,0,.18,.1,.26,true);drones.push(d);}
+    return {root,engine,rotor,mill,cottage,decoration,extraFountain,greenhouse,lights,beds,cars,drones};
   }
   const newyork=build(false),cyberpunk=build(true);let time=0;
-  return {newyork:newyork.root,cyberpunk:cyberpunk.root,update(s:GameState,delta:number,moving:boolean){if(moving)time+=delta;for(const city of [newyork,cyberpunk]){city.cottage.visible=s.owned.includes('cottage');city.mill.visible=s.owned.includes('windmill');city.decoration.visible=s.owned.includes('benches');city.extraFountain.visible=s.owned.includes('fountain');city.greenhouse.visible=s.owned.includes('greenhouse');city.lights.visible=s.owned.includes('lanterns')||s.atmosphere==='night';city.beds.forEach((bed,i)=>bed.visible=Boolean(s.plots[i]));city.engine.scale.setScalar(1+s.engine.level*.025);if(moving&&city.root.visible){if(Number(s.engine.power)>0)city.rotor.rotation.z+=delta*.6;city.cars.forEach((g,i)=>g.position.x=-10+(time*.35+i*4)%17);}}},dispose(){geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());}};
+  return {newyork:newyork.root,cyberpunk:cyberpunk.root,update(s:GameState,delta:number,moving:boolean){if(moving)time+=delta;for(const city of [newyork,cyberpunk]){city.cottage.visible=s.owned.includes('cottage');city.mill.visible=s.owned.includes('windmill');city.decoration.visible=s.owned.includes('benches');city.extraFountain.visible=s.owned.includes('fountain');city.greenhouse.visible=s.owned.includes('greenhouse');city.lights.visible=s.owned.includes('lanterns')||s.atmosphere==='night';city.beds.forEach((bed,i)=>bed.visible=Boolean(s.plots[i]));city.engine.scale.setScalar(1+s.engine.level*.025);if(moving&&city.root.visible){if(Number(s.engine.power)>0)city.rotor.rotation.z+=delta*.6;city.cars.forEach((g,i)=>g.position.x=-10+(time*.35+i*4)%17);}
+    city.drones.forEach((d,i)=>{const a=time*(.22+i%3*.05)+i*1.05,r=7+i%3*2.2;d.position.set(-2+Math.cos(a)*r,6.2+i%3*1.1+Math.sin(time+i)*.2,-1+Math.sin(a)*r*.75);d.rotation.y=-a;});}
+   // New York windows are lit at night; Cyberpunk ones always glow.
+   const night=s.atmosphere==='night';for(const [color,light] of [['#d8b778','#ffcf7a'],['#8ca2a8','#a9d7ee']]){const m=materials.get(color+'false');if(m){m.emissive.set(night?light:'#000000');m.emissiveIntensity=night?.75:0;}}},dispose(){geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());}};
 }

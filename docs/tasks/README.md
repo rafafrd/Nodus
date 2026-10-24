@@ -1,6 +1,8 @@
 # Quadro de tarefas
 
-Incremento atual: [QA-01 — Roteiros de smoke atualizados à UI atual](done/QA-01.md), concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). 22 roteiros defasados (O-030/O-037) voltaram a passar no pacote Windows sem mudança no app; 29 smokes em sequência aprovados. [Provas](../validation/QA_01_SMOKES.md).
+Incremento atual: [GAM-07 — Cidade em 3D melhor, minigames fáceis de achar e Mira](done/GAM-07.md), concluído na branch feat/cidade-e-mira, criada da main/488ce1c. C1–C5 aprovados; Mira, smokes da cidade e do jogo aprovados no pacote Windows. [Provas](../validation/GAM_07_AIM_CITY.md).
+
+Incremento anterior: [QA-01 — Roteiros de smoke atualizados à UI atual](done/QA-01.md), concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). 22 roteiros defasados (O-030/O-037) voltaram a passar no pacote Windows sem mudança no app; 29 smokes em sequência aprovados. [Provas](../validation/QA_01_SMOKES.md).
 
 Incremento anterior: [UI-07 — Frontend refatorado e motion Dark Editorial](done/UI-07.md), concluído na branch feat/editorial-motion de main/62bfb0f. Tokens de motion únicos, primitivas GSAP, perfil expressivo no Editorial e sóbrio nos demais, fontes empacotadas, App.tsx dividido e editorial.css consolidado. Typecheck sem erro novo, 93 testes, pacote Windows e jornadas de baseline aprovados; roteiros defasados registrados em O-030. [Provas](../validation/UI_07_MOTION.md), [ADR-0024](../adr/0024-sistema-de-motion.md). IA-02/CAP-01 não rastreados preservados e fora do stage.
 

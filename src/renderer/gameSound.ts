@@ -1,6 +1,6 @@
 // GAM-06 sound: every effect is synthesized with WebAudio at play time (no audio files, no network).
 // Short, soft and low; volume 0 means silence and creates no AudioContext.
-type Cue = 'click' | 'buy' | 'flash' | 'catch' | 'unlock';
+type Cue = 'click' | 'buy' | 'flash' | 'catch' | 'unlock' | 'hit' | 'miss';
 let context: AudioContext | null = null, last = 0;
 const NOTES: Record<Cue, { freq: number[]; length: number; type: OscillatorType; gap: number }> = {
   click: { freq: [520], length: .05, type: 'triangle', gap: 0 },
@@ -8,6 +8,8 @@ const NOTES: Record<Cue, { freq: number[]; length: number; type: OscillatorType;
   flash: { freq: [880, 1175, 1568], length: .16, type: 'sine', gap: .07 },
   catch: { freq: [660, 990, 1320], length: .12, type: 'triangle', gap: .05 },
   unlock: { freq: [392, 523, 659, 784], length: .14, type: 'sine', gap: .08 },
+  hit: { freq: [740], length: .06, type: 'triangle', gap: 0 },
+  miss: { freq: [196], length: .09, type: 'sine', gap: 0 },
 };
 export function playCue(cue: Cue, volume: number, pitch = 0) {
   if (volume <= 0 || document.hidden) return;

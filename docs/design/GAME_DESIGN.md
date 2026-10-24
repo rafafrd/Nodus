@@ -86,7 +86,7 @@ Os simuladores existentes completam o quadro. `simulate:economy` com 45 min de e
 1. **Um número que sobe, visível o tempo todo.** Saldo e produção por segundo ficam no topo; a cidade cresce com os marcos.
 2. **Sempre uma próxima decisão próxima.** A loja mostra o próximo item ao alcance e o tempo até ele.
 3. **O clique importa, a ausência não pune.** Jogar ativamente acelera; voltar depois de dias encontra a cidade trabalhando.
-4. **Decisão, não reflexo.** Minijogos pedem escolha e planejamento, nunca tempo de reação.
+4. **Decisão, não reflexo.** Minijogos pedem escolha e planejamento, nunca tempo de reação. *Revisto em GAM-07 ([ADR-0027](../adr/0027-mira-e-acesso-aos-minigames.md)): por pedido explícito, a Mira traz um minijogo de precisão curto e opcional; nenhuma etapa do progresso depende de reflexo.*
 5. **O estudo vem primeiro.** O jogo nunca abre sozinho, não notifica e não pede atenção durante o Foco; estudar não compra vantagem no jogo.
 
 ## 5. Loops
@@ -146,6 +146,10 @@ A decisão é colher para ganhar agora ou manter flores para o bônus passivo. U
 | Arquivo vivo | influência das conquistas ×1,6 |
 
 **Memória de Conceitos.** Mantida, sem limite de tempo, com recompensa em minutos de produção.
+
+**Mira (GAM-07).** Quadrados surgem e somem numa arena. O quadrado externo que se fecha marca o tempo de cada um, e o ponto vale pela distância ao centro: 300, 100 ou 50. São quatro níveis, de Leve (20 quadrados de 1,5 s) a Insano (45 de 0,62 s). A rodada dura cerca de 20 s e paga de 2 a 8 minutos de produção, multiplicados pelo quadrado da precisão. O main sorteia os quadrados e só aceita o término depois que o último sai.
+
+**Acesso aos minijogos.** Os minijogos ficam agrupados no menu e listados no Observatório com o estado de cada um. No mapa, cada local tem a etiqueta "JOGAR ▸" e um anel no chão.
 
 **Prestígio.** Mantém insígnias, ciclos e as 40 melhorias permanentes, com a base recalibrada para que o primeiro recomeço viável chegue em horas de jogo ativo, não em dias.
 

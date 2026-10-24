@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import type { z } from 'zod';
 import { CityScene, type Place } from './CityScene';
 import type { GameAction, GameState, gameInput } from '../shared/game';
@@ -7,16 +7,19 @@ import { Icon } from './Icon';
 import { AnimatedNumber, useSurfaceMotion } from './motion';
 import { usePreferences } from './preferences';
 import { CorePanel, StorePanel, FlashLight, flashRule } from './Observatory';
-import { GardenPanel, CouncilPanel, MemoryPanel } from './GameMinigames';
+import { GardenPanel, CouncilPanel, MemoryPanel, MinigameShortcuts, MINIGAMES, minigameStatus, type MinigameId } from './GameMinigames';
+import { AimPanel } from './AimGame';
 import { AchievementsPanel, LegacyPanel, ProfilePanel } from './GamePanels';
 import { GameTicker } from './GameTicker';
 import { playCue } from './gameSound';
 import './game.css';
 import './idle.css';
 
-type Tab = 'observatory' | 'garden' | 'council' | 'memory' | 'achievements' | 'legacy' | 'profile';
-const TABS: [Tab, Parameters<typeof Icon>[0]['kind'], string][] = [['observatory', 'engine', 'Observatório'], ['garden', 'tree', 'Horta'], ['council', 'person', 'Conselho'], ['memory', 'memory', 'Memória'], ['achievements', 'target', 'Conquistas'], ['legacy', 'orbit', 'Legado'], ['profile', 'person', 'Perfil']];
-const PLACE_TAB: Record<Place, Tab> = { engine: 'observatory', farm: 'garden', shop: 'council', plaza: 'memory', mine: 'observatory', forest: 'observatory', mill: 'observatory' };
+type Tab = 'observatory' | 'garden' | 'council' | 'memory' | 'aim' | 'achievements' | 'legacy' | 'profile';
+type Entry = [Tab, Parameters<typeof Icon>[0]['kind'], string];
+// Minigames get a group of their own in the menu, between the city and the progress pages.
+const GROUPS: [string, Entry[]][] = [['CIDADE', [['observatory', 'engine', 'Observatório']]], ['MINIGAMES', MINIGAMES], ['PROGRESSO', [['achievements', 'target', 'Conquistas'], ['legacy', 'orbit', 'Legado'], ['profile', 'person', 'Perfil']]]];
+const PLACE_TAB: Record<Place, Tab> = { engine: 'observatory', farm: 'garden', shop: 'council', plaza: 'memory', range: 'aim', mine: 'observatory', forest: 'observatory', mill: 'observatory' };
 // Clicks are counted locally and sent as one authoritative batch at most every 500 ms.
 const CLICK_FLUSH_MS = 500;
 
@@ -61,18 +64,19 @@ export default function GameView({ onClose, activeArea, keyboardActive = true, r
   function press() { clicks.current.pending++; setPendingClicks(clicks.current.pending + clicks.current.inFlight); playCue('click', sound.current, Math.min(7, Math.floor(clicks.current.pending / 6))); }
   // Space or Enter on the focused core button is native; no global key listener competes with the rest of the app.
   useEffect(() => { if (!keyboardActive) clicks.current.pending && void flushClicks(); }, [keyboardActive]);
-  function select(next: Place) { setPlace(next); setTab(PLACE_TAB[next]); setMessage(''); setError(''); }
+  function open(next: Tab) { setTab(next); setMessage(''); setError(''); }
+  function select(next: Place) { setPlace(next); open(PLACE_TAB[next]); }
   const shownCoins = state ? add(state.coins, integer(dec(state.engine.power).mul(pendingClicks))) : undefined;
   return <div className="game-shell clean-game idle-game" data-tab={tab} data-skin={state?.skin ?? 'original'} data-atmosphere={state?.atmosphere ?? 'golden'} aria-busy={busy} data-area-ready={Boolean(error) || Boolean(state && sceneReady)}>
     <header className="game-header" data-hairline><button className="game-back" onClick={onClose}>← <span>Voltar à mesa</span></button><div className="game-brand"><span className="game-brand-mark"><Icon kind="city"/></span><div>NODUS / OBSERVATÓRIO<small>UM NÚMERO QUE CRESCE COM VOCÊ</small></div></div>
       <div className="game-wallet"><span className="wallet-coin"><Icon kind="coin"/></span><AnimatedNumber value={shownCoins} testId="game-coins"/><small>CENTELHAS</small><span className="wallet-rule"/><span className="num wallet-rate">{state ? formatAmount(dec(state.economy.rate).div(60).toDecimalPlaces(1).toString()) : '—'}</span><small>POR SEGUNDO</small><span className="wallet-rule"/><AnimatedNumber value={state?.xp} testId="game-xp"/><small>XP</small></div></header>
     {state && <GameTicker state={state}/>}
-    <div className="game-layout"><nav className="game-nav" aria-label="Jogo"><span className="game-nav-caption">VALE SERENO</span>{TABS.map(([id, icon, name]) => { const locked = id === 'garden' && !state?.garden.unlocked || id === 'council' && !state?.council.unlocked; return <button key={id} aria-label={name} className={tab === id ? 'selected' : ''} aria-current={tab === id ? 'page' : undefined} data-locked={locked || undefined} onClick={() => { setTab(id); setMessage(''); setError(''); }}><Icon kind={icon}/><span>{name}</span></button>; })}<div className="game-nav-bottom"><span className="connection connected"/> PROGRESSO LOCAL</div></nav>
+    <div className="game-layout"><nav className="game-nav" aria-label="Jogo">{GROUPS.map(([caption, entries]) => <Fragment key={caption}><span className="game-nav-caption">{caption}</span>{entries.map(([id, icon, name]) => { const status = state && caption === 'MINIGAMES' ? minigameStatus(id as MinigameId, state) : null; return <button key={id} aria-label={name} title={status?.text} className={tab === id ? 'selected' : ''} aria-current={tab === id ? 'page' : undefined} data-locked={status?.locked || undefined} data-ready={status?.ready || undefined} onClick={() => open(id)}><Icon kind={icon}/><span>{name}</span></button>; })}</Fragment>)}<div className="game-nav-bottom"><span className="connection connected"/> PROGRESSO LOCAL</div></nav>
       <main className="game-stage" ref={stage}>
         {state && <div className="city-scene-host" hidden={tab !== 'observatory'}><CityScene state={state} selected={place} onSelect={select} active={activeArea && tab === 'observatory'} onReady={() => setSceneReady(true)}/></div>}
         {!state ? <div className="game-loading">Abrindo o observatório…</div>
           : tab === 'observatory' ? <div className="observatory">
-            <CorePanel state={state} unconfirmed={pendingClicks} press={press}/>
+            <div className="observatory-side"><CorePanel state={state} unconfirmed={pendingClicks} press={press}/><MinigameShortcuts state={state} open={open}/></div>
             <StorePanel state={state} busy={busy} execute={a => void execute(a)}/>
             <div className="observatory-sky"><FlashLight state={state} catchIt={id => void execute({ kind: 'flash-catch', id })}/></div>
             {state.economy.returnReport && <div className="economy-return" role="status"><p>{Math.floor(state.economy.returnReport.elapsedMs / 3600000)} h {Math.floor(state.economy.returnReport.elapsedMs / 60000) % 60} min fora · <strong className="num">+{formatAmount(state.economy.returnReport.credited)}</strong> centelhas produzidas{state.economy.returnReport.capped ? ' (limite de ausência aplicado)' : ''}</p><button aria-label="Dispensar resumo de retorno" disabled={busy} onClick={() => void execute({ kind: 'dismiss-return' })}>×</button></div>}
@@ -81,6 +85,7 @@ export default function GameView({ onClose, activeArea, keyboardActive = true, r
           : tab === 'garden' ? <GardenPanel state={state} busy={busy} execute={a => void execute(a)}/>
           : tab === 'council' ? <CouncilPanel state={state} busy={busy} execute={a => void execute(a)}/>
           : tab === 'memory' ? <MemoryPanel state={state} busy={busy} execute={a => void execute(a)}/>
+          : tab === 'aim' ? <AimPanel state={state} busy={busy} active={activeArea} execute={a => void execute(a)}/>
           : tab === 'achievements' ? <AchievementsPanel state={state}/>
           : tab === 'legacy' ? <LegacyPanel state={state} busy={busy} execute={a => void execute(a)}/>
           : <ProfilePanel state={state} busy={busy} execute={a => void execute(a)}/>}

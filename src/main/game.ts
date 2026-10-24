@@ -2,7 +2,7 @@ import { randomUUID, randomInt } from 'node:crypto';
 import type { z } from 'zod';
 import { Store } from './store';
 import { AppError } from '../shared/contracts';
-import { CROPS, CROP_HARVEST_MINUTES, DECOR, MEMORY_PAIRS, classFor, levelFor, gameInput, gameReadInput, type GameState, type GameResult, type GameAction, type Build, type Plot, type ShopId, type Round, type Engine } from '../shared/game';
+import { CROPS, CROP_HARVEST_MINUTES, DECOR, MEMORY_PAIRS, AIM_ARENA, AIM_LEVELS, aimScore, classFor, levelFor, gameInput, gameReadInput, type GameState, type GameResult, type GameAction, type Build, type Plot, type ShopId, type Round, type Engine, type AimLevel, type AimTarget, type AimResult } from '../shared/game';
 import { PRODUCERS, UPGRADES, ACHIEVEMENTS, PERMANENT, POLICIES, FLASH_OUTCOMES, BALANCE, normalizeEconomy, freshEconomy, production, clickPower, producerCost, maxAffordable, breakdown, efficiencyIndex, effectFactor, upgradeReady, prestigeGain, nextPrestigeAt, achievementProgress, achievementReady, type Economy, type EconomyView } from '../shared/economy';
 import { D, dec, amount, integer, add, sub, formatAmount, type Amount } from '../shared/amount';
 import { minutesOfProduction } from '../shared/economic-activities';
@@ -11,7 +11,8 @@ import { backupBeforeRulesV3, convertToRulesV3 } from './game-migration';
 import type { EconomicContext } from '../shared/economy-types';
 import { freshFarm, normalizeFarm, type Farm, type FarmProjectId } from '../shared/farm';
 
-type Player = { skin: GameState['skin']; economy:Economy; farm:Farm; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; owned: ShopId[]; plots: Plot[]; build: Build; passiveAt: number; passiveCarry: Amount; roundId: string | null; engine: Engine };
+type Player = { skin: GameState['skin']; economy:Economy; farm:Farm; atmosphere: 'golden'|'dawn'|'night'; coins: Amount; xp: number; owned: ShopId[]; plots: Plot[]; build: Build; passiveAt: number; passiveCarry: Amount; roundId: string | null; engine: Engine; aimId?: string | null; aimLast?: AimResult | null; aimBest?: Partial<Record<AimLevel, number>> };
+type StoredAim = { id: string; kind: 'aim'; difficulty: AimLevel; targets: AimTarget[]; startedAt: number; completed: boolean };
 type StoredRound = Omit<Round, 'cards'> & { rewardVersion?:number; cards: { id: number; pair: number; text: string; matched: boolean }[] };
 // Clicks and production of one real minute share a ledger row instead of one row per action.
 const AGGREGATED=['production:','click:'];
@@ -118,10 +119,21 @@ export class Game {
   }
   private study(p:Player) {syncStudy(this.store,p.economy,(source,label,xp)=>this.credit(p,source,label,0,xp));}
   private readRound(id: string | null): StoredRound | null { if (!id) return null; const row = this.store.db.prepare('SELECT state FROM game_rounds WHERE id=?').get(id); return row ? JSON.parse(String(row.state)) : null; }
-  private persistRound(round: StoredRound) { this.store.db.prepare('INSERT INTO game_rounds(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(round.id, JSON.stringify(round)); }
+  /** Mira: each square keeps a distance from the previous one, so every target asks for a new aim. */
+  private aimTargets(level:AimLevel):AimTarget[] {
+    const spec=AIM_LEVELS[level],margin=spec.size/2+12,targets:AimTarget[]=[];
+    const pick=(span:number)=>Math.round(margin+this.random()*(span-2*margin));
+    for(let i=0;i<spec.targets;i++){
+      let x=pick(AIM_ARENA.width),y=pick(AIM_ARENA.height);const last=targets[i-1];
+      for(let tries=0;last&&tries<20&&Math.hypot(x-last.x,y-last.y)<spec.size*1.8;tries++){x=pick(AIM_ARENA.width);y=pick(AIM_ARENA.height);}
+      targets.push({x,y,at:AIM_ARENA.leadMs+i*spec.gapMs,life:spec.lifeMs,size:spec.size});
+    }
+    return targets;
+  }
+  private persistRound(round: StoredRound|StoredAim) { this.store.db.prepare('INSERT INTO game_rounds(id,state) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET state=excluded.state').run(round.id, JSON.stringify(round)); }
   private seedCost(p:Player) {return integer(D.max(BALANCE.seedFloor,dec(this.rate(p)).mul(BALANCE.seedMinutes)));}
   private view(p: Player): GameState {
-    const round = this.readRound(p.roundId),e=p.economy,c=this.context(p),rate=this.rate(p);
+    const round = this.readRound(p.roundId),aim=this.readRound(p.aimId??null) as unknown as StoredAim|null,e=p.economy,c=this.context(p),rate=this.rate(p);
     const objective=DECOR.find(d=>'farm' in d&&!p.farm.built.includes(d.id as FarmProjectId)),next=DECOR.find(d=>dec(e.lifetime).lt(d.at))??null;
     return { skin:p.skin, atmosphere:p.atmosphere, coins:p.coins, xp:p.xp, build:p.build, owned:p.owned, plots:p.plots,
       farm:{...p.farm,objective:objective?{id:objective.id as FarmProjectId}:null}, economy:this.economyView(p),
@@ -131,6 +143,7 @@ export class Game {
       nextDecor:next?{id:next.id,name:next.name,at:next.at}:null,
       level: levelFor(p.xp), className: classFor(p.build), now: this.clock(), passiveCoins: rate,
       round: round ? { ...round, cards: round.cards.map(card => ({ id: card.id, matched: card.matched, label: card.matched || round.selected.includes(card.id) ? card.text : null })) } : null,
+      aim: { active: aim && !aim.completed ? { id: aim.id, difficulty: aim.difficulty, targets: aim.targets } : null, last: p.aimLast ?? null, best: p.aimBest ?? {} },
       recent: this.store.db.prepare('SELECT action,coins,xp,at FROM game_ledger ORDER BY id DESC LIMIT 6').all().map(row=>({...row,coins:amount(String(row.coins))})) as GameState['recent'] };
   }
   /** Shared by reads and actions: settle time, study XP, unlocks, the Lampejo clock and achievements. */
@@ -258,6 +271,28 @@ export class Game {
           }
         }
         this.persistRound(round);return message;
+      }
+      case 'aim-start':{
+        // A round left halfway is simply replaced: its squares are gone and it pays nothing.
+        const aim:StoredAim={id:randomUUID(),kind:'aim',difficulty:a.difficulty,targets:this.aimTargets(a.difficulty),startedAt:now,completed:false};
+        this.persistRound(aim);p.aimId=aim.id;return `Mira ${AIM_LEVELS[a.difficulty].name}: acerte o centro dos quadrados.`;
+      }
+      case 'aim-finish':{
+        const aim=this.readRound(p.aimId??null) as unknown as StoredAim|null;
+        if(!aim||aim.kind!=='aim'||aim.id!==a.roundId||aim.completed)throw new AppError('INVALID_ROUND','Essa rodada da Mira não está ativa.');
+        // The main clock bounds the reward rate: a round cannot end before its last square has left.
+        if(now<aim.startedAt+Math.max(...aim.targets.map(t=>t.at+t.life)))throw new AppError('AIM_TOO_SOON','A rodada ainda não terminou.');
+        const seen=new Set<number>();
+        for(const hit of a.hits){const t=aim.targets[hit.target];
+          if(!t||seen.has(hit.target)||hit.t<t.at-50||hit.t>t.at+t.life+150)throw new AppError('INVALID_AIM','Um acerto não corresponde a um quadrado desta rodada.');seen.add(hit.target);}
+        const spec=AIM_LEVELS[aim.difficulty],score=aimScore(aim.targets,a.hits,a.misclicks),perfect=score.accuracy===1;
+        const coins=score.accuracy>0?minutesOfProduction(BALANCE.activeRateMinutes.aim*spec.multiplier,10*spec.multiplier,e,this.context(p),score.accuracy**2):0;
+        const xp=Math.round(6*spec.multiplier*score.accuracy)+(perfect?5:0);
+        aim.completed=true;this.persistRound(aim);e.aimRounds++;if(perfect)e.aimPerfect++;
+        p.aimBest={...p.aimBest,[aim.difficulty]:Math.max(p.aimBest?.[aim.difficulty]??0,score.accuracy)};
+        p.aimLast={difficulty:aim.difficulty,...score,misclicks:a.misclicks,coins,xp};
+        this.credit(p,`aim:${aim.id}`,`Mira ${spec.name}`,coins,xp);
+        return `Mira ${spec.name}: ${score.grade}, ${(score.accuracy*100).toFixed(2).replace('.',',')}% de precisão, +${formatAmount(coins)} centelhas.`;
       }
     }
   }

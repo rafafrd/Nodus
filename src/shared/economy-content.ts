@@ -65,6 +65,8 @@ export const ACHIEVEMENTS:Achievement[] = [
   ...milestones('rounds',[1,5,10,25,50,100,250,500],'Memória em rede','rodadas de memória completas'),
   ...milestones('challenges',[1,5,10,20,50,100,250,500],'Oficina experiente','partidas completas na Oficina'),
   ...milestones('perfect',[1,5,20,100],'Controle impecável','partidas perfeitas na Oficina'),
+  ...milestones('aimRounds',[1,5,10,25,50,100,250],'Olho de lince','partidas completas na Mira'),
+  ...milestones('aimPerfect',[1,5,20],'Mão firme','partidas perfeitas na Mira'),
   ...milestones('harvested',[10,50,200,1000],'Jardim abundante','colheitas'),
   ...milestones('gathered',[25,100,500,2000],'Expedição veterana','coletas'),
   ...milestones('prestige',[1,5,20,100,1000,10000],'História da cidade','insígnias recebidas na jornada'),

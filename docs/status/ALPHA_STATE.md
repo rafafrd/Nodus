@@ -8,6 +8,14 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 
 ## Próxima ação
 
+24/10/2026: [GAM-07](../tasks/done/GAM-07.md) concluído na branch feat/cidade-e-mira, criada da main/488ce1c depois do merge dos PRs #17 e #18.
+
+- **Mira:** minigame de precisão no estilo osu!, com quatro níveis; o main sorteia, valida e paga.
+- **Acesso:** minigames agrupados no menu, listados no Observatório com o estado de cada um e marcados no mapa.
+- **3D:** brilho contido no Cyberpunk e à noite, janelas acesas, fumaça, pássaros, aeronaves, neblina e sombras melhores ([ADR-0027](../adr/0027-mira-e-acesso-aos-minigames.md)).
+- **Verificado:** typecheck 61 (baseline), testes 91/111 (mesmas 20 falhas de IA-02/CAP-01), `smoke-aim-city` e 9 smokes de regressão no pacote. O-039 corrigido. [Provas](../validation/GAM_07_AIM_CITY.md).
+- **Próxima ação humana:** revisar e mesclar o [PR #19](https://github.com/rafafrd/Nodus/pull/19) e jogar a Mira para avaliar a sensação e o brilho.
+
 24/10/2026: [QA-01](../tasks/done/QA-01.md) concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). Os 22 roteiros de smoke defasados desde UX-01/GAM-06 (O-030, O-037) foram atualizados à UI atual, com helpers comuns em scripts/test-fixture.ts e sem mudança no app. Rodada completa de 29 roteiros e o par preview-frontend/smoke-editorial aprovados no pacote Windows; typecheck 61 e testes 89/109 iguais à baseline. [Provas](../validation/QA_01_SMOKES.md). Próxima ação humana: revisar e mesclar o PR #17 e depois o PR de QA-01.
 
 23/10/2026: branch feat/fundo-e-jogo-idle criada de main/7ed54e1 depois do merge do PR #16, com os arquivos não rastreados de IA-02/CAP-01 preservados e fora do stage. [UI-08](../tasks/done/UI-08.md) concluído: um canvas WebGL atrás do shell desenha o fundo em todos os temas, as superfícies de página deixam-no aparecer nas margens, leitura continua opaca, quadro parado visível em movimento reduzido, intensidade Sutil/Padrão/Vivo e teto de contraste calculado pelos tokens (texto secundário ≥ 4,68:1 medido). Caderno e Ajustes passaram de 0 % para 4,7–41,5 % de área com fundo visível. Typecheck 61=61, 115 testes com as 20 falhas de IA-02/CAP-01, pacote, smoke-home-white e smoke-motion aprovados. [Provas](../validation/UI_08_BACKDROP.md), [ADR-0025](../adr/0025-fundo-por-tema.md). [GAM-06](../tasks/done/GAM-06.md) concluído na mesma branch: jogo incremental numa tela só (núcleo sem orçamento, loja com revelação, Lampejo só com a cidade visível e fora do Foco, Horta e Conselho de decisão, ticker, som WebAudio), estudo dando só XP e conquistas, conversão das regras 2 por minutos de produção com backup .sqlite e reversão. Simulação: primeira compra 0 s, decisões a cada 39 s, primeiro prestígio em 2,95 h. 89/109 testes (as 20 falhas de IA-02/CAP-01), pacote e oito smokes Windows aprovados. [Provas](../validation/GAM_06_GAME.md), [ADR-0026](../adr/0026-jogo-incremental-independente.md), [design](../design/GAME_DESIGN.md). GAM-05 superado. [PR #17](https://github.com/rafafrd/Nodus/pull/17) aberto para main (mesclável, sem arquivos de IA-02/CAP-01); worktree limpo: typecheck 0, 87/87 testes, bootstrap OK. Próxima ação humana: revisar o PR e jogar alguns minutos para avaliar ritmo e distração.
@@ -94,6 +102,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UI-08 | done | Concluído | UI-07, UX-03 | — |
 | GAM-06 | done | Concluído | GAM-05, UI-07, UI-08 | — |
 | QA-01 | done | Concluído | UI-08, GAM-06 | — |
+| GAM-07 | done | Concluído | GAM-06, QA-01 | — |
 
 ## Checkpoints e atenção humana
 

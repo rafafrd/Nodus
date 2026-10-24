@@ -6,7 +6,7 @@ export const BALANCE = {
   tierMilestones:[1,5,25,50,100,150,200,250,300,350,400,500],
   visualMilestones:[1,10,50,100,250,500], achievementMilestones:[1,10,25,50,100,200,350,500],
   prestigeBase:'1e12', prestigeExponent:'.5', prestigeBonus:'.05',
-  activeRateMinutes:{ memory:3 },
+  activeRateMinutes:{ memory:3, aim:2 },
   maxConcurrentEvents:3, achievementPerIndex:.002,
   // Core click: base value, at most this many clicks per batch and one click per 40 ms of real time.
   clickBase:1, maxClickBatch:40, clickIntervalMs:40,
