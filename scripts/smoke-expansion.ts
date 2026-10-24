@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { _electron as electron } from 'playwright';
-import { prepareFixture } from './test-fixture';
+import { prepareFixture,noteTitle,chooseSubject } from './test-fixture';
 import { Store } from '../src/main/store';
 import { Checklist } from '../src/main/checklist';
 const fixture = prepareFixture('expansion'), data = path.join(fixture.dir, 'data'), store = new Store(data), check = new Checklist(store);
@@ -16,7 +16,7 @@ const app = await electron.launch({ executablePath: path.resolve('release/win-un
 page.on('pageerror', e => errors.push(e.message));
 async function ready(area: string) { await page.waitForFunction(target => document.querySelector(`[data-area="${target}"]`)?.getAttribute('aria-hidden') === 'false' && document.querySelector('[data-testid=area-stage]')?.getAttribute('data-motion') === 'idle', area); }
 try {
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
+    await noteTitle(page,'Nota A');
     await page.keyboard.press('Control+k');
     await page.getByRole('textbox', { name: 'Busca global', exact: true }).fill('Matéria B');
     const hit = page.getByRole('option', { name: 'Matéria B Matéria', exact: true });
@@ -25,13 +25,13 @@ try {
     await hit.click();
     await page.getByRole('heading', { name: 'Matéria B', exact: true }).waitFor();
     await page.waitForFunction(() => !document.querySelector('dialog[open]'));
-    await page.getByRole('button', { name: 'Matéria A', exact: true }).click();
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
-    await page.getByRole('button', { name: 'Criar flashcard do trecho', exact: true }).click();
+    await chooseSubject(page,'Matéria A');
+    await noteTitle(page,'Nota A');
+    await page.getByText('Mais formatação e fonte', { exact: true }).click(); await page.getByRole('button', { name: 'Criar flashcard do trecho', exact: true }).click();
     await ready('review');
     await page.getByRole('textbox', { name: 'Pergunta do flashcard', exact: true }).fill('Como descrever um vetor?');
     await page.getByRole('textbox', { name: 'Resposta do flashcard', exact: true }).fill('Direção e magnitude.');
-    assert.equal(await page.getByRole('combobox', { name: 'Nota de origem do flashcard', exact: true }).inputValue(), fixture.noteA.ref.id);
+    assert.equal(await page.getByRole('combobox', { name: 'Nota de origem do flashcard', exact: true, includeHidden: true }).inputValue(), fixture.noteA.ref.id);
     await page.getByRole('button', { name: 'Salvar flashcard', exact: true }).click();
     await page.waitForFunction(() => !document.querySelector('dialog[open]'));
     await page.getByRole('button', { name: 'Revelar resposta', exact: true }).click();
@@ -49,19 +49,18 @@ try {
     }
     await page.getByRole('button', { name: 'Abrir início', exact: true }).click();
     await ready('home');
-    await page.locator('[data-area="home"]').getByText('Revisar equações hoje', { exact: true }).waitFor();
+    await page.locator('[data-area="home"]').getByText('Revisar equações hoje', { exact: true }).first().waitFor();
     await page.screenshot({ path: '.local/evidence/expansion-today.png' });
-    await page.getByRole('button', { name: 'Retomar mesa', exact: false }).click();
+    await page.getByRole('region', { name: 'Próximo passo sugerido', exact: true }).getByRole('button', { name: 'Continuar esta tarefa', exact: true }).click();
     await ready('study');
-    await page.getByRole('heading', { name: 'Nota A', exact: true }).waitFor();
+    await noteTitle(page,'Nota A');
     const invalid = await page.evaluate(async () => [await window.desktop.createFlashcard({ subjectId: 'bad', noteId: null, question: 'Q', answer: 'A', excerpt: '' }), await window.desktop.globalSearch({ query: 'x', path: 'C:/outside' } as never)]);
     assert.ok(invalid.every(r => !r.ok));
     await page.keyboard.press('Control+k');
     await page.getByRole('textbox', { name: 'Busca global', exact: true }).fill('Criar nota');
     await page.getByRole('option', { name: 'Criar nota Ação do app', exact: true }).click();
-    await page.getByRole('dialog', { name: 'Nova nota', exact: true }).waitFor();
-    assert.equal(await page.locator('dialog[open]').count(), 1);
-    await page.keyboard.press('Escape');
+    // Since UX-01 a new note opens immediately, without a dialog.
+    await noteTitle(page, 'Sem título');
     await page.waitForFunction(() => !document.querySelector('dialog[open]'));
     const foreign = await app.evaluate(async ({ BrowserWindow }) => { const win = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false, sandbox: false } }); try {
         await win.loadURL('data:text/html,fixture');

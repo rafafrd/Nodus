@@ -8,6 +8,7 @@ import { Projects } from '../src/main/projects';
 import { UserPreferences } from '../src/main/preferences';
 import { Checklist } from '../src/main/checklist';
 import { Study } from '../src/main/study';
+import { workspaceFromLegacy, type WorkspaceLayout } from '../src/shared/workspace';
 
 // Explicit demonstration data, prepared by preview-frontend; never a personal profile.
 const fixture = process.argv.find(arg => arg.startsWith('--fixture='))?.slice('--fixture='.length);
@@ -26,7 +27,9 @@ for (const name of names) {
   projects.chooseRoot(root);
 }
 const catalog = projects.catalog();
-prefs.update({ name:'Perfil demonstrativo', theme:'editorial', featuredProjectIds:catalog.projects.slice(0,2).map(p => p.id) });
+// Reset the desk panes too, so the proof can rerun on the same fixture.
+const layout = { panes:['study','pdf'] as WorkspaceLayout['panes'], sizes:[52,48] };
+prefs.update({ name:'Perfil demonstrativo', theme:'editorial', featuredProjectIds:catalog.projects.slice(0,2).map(p => p.id), workspaceLayout:layout, workspaceTabs:workspaceFromLegacy(layout) });
 const checklist = new Checklist(store);
 checklist.create(subjects[1].id, 'Implementar busca binária e comparar custos');
 checklist.create(subjects[2].id, 'Revisar as leis de Newton');
@@ -48,7 +51,7 @@ try {
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'editorial');
   await shot('desk');
   await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
-  await page.getByRole('heading',{name:'Hoje',exact:true}).waitFor();
+  await page.getByRole('heading',{name:'Seu ponto de partida.',exact:true}).waitFor();
   await page.getByText('Implementar busca binária e comparar custos',{exact:true}).waitFor();
   await shot('today');
   await page.getByRole('button',{name:'Abrir Explorer',exact:true}).click(); await ready('explorer');
@@ -73,7 +76,7 @@ try {
   await shot('appearance');
   await page.getByRole('button',{name:/^Oliva/}).click(); await page.waitForFunction(()=>document.documentElement.dataset.theme==='olive');
   await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
-  await page.getByRole('heading',{name:'Seu dia, com espaço para estudar.',exact:true}).waitFor(); await shot('original-theme');
+  await page.getByRole('heading',{name:'Seu ponto de partida.',exact:true}).waitFor(); await shot('original-theme');
   await page.getByRole('button',{name:'Abrir configurações',exact:true}).click(); await ready('settings');
   await page.getByRole('button',{name:/^Editorial/}).click(); await page.waitForFunction(()=>document.documentElement.dataset.theme==='editorial');
   await page.getByRole('button',{name:'Abrir revisões',exact:true}).first().click(); await ready('review');
@@ -81,7 +84,7 @@ try {
   await page.getByRole('button',{name:'Abrir grafo',exact:true}).click(); await ready('graph');
   await page.locator('.graph-node-label').first().waitFor(); await shot('graph');
   await page.getByRole('button',{name:'Entrar na cidade',exact:true}).click(); await ready('city');
-  await page.locator('canvas[data-ready=true]').waitFor(); await shot('city');
+  await page.locator('canvas[data-testid=city-canvas][data-ready=true]').waitFor(); await shot('city');
   await dimensions(1040,760);
   await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home'); await shot('compact-today');
   await page.getByRole('button',{name:'Abrir Explorer',exact:true}).click(); await ready('explorer');
@@ -90,7 +93,7 @@ try {
   for(const selector of ['.settings-workspace','.settings-themes']) { const bounds=await page.locator(selector).boundingBox(); assert.ok(bounds&&bounds.x+bounds.width<=1040); }
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.getByRole('button',{name:'Abrir início',exact:true}).click(); await ready('home');
-  await page.getByRole('button',{name:'Retomar mesa',exact:false}).click(); await ready('study');
+  await page.getByRole('button',{name:'Voltar aos estudos',exact:true}).click(); await ready('study'); await page.getByRole('button',{name:'Dividir com PDFs',exact:true}).click();
   await page.locator('canvas[data-rendered-page="2"]').waitFor(); await shot('compact-desk');
   assert.deepEqual(fs.readFileSync(path.join(directory,'vault',note.path)),originalNote);
   assert.deepEqual(fs.readFileSync(file),originalFile);
