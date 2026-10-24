@@ -1,5 +1,5 @@
 import type { Amount } from './amount';
-export type Metric = 'lifetime'|'clicks'|'engine'|'index'|'producers'|'upgrades'|'harvested'|'gathered'|'challenges'|'perfect'|'rounds'|'prestige'|'focusMinutes'|'reviews'|'studyDays'|'events'|'combos'|'cycles'|'families'|'synergies'|'builds'|'memoryPerfect';
+export type Metric = 'lifetime'|'clicks'|'engine'|'index'|'producers'|'upgrades'|'harvested'|'gathered'|'challenges'|'perfect'|'rounds'|'prestige'|'focusMinutes'|'reviews'|'studyDays'|'events'|'combos'|'cycles'|'families'|'synergies'|'builds'|'memoryPerfect'|'aimRounds'|'aimPerfect';
 export type Condition = { metric: Metric; target: Amount; producer?: string } | { owned: string };
 // click: multiplies the core click; clickShare: adds factor × production per second to each click;
 // flash: Lampejo frequency; garden: growth speed. eventChance is kept as the older name of flash frequency.
@@ -20,6 +20,8 @@ export type Economy = {
   lifetime:Amount; cycleEarned:Amount; prestige:Amount; tokens:Amount; cycles:number; permanent:string[];
   harvested:number; gathered:number; challenges:number; perfect:number; rounds:number;
   focusMinutes:number; reviews:number; studyDays:number; events:number; combos:number; memoryPerfect:number;
+  /** Mira (GAM-07): finished rounds and rounds with every square at 300 and no misclick. */
+  aimRounds:number; aimPerfect:number;
   study:{ focus:Record<string,number>; reviewCursor:number; baselineAt:number; lastDay:string; streak:number; dayMinutes:number; dayReviews:number; builds:string[] };
   signals:EventInstance[]; activeEvents:EventInstance[]; nextSignalAt:number; eventSerial:number;
   unlocks:string[]; returnReport?:{ elapsedMs:number; producedMs?:number; credited:Amount; capped:boolean; signals:number; milestones:number; at:number };

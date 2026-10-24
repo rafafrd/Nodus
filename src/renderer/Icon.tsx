@@ -1,9 +1,10 @@
-export type Kind = 'sidebar' | 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip' | 'settings';
+export type Kind = 'sidebar' | 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip' | 'settings' | 'aim';
 export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
   const paths = {
     settings: <><path d="m9 3-1 3-3 1-2 4 2 2v4l4 2 3-1 3 1 4-2v-4l2-2-2-4-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></>,
     video: <><rect x="3" y="5" width="18" height="14"/><path d="m10 9 5 3-5 3z"/></>,
     play: <path d="m7 3 14 9-14 9z"/>,
+    aim: <><rect x="3" y="3" width="18" height="18"/><rect x="8" y="8" width="8" height="8"/><path d="M12 11v2M11 12h2"/></>,
     cinema: <><rect x="2" y="4" width="20" height="14"/><path d="M8 22h8M12 18v4M2 8h20"/></>,
     pip: <><rect x="2" y="4" width="20" height="16"/><rect x="12" y="12" width="8" height="6"/><path d="M5 7l5 5M5 12h5V7"/></>,
     edit: <path d="m4 16 12-12 4 4-12 12H4zM13 7l4 4M4 16l4 4"/>,

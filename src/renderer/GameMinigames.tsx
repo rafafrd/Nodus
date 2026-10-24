@@ -5,6 +5,33 @@ import { enough, formatAmount as n } from '../shared/amount';
 import { Icon } from './Icon';
 
 const until = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return s < 90 ? `${s} s` : `${Math.ceil(s / 60)} min`; };
+
+export type MinigameId = 'garden' | 'council' | 'memory' | 'aim';
+export const MINIGAMES: [MinigameId, Parameters<typeof Icon>[0]['kind'], string][] = [['aim', 'aim', 'Mira'], ['memory', 'memory', 'Memória'], ['garden', 'tree', 'Horta'], ['council', 'person', 'Conselho']];
+/** One line per minigame: what is waiting there now, or what opens it. `ready` marks something to collect or use. */
+export function minigameStatus(id: MinigameId, state: GameState): { text: string; ready: boolean; locked: boolean } {
+  if (id === 'garden') {
+    if (!state.garden.unlocked) return { text: `Abre com ${BALANCE.gardenUnlock.count} Coletores · ${state.economy.producers[BALANCE.gardenUnlock.producer] ?? 0}/${BALANCE.gardenUnlock.count}`, ready: false, locked: true };
+    const ripe = state.plots.filter(p => p.crop && state.now >= p.readyAt).length, growing = state.plots.filter(p => p.crop && state.now < p.readyAt), free = state.plots.filter(p => !p.crop).length;
+    if (ripe) return { text: `${ripe} ${ripe > 1 ? 'prontas' : 'pronta'} para colher`, ready: true, locked: false };
+    if (free) return { text: `${free} ${free > 1 ? 'canteiros livres' : 'canteiro livre'}`, ready: false, locked: false };
+    return { text: `Próxima colheita em ${until(Math.min(...growing.map(p => p.readyAt)) - state.now)}`, ready: false, locked: false };
+  }
+  if (id === 'council') {
+    if (!state.council.unlocked) return { text: `Abre com ${BALANCE.councilUnlock.count} Oficinas · ${state.economy.producers[BALANCE.councilUnlock.producer] ?? 0}/${BALANCE.councilUnlock.count}`, ready: false, locked: true };
+    const d = state.council.deliberations; return { text: `${d} ${d === 1 ? 'deliberação' : 'deliberações'} para usar`, ready: d >= BALANCE.deliberationsMax, locked: false };
+  }
+  if (id === 'memory') return state.round && !state.round.completed ? { text: 'Rodada em andamento', ready: true, locked: false } : { text: 'Pares sem limite de tempo', ready: false, locked: false };
+  const best = Math.max(0, ...Object.values(state.aim.best));
+  return { text: best ? `4 níveis · recorde ${(best * 100).toFixed(1).replace('.', ',')}%` : '4 níveis de precisão', ready: false, locked: false };
+}
+/** The minigames listed on the observatory itself, so they are found without knowing the menu. */
+export function MinigameShortcuts({ state, open }: { state: GameState; open(id: MinigameId): void }) {
+  return <section className="minigame-shortcuts" aria-label="Minigames"><span className="game-kicker">MINIGAMES</span>
+    {MINIGAMES.map(([id, icon, name]) => { const s = minigameStatus(id, state); return <button key={id} aria-label={`Abrir ${name}`} data-ready={s.ready || undefined} data-locked={s.locked || undefined} onClick={() => open(id)}>
+      <span className="shortcut-icon"><Icon kind={icon}/></span><span className="shortcut-copy"><strong>{name}</strong><small>{s.text}</small></span><span className="shortcut-go" aria-hidden="true">{s.locked ? '' : '→'}</span></button>; })}
+  </section>;
+}
 function Locked({ title, text }: { title: string; text: string }) { return <div className="minigame-locked"><Icon kind="target"/><h2>{title}</h2><p>{text}</p></div>; }
 
 /** Horta: what to plant, when to harvest; a flower pays more by staying planted. Ripe plants wait forever. */

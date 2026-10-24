@@ -7,14 +7,18 @@ import { createUrbanScene } from './UrbanScene';
 import { createProductionDistrict } from './ProductionDistrict';
 import { createFarmScene } from './FarmScene';
 import {createCityEffects} from './CityEffects';
+import { minigameStatus, type MinigameId } from './GameMinigames';
 
-export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'mine' | 'forest' | 'mill';
+export type Place = 'engine' | 'plaza' | 'farm' | 'shop' | 'range' | 'mine' | 'forest' | 'mill';
 const PLACES: { id: Place; name: string; x: number; z: number }[] = [
   { id: 'engine', name: 'NÚCLEO', x: 3, z: 2.4 },
   { id: 'farm', name: 'HORTA', x: 3.3, z: -6.8 }, { id: 'shop', name: 'CONSELHO', x: -1, z: -2.1 },
   { id: 'mine', name: 'MINA', x: -10.3, z: -5.8 }, { id: 'forest', name: 'BOSQUE', x: -9.8, z: 7.6 },
   { id: 'mill', name: 'MOINHO', x: 4.4, z: 5.7 }, { id: 'plaza', name: 'MEMÓRIA', x: -3, z: 2.1 },
+  { id: 'range', name: 'MIRA', x: -.4, z: -5.6 },
 ];
+// Places that open a minigame: a ring on the ground and a play mark on the label show where to enter.
+const MINIGAME_PLACES: Partial<Record<Place, MinigameId>> = { farm: 'garden', shop: 'council', plaza: 'memory', range: 'aim' };
 export function CityScene({ state, selected, onSelect, active, onReady }: { state: GameState; selected: Place; active: boolean; onSelect(place: Place): void; onReady(): void }) {
   const host = useRef<HTMLDivElement>(null), labels = useRef<(HTMLButtonElement | null)[]>([]);
   const live = useRef({ state, selected, onSelect, active, onReady }); live.current = { state, selected, onSelect, active, onReady };
@@ -26,13 +30,13 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
   useEffect(() => { focus.current(selected); redraw.current(); }, [selected]);
   useEffect(() => {
     let stopped = false, cleanup = () => {};
-    void Promise.all([import('three'), import('three/addons/controls/OrbitControls.js')]).then(([T, { OrbitControls }]) => {
+    void Promise.all([import('three'), import('three/addons/controls/OrbitControls.js'), import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'), import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]).then(([T, { OrbitControls }, { EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }]) => {
       if (stopped || !host.current) return;
       const element = host.current;
       let renderer: InstanceType<typeof T.WebGLRenderer>;
       try { renderer = new T.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'low-power' }); }
       catch { setError('O cenário 3D não pôde ser aberto. As ferramentas ao lado continuam disponíveis.'); live.current.onReady(); return; }
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.info.autoReset = false; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
       renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
       renderer.domElement.setAttribute('aria-label', 'Cidade isométrica, selecione um local pelos botões'); renderer.domElement.dataset.testid = 'city-canvas'; element.prepend(renderer.domElement);
       const scene = new T.Scene(); scene.background = new T.Color('#bacbc7');
@@ -42,16 +46,22 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       orbit.mouseButtons = { LEFT: T.MOUSE.PAN, MIDDLE: T.MOUSE.DOLLY, RIGHT: T.MOUSE.PAN }; orbit.update();
       const ambient=new T.HemisphereLight('#fff4df', '#718a83', 1.9);scene.add(ambient);
       const sun = new T.DirectionalLight('#ffe3bd', 3.2); sun.position.set(-12, 24, 12); sun.castShadow = true;
-      sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 65 }); sun.shadow.normalBias = .04; scene.add(sun);
+      sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 65 }); sun.shadow.normalBias = .04; scene.add(sun);
+      // A cool fill from the opposite side keeps shaded faces readable; fog fades the far sea into the sky.
+      const fill = new T.DirectionalLight('#bcd3ee', .55); fill.position.set(20, 12, -16); scene.add(fill); scene.fog = new T.Fog('#bacbc7', 62, 120);
+      // Glow only where light sources matter (Cyberpunk and night), so daylight surfaces never bloom.
+      const composer = new EffectComposer(renderer), bloom = new UnrealBloomPass(new T.Vector2(1, 1), .5, .35, .85); composer.addPass(new RenderPass(scene, camera)); composer.addPass(bloom); composer.addPass(new OutputPass()); composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
       const geometries = new Set<InstanceType<typeof T.BufferGeometry>>(), materials = new Map<string, InstanceType<typeof T.MeshStandardMaterial>>();
       const unitBox = new T.BoxGeometry(1, 1, 1), sphere = new T.IcosahedronGeometry(1, 0), cone = new T.ConeGeometry(1, 1, 5), cylinder = new T.CylinderGeometry(1, 1, 1, 12); [unitBox, sphere, cone, cylinder].forEach(g => geometries.add(g));
-      function mat(color: string, glow = false) { const key = color + glow; if (!materials.has(key)) materials.set(key, new T.MeshStandardMaterial({ color, roughness: .92, metalness: 0, flatShading: true, emissive: glow ? color : '#000000', emissiveIntensity: glow ? 1 : 0 })); return materials.get(key)!; }
+      function mat(color: string, glow = false) { const key = color + glow; if (!materials.has(key)) materials.set(key, new T.MeshStandardMaterial({ color, roughness: .92, metalness: 0, flatShading: true, emissive: glow ? color : '#000000', emissiveIntensity: glow ? .8 : 0 })); return materials.get(key)!; }
       function mesh(parent: InstanceType<typeof T.Object3D>, shape: import('three').BufferGeometry<import('three').NormalBufferAttributes>, color: string, x: number, y: number, z: number, sx: number, sy: number, sz: number) { const obj = new T.Mesh(shape, mat(color)); obj.position.set(x, y, z); obj.scale.set(sx, sy, sz); obj.castShadow = true; obj.receiveShadow = true; parent.add(obj); return obj; }
       const box = (parent: InstanceType<typeof T.Object3D>, color: string, x: number, y: number, z: number, sx: number, sy: number, sz: number) => mesh(parent, unitBox, color, x, y, z, sx, sy, sz);
       function group(x: number, z: number, angle = 0) { const g = new T.Group(); g.position.set(x, .24, z); g.rotation.y = angle; scene.add(g); return g; }
       const land = new T.Shape(); land.moveTo(-14, -9); land.lineTo(-11, -11); land.lineTo(10, -11); land.lineTo(14, -7); land.lineTo(14, 8); land.lineTo(11, 10); land.lineTo(-12, 10); land.lineTo(-15, 6); land.closePath();
       const terrain = new T.ExtrudeGeometry(land, { depth: 1.5, bevelEnabled: true, bevelSegments: 1, bevelSize: .18, bevelThickness: .15, steps: 1 }); geometries.add(terrain);
       const island = new T.Mesh(terrain, [mat('#91a481'), mat('#8b7e61')]); island.rotation.x = -Math.PI / 2; island.position.y = -1.45; island.receiveShadow = true; island.castShadow = true; scene.add(island);
+      // A wider, darker ledge under the island reads as a rock layer at the waterline.
+      const strata = new T.Mesh(terrain, mat('#75684f')); strata.rotation.x = -Math.PI / 2; strata.position.y = -2.25; strata.scale.set(1.035, 1.035, .55); strata.receiveShadow = true; scene.add(strata);
       const sea = box(scene, '#98b9b3', 0, -2, 0, 500, .2, 500); sea.castShadow = false;
       box(scene, '#73abb2', 9.8, .27, 0, 3.4, .05, 20.5);
       for (let i = 0; i < 17; i++) { const water = box(scene, '#b4d2ca', 8.5 + (i % 3) * .9, .302, -9 + i * 1.1, .8, .012, .035); water.castShadow = false; }
@@ -69,8 +79,9 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
         box(g, '#655844', .55, 1.3, 1.036, .035, .5, .03); box(g, '#655844', .55, 1.3, 1.036, .45, .035, .03);
         box(g, '#bcaa8c', -.63, 2.6, -.35, .35, 1, .4); box(g, '#897960', -.63, 3.1, -.35, .43, .12, .5);
         for (const x of [-1.07, 1.07]) box(g, wood, x, 1.2, 1, .1, 2, .12); box(g, wood, 0, 1.9, .99, 2.15, .09, .1);
-        return g;
+        houses.push(g); return g;
       }
+      const houses: InstanceType<typeof T.Group>[] = [];
       house(-7.7, 3.2, '#e2d2ac', '#a75f4e', 1.1, -.08); house(-7.4, -2.6, '#c7d6cb', '#536f71', .83, .08);
       house(-3.8, -5.7, '#e4d9b5', '#b87551', 1.12, .12); house(-5.2, 6.5, '#d3c3a0', '#596c73', .78, -.15);
       house(2.7, -7.1, '#dad4b1', '#ab624d', .95);
@@ -139,7 +150,10 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       // Citizens walk only on paths. Their motion carries no economic effect.
       const citizens: InstanceType<typeof T.Group>[] = [];
       for (let i = 0; i < 7; i++) { const g = group(-10 + i * 2.4, .5); box(g, ['#8b657a', '#486d74', '#ba8660'][i % 3], 0, .35, 0, .23, .45, .18); mesh(g, sphere, '#dfbd91', 0, .67, 0, .14, .15, .14); box(g, '#57675c', 0, .81, 0, .3, .07, .27); citizens.push(g); }
-      for (let i = 0; i < 48; i++) { const x = -13 + (i * 7.37) % 25, z = -8 + (i * 3.71) % 18; if (x > 7 || Math.abs(z) < 1.7 || Math.abs(x + 3) < 1.5 || x > 1 && x < 6 && z < 1) continue; mesh(scene, sphere, i % 3 ? '#aeb87a' : '#cfb27a', x, .35, z, .11, .15, .11); }
+      for (let i = 0; i < 48; i++) { const x = -13 + (i * 7.37) % 25, z = -8 + (i * 3.71) % 18; if (x > 7 || Math.abs(z) < 1.7 || Math.abs(x + 3) < 1.5 || x > 1 && x < 6 && z < 1 || Math.abs(x + .4) < 1.7 && Math.abs(z + 5.6) < 1.3) continue; mesh(scene, sphere, i % 3 ? '#aeb87a' : '#cfb27a', x, .35, z, .11, .15, .11); }
+      // Chimney smoke: three puffs per house rise and shrink; the traveller's cottage has none until it is built.
+      const smokeMaterial = new T.MeshStandardMaterial({ color: '#efece2', roughness: 1, transparent: true, opacity: .55, depthWrite: false, flatShading: true });
+      const smoke = houses.slice(0, 5).flatMap(g => { g.updateMatrixWorld(); const top = new T.Vector3(-.63, 3.25, -.35).applyMatrix4(g.matrixWorld); return [0, 1, 2].map(k => { const puff = new T.Mesh(sphere, smokeMaterial); puff.userData = { x: top.x, y: top.y, z: top.z, k }; scene.add(puff); return puff; }); });
       const village=new T.Group();
       for(const object of [...scene.children]) if(object!==sea && object!==district.root && (object instanceof T.Mesh || object instanceof T.Group)) village.add(object);
       scene.add(village);
@@ -148,6 +162,26 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const urban=createUrbanScene();scene.add(urban.newyork,urban.cyberpunk);
       const farmProjects=createFarmScene();scene.add(farmProjects.root);
       const effects=createCityEffects();scene.add(effects.root);
+      // Mira range, shared by the three skins: a booth and three square boards that flip like pop-up targets.
+      const range = new T.Group(); range.position.set(-.4, .24, -5.6); scene.add(range);
+      box(range, '#958c78', 0, .08, 0, 2.9, .16, 2.1); box(range, '#6f6553', 0, .5, .8, 2.5, .62, .3); box(range, '#b04a3c', 0, .84, .8, 2.62, .08, .4);
+      const boards = [-.85, 0, .85].map(x => { box(range, '#5d5446', x, .62, -.6, .08, .96, .08); const board = new T.Group(); board.position.set(x, 1.1, -.6); range.add(board);
+        box(board, '#efe9d8', 0, .32, 0, .62, .62, .06); box(board, '#c4523f', 0, .32, .035, .42, .42, .02); box(board, '#efe9d8', 0, .32, .05, .25, .25, .02); box(board, '#2f3a36', 0, .32, .065, .09, .09, .02); return board; });
+      box(range, '#5d5446', 1.32, 1.05, .8, .06, 1.8, .06); const pennant = new T.Mesh(sailGeo, mat('#c4523f')); pennant.rotation.y = -Math.PI / 2; pennant.scale.set(.5, .38, .5); pennant.position.set(1.32, 1.2, .8); range.add(pennant);
+      // Minigame zones: a ring on the ground pulses where a minigame is open, and stays grey while it is locked.
+      const zoneGeo = new T.RingGeometry(1.8, 1.98, 48); geometries.add(zoneGeo);
+      const zones = (Object.entries(MINIGAME_PLACES) as [Place, MinigameId][]).map(([place, id]) => { const p = PLACES.find(v => v.id === place)!, material = new T.MeshBasicMaterial({ color: '#f2c86b', transparent: true, opacity: .55, depthWrite: false, side: T.DoubleSide, fog: false }), ring = new T.Mesh(zoneGeo, material); ring.rotation.x = -Math.PI / 2; ring.position.set(p.x, .47, p.z); ring.renderOrder = 2; scene.add(ring); return { ring, material, id }; });
+      // A small flock circles over the day skies; it stays home at night and over the neon city.
+      const flock = new T.Group(); scene.add(flock);
+      const birds = Array.from({ length: 7 }, (_, i) => { const bird = new T.Group(); flock.add(bird); const wings = [-1, 1].map(side => { const wing = new T.Group(); wing.position.x = side * .04; bird.add(wing); const feather = box(wing, '#3b4440', side * .2, 0, 0, .4, .025, .14); feather.castShadow = false; return wing; }); bird.userData = { i, wings }; return bird; });
+      // House windows share one material, so night lights every window at once.
+      const windowGlass = mat('#d9d092');
+      function placeLife(t: number) {
+        smoke.forEach(puff => { const u = puff.userData, p = (t * .32 + u.k / 3) % 1; puff.position.set(u.x + p * .5, u.y + p * 1.7, u.z - p * .2); puff.scale.setScalar((.14 + p * .32) * (1 - p * p)); });
+        birds.forEach(bird => { const i = bird.userData.i, a = t * .16 + i * .5; bird.position.set(-2 + Math.cos(a) * (10 + i % 3), 8.5 + Math.sin(a * 2 + i) * .4, Math.sin(a) * (8 + i % 2)); bird.rotation.y = -a;
+          (bird.userData.wings as InstanceType<typeof T.Group>[]).forEach((wing, side) => { wing.rotation.z = (side ? -1 : 1) * Math.sin(t * 9 + i) * .5; }); });
+      }
+      placeLife(0);
       const ringGeo = new T.RingGeometry(1.65, 1.73, 40); geometries.add(ringGeo); const ringMaterial = new T.MeshBasicMaterial({ color: '#fff3a2', transparent: true, opacity: .8, side: T.DoubleSide });
       const selection = new T.Mesh(ringGeo, ringMaterial); selection.rotation.x = -Math.PI / 2; selection.position.y = .5; scene.add(selection);
       const hitTargets: InstanceType<typeof T.Mesh>[] = []; const hitMaterial = new T.MeshBasicMaterial({ visible: false });
@@ -187,12 +221,20 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
             ambient.intensity=cyber?.95:night?.75:1.7;sun.intensity=cyber?1.25:night?.75:2.8;sun.color.set(cyber?'#99b7ef':night?'#9fb7d6':dawn?'#e6b99d':'#f2dcc3');
             (sea.material as InstanceType<typeof T.MeshStandardMaterial>).color.set(cyber?'#111e30':night?'#263e53':'#678b9d');
           }
+          const night = s.atmosphere === 'night', glow = s.skin === 'cyberpunk' || night;
+          (scene.fog as InstanceType<typeof T.Fog>).color.copy(scene.background as InstanceType<typeof T.Color>);
+          windowGlass.emissive.set(night ? '#ffcf78' : '#000000'); windowGlass.emissiveIntensity = night ? .9 : 0;
+          flock.visible = s.skin !== 'cyberpunk' && !night;
+          zones.forEach(({ ring, material, id }, i) => { const status = minigameStatus(id, s), pulse = reduced.matches ? .5 : .5 + .5 * Math.sin(animationTime * 2.4 + i * 1.3);
+            material.color.set(status.locked ? '#9aa39c' : status.ready ? '#ffd76e' : s.skin === 'cyberpunk' ? '#6ff0e6' : '#f2c86b'); material.opacity = status.locked ? .2 : .32 + pulse * .38; ring.scale.setScalar(status.locked ? 1 : 1 + pulse * .05); });
           urban.update(s,delta,!reduced.matches);district.update(s,delta,!reduced.matches);farmProjects.update(s,delta,!reduced.matches);effects.update(s,delta,!reduced.matches);renderer.domElement.dataset.farmProjects=farmProjects.root.children.filter(v=>v.visible&&v.name!=='project-blueprint').map(v=>v.name).join(',');renderer.domElement.dataset.installationObjects=String(district.objects);renderer.domElement.dataset.installationLevels=district.root.children.filter(v=>v.name.startsWith('installation-')).map(v=>v.userData.level??0).join(',');
-          if (!reduced.matches) { animationTime += delta; if(Number(s.engine.power)>0)wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; trees.forEach((g,i)=>{g.rotation.z=Math.sin(animationTime*.8+i*.9)*.018;});citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; }); }
+          if (!reduced.matches) { animationTime += delta; if(Number(s.engine.power)>0)wheel.rotation.z += delta * .5; sails.rotation.z += delta * .2; boat.position.y = .24 + Math.sin(animationTime) * .035; trees.forEach((g,i)=>{g.rotation.z=Math.sin(animationTime*.8+i*.9)*.018;});citizens.forEach((g, i) => { g.position.x = -9.5 + ((animationTime * .23 + i * 2.5) % 15); g.position.z = i % 2 ? .6 : -.45; g.position.y = .24 + Math.abs(Math.sin(animationTime * 8 + i)) * .03; });
+            placeLife(animationTime); boards.forEach((board, i) => { board.rotation.x = -(Math.max(0, Math.sin(animationTime * .9 + i * 2.1)) ** 4) * 1.35; }); }
           cropGroups.forEach((g, i) => { const plot = s.plots[i]; g.visible = Boolean(plot?.crop); plotMeshes[i].visible = Boolean(plot); if (plot?.crop) { const growth = Math.max(.12, Math.min(1, (s.now - plot.plantedAt) / Math.max(1, plot.readyAt - plot.plantedAt))); g.scale.y = .15 + growth * .85; } });
           const place = PLACES.find(v => v.id === selected)!; selection.position.x = place.x; selection.position.z = place.z;
           const nextShadow=[s.skin,s.atmosphere,s.engine.level,s.owned.join(','),s.farm.built.join(','),Object.values(s.economy.producers).join(',')].join(':');if(nextShadow!==shadowKey||!reduced.matches&&now-lastShadow>1000){renderer.shadowMap.needsUpdate=true;lastShadow=now;shadowKey=nextShadow;}
-          renderer.render(scene, camera);renderer.domElement.dataset.frames=String(++frames);renderer.domElement.dataset.effectsTime=effects.time.toFixed(3);renderer.domElement.dataset.emitting=String(effects.emitting);renderer.domElement.dataset.farmWorking=String(farmProjects.working);renderer.domElement.dataset.motion=reduced.matches?'still':'running';renderer.domElement.dataset.drawCalls=String(renderer.info.render.calls);renderer.domElement.dataset.triangles=String(renderer.info.render.triangles);
+          renderer.info.reset(); bloom.strength = s.skin === 'cyberpunk' ? .55 : .35; if (glow) composer.render(); else renderer.render(scene, camera);
+          renderer.domElement.dataset.bloom = String(glow); renderer.domElement.dataset.frames=String(++frames);renderer.domElement.dataset.effectsTime=effects.time.toFixed(3);renderer.domElement.dataset.emitting=String(effects.emitting);renderer.domElement.dataset.farmWorking=String(farmProjects.working);renderer.domElement.dataset.motion=reduced.matches?'still':'running';renderer.domElement.dataset.drawCalls=String(renderer.info.render.calls);renderer.domElement.dataset.triangles=String(renderer.info.render.triangles);
           PLACES.forEach((p, i) => { const projected = new T.Vector3(p.x, p.id === 'mine' ? 3.7 : 3, p.z).project(camera); const label = labels.current[i]; if (label) { label.style.left = `${(projected.x * .5 + .5) * element.clientWidth}px`; label.style.top = `${(-projected.y * .5 + .5) * element.clientHeight}px`; label.style.visibility = projected.x < -1 || projected.x > 1 || projected.y < -1 || projected.y > 1 ? 'hidden' : 'visible'; } });
           renderer.domElement.dataset.ready = 'true';
           renderer.domElement.dataset.engineLevel = String(s.engine.level);
@@ -206,14 +248,14 @@ export function CityScene({ state, selected, onSelect, active, onReady }: { stat
       const onLost=(event:Event)=>{event.preventDefault();contextLost=true;restart();setError('O cenário 3D foi interrompido. Use os objetivos, locais e ferramentas para continuar.');};renderer.domElement.addEventListener('webglcontextlost',onLost);
       const removeWindow=window.desktop.onWindowState(s=>{minimized=s.minimized;restart();});void window.desktop.getWindowState().then(r=>{if(!stopped&&r.ok){minimized=r.value.minimized;restart();}});
       redraw.current = restart; orbit.addEventListener('change', restart);
-      const observer = new ResizeObserver(() => { const width = Math.max(1, element.clientWidth), height = Math.max(1, element.clientHeight), aspect = width / height; camera.left = -15 * aspect; camera.right = 15 * aspect; camera.updateProjectionMatrix(); renderer.setSize(width, height); restart(); }); observer.observe(element);
+      const observer = new ResizeObserver(() => { const width = Math.max(1, element.clientWidth), height = Math.max(1, element.clientHeight), aspect = width / height; camera.left = -15 * aspect; camera.right = 15 * aspect; camera.updateProjectionMatrix(); renderer.setSize(width, height); composer.setSize(width, height); restart(); }); observer.observe(element);
       const stopForPreference = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; restart(); };
       const stopForGesture = () => { gsap.killTweensOf(cameraPose); renderer.domElement.dataset.camera = 'idle'; };
       orbit.addEventListener('start', stopForGesture);
       document.addEventListener('visibilitychange', restart); reduced.addEventListener('change', stopForPreference); restart();
-      cleanup = () => { focus.current = () => {}; redraw.current = () => {};removeWindow();renderer.domElement.removeEventListener('webglcontextlost',onLost); gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); district.dispose(); farmProjects.dispose();effects.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
+      cleanup = () => { focus.current = () => {}; redraw.current = () => {};removeWindow();renderer.domElement.removeEventListener('webglcontextlost',onLost); gsap.killTweensOf(cameraPose); cancelAnimationFrame(frame); observer.disconnect(); orbit.removeEventListener('change', restart); orbit.removeEventListener('start', stopForGesture); orbit.dispose(); document.removeEventListener('visibilitychange', restart); reduced.removeEventListener('change', stopForPreference); renderer.domElement.removeEventListener('pointerdown', pointerDown); renderer.domElement.removeEventListener('pointerup', pointerUp); renderer.domElement.removeEventListener('pointermove', pointerMove); urban.dispose(); district.dispose(); farmProjects.dispose();effects.dispose(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); ringMaterial.dispose(); smokeMaterial.dispose(); zones.forEach(z => z.material.dispose()); bloom.dispose(); composer.dispose(); hitMaterial.dispose(); renderer.dispose(); renderer.domElement.remove(); };
     }).catch(() => { if (!stopped) { setError('Não foi possível carregar o cenário.'); live.current.onReady(); } });
     return () => { stopped = true; cleanup(); };
   }, []);
-  return <div className="city-map" ref={host}>{PLACES.map((p, i) => <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''}`} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`} title={p.name}><span/><b className="place-name">{p.name}</b></button>)}<div className="city-camera">{Object.values(state.economy.producers).some(Boolean)&&<button aria-label="Explorar distrito produtivo" onClick={()=>controls.current.production()}><Icon kind="city"/></button>}<button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}><Icon kind="plus"/></button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}><Icon kind="minus"/></button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}><Icon kind="target"/></button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
+  return <div className="city-map" ref={host}>{PLACES.map((p, i) => { const game = MINIGAME_PLACES[p.id], status = game ? minigameStatus(game, state) : null; return <button key={p.id} ref={el => { labels.current[i] = el; }} className={`city-label ${selected === p.id ? 'selected' : ''} ${game ? 'minigame' : ''}`} data-ready={status?.ready || undefined} data-locked={status?.locked || undefined} onClick={() => onSelect(p.id)} aria-label={`Visitar ${p.name.toLocaleLowerCase()}`} title={status ? `${p.name} · ${status.text}` : p.name}><span/><b className="place-name">{p.name}</b>{status && <em className="place-play">{status.locked ? 'FECHADO' : 'JOGAR ▸'}</em>}</button>; })}<div className="city-camera">{Object.values(state.economy.producers).some(Boolean)&&<button aria-label="Explorar distrito produtivo" onClick={()=>controls.current.production()}><Icon kind="city"/></button>}<button aria-label="Aproximar cidade" onClick={() => controls.current.zoom(.15)}><Icon kind="plus"/></button><button aria-label="Afastar cidade" onClick={() => controls.current.zoom(-.15)}><Icon kind="minus"/></button><button aria-label="Centralizar cidade" onClick={() => controls.current.reset()}><Icon kind="target"/></button></div><span className="city-controls">Arraste para explorar · Role para aproximar</span>{error && <div className="city-webgl-error" role="alert">{error}</div>}</div>;
 }
