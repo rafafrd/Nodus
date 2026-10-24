@@ -561,3 +561,34 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 | C3 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): tabela por roteiro com equivalente atual e cobertura; fontes, rascunhos, reinício e IPC continuam provados |
 | C4 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): 29 roteiros em sequência (smooth-ui 3/3 após ajuste de amostragem), typecheck 61=61, 89/109 da baseline, src sem diff |
 | C5 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): gotcha O-030/O-037 resolvidos e O-038, ticket, quadro e retomada |
+## IA-02 — Material de estudo por IA externa
+
+09/10/2026, branch local codex/external-study-material; recuperado em 24/10/2026 na feat/material-ia-e-captura (O-041), com typecheck 0, 96/96 testes, jornada e 30 smokes aprovados no pacote. C1–C8 aprovados: [provas](STUDY_MATERIALS.md), [relatório](../reports/MATERIAL_IA_2026-10-09.md). Nenhuma chamada de provedor, dependência nova ou publicação. Fontes e alterações anteriores preservadas; pendências externas/humanas anteriores permanecem nos tickets próprios.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): entrada/destino/foco/detalhe, prompt independente de conteúdo cadastrado |
+| C2 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): schema/parser/IDs/limites/referências e colagem/arquivoUTF-8 |
+| C3 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): clipboard real, prompt completo, correção integral e revalidação |
+| C4 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): todas as notas/fontes/complementos, HTML/imagem/link inertes e inspeção visual |
+| C5 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): Markdown real/editável, origem/código/tabela/fórmula/bytes antigos preservados |
+| C6 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): rascunho/reinício/replay/edição, audit rollback e recuperação não destrutiva |
+| C7 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): migração7→8/backup/restauração reais, regressão quiz/cartões e zero recompensa |
+| C8 | aprovado | [STUDY_MATERIALS](STUDY_MATERIALS.md): typecheck90testes/revisão7/7/pacote204arquivos/jornadas Windows/13capturas/docs/relatório |
+
+## CAP-01 — Captura Edge e preparação integrada ao desktop
+
+24/10/2026: bloqueado e guardado em `.local/cap-01-parked/` depois da perda da parte rastreada (O-041); ver [ticket](../tasks/doing/CAP-01.md). Nenhuma prova executada nesta base.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | não verificado | — |
+| C2 | não verificado | — |
+| C3 | não verificado | — |
+| C4 | não verificado | — |
+| C5 | não verificado | — |
+| C6 | não verificado | — |
+| C7 | não verificado | — |
+| C8 | não verificado | — |
+| C9 | não verificado | — |
+| C10 | não verificado | — |

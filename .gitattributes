@@ -13,6 +13,8 @@ docs/validation/evidence/notes-ux/** -text
 docs/validation/evidence/farm-projects/** -text
 docs/validation/evidence/visual-experience/** -text
 docs/validation/evidence/home-white/** -text
+docs/validation/evidence/home-pr/** -text
+docs/validation/evidence/study-materials/** -text
 # Logs retain whitespace emitted by tools rather than changing the evidence.
 docs/validation/evidence/**/*.log whitespace=-blank-at-eol,-blank-at-eof
 docs/validation/evidence/notes-ux/unit-final.txt whitespace=cr-at-eol

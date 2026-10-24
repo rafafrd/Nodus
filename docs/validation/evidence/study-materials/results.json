@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-24T14:35:53.213Z",
+  "platform": "win32",
+  "node": "v24.21.0",
+  "fixture": "C:\\Users\\Rafael\\Documents\\Programação\\Projetos\\Nodus\\.local\\study-materials-DpMa9H",
+  "source": "Declared JSON fixture; no external AI provider was called.",
+  "checks": [
+    "Entrada Adicionar conteúdo/Caderno; destino explícito e bloqueado após preparo; prompt para anexos sem enviar material local; clipboard Windows confirmado.",
+    "Colagem/arquivo UTF-8 e correção integral; fechamento imediato conserva resposta; prévia de todas as notas/fontes/complementos; HTML/link/imagem inertes.",
+    "Notas reais editáveis, Markdown/tabelas/código/fórmula/origem conservados; replay preserva edição; outra matéria/argumento inválido e oito canais de outra janela negados.",
+    "Tema Branco real, prévia/retomada e compacto1040×760/640px sem overflow; fechar aplicativo imediatamente salva rascunho; reinício conserva prompt, importação, edição e tema.",
+    "A nota importada e editada vira fonte real de um pedido de questionário no fluxo IA-01 existente."
+  ],
+  "errors": [],
+  "network": [],
+  "screenshots": [
+    "01-entrada.png",
+    "02-preparar.png",
+    "03-prompt.png",
+    "04-correcao.png",
+    "05-previa.png",
+    "06-importado.png",
+    "07-caderno.png",
+    "08-retomada-branco.png",
+    "09-previa-branco.png",
+    "10-compacto-branco.png",
+    "11-estreito.png",
+    "12-reinicio-rascunho.png",
+    "13-praticar-material.png"
+  ],
+  "metrics": {
+    "whiteColors": {
+      "heading": "rgb(38, 51, 42)",
+      "table": "rgb(38, 51, 42)",
+      "text": "#26332a"
+    },
+    "compact": {
+      "left": 95,
+      "right": 945,
+      "bottom": 736,
+      "top": 24,
+      "overflow": false
+    },
+    "narrow": {
+      "left": 24,
+      "right": 616,
+      "bottom": 736,
+      "top": 24,
+      "overflow": false
+    }
+  },
+  "originalSha256": {
+    "noteA": "b7054aed23c8ca4e386430b4e99af6adc94bbf4389a358b0014d9f9d0e2f79aa",
+    "noteB": "372a540a4d27f3407fcfde0f01985b209fc7ffe3eac356bed3eabd74617e362d",
+    "pdf": "0ed68c2f3a78d1dd48afbb69f786b59f2940e459f3a66d343f9cbd06c9028e57"
+  }
+}

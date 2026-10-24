@@ -300,3 +300,13 @@ O-030 foi resolvido pela atualização dos roteiros, com helpers comuns em `scri
 No pacote Windows, `smoke-aim-city` clicou no centro dos 20 quadrados da rodada Leve, mas em cerca de uma de cada três execuções a precisão saiu 95% ou 90%, com 1 ou 2 "perdidos" e nenhum clique no vazio. Um registro de `pointerdown` mostrou que, nesses quadrados, o evento caía num `<span>` sem classe: a mensagem "Mira Leve: acerte o centro dos quadrados." da barra `.game-notice` (`bottom:104px`, `pointer-events:auto`) ficava sobre a parte de baixo da arena. Um jogador teria perdido esses cliques do mesmo jeito.
 
 Corrigido em `idle.css`: durante uma rodada (`.idle-game:has(.aim-playing)`), as mensagens comuns somem e só os erros continuam visíveis. O roteiro passou a conferir com `elementFromPoint`, antes de cada clique, que nada cobre o quadrado. Depois da correção, 4 execuções seguidas deram 20/20 e SS.
+
+## O-040 — Títulos e cabeçalhos Markdown herdavam texto claro na prévia branca (IA-02, 09/10/2026; registrado originalmente como O-029, renumerado na recuperação de 24/10/2026)
+
+Observado nas capturas da nova prévia: h2 e th conservavam as cores claras de styles.css sobre papel branco. A prévia usa as variáveis do tema para títulos/negrito/tabela/código; white.css também corrige títulos/negrito/cabeçalhos da leitura Markdown existente. Reconferência no executável mede rgb(38,51,42) para título/cabeçalho Branco; fotos finais e limites em [STUDY_MATERIALS](docs/validation/STUDY_MATERIALS.md). Conteúdo Markdown não foi alterado para corrigir as cores.
+
+## O-041 — Reset da branch descartou a parte rastreada de IA-02 e CAP-01 (recuperação de 24/10/2026)
+
+Observado ao retomar IA-02/CAP-01: em 21/10/2026, 21:58, a branch local `codex/external-study-material` recebeu `reset` para `origin/main` (reflog). As alterações em arquivos rastreados dos dois tickets foram descartadas; os arquivos novos, não rastreados, sobreviveram e deixaram de compilar (61 erros de tipos, 20 testes falhando). A parte de IA-02 voltou do diff salvo em `.local/edge-capture-baseline/previous.patch` e das cópias anteriores ao CAP-01 na mesma pasta; a de CAP-01 não tinha cópia em reflog, commits/blobs soltos, `.local` nem no pacote.
+
+Prevenção: trabalho em andamento ganha commit em branch própria antes de qualquer troca de base; nunca `reset` com alterações rastreadas não salvas. Arquivos novos de um ticket não bastam para reconstruí-lo.

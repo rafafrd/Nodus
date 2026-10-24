@@ -25,6 +25,8 @@ import { PdfExporter } from './pdf-export';
 import { pdfSourceInput, pdfExportInput } from '../shared/pdf-export';
 import { Study } from './study';
 import { StudyActivities } from './study-activities';
+import { StudyMaterials } from './study-materials';
+import { prepareMaterialInput,materialRequestRef,materialResponseInput } from '../shared/study-material';
 import { ActivitySources } from './activity-sources';
 import { extractPdfText } from './pdf-text-extraction';
 import { prepareActivityInput,requestRef,responseInput,activityRef,quizStartInput,quizAnswerInput,quizFinishInput,activityCardInput } from '../shared/study-activity';
@@ -50,6 +52,7 @@ let player: VideoPlayer;
 let pdfExporter: PdfExporter;
 let study: Study;
 let activities: StudyActivities;
+let studyMaterials: StudyMaterials;
 let annotations: Annotations;
 let backups: Backups;
 let relaunchProfile:string|null=null;
@@ -71,6 +74,18 @@ function handle<T>(channel: string, schema: z.ZodType<T>, action: (input: T) => 
   });
 }
 function register() {
+  handle('material-study:prepare',prepareMaterialInput,input=>studyMaterials.prepare(input));
+  handle('material-study:requests',subjectIdInput,input=>studyMaterials.list(input.subjectId));
+  handle('material-study:request',materialRequestRef,input=>studyMaterials.request(input));
+  handle('material-study:response',materialResponseInput,input=>studyMaterials.saveResponse(input));
+  handle('material-study:validate',materialResponseInput,input=>studyMaterials.validate(input));
+  handle('material-study:correction',materialResponseInput,input=>studyMaterials.correction(input));
+  handle('material-study:copy',materialRequestRef.extend({mode:z.enum(['prompt','correction']),text:z.string().max(8*1024*1024).optional()}),async input=>{
+    const ref={subjectId:input.subjectId,requestId:input.requestId};
+    const prepared=input.mode==='prompt'?{text:studyMaterials.request(ref).prompt,short:false}:studyMaterials.correction({...ref,text:input.text??''});
+    await clipboard.writeText(prepared.text);if(await clipboard.readText()!==prepared.text)throw new AppError('CLIPBOARD_FAILED','Não foi possível confirmar a cópia. Abra o texto completo para copiar manualmente.');return {copied:true,short:prepared.short};
+  });
+  handle('material-study:import',materialResponseInput,input=>studyMaterials.import(input));
   handle('activity:sources',subjectIdInput,input=>activities.sources.catalog(input.subjectId));
   handle('activity:prepare',prepareActivityInput,input=>activities.prepare(input));
   handle('activity:requests',subjectIdInput,input=>activities.requests(input.subjectId));
@@ -229,6 +244,7 @@ app.whenReady().then(() => {
   pdfExporter = new PdfExporter(store, vault);
   study = new Study(store);
   activities = new StudyActivities(store,new ActivitySources(store,vault,desks,extractPdfText),study);
+  studyMaterials = new StudyMaterials(store,vault);
   videos = new Videos(store);
   annotations = new Annotations(store,desks,videos);
   backups = new Backups(store,()=>app.getPath('documents'));

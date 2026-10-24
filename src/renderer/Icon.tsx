@@ -1,6 +1,7 @@
-export type Kind = 'sidebar' | 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip' | 'settings' | 'aim';
+export type Kind = 'sidebar' | 'orbit' | 'note' | 'book' | 'focus' | 'check' | 'search' | 'expand' | 'collapse' | 'arrow' | 'folder' | 'layout' | 'bold' | 'italic' | 'heading' | 'bullet' | 'link' | 'code' | 'table' | 'city' | 'shop' | 'memory' | 'engine' | 'person' | 'coin' | 'tree' | 'stone' | 'chevron' | 'refresh' | 'plus' | 'close' | 'target' | 'minus' | 'file' | 'json' | 'image' | 'edit' | 'video' | 'play' | 'cinema' | 'pip' | 'settings' | 'aim' | 'spark';
 export function Icon({ kind = 'orbit' }: { kind?: Kind }) {
   const paths = {
+    spark: <><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/><path d="M20 2v4M18 4h4"/></>,
     settings: <><path d="m9 3-1 3-3 1-2 4 2 2v4l4 2 3-1 3 1 4-2v-4l2-2-2-4-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></>,
     video: <><rect x="3" y="5" width="18" height="14"/><path d="m10 9 5 3-5 3z"/></>,
     play: <path d="m7 3 14 9-14 9z"/>,

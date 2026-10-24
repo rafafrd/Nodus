@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { AppError, type Subject, type Bootstrap } from '../shared/contracts';
 export class Store {
   readonly db: DatabaseSync;
-  constructor(readonly directory: string, readonly targetVersion = 7) {
+  constructor(readonly directory: string, readonly targetVersion = 8) {
     fs.mkdirSync(directory, { recursive: true });
     this.db = new DatabaseSync(path.join(directory, 'study.sqlite'));
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
@@ -73,6 +73,11 @@ export class Store {
       CREATE TABLE activity_cards(activity_id TEXT NOT NULL REFERENCES study_activities(id),item_id TEXT NOT NULL,card_id TEXT REFERENCES flashcards(id) ON DELETE SET NULL,PRIMARY KEY(activity_id,item_id));
       CREATE TABLE quiz_sessions(id TEXT PRIMARY KEY,activity_id TEXT NOT NULL REFERENCES study_activities(id),answers TEXT NOT NULL,version INTEGER NOT NULL DEFAULT 0,started_at INTEGER NOT NULL,finished_at INTEGER);
       PRAGMA user_version=7;
+    `));
+    if (version < 8 && targetVersion >= 8) this.transaction(() => this.db.exec(`
+      CREATE TABLE material_requests(id TEXT PRIMARY KEY,subject_id TEXT NOT NULL REFERENCES subjects(id),subject_name TEXT NOT NULL,focus TEXT NOT NULL,size TEXT NOT NULL,prompt TEXT NOT NULL,created_at INTEGER NOT NULL,response TEXT NOT NULL DEFAULT '');
+      CREATE TABLE material_imports(request_id TEXT PRIMARY KEY REFERENCES material_requests(id),status TEXT NOT NULL CHECK(status IN ('pending','imported')),payload_hash TEXT NOT NULL,plan TEXT NOT NULL,created_at INTEGER NOT NULL);
+      PRAGMA user_version=8;
     `));
   }
   transaction<T>(action: () => T): T {

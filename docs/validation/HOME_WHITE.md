@@ -1,5 +1,7 @@
 # UX-03 — Home animada e tema Branco
 
+Registro da execução local; pedido posterior autorizou commit/push e [PR #15](https://github.com/rafafrd/Nodus/pull/15). README e entrega remota conferidos em [HOME_PR](HOME_PR.md), sem repetir testes do produto por alterações documentais.
+
 Windows nativo em 09/10/2026; branch local codex/home-white, sobre o checkout de UX-02/UX-01/GAM-05/DOC-01. Node 24.21.0 portátil, Electron 44.5.1, Three.js 0.186.1, app 0.1.0. Fixtures geradas, perfis isolados e operações reais. Sem dependência, lockfile, migration, dados pessoais ou publicação.
 
 ## Critérios

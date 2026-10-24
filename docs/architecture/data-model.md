@@ -78,3 +78,14 @@ UX-01 conserva schema7. settings.recentNotes guarda até 30 IDs abertos; leitura
 Migração7 adiciona tabelas sem reset. Importação inclui atividade,10cartões e audit na mesma transação. Resposta inválida pode permanecer como rascunho do pedido, nunca como atividade pronta. Conteúdo diferente cria revisão distinta; replay encontra a mesma atividade. Sessões exigem vínculo da matéria/versão e só expõem gabarito após finalizar. O limite do trecho/explicação no contrato existente de cartões passa de2.000para4.000caracteres para preservar atividades válidas; o agendamento/economia permanecem iguais. Backup manifest usa user_version real e aceita5/6/7. [Contrato](../contracts/study-activity-v1.md).
 
 GAM-05 mantém SQLite7. `game_player.state.farm` armazena IDs permanentes de construção/preferência e postos `{stock,carryMs,settledAt}`. Perfis anteriores recebem campos vazios com baseline do main; prestígio conserva o objeto inteiro. `economy.motorEarned` e `engine.lastGain` passam a Amount (`number|string`) junto das cotações `budget/remaining/referenceRate/power`. Ledger/operações existentes registram custo material/recolhimento atômico e replay; inventário continua inteiro seguro. Backup real conserva postos e frações. [ADR-0019](../adr/0019-projetos-e-postos-da-farm.md).
+
+## Material de estudo externo — SQLite8
+
+IA-02 adiciona duas tabelas sem alterar as anteriores:
+
+| Tabela | Conteúdo e regra |
+| --- | --- |
+| material_requests | UUID, matéria/nome no preparo, foco, detalhe, prompt, data e resposta/rascunho; destino fixo |
+| material_imports | Um recibo por pedido; pending/imported, hash canônico, plano interno de notas/arquivos e data |
+
+Cada nota recebe UUID local novo, caminho derivado no vault e identidade/frontmatter da matéria. O JSON externo não escolhe caminhos. Notas/status/audit finais usam a mesma transação; a reserva precede filesystem e permite recuperação de órfãos intactos. Edições externas nunca são substituídas por replay/limpeza. A resposta importada fica conservada e novas gerações usam outro pedido. Nomes das fontes são declarações externas, não IDs de PDF/snapshot locais. Backup aceita5/6/7/8 e a restauração migra versões antigas sem reset. [Contrato](../contracts/study-material-v1.md), [ADR-0022](../adr/0022-material-ia-externa.md).

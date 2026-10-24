@@ -1,0 +1,15 @@
+✔ prompt padrão para anexos não depende de fontes/vault; pedido e resposta retomam com destino fixo (180.9255ms)
+✔ JSON estrito rejeita sintaxe/duplicatas/limites/campos/versão/matéria e frontmatter sem tocar arquivos (136.7345ms)
+✔ notas e fontes exigem IDs/títulos únicos, referências existentes e limites de quantidade (124.8521ms)
+✔ importação cria Markdown real; replay semântico conserva edições, origem, outra matéria e recompensas (261.6247ms)
+✔ falha real de audit reverte todas as referências/arquivos/recibo e permite repetir (191.521ms)
+✔ reinício recupera reserva interrompida; arquivos alterados externamente permanecem intactos (190.4069ms)
+✔ migração7→8 e backup/restauração real conservam material, recibos, fontes e notas editadas (582.6977ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2159.0423

@@ -40,7 +40,7 @@ test('perfil/preferências persistem sem schema novo; updates e foto/audit fazem
     prefs.update({ name: 'Perfil de teste', theme: 'midnight', animations: false }); const photo = `data:image/png;base64,${png.toString('base64')}`; prefs.setPhoto(photo);
     store.close(); store = new Store(dir); prefs = new UserPreferences(store);
     assert.deepEqual(prefs.get(), { ...defaultPreferences, name: 'Perfil de teste', theme: 'midnight', animations: false, photo });
-    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 7); assert.equal(store.requireSubject(subject.id).name, 'Matéria preservada');
+    assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version, 8); assert.equal(store.requireSubject(subject.id).name, 'Matéria preservada');
     const before = store.setting('preferences');
     store.db.exec("CREATE TRIGGER fail_pref BEFORE INSERT ON audit_events WHEN NEW.action LIKE 'preferences.%' OR NEW.action LIKE 'profile.%' BEGIN SELECT RAISE(FAIL,'fixture audit fail'); END;");
     assert.throws(() => prefs.update({ theme: 'graphite' })); assert.throws(() => prefs.setPhoto(null)); assert.equal(store.setting('preferences'), before); assert.equal(store.setting('other-setting'), 'keep');
@@ -69,7 +69,7 @@ test('Home inicial e tema branco conservam perfil anterior, abas, dados e rollba
     assert.deepEqual(prefs.get(),{...before,theme:'white'});assert.equal(preferenceInput.safeParse({theme:'white'}).success,true);
     store.close();store=new Store(dir);prefs=new UserPreferences(store);assert.equal(prefs.get().theme,'white');assert.deepEqual(prefs.get().workspaceTabs,before.workspaceTabs);
     store.db.exec("CREATE TRIGGER white_audit_fail BEFORE INSERT ON audit_events WHEN NEW.action='preferences.update' BEGIN SELECT RAISE(FAIL,'fixture audit fail'); END;");
-    assert.throws(()=>prefs.update({theme:'olive'}));assert.equal(store.setting('preferences'),saved);assert.equal(store.setting('other-setting'),'keep');assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version,7);
+    assert.throws(()=>prefs.update({theme:'olive'}));assert.equal(store.setting('preferences'),saved);assert.equal(store.setting('other-setting'),'keep');assert.equal(store.db.prepare('PRAGMA user_version').get()!.user_version,8);
   } finally {store.close();}
 });
 

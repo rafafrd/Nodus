@@ -30,6 +30,7 @@ import './workspace.css';
 import './notes-ux.css';
 import { AppBackdrop } from './AppBackdrop';
 import {ContentShelf,type ContentChoice} from './ContentShelf';
+import {StudyMaterialAssistant} from './StudyMaterialAssistant';
 import './experience.css';
 import './home.css';
 import './white.css';
@@ -64,6 +65,7 @@ export function App() {
   const [desk, setDesk] = useState<Desk | null>(null);
   const [vault, setVault] = useState<string | null>(null);
   const [contentOpen,setContentOpen]=useState(false),[videoAddRequest,setVideoAddRequest]=useState<string|null>(null);
+  const [materialAssistantOpen,setMaterialAssistantOpen]=useState(false),materialFlush=useRef<(()=>Promise<boolean>)|null>(null);
   const [modal, setModal] = useState<'subject' | 'rename' | null>(null);
   const [name, setName] = useState('');
   const [notice,setNotice]=useState(''),[linking,setLinking]=useState(false),[linkTarget,setLinkTarget]=useState('');
@@ -95,7 +97,7 @@ export function App() {
       const subject = r.value.subjects.find(s => s.id === r.value.activeSubjectId) ?? r.value.subjects[0];
       if (subject) void select(subject);
     });
-    return window.desktop.onBeforeClose(() => { void (async () => { await navigationQueue.current; if (await saveSession(sessionRef.current) && await latest.current.note.stash() && (!projectFlush.current || await projectFlush.current()) && (!gameFlush.current || await gameFlush.current())) { const r = await window.desktop.finishClose(); if (!r.ok) setError(r.message); } })(); });
+    return window.desktop.onBeforeClose(() => { void (async () => { await navigationQueue.current; if ((!materialFlush.current||await materialFlush.current()) && await saveSession(sessionRef.current) && await latest.current.note.stash() && (!projectFlush.current || await projectFlush.current()) && (!gameFlush.current || await gameFlush.current())) { const r = await window.desktop.finishClose(); if (!r.ok) setError(r.message); } })(); });
   }, []);
   useEffect(() => {
     function key(event: KeyboardEvent) {
@@ -213,11 +215,14 @@ export function App() {
   const visibleNotes = notes.filter(n => n.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
   async function chooseContent(choice:ContentChoice){
     try{if(choice==='write'){await quickNote();return;}if(!latest.current.active)return;
-      if(choice==='markdown'){if(!vault&&!await setupNotes())return;await navigate('study');await importNote();}
+      if(choice==='ai-material'){if(!vault&&!await setupNotes())return;setMaterialAssistantOpen(true);}
+      else if(choice==='markdown'){if(!vault&&!await setupNotes())return;await navigate('study');await importNote();}
       else if(choice==='pdf'){if(await chooseMaterial())await navigate('pdf');}
       else {await navigate('video');setVideoAddRequest(crypto.randomUUID());}
     }catch(e){setError(e instanceof Error?e.message:'Não foi possível adicionar o conteúdo.');}
   }
+  function closeMaterialAssistant(){setMaterialAssistantOpen(false);const subjectId=latest.current.active?.id;if(subjectId)void window.desktop.listNotes({subjectId}).then(r=>{if(r.ok&&latest.current.active?.id===subjectId)setNotes(r.value);});}
+  async function openMaterialNote(id:string){const result=await window.desktop.openNote({id});if(!result.ok){setError(result.message);return;}await jump(result.value.ref.subjectId,id);}
   const words = useMemo(() => { const body = note.text.replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, '').trim(); return body ? body.split(/\s+/u).length : 0; }, [note.text]);
   async function pauseForCity() {
     if (active) {
@@ -259,7 +264,7 @@ export function App() {
   async function createCard(excerpt:string){if(!note.doc||!active)return;setCardSource({noteId:note.doc.ref.id,subjectId:active.id,title:note.doc.ref.title,excerpt:excerpt.slice(0,2000),nonce:crypto.randomUUID()});await navigate('review');}
   const materialProps:MaterialProps={subjects,active,desk,materials,material,materialGeneration,select,checkpoint,chooseMaterial,launchActivity,jump,capture,navigate,videos,videoAddRequest};
   const pane=(area:WorkspaceArea,content:ReactNode)=><AreaPane key={area} area={area} layout={layout} pending={navigationPending} navigate={target=>void navigate(target)} closePane={target=>void closePane(target)}>{content}</AreaPane>;
-  const study=<StudyArea note={note} subjects={subjects} active={active} notes={notes} visibleNotes={visibleNotes} desk={desk} vault={vault} browseOpen={browseOpen} search={search} loading={loading} error={error} notice={notice} words={words} sculptureActive={shown('study')&&videos.mode!=='cinema'} deskRef={workspace} setBrowseOpen={setBrowseOpen} setSearch={setSearch} setError={setError} setNotice={setNotice} select={select} open={open} quickNote={quickNote} importNote={importNote} chooseVault={chooseVault} setupNotes={setupNotes} newModal={newModal} launchActivity={launchActivity} checkpoint={checkpoint} moveNote={moveNote} createCard={createCard} relate={()=>{setLinkTarget('');setLinking(true);}} sourceLink={sourceLink}>{modal&&<SubjectDialog mode={modal} name={name} color={color} setName={setName} setColor={setColor} submit={submit} close={()=>setModal(null)}/>}</StudyArea>;
+  const study=<StudyArea note={note} subjects={subjects} active={active} notes={notes} visibleNotes={visibleNotes} desk={desk} vault={vault} browseOpen={browseOpen} search={search} loading={loading} error={error} notice={notice} words={words} sculptureActive={shown('study')&&videos.mode!=='cinema'} deskRef={workspace} setBrowseOpen={setBrowseOpen} setSearch={setSearch} setError={setError} setNotice={setNotice} select={select} open={open} quickNote={quickNote} importNote={importNote} materialAssistant={()=>void chooseContent('ai-material')} chooseVault={chooseVault} setupNotes={setupNotes} newModal={newModal} launchActivity={launchActivity} checkpoint={checkpoint} moveNote={moveNote} createCard={createCard} relate={()=>{setLinkTarget('');setLinking(true);}} sourceLink={sourceLink}>{modal&&<SubjectDialog mode={modal} name={name} color={color} setName={setName} setColor={setColor} submit={submit} close={()=>setModal(null)}/>}</StudyArea>;
   return <div className="nodus-shell" data-sidebar-collapsed={preferences.sidebarCollapsed}><AppBackdrop panes={layout.panes} cinema={videos.mode==='cinema'}/><ActivityRail subjects={subjects} subjectId={active?.id??null} selectSubject={id=>{const s=subjects.find(s=>s.id===id);if(s)void select(s);}} addContent={()=>setContentOpen(true)} newSubject={()=>newModal('subject')} newNote={()=>void quickNote()} browse={()=>{void navigate('study').then(()=>setBrowseOpen(true));}} active={currentArea} panes={layout.panes} navigate={area=>void navigate(area)} add={area=>void addPane(area)} drag={setDragged} pending={navigationPending} search={()=>setPalette(true)}/><WorkspaceFrame sidebarCollapsed={preferences.sidebarCollapsed} sidebarPending={preferencesBusy} toggleSidebar={toggleSidebar} session={session} layout={layout} pending={navigationPending} cinema={videos.mode==='cinema'} dragged={dragged} endDrag={()=>setDragged(null)} add={area=>void addPane(area)} selectTab={id=>void selectTab(id)} newTab={()=>void newTab()} closeTab={id=>void closeTab(id)} resize={resize} saveSizes={()=>void saveSession(sessionRef.current)} focus={focusPane} tools={<SuspendedTools subjectId={active?.id??null} nextStepId={desk?.nextStepId??null} onNext={nextStepId=>void checkpoint({nextStepId})} onError={setError} version={version} cinema={videos.mode==='cinema'} opened={toolOpen} open={setToolOpen}/>}><AreaStage active={currentArea} layout={layout}>
     {pane('study',study)}
     {visited.includes('pdf')&&pane('pdf',<PdfModule {...materialProps}/>)}
@@ -270,5 +275,5 @@ export function App() {
     {visited.includes('explorer')&&pane('explorer',<Suspense fallback={<div className="area-loading">Retomando projetos…</div>}><ProjectWorkspace keyboardActive={currentArea==='explorer'} activeArea={explorerOpen && videos.mode !== 'cinema'} requestedProject={requestedProject} registerFlush={fn => { projectFlush.current = fn; }}/></Suspense>)}
     {visited.includes('city')&&pane('city',<Suspense fallback={<div className="area-loading">Preparando Vale Sereno…</div>}><GameView activeArea={gameOpen && videos.mode !== 'cinema'} keyboardActive={currentArea==='city'} registerFlush={fn=>{gameFlush.current=fn;}} onClose={() => void navigate('study')} onExplorer={() => void navigate('explorer')}/></Suspense>)}
     {visited.includes('settings')&&pane('settings',<Suspense fallback={<div className="area-loading">Abrindo configurações…</div>}><SettingsWorkspace activeArea={settingsOpen && videos.mode !== 'cinema'} navigate={area => void navigate(area)}/></Suspense>)}
-  </AreaStage></WorkspaceFrame><VideoSurface controller={videos}/>{contentOpen&&<ContentShelf subject={active?.name??null} vault={Boolean(vault)} close={()=>setContentOpen(false)} choose={choice=>void chooseContent(choice)}/>}{linking&&<LinkDialog notes={notes} current={note.doc?.ref.id} target={linkTarget} setTarget={setLinkTarget} submit={linkNote} close={()=>setLinking(false)}/>}{palette&&<CommandPalette close={()=>{setPalette(false);if(deferredModal.current){newModal(deferredModal.current);deferredModal.current=null;}}} onHit={hit} onCommand={command}/>} {error && currentArea !== 'study' && <div className="navigation-error" role="alert">{error}<button aria-label="Fechar aviso da navegação" onClick={() => setError('')}><Mark kind="close"/></button></div>}</div>;
+  </AreaStage></WorkspaceFrame><VideoSurface controller={videos}/>{contentOpen&&<ContentShelf subject={active?.name??null} vault={Boolean(vault)} close={()=>setContentOpen(false)} choose={choice=>void chooseContent(choice)}/>}{materialAssistantOpen&&active&&<StudyMaterialAssistant subjects={subjects} initialSubjectId={active.id} close={closeMaterialAssistant} openNote={id=>void openMaterialNote(id)} registerFlush={flush=>{materialFlush.current=flush;}}/>}{linking&&<LinkDialog notes={notes} current={note.doc?.ref.id} target={linkTarget} setTarget={setLinkTarget} submit={linkNote} close={()=>setLinking(false)}/>}{palette&&<CommandPalette close={()=>{setPalette(false);if(deferredModal.current){newModal(deferredModal.current);deferredModal.current=null;}}} onHit={hit} onCommand={command}/>} {error && currentArea !== 'study' && <div className="navigation-error" role="alert">{error}<button aria-label="Fechar aviso da navegação" onClick={() => setError('')}><Mark kind="close"/></button></div>}</div>;
 }

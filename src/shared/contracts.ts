@@ -28,6 +28,14 @@ export const taskInput = z.strictObject({ subjectId: idSchema, text: z.string().
 export const stepInput = z.strictObject({ subjectId: idSchema, taskId: idSchema, text: z.string().trim().min(1).max(300) });
 export const stepUpdateInput = z.strictObject({ subjectId: idSchema, id: idSchema, text: z.string().trim().min(1).max(300).optional(), done: z.boolean().optional() }).refine(v => v.text !== undefined || v.done !== undefined);
 export interface DesktopApi {
+  prepareStudyMaterial(input:z.input<typeof import('./study-material').prepareMaterialInput>):Promise<Result<import('./study-material').MaterialRequest>>;
+  studyMaterialRequests(input:{subjectId:string}):Promise<Result<import('./study-material').MaterialRequestSummary[]>>;
+  studyMaterialRequest(input:{subjectId:string;requestId:string}):Promise<Result<import('./study-material').MaterialRequest>>;
+  saveStudyMaterialResponse(input:{subjectId:string;requestId:string;text:string}):Promise<Result<null>>;
+  validateStudyMaterial(input:{subjectId:string;requestId:string;text:string}):Promise<Result<import('./study-material').MaterialReport>>;
+  studyMaterialCorrection(input:{subjectId:string;requestId:string;text:string}):Promise<Result<{text:string;short:boolean}>>;
+  copyStudyMaterialPrompt(input:{subjectId:string;requestId:string;mode:'prompt'|'correction';text?:string}):Promise<Result<{copied:boolean;short:boolean}>>;
+  importStudyMaterial(input:{subjectId:string;requestId:string;text:string}):Promise<Result<import('./study-material').MaterialImport>>;
   activitySources(input:{subjectId:string}):Promise<Result<import('./study-activity').SourceStatus[]>>;
   prepareActivity(input:z.input<typeof import('./study-activity').prepareActivityInput>):Promise<Result<import('./study-activity').ActivityRequest>>;
   activityRequests(input:{subjectId:string}):Promise<Result<Omit<import('./study-activity').ActivityRequest,'packet'|'prompt'|'sourceSizes'>[]>>;

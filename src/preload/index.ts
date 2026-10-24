@@ -1,6 +1,14 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { DesktopApi } from '../shared/contracts';
 const api: DesktopApi = {
+  prepareStudyMaterial:input=>ipcRenderer.invoke('material-study:prepare',input),
+  studyMaterialRequests:input=>ipcRenderer.invoke('material-study:requests',input),
+  studyMaterialRequest:input=>ipcRenderer.invoke('material-study:request',input),
+  saveStudyMaterialResponse:input=>ipcRenderer.invoke('material-study:response',input),
+  validateStudyMaterial:input=>ipcRenderer.invoke('material-study:validate',input),
+  studyMaterialCorrection:input=>ipcRenderer.invoke('material-study:correction',input),
+  copyStudyMaterialPrompt:input=>ipcRenderer.invoke('material-study:copy',input),
+  importStudyMaterial:input=>ipcRenderer.invoke('material-study:import',input),
   setupVault:()=>ipcRenderer.invoke('vault:setup'),
   openVideoAt:input=>ipcRenderer.invoke('player:at',input),
   moveNote:input=>ipcRenderer.invoke('note:move',input),
