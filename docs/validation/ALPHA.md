@@ -538,6 +538,18 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 | C9 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): typecheck 61=61, 89/109 com as 20 da baseline, pacote e oito smokes Windows |
 | C10 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): ADR, tickets, retomada, gotcha, README, guia, economia e PR |
 
+## GAM-07 — Mira, acesso aos minigames e 3D da cidade
+
+24/10/2026, feat/cidade-e-mira, de main/488ce1c. [Provas](GAM_07_AIM_CITY.md). C1–C5 concluídos.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | tests/aim.test.ts: pontuação, término antecipado, acertos inválidos, pagamento único, rodada substituída |
+| C2 | aprovado | smoke-aim-city no pacote: Leve 20/20 SS, Difícil fora do centro ~32%, saída sem pagamento |
+| C3 | aprovado | smoke-aim-city: menu agrupado, lista no Observatório, etiquetas JOGAR e anéis; capturas |
+| C4 | aprovado | capturas das três skins; brilho só no Cyberpunk e à noite (data-bloom) |
+| C5 | aprovado | typecheck 61 = 61, testes 91/111 (mesmas 20 falhas), docs feitas; 9 smokes de regressão e smoke-aim-city aprovados no pacote final |
+
 ## QA-01 — Roteiros de smoke atualizados à UI atual
 
 24/10/2026, chore/roteiros-smoke, de feat/fundo-e-jogo-idle/ced0f26. [Mudanças por roteiro e resultados](QA_01_SMOKES.md). C1–C5 concluídos; só roteiros e documentação.

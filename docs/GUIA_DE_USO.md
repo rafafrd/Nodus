@@ -128,8 +128,19 @@ Clique em **Cidade** na barra à esquerda. O jogo é opcional, local e **indepen
 4. **Lampejo**: um ponto de luz aparece sobre a cidade depois de 4 a 9 minutos **com a Cidade na tela** (o tempo em outras áreas não conta) e fica 12 segundos. Clique para receber **Maré** (produção ×5 por 1 min), **Achado** (até 12 minutos de produção) ou **Faísca** (clique ×200 por 10 s). Perder um Lampejo não custa nada. Com Foco ativo, nenhum aparece.
 5. O **ticker** no topo traz notícias do vale conforme seu progresso.
 
-### Horta, Conselho e Memória
+### Minigames: Mira, Memória, Horta e Conselho
 
+Você chega a qualquer minigame de três jeitos:
+- pelo grupo **MINIGAMES** do menu do jogo;
+- pela lista **Minigames** abaixo do núcleo, que mostra o estado de cada um ("2 prontas para colher", "Abre com 10 Coletores · 4/10");
+- pela etiqueta **JOGAR ▸** no mapa, onde um anel no chão pulsa quando o minigame está aberto.
+
+Um ponto ao lado do nome indica que há algo esperando você.
+
+- **Mira** (sempre aberta): escolha **Leve**, **Normal**, **Difícil** ou **Insano** e clique em **Começar rodada**. Depois de uma contagem de 3 s, quadrados aparecem e somem sozinhos; o quadrado externo que se fecha mostra quanto tempo falta. Acerte o mais perto possível do centro: o centro vale 300, o meio 100 e a borda 50. Clicar no vazio derruba a precisão.
+  - A rodada dura cerca de 20 s e paga minutos de produção conforme o nível e a precisão.
+  - **Sair da rodada**, trocar de área ou minimizar a janela encerra a rodada sem pagar.
+  - Precisa de mouse ou toque.
 - **Horta** (abre com 10 Coletores): escolha a semente e plante; cada uma custa um minuto de produção. Trigo-luz (3 min) paga 8 minutos de produção; Raiz-âmbar (8 min) deixa o clique ×3 por 5 minutos; Flor-de-orvalho (15 min) soma 3% de produção **enquanto estiver plantada** e paga pouco ao colher. Plantas maduras esperam o tempo que for preciso.
 - **Conselho** (abre com 5 Oficinas): três cadeiras de força 100%, 60% e 35%. Cada pauta tem ganho e custo (por exemplo, *Turno estendido*: mais produção, clique mais fraco). Trocar uma pauta gasta uma deliberação; elas voltam uma a cada 30 minutos, até três. Esvaziar uma cadeira é grátis.
 - **Memória de Conceitos**: 3, 6 ou 9 pares, sem limite de tempo; a recompensa é medida em minutos de produção.
@@ -255,7 +266,7 @@ Produção, conquistas, prestígio e a Oficina descritos aqui pertencem às regr
 
 Grafo abre o cenário inteiro, com lista/relações recolhidas. Arraste para explorar, use roda/+ / − para zoom e selecione um nó para focar e abrir seus detalhes. **Notas e relações** abre a lista, origem/destino e conexões; o × recolhe. A câmera preserva sua posição ao conectar notas. Setas e +/− com foco no canvas também navegam. Cena até 200 nós; lista permite todas as notas. Em Ajustes → Aparência, desligar animações, ou usar movimento reduzido do Windows, aplica pan/zoom imediato e grafo estático.
 
-Desde GAM-06, a Cidade tem as abas Observatório, Horta, Conselho, Memória, Conquistas, Legado e Perfil; os rótulos da cena levam à aba correspondente. Movimento reduzido mantém números e estados, sem números flutuantes nem animações decorativas.
+Desde GAM-07, o menu da Cidade tem três grupos: CIDADE (Observatório), MINIGAMES (Mira, Memória, Horta, Conselho) e PROGRESSO (Conquistas, Legado, Perfil). Os rótulos da cena levam à aba correspondente. Movimento reduzido mantém números e estados, sem números flutuantes nem animações decorativas.
 
 [Decisão de áreas](adr/0014-areas-isoladas.md), [provas e limites](validation/CLEAN_WORKSPACE.md). Alterações locais sem commit/push/publicação.
 
