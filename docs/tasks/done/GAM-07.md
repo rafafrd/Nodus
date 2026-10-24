@@ -40,5 +40,5 @@ C5. **Regressão e documentação.** Typecheck e testes na baseline mais os test
 
 - **Verificado:** typecheck 61 erros (baseline), testes 91/111 com as mesmas 20 falhas de IA-02/CAP-01, build, pacote Windows, `smoke-aim-city` e os 9 smokes de regressão da cidade e do jogo aprovados. O-039 (aviso cobrindo a arena) foi encontrado e corrigido.
 - **Ajuste:** a pedido do usuário, o brilho da cidade foi reduzido em cerca de um terço (bloom e intensidade emissiva); o pacote com o ajuste passou no `smoke-aim-city`.
-- **Git:** commit e PR autorizados pelo usuário; branch `feat/cidade-e-mira`.
+- **Git:** commit, push e PR autorizados pelo usuário; merge não. Branch `feat/cidade-e-mira`, commits 9e9e070 (código), 9d0eb01 (testes) e 514cfff (docs); [PR #19](https://github.com/rafafrd/Nodus/pull/19) aberto para `main`.
 - **Não verificado:** sensação de jogo com uma pessoa, layout abaixo de 720 px e custo do brilho em GPU integrada.

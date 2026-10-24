@@ -14,7 +14,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 - **Acesso:** minigames agrupados no menu, listados no Observatório com o estado de cada um e marcados no mapa.
 - **3D:** brilho contido no Cyberpunk e à noite, janelas acesas, fumaça, pássaros, aeronaves, neblina e sombras melhores ([ADR-0027](../adr/0027-mira-e-acesso-aos-minigames.md)).
 - **Verificado:** typecheck 61 (baseline), testes 91/111 (mesmas 20 falhas de IA-02/CAP-01), `smoke-aim-city` e 9 smokes de regressão no pacote. O-039 corrigido. [Provas](../validation/GAM_07_AIM_CITY.md).
-- **Próxima ação humana:** revisar e mesclar o PR de GAM-07 e jogar a Mira para avaliar a sensação e o brilho.
+- **Próxima ação humana:** revisar e mesclar o [PR #19](https://github.com/rafafrd/Nodus/pull/19) e jogar a Mira para avaliar a sensação e o brilho.
 
 24/10/2026: [QA-01](../tasks/done/QA-01.md) concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). Os 22 roteiros de smoke defasados desde UX-01/GAM-06 (O-030, O-037) foram atualizados à UI atual, com helpers comuns em scripts/test-fixture.ts e sem mudança no app. Rodada completa de 29 roteiros e o par preview-frontend/smoke-editorial aprovados no pacote Windows; typecheck 61 e testes 89/109 iguais à baseline. [Provas](../validation/QA_01_SMOKES.md). Próxima ação humana: revisar e mesclar o PR #17 e depois o PR de QA-01.
 
