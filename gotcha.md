@@ -250,6 +250,8 @@ Observado na primeira captura Editorial depois de trocar os indicadores da Home 
 
 Observado na baseline e no pacote novo, Windows 11, sem diferença entre eles: `smoke-sidebar`, `smoke-settings`, `smoke-clean-workspace`, `smoke-smooth-ui` e `preview-frontend` esperam um heading "Nota A" que deixou de existir quando UX-01 transformou o título da nota em campo de texto. Outros roteiros (annotations, checklist, desk, engine-explorer, expansion, focus, game, knowledge-backup, pdf, pdf-export) usam o mesmo seletor. Trocar só esse seletor não basta: os quatro primeiros também falham adiante por passos removidos ("Abrir todos os módulos", "Visitar bosque", heading "Nota B", opacidade do marcador do rail). Não corrigido nem silenciado neste ticket; a verificação da UI-07 usou os roteiros que passam na baseline (home-white, notes-ux, study-tabs, journey, videos, farm, deep-economy) e o novo smoke-motion. Próxima ação: atualizar os roteiros em um ticket próprio.
 
+Resolvido em QA-01 (24/10/2026): todos os roteiros citados passam no pacote atual; passos de recursos removidos foram trocados pelo equivalente atual. Ver O-038 e [QA_01_SMOKES](docs/validation/QA_01_SMOKES.md).
+
 ## O-031 — smoke-home-white intermitente por corrida do roteiro (UI-07, 21/10/2026)
 
 Na baseline, 2 de 4 execuções falharam em `assert.equal(draftText(), draft)`: o roteiro lia o CodeMirror antes de ele redesenhar as linhas depois de reexibir a camada. No pacote novo apareceu também `setChecked` falhando ("Clicking the checkbox did not change its state"): o interruptor é controlado e só muda depois do IPC (22–68 ms na baseline, 36–83 ms agora, IPC puro 0,5 ms nos dois). Corrigido no roteiro, sem tocar no app: o rascunho é consultado até estabilizar e o interruptor usa clique condicional seguido da espera pelo atributo. Quatro execuções seguidas aprovadas. Nenhum dado nem rascunho foi perdido em nenhuma das falhas.
@@ -277,3 +279,18 @@ Capturas do pacote mostraram: os controles de câmera da cena por cima das compr
 ## O-037 — smoke-visual-experience encontra duas esculturas no primeiro uso (GAM-06, 23/10/2026)
 
 No pacote final, a parte de jogo do roteiro (skins, partículas do núcleo, perda de WebGL) passou; o trecho seguinte de primeiro uso falhou em modo estrito porque `canvas[data-testid=study-sculpture]` corresponde à escultura do Caderno e à da Home. Não há relação com GAM-06, mas a falha não foi conferida na baseline. Não corrigido nem silenciado. Próxima ação: limitar o seletor à área visível num ticket de manutenção dos roteiros, junto com O-030.
+
+Resolvido em QA-01 (24/10/2026): o seletor ficou limitado a `.area-layer[aria-hidden=false]` e o roteiro passou completo no pacote. O-030 também foi resolvido em QA-01; ver O-038.
+
+## O-038 — Armadilhas dos roteiros contra a UI atual (QA-01, 24/10/2026)
+
+Observado ao atualizar os 22 roteiros de O-030/O-037 no pacote Windows, sem mudança no app:
+
+- `.area-stage[data-motion=idle]` continua `idle` entre o clique e o início da transição, enquanto todas as camadas já estão `aria-hidden=true`; contar camadas logo após "esperar idle" deu 0 de 3. Esperar a condição final (`waitForFunction`) em vez de contar uma vez.
+- Os rótulos do grafo e da cidade são reposicionados a cada quadro, então nunca ficam "estáveis" para o `click()` do Playwright; usar `dispatchEvent('click')`.
+- `keyboard.insertText('\n…')` não cria linha no CodeMirror; usar `press('Enter')`. O editor mostra só o corpo da nota (UX-01), e `fill()` com o arquivo inteiro duplicava frontmatter e título.
+- O canvas do fundo (UI-08) também tem `data-ready`; `canvas[data-ready=true]` virou ambíguo e precisa de `data-testid=city-canvas`.
+- A carteira do jogo anima em poucas centenas de milissegundos; ler o texto em intervalos depois da compra pegou só o valor final numa rodada. Amostrar por quadro desde antes do clique.
+- No tema Editorial (padrão) o código do Explorer é monocromático por decisão de 1976aa3; a prova de realce de sintaxe roda no tema Oliva.
+
+O-030 foi resolvido pela atualização dos roteiros, com helpers comuns em `scripts/test-fixture.ts`.

@@ -1,12 +1,14 @@
 # Retomada da alpha
 
-Bootstrap criado em 01/10/2026. Última execução: 23/10/2026, Windows 11 10.0.26300, America/Sao_Paulo, Node 24.21.0 portátil, app 0.1.0.
+Bootstrap criado em 01/10/2026. Última execução: 24/10/2026, Windows 11 10.0.26300, America/Sao_Paulo, Node 24.21.0 portátil, app 0.1.0.
 
 ## Estado real
 
 MVP local implementado e executado no Windows nativo, branch MVP e commits por fase. Alpha integral parcial. Resultados por critério em docs/validation/ALPHA.md; jornada local em docs/validation/MVP_JOURNEY.md.
 
 ## Próxima ação
+
+24/10/2026: [QA-01](../tasks/done/QA-01.md) concluído na branch chore/roteiros-smoke, empilhada em feat/fundo-e-jogo-idle (PR #17). Os 22 roteiros de smoke defasados desde UX-01/GAM-06 (O-030, O-037) foram atualizados à UI atual, com helpers comuns em scripts/test-fixture.ts e sem mudança no app. Rodada completa de 29 roteiros e o par preview-frontend/smoke-editorial aprovados no pacote Windows; typecheck 61 e testes 89/109 iguais à baseline. [Provas](../validation/QA_01_SMOKES.md). Próxima ação humana: revisar e mesclar o PR #17 e depois o PR de QA-01.
 
 23/10/2026: branch feat/fundo-e-jogo-idle criada de main/7ed54e1 depois do merge do PR #16, com os arquivos não rastreados de IA-02/CAP-01 preservados e fora do stage. [UI-08](../tasks/done/UI-08.md) concluído: um canvas WebGL atrás do shell desenha o fundo em todos os temas, as superfícies de página deixam-no aparecer nas margens, leitura continua opaca, quadro parado visível em movimento reduzido, intensidade Sutil/Padrão/Vivo e teto de contraste calculado pelos tokens (texto secundário ≥ 4,68:1 medido). Caderno e Ajustes passaram de 0 % para 4,7–41,5 % de área com fundo visível. Typecheck 61=61, 115 testes com as 20 falhas de IA-02/CAP-01, pacote, smoke-home-white e smoke-motion aprovados. [Provas](../validation/UI_08_BACKDROP.md), [ADR-0025](../adr/0025-fundo-por-tema.md). [GAM-06](../tasks/done/GAM-06.md) concluído na mesma branch: jogo incremental numa tela só (núcleo sem orçamento, loja com revelação, Lampejo só com a cidade visível e fora do Foco, Horta e Conselho de decisão, ticker, som WebAudio), estudo dando só XP e conquistas, conversão das regras 2 por minutos de produção com backup .sqlite e reversão. Simulação: primeira compra 0 s, decisões a cada 39 s, primeiro prestígio em 2,95 h. 89/109 testes (as 20 falhas de IA-02/CAP-01), pacote e oito smokes Windows aprovados. [Provas](../validation/GAM_06_GAME.md), [ADR-0026](../adr/0026-jogo-incremental-independente.md), [design](../design/GAME_DESIGN.md). GAM-05 superado. [PR #17](https://github.com/rafafrd/Nodus/pull/17) aberto para main (mesclável, sem arquivos de IA-02/CAP-01); worktree limpo: typecheck 0, 87/87 testes, bootstrap OK. Próxima ação humana: revisar o PR e jogar alguns minutos para avaliar ritmo e distração.
 
@@ -91,6 +93,7 @@ GAM-01 concluída na branch feat/game, derivada de feat/frontend 884593e: cidade
 | UI-07 | done | Concluído | UI-03, UI-06, UX-03 | — |
 | UI-08 | done | Concluído | UI-07, UX-03 | — |
 | GAM-06 | done | Concluído | GAM-05, UI-07, UI-08 | — |
+| QA-01 | done | Concluído | UI-08, GAM-06 | — |
 
 ## Checkpoints e atenção humana
 
@@ -102,4 +105,4 @@ Reserva: 180 min humanos por semana, 360 min no total. Tempo observado: não inf
 
 Editor escolhido: CodeMirror com edição assistida de fonte e prévia, conforme ADR-0005; prova no editor externo ainda pendente. Versões exatas estão no lockfile e README. Recorte local em docs/decisions/mvp-scope.md; ALP-09 não implementado, sem serviço/hospedagem/identidade definidos. Nome final e licença pública seguem pendentes. Tiptap com perda na prova básica e overflow da mesa foram observados e tratados (gotcha.md). Consulte ADRs antes da próxima alteração.
 
-Último ticket concluído: [GAM-06](../tasks/done/GAM-06.md).
+Último ticket concluído: [QA-01](../tasks/done/QA-01.md).

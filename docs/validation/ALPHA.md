@@ -537,3 +537,15 @@ Registro preservado de07/10/2026, codex/readme-showcase. [Prova existente](READM
 | C8 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): Lampejo só com a cidade na tela e fora do Foco, sem notificações, offline sem punição |
 | C9 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): typecheck 61=61, 89/109 com as 20 da baseline, pacote e oito smokes Windows |
 | C10 | aprovado | [GAM_06_GAME](GAM_06_GAME.md): ADR, tickets, retomada, gotcha, README, guia, economia e PR |
+
+## QA-01 — Roteiros de smoke atualizados à UI atual
+
+24/10/2026, chore/roteiros-smoke, de feat/fundo-e-jogo-idle/ced0f26. [Mudanças por roteiro e resultados](QA_01_SMOKES.md). C1–C5 concluídos; só roteiros e documentação.
+
+| Critério | Resultado | Evidência |
+| --- | --- | --- |
+| C1 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): noteTitle, chooseSubject e janelas iniciais em test-fixture, usados pelos roteiros |
+| C2 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): todos os roteiros de O-030/O-037 e o par preview-frontend/smoke-editorial aprovados no pacote |
+| C3 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): tabela por roteiro com equivalente atual e cobertura; fontes, rascunhos, reinício e IPC continuam provados |
+| C4 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): 29 roteiros em sequência (smooth-ui 3/3 após ajuste de amostragem), typecheck 61=61, 89/109 da baseline, src sem diff |
+| C5 | aprovado | [QA_01_SMOKES](QA_01_SMOKES.md): gotcha O-030/O-037 resolvidos e O-038, ticket, quadro e retomada |
