@@ -13,7 +13,7 @@ MVP local implementado e executado no Windows nativo, branch MVP e commits por f
 - **Causa:** um reset em 21/10 tinha descartado a parte rastreada de IA-02 e CAP-01; os arquivos soltos deixavam 61 erros de tipos e 20 testes falhando (O-041).
 - **IA-02:** Material com IA reaplicado na interface atual, schema 8; typecheck 0, 96/96 testes, jornada e 30 smokes aprovados no pacote. [Provas](../validation/STUDY_MATERIALS.md).
 - **CAP-01:** [bloqueado](../tasks/doing/CAP-01.md); arquivos guardados intactos em `.local/cap-01-parked/`. Retomar exige reconstruir a parte perdida e aprovar registro HKCU e uso pago do OpenRouter.
-- **Próxima ação humana:** revisar e mesclar o PR de IA-02.
+- **Próxima ação humana:** revisar e mesclar o [PR #20](https://github.com/rafafrd/Nodus/pull/20) e usar o Material com IA com anexos reais.
 
 24/10/2026: [GAM-07](../tasks/done/GAM-07.md) concluído na branch feat/cidade-e-mira, criada da main/488ce1c depois do merge dos PRs #17 e #18.
 
